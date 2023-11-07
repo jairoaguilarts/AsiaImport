@@ -1,0 +1,42 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+  }
+  
+  .menu {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .menu li {
+    margin-bottom: 1rem;
+  }
+  
+  .menu a {
+    text-decoration: none;
+    color: black;
+    font-size: 1rem;
+  }
+  
+  .menu a:hover {
+    color: #000;
+  }
+  
+  .button {
+    background-color: #fff;
+    border: 1px solid #000;
+    color: #000;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+  }
+  
+  .button:hover {
+    background-color: #000;
+    color: #fff;
+  }
+  

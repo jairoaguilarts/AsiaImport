@@ -1,0 +1,19 @@
+/* styles.css */
+/* Estilos para pantallas grandes (menú visible) */
+.navbar ul {
+  display: flex;
+}
+
+/* Estilos para pantallas pequeñas (menú oculto) */
+@media (max-width: 768px) {
+  .navbar ul {
+    display: none;
+  }
+}
+
+/* Estilos para las tres líneas en pantallas pequeñas */
+@media (max-width: 768px) {
+  .navbar .lineStyle {
+    display: block;
+  }
+}
