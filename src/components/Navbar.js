@@ -9,7 +9,7 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false); // Estado para controlar la visibilidad de la barra de búsqueda
   const [searchTerm, setSearchTerm] = useState('');
-
+  const [active,setActive] = useState(false);
   const handleLogoClick = () => {
     if (window.innerWidth < 768) {
       setMenuOpen(!menuOpen);
@@ -26,8 +26,17 @@ const Navbar = () => {
     console.log('Searching for:', searchTerm);
   };
 
+  window.addEventListener("scroll",() => { 
+    if(window.screenY > 70) {
+      setActive(true);
+    } else {
+      setActive(false); 
+    } 
+  });
   return (
-    <div className={`navbar ${searchOpen ? 'search-active' : ''}`}>
+    <div>
+
+       <div className={`navbar ${searchOpen ? 'search-active' : ''}`}>
       <div className="navbar-logo" onClick={handleLogoClick}>
         <img src={logoImage} alt="Logo" />
         <span className="brand-name"></span>
@@ -70,6 +79,14 @@ const Navbar = () => {
         </button>
       </div>
     </div>
+  {/* Seccion para las Categorias */}
+  <div className="barraCategorias">
+    
+        <p>Categorias</p>
+      </div>
+      
+    </div>
+ 
   );
 };
 
