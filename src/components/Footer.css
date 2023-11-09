@@ -1,89 +1,125 @@
-.footer {
-    background-color: #FDB254;
-    color: #fff;
-    padding: 20px 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: row;
-  }
-  
-  .social-media {
-    display: flex;
-    align-items: center;
-    margin-left: 50px;
-    margin-top: -60px; /* Ajusta este valor para subir los enlaces */
 
-  }
-  
-  .social-media-label {
-    text-decoration: underline;
-    color: #fff;
-    margin-bottom: 10px;
-    margin-top: -10px;
-  }
-  
-  .social-media-icon {
-    width: 30px;
-    margin: 0 10px;
-    margin-right: 10px;
-  }
-  
-  .footer-links {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: -40px; /* Ajusta este valor para subir los enlaces */
-  }
-  
-  .footer-link {
-    margin: 10px;
-    text-decoration: underline;
-    color: #fff;
-    
-  }
-  
-  .footer-link-with-icon {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    margin-right: 50px;
-  }
-  
-  .icon {
-    width: 30px;
-  }
-  .icon2 {
-    height: 50px;
-    width: 50px;
-  }
-  
-  .copyright {
-    display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center; /* Centra verticalmente */
-    flex-direction: row; /* Asegura que los elementos estén en línea */
-    margin-right: -150px;
-    margin-left: 160px;
-    margin-bottom: 1px;
-    text-align: center;
-    width: 100%; /* Asegura que tome todo el ancho disponible */
-  }
-  
-  .logo-container {
-    display: flex;
-    flex-direction: column; /* Alinea los elementos en una columna */
-    align-items: center; /* Centra los elementos horizontalmente */
-    justify-content: center; /* Centra los elementos verticalmente si es necesario */
-  }
-  
-  
-  .logo {
-    width: 200px; /* o el tamaño que desees para tu logo */
-    margin-bottom: 10px; /* Ajusta si es necesario para el espaciado entre logo y texto */
-  }
-  
-  
+
+/* Footer.css */
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif; /* Aplica la fuente Montserrat a todo el footer */
+}
+
+.product-section {
+  background-color: #FFFFFF; /* Fondo blanco para la sección de productos */
+  width: 100%;
+  padding: 20px 0;
+}
+
+.product-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: nowrap;
+  padding: 0 10%;
+}
+
+.product-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 10px;
+  cursor: pointer;
+  transition: box-shadow 0.3s, transform 0.3s; /* Añade transiciones para sombra y transformación */
+  border: none; /* Elimina bordes */
+  text-align: center; /* Asegura que el texto esté centrado */
+}
+
+/* Aplica el efecto hover sin color de fondo y con sombra */
+.product-item:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  transform: translateY(-5px); /* Eleva ligeramente el ítem */
+}
+
+.product-item img {
+  width: auto; /* Ancho automático para mantener la proporción */
+  height: 100px; /* Altura fija para todas las imágenes */
+  object-fit: contain; /* Asegura que las imágenes se ajusten sin distorsionarse */
+  margin-bottom: 8px;
+}
+
+.product-item p {
+  font-size: 16px; /* Tamaño del texto */
+  color: #333; /* Color del texto */
+  margin: 0; /* Elimina márgenes por defecto */
+}
+
+.footer-content {
+  background-color: #FDB254;
+  color: #fff;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 20px 0;
+}
+
+
+
+
+.social-media {
+  display: flex;
+  align-items: center;
+}
+
+.social-media-label {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.social-media-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer-link {
+  color: #fff;
+  text-decoration: none;
+  margin: 5px 0;
+}
+
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo {
+  width: 150px;
+  margin-bottom: 10px;
+}
+
+.footer-link-with-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.icon2 {
+  width: 50px;
+  margin-top: 10px;
+}
+
+.footer-bottom {
+  text-align: center;
+  width: 100%;
+  padding: 10px 0;
+}
