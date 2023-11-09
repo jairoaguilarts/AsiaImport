@@ -30,7 +30,7 @@ const Navbar = () => {
     <div className={`navbar ${searchOpen ? 'search-active' : ''}`}>
       <div className="navbar-logo" onClick={handleLogoClick}>
         <img src={logoImage} alt="Logo" />
-        <span className="brand-name">ASIA IMPORTS</span>
+        <span className="brand-name"></span>
       </div>
 
       {/* Contenedor del ícono de la lupa, que será visible solo en pantallas pequeñas */}
@@ -55,9 +55,9 @@ const Navbar = () => {
       </form>
 
       <ul className={`menu ${menuOpen ? 'menu-open' : ''}`}>
-        <li><a href="#inicio" className="menu-item">INICIO</a></li>
-        <li><a href="#informacion" className="menu-item">INFORMACION</a></li>
-        <li><a href="#comprar" className="menu-item">COMPRAR</a></li>
+        <li><a href="#inicio" className="menu-item"></a></li>
+        <li><a href="#informacion" className="menu-item"></a></li>
+        <li><a href="#comprar" className="menu-item"></a></li>
       </ul>
 
       {/* Contenedor para los íconos de usuario y carrito */}
