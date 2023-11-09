@@ -191,6 +191,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 10px;
   /* Agrega otros estilos según tus necesidades */
 }
 .categorias {
@@ -209,19 +210,14 @@
   
   
 }
-.DropDown {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  display: flex;
-  flex-direction: column;
-  background-color: #fff;
-  /* Agrega otros estilos según tus necesidades */
-}
+
 .textoCategorias {
   margin-left: 10px; 
+  margin-right: 10px;
   font-family: 'Montserrat', sans-serif; 
   font-weight: bold;
+  color: white;
+
 }
 .botonesAdicionales {
   display: flex;
@@ -233,7 +229,11 @@
   display: flex;
   align-items: center;
   padding: 8px;
-
+  font-style: normal ;
+  font-family: 'Montserrat', sans-serif; 
   margin-right: 10px; 
   text-decoration: none; 
+  font-weight: bold;
+  color:white;
+  
 }

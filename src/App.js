@@ -1,14 +1,14 @@
 import React from 'react';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import Inicio from './components/Inicio';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
     <div className="App">
       <Navbar />
-      <div className="content">
-        {/* No hay contenido visible aquí */}
-      </div>
+      <Inicio />
       <Footer />
     </div>
   );

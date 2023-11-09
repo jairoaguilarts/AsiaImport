@@ -105,6 +105,7 @@ const Navbar = () => {
     <a href="/historial-de-compras" className="botonAdicional">Historial de Compras</a>
     <a href="/lista-de-deseos" className="botonAdicional">Lista de Deseos</a>
   </div>
+  <div></div>
 </div>
       
     </div>
