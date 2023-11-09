@@ -108,13 +108,35 @@
   height: auto; /* Asegura que la altura del ícono se escale proporcionalmente */
   opacity: 0.4; 
 }
+.icon-lupa-container {
+  display: none; /* Oculto por defecto */
+}
 
 /*/estilos pantalla pequena*/
-@media (max-width: 1200px) {
-  .search-container {
-    display: none; /* Oculto por defecto */
-  }
+@media (max-width: 1435px) {
   
+  .icon-lupa-container {
+    display: flex;
+    position: absolute;
+    right: 100px; /* Ajusta esto para mover más a la derecha según sea necesario */
+    top: 20px;
+  }
+  .search-container {
+    display: none;
+    position: absolute;
+    top: 80px; /* Ajustar según la altura de tu navbar */
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 10; /* Asegurarse de que se muestre sobre otros elementos */
+  }
+  .search-active .search-container {
+    display: flex;
+  }
+  .search-active .search-box {
+    width: calc(100% - 50px); /* Ajustar el ancho para dejar espacio a los íconos */
+  }
+
   .menu {
     display: none;
     flex-direction: column;

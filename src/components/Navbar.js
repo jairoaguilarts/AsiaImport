@@ -7,12 +7,17 @@ import searchIcon from '../assets/lupa.png'; // Asegúrate de que la ruta al ico
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false); // Estado para controlar la visibilidad de la barra de búsqueda
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleLogoClick = () => {
     if (window.innerWidth < 768) {
       setMenuOpen(!menuOpen);
     }
+  };
+
+  const toggleSearch = () => { // Función para alternar la visibilidad de la barra de búsqueda
+    setSearchOpen(!searchOpen);
   };
 
   const handleSearch = (e) => {
@@ -22,14 +27,21 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar">
+    <div className={`navbar ${searchOpen ? 'search-active' : ''}`}>
       <div className="navbar-logo" onClick={handleLogoClick}>
         <img src={logoImage} alt="Logo" />
         <span className="brand-name">ASIA IMPORTS</span>
       </div>
 
+      {/* Contenedor del ícono de la lupa, que será visible solo en pantallas pequeñas */}
+      <div className="icon-lupa-container">
+        <button className="icon-button" onClick={toggleSearch}>
+          <img src={searchIcon} alt="Buscar" className="icon" />
+        </button>
+      </div>
+
       {/* Contenedor de la barra de búsqueda */}
-      <form className="search-container" onSubmit={handleSearch}>
+      <form className={`search-container ${searchOpen ? 'search-open' : ''}`} onSubmit={handleSearch}>
         <input
           type="text"
           className="search-box"
