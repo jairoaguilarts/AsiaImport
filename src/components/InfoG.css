@@ -1,0 +1,95 @@
+/* General styles for the container */
+.information-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+  }
+  
+  /* Styles for the header */
+  .information-header {
+    font-size: 28px;
+    color:#007bff;
+    margin-bottom: 20px;
+    font-weight: bold; 
+  }
+  
+  /* Styles for the cards container */
+  .cards-container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+  }
+  
+  /* Styles for each card */
+  .card {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px #FDB254;
+    padding: 20px;
+    width: 30%;
+    text-align: center;
+    transition: transform 0.3s;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+  }
+  
+  /* Styles for the card title */
+  .card-title {
+    font-size: 20px;
+    color:#080808;
+    margin-bottom: 10px;
+  }
+  
+  /* Styles for the card description */
+  .card-description {
+    font-size: 14px;
+    color: #FDB254;
+  }
+  
+  /* Styles for 'Ver más' link */
+  .card-link {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 14px;
+    margin-top: 15px;
+    display: inline-block;
+  }
+  
+  /* Styles for the icon in each card */
+  .card-icon {
+    width: 50px; /* or the size you want */
+    height: 50px; /* or the size you want */
+    margin-bottom: 10px;
+  }
+  
+  /* Styles for the values section */
+  .values-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  /* Styles for each value */
+  .value {
+    text-align: center;
+    width: 20%;
+  }
+  
+  /* Styles for the value icon */
+  .value-icon {
+    width: 30px; /* or the size you want */
+    height: 30px; /* or the size you want */
+    margin-bottom: 5px;
+  }
+  
+  /* Styles for the value title */
+  .value-title {
+    font-size: 16px;
+    color:  #FDB254;
+  }
+  

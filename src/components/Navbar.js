@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './Navbar.css';
 import logoImage from '../assets/LogoPng.png'; // Asegúrate de que la ruta al logo es correcta
 import userIcon from '../assets/user.png'; // Asegúrate de que la ruta al icono es correcta
@@ -45,11 +46,13 @@ const Navbar = () => {
   return (
     <div>
 
-       <div className={`navbar ${searchOpen ? 'search-active' : ''}`}>
-      <div className="navbar-logo" onClick={handleLogoClick}>
-        <img src={logoImage} alt="Logo" />
-        <span className="brand-name"></span>
-      </div>
+<div className={`navbar ${searchOpen ? 'search-active' : ''}`}>
+        {/* Envuelve el logo con un componente Link */}
+        <Link to="/inicio" className="navbar-logo" onClick={handleLogoClick}>
+          <img src={logoImage} alt="Logo" />
+          <span className="brand-name"></span>
+        </Link>
+
 
       {/* Contenedor del ícono de la lupa, que será visible solo en pantallas pequeñas */}
       <div className="icon-lupa-container">

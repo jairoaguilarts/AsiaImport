@@ -1,5 +1,6 @@
 // Footer.js
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Footer.css';
 
 // Importa las imágenes desde tu carpeta assets
@@ -58,7 +59,7 @@ const Footer = () => {
           </a>
         </div>
         <div className="footer-links">
-          <a href="/acerca" className="footer-link">Acerca de Nosotros</a>
+        <Link to="/acerca" className="footer-link">Acerca de Nosotros</Link>
           <a href="/historia" className="footer-link">Nuestra Historia</a>
           <a href="/tiendas" className="footer-link">Tiendas</a>
         </div>
