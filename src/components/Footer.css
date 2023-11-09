@@ -12,7 +12,8 @@
   .social-media {
     display: flex;
     align-items: center;
-    margin-left: 20px;
+    margin-left: 50px;
+
   }
   
   .social-media-label {
@@ -65,10 +66,17 @@
     text-align: center;
     width: 100%; /* Asegura que tome todo el ancho disponible */
   }
-  .logo {
-    width: 200px;
-    margin-bottom: 10px;
-    align-items: flex-start;
-    margin-left: -50px;
+  
+  .logo-container {
+    display: flex;
+    flex-direction: column; /* Alinea los elementos en una columna */
+    align-items: center; /* Centra los elementos horizontalmente */
+    justify-content: center; /* Centra los elementos verticalmente si es necesario */
   }
+  
+  .logo {
+    width: 200px; /* o el tamaño que desees para tu logo */
+    margin-bottom: 10px; /* Ajusta si es necesario para el espaciado entre logo y texto */
+  }
+  
   

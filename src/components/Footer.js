@@ -1,5 +1,5 @@
 import React from 'react';
-import './Footer.css'; // Importar el archivo CSS
+import './Footer.css'; // Asegúrate de que el nombre del archivo CSS es correcto
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -26,15 +26,13 @@ const Footer = () => {
         <a href="#" className="footer-link">Nuestra Historia</a>
         <a href="#" className="footer-link">Tiendas</a>
       </div>
-      <div>
+      <div className="logo-container">
         <img
           className="logo"
           src={require('../assets/LogoPng.png')}
           alt="Logo de la empresa"
         />
-        <div className="copyright">
-          <p>&copy; {currentYear} Tu Empresa. Todos los derechos reservados.</p>
-        </div>
+        <p>&copy; {currentYear} Tu Empresa. Todos los derechos reservados.</p>
       </div>
       <div className="footer-link-with-icon">
         <a href="#" className="footer-link">Servicio al Cliente</a>
