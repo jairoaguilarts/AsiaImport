@@ -1,5 +1,6 @@
 # Dependencias
 /node_modules
+node_modules/
 
 # Builds de producción
 /build
