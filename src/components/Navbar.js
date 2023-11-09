@@ -63,11 +63,11 @@ const Navbar = () => {
         </button>
       </form>
 
-      <ul className={`menu ${menuOpen ? 'menu-open' : ''}`}>
+      {/*<ul className={`menu ${menuOpen ? 'menu-open' : ''}`}>
         <li><a href="#inicio" className="menu-item"></a></li>
         <li><a href="#informacion" className="menu-item"></a></li>
         <li><a href="#comprar" className="menu-item"></a></li>
-      </ul>
+      </ul>*/}
 
       {/* Contenedor para los íconos de usuario y carrito */}
       <div className="icon-container">
