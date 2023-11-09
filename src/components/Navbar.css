@@ -234,6 +234,6 @@
   align-items: center;
   padding: 8px;
 
-  margin-right: 10px; /* Ajusta el margen derecho para separar los botones */
-  text-decoration: none; /* Quita el subrayado de los enlaces si es necesario */
+  margin-right: 10px; 
+  text-decoration: none; 
 }

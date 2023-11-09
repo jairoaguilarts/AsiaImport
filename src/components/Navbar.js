@@ -4,7 +4,9 @@ import logoImage from '../assets/LogoPng.png'; // Asegúrate de que la ruta al l
 import userIcon from '../assets/user.png'; // Asegúrate de que la ruta al icono es correcta
 import cartIcon from '../assets/add-to-cart.png'; // Asegúrate de que la ruta al icono es correcta
 import searchIcon from '../assets/lupa.png'; // Asegúrate de que la ruta al icono es correcta
-
+import menuIcon from '../assets/menu.png'; 
+import downIcon from '../assets/down.png';
+import DropDown from './DropDown';
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false); // Estado para controlar la visibilidad de la barra de búsqueda
@@ -25,6 +27,13 @@ const Navbar = () => {
     // Implementa la lógica de búsqueda aquí, como enviar el término de búsqueda a una API o filtrar datos
     console.log('Searching for:', searchTerm);
   };
+
+  const [dropdown, setDropdown] = useState(false);
+
+  const toggleDropdown = () => {
+    setDropdown(!dropdown);
+  };
+
 
   window.addEventListener("scroll",() => { 
     if(window.screenY > 70) {
@@ -81,9 +90,22 @@ const Navbar = () => {
     </div>
   {/* Seccion para las Categorias */}
   <div className="barraCategorias">
+  <div className='categorias'>
+    <button className="btnCategorias" onClick={toggleDropdown}>
+      <img src={menuIcon} alt='Categ' className='icon' />
+      <span className="textoCategorias">Categorías</span>
+      <img src={downIcon} alt='Categ' style={{ padding: '3px', width: '20px', height: '20px' }} />
+    </button>
+    {dropdown && <DropDown />}
     
-        <p>Categorias</p>
-      </div>
+ 
+  </div>
+  <div className="botonesAdicionales">
+    <a href="/productos-destacados" className="botonAdicional">Productos Destacados</a>
+    <a href="/historial-de-compras" className="botonAdicional">Historial de Compras</a>
+    <a href="/lista-de-deseos" className="botonAdicional">Lista de Deseos</a>
+  </div>
+</div>
       
     </div>
  
