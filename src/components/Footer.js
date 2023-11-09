@@ -39,8 +39,8 @@ const Footer = () => {
         <a href="#" className="footer-link">Quejas y Reclamos</a>
         <a href="#" className="footer-link">Política de Privacidad</a>
         <img
-          className="icon"
-          src={require('../assets/shopping.png')}
+          className="icon2"
+          src={require('../assets/metodos.png')}
           alt="Métodos de Pago"
         />
       </div>

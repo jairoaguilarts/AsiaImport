@@ -13,6 +13,7 @@
     display: flex;
     align-items: center;
     margin-left: 50px;
+    margin-top: -60px; /* Ajusta este valor para subir los enlaces */
 
   }
   
@@ -34,12 +35,14 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: -40px; /* Ajusta este valor para subir los enlaces */
   }
   
   .footer-link {
     margin: 10px;
     text-decoration: underline;
     color: #fff;
+    
   }
   
   .footer-link-with-icon {
@@ -47,13 +50,16 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    margin-left: 10px;
+    margin-right: 50px;
   }
   
   .icon {
     width: 30px;
   }
-  
+  .icon2 {
+    height: 50px;
+    width: 50px;
+  }
   
   .copyright {
     display: flex;
@@ -73,6 +79,7 @@
     align-items: center; /* Centra los elementos horizontalmente */
     justify-content: center; /* Centra los elementos verticalmente si es necesario */
   }
+  
   
   .logo {
     width: 200px; /* o el tamaño que desees para tu logo */
