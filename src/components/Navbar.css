@@ -122,7 +122,7 @@
   .icon-lupa-container {
     display: flex;
     position: absolute;
-    right: 100px; /* Ajusta esto para mover más a la derecha según sea necesario */
+    right: 130px; /* Ajusta esto para mover más a la derecha según sea necesario */
     top: 30px;
   }
   .search-container {

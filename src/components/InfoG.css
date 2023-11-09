@@ -92,4 +92,26 @@
     font-size: 16px;
     color:  #FDB254;
   }
+  @media (max-width: 768px) {
+    .cards-container {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .card {
+      width: 80%; /* O el tamaño que prefieras para tabletas */
+      margin-bottom: 20px; /* Añade un espacio entre tarjetas */
+    }
+  }
+  
+  /* Estilos para pantallas de teléfonos móviles */
+  @media (max-width: 480px) {
+    .card {
+      width: 90%; /* O el tamaño que prefieras para teléfonos móviles */
+    }
+  
+    .value {
+      width: 50%; /* Ajusta el tamaño para que quepan dos valores por fila, o 100% para uno por fila */
+    }
+  }
   
