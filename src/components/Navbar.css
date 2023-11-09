@@ -1,42 +1,161 @@
-.container {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 2rem;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gravitas+One&display=swap');
+
+.navbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #FDB254;
+  padding: 10px 20px;
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.navbar-logo img {
+  height: 110px;
+  max-width: 110%;
+}
+
+.brand-name {
+  font-family: 'Gravitas One', sans-serif;
+  font-size: 24px;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-left: 10px;
+  margin-right: 5px;
+  white-space: nowrap;
+}
+
+.menu {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0 50px;
+  transition: transform 0.3s ease;
+}
+
+.menu-item {
+  padding: 10px 20px;
+  margin-right: 20px;
+  color: #000;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.menu-item:last-child {
+  margin-right: 0;
+}
+
+.menu-item:hover {
+  color: #02A6FC;
+  text-decoration: underline;
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.icon {
+  height: 30px;
+}
+.icon-container {
+  display: flex;
+  align-items: center;
+}
+
+.search-container {
+  display: flex; /* Mostrar la barra de búsqueda */
+  margin-left: 0; /* Alinea la barra de búsqueda a la derecha */
+  position: relative;
+}
+
+.search-box {
+  padding: 8px 32px 8px 8px; /* Añade un padding a la derecha para hacer espacio para el icono de la lupa */
+  padding-right: 40px;
+  font-size: 16px;
+  border: 3px solid #02A6FC;
+  border-radius: 4px;
+  width: 400px; /* o el ancho que desees */
+  /* Asegúrate de que el input no tenga un borde derecho para que el botón parezca parte del input */
+}
+.search-button {
+  padding: 0;
+  background: none;
+  border: none;
+  right: 5px; /* Ajusta la posición derecha del botón para que el ícono quede dentro de la barra */
+  width: 34px; /* Ajusta el ancho del botón para que se ajuste al ícono */
+  height: 34px; /* Ajusta la altura del botón para que se ajuste al ícono */
+  position: absolute; /* Posiciona el botón de búsqueda de manera absoluta */
+  right: 0; /* Alinea el botón a la derecha del contenedor de la barra de búsqueda */
+  height: 100%; /* Asegúrate de que el botón tenga la misma altura que el input */
+  cursor: pointer;
+}
+.search-button img {
+  width: 80%; /* Ajusta el ancho del ícono para llenar el botón */
+  height: auto; /* Asegura que la altura del ícono se escale proporcionalmente */
+  opacity: 0.4; 
+}
+
+/*/estilos pantalla pequena*/
+@media (max-width: 1200px) {
+  .search-container {
+    display: none; /* Oculto por defecto */
   }
   
   .menu {
-    display: flex;
+    display: none;
     flex-direction: column;
-    list-style: none;
-    padding: 0;
-    margin: 0;
+    align-items: center;
+    width: 100%;
   }
-  
-  .menu li {
-    margin-bottom: 1rem;
+
+  .menu-open {
+    display: flex;
+    margin-left: 0;
   }
-  
-  .menu a {
-    text-decoration: none;
-    color: black;
-    font-size: 1rem;
+
+  .menu-item {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    margin-right: 0;
   }
-  
-  .menu a:hover {
-    color: #000;
+
+  .icon-button img {
+    width: 25px;
   }
-  
-  .button {
-    background-color: #fff;
-    border: 1px solid #000;
-    color: #000;
-    font-size: 1rem;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
+
+  .navbar-logo img {
+    height: 80px;
   }
-  
-  .button:hover {
-    background-color: #000;
-    color: #fff;
+  .navbar {
+    position: relative; /* Establece la referencia para la posición absoluta de los íconos */
   }
-  
+  .icon-container {
+    position: absolute; /* Posición absoluta para sacar de flujo normal y poder posicionar */
+    top: 20px; /* Espacio desde la parte superior del navbar */
+    right: 10px; /* Espacio desde la parte derecha del navbar */
+    flex-direction: row; /* Los íconos se apilan verticalmente */
+  }
+
+  .menu-open + .icon-container {
+    right: 20px; /* Ajusta el espacio a la derecha si es necesario */
+  }
+  .brand-name {
+    font-size: 20px;
+    margin-left: 5px;
+  }
+}

@@ -11,3 +11,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.content {
+  height: 500px; /* Ajusta la altura según tus necesidades */
+  margin-top: 20px; /* Margen superior para separar del Navbar */
+  margin-bottom: 20px; /* Margen inferior para separar del Footer */
+}

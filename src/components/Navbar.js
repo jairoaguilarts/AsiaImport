@@ -1,137 +1,62 @@
-import React, { useState, useEffect } from 'react';
-import './Navbar.css'; // Importa el archivo CSS
+import React, { useState } from 'react';
+import './Navbar.css';
+import logoImage from '../assets/LogoPng.png'; // Asegúrate de que la ruta al logo es correcta
+import userIcon from '../assets/user.png'; // Asegúrate de que la ruta al icono es correcta
+import cartIcon from '../assets/add-to-cart.png'; // Asegúrate de que la ruta al icono es correcta
+import searchIcon from '../assets/lupa.png'; // Asegúrate de que la ruta al icono es correcta
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 768);
-  const [hoveredMenuItem, setHoveredMenuItem] = useState(null); // Definir el estado para el elemento apuntado por el mouse
+  const [searchTerm, setSearchTerm] = useState('');
 
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
+  const handleLogoClick = () => {
+    if (window.innerWidth < 768) {
+      setMenuOpen(!menuOpen);
+    }
   };
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsSmallScreen(window.innerWidth < 768);
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
-  const topBarStyle = {
-    backgroundColor: '#4179CC',
-    height: '20px',
-    width: '100%',
-  };
-
-  const navbarStyle = {
-    display: 'flex',
-    justifyContent: 'space between',
-    alignItems: 'center',
-    background: 'white',
-    padding: '10px',
-    position: 'relative',
-    color: '#4179cc',
-    top: '4px',
-  };
-
-  const lineStyle = {
-    height: '2px',
-    width: '100%',
-    backgroundColor: '#F38413',
-    position: 'absolute',
-    bottom: 0,
-  };
-
-  const menuStyle = {
-    listStyle: 'none',
-    display: isSmallScreen ? (menuOpen ? 'block' : 'none') : 'flex',
-    flexDirection: isSmallScreen ? 'column' : 'row',
-    margin: 0,
-    padding: 0,
-    position: 'absolute',
-    top: isSmallScreen ? '100%' : 20,
-    left: isSmallScreen ? 0 : '40px',
-    backgroundColor: 'white',
-    width: '100%',
-  };
-
-  const menuItemStyle = {
-    margin: '0 10px',
-    textDecoration: hoveredMenuItem === 'Contáctenos' && !isSmallScreen ? 'underline' : 'none', // Subraya solo "Contáctenos" en pantalla grande
-    transition: 'text-decoration 0.3s', // Agrega transición para el subrayado
-  };
-
-  const linkStyle = {
-    textDecoration: 'none',
-    color: '#4179cc',
-  };
-
-  const hamburgerStyle = {
-    cursor: 'pointer',
-    fontSize: '30px',
-    color: '#F38413',
+  const handleSearch = (e) => {
+    e.preventDefault();
+    // Implementa la lógica de búsqueda aquí, como enviar el término de búsqueda a una API o filtrar datos
+    console.log('Searching for:', searchTerm);
   };
 
   return (
-    <div>
-      <div style={topBarStyle}></div>
-      <nav style={navbarStyle}>
-        <div style={lineStyle}></div>
-        <div onClick={toggleMenu} style={{ ...hamburgerStyle, marginRight: '1px', color: '#F38413' }}>
-          ☰
-        </div>
-        <ul style={menuStyle}>
-          <li
-            style={{
-              ...menuItemStyle,
-              textDecoration: hoveredMenuItem === 'Inicio' && !isSmallScreen ? 'underline' : 'none', //
-              backgroundColor: menuOpen && hoveredMenuItem === 'Inicio' ? '#F38413' : 'transparent',
-            }}
-            onMouseEnter={() => setHoveredMenuItem('Inicio')}
-            onMouseLeave={() => setHoveredMenuItem(null)}
-          >
-            <a href="#" style={linkStyle}>Inicio</a>
-          </li>
-          <li
-            style={{
-              ...menuItemStyle,
-              textDecoration: hoveredMenuItem === 'Información General' && !isSmallScreen ? 'underline' : 'none', 
-              backgroundColor: menuOpen && hoveredMenuItem === 'Información General' ? '#F38413' : 'transparent',
-            }}
-            onMouseEnter={() => setHoveredMenuItem('Información General')}
-            onMouseLeave={() => setHoveredMenuItem(null)}
-          >
-            <a href="#" style={linkStyle}>Información General</a>
-          </li>
-          <li
-            style={{
-              ...menuItemStyle,
-              textDecoration: hoveredMenuItem === 'Registrarse' && !isSmallScreen ? 'underline' : 'none', 
-              backgroundColor: menuOpen && hoveredMenuItem === 'Registrarse' ? '#F38413' : 'transparent',
-            }}
-            onMouseEnter={() => setHoveredMenuItem('Registrarse')}
-            onMouseLeave={() => setHoveredMenuItem(null)}
-          >
-            <a href="#" style={linkStyle}>Registrarse</a>
-          </li>
-          <li
-            style={{
-              ...menuItemStyle,
-              textDecoration: hoveredMenuItem === 'Contáctenos' && !isSmallScreen ? 'underline' : 'none', 
-              backgroundColor: menuOpen && hoveredMenuItem === 'Contáctenos' ? '#F38413' : 'transparent',
-            }}
-            onMouseEnter={() => setHoveredMenuItem('Contáctenos')}
-            onMouseLeave={() => setHoveredMenuItem(null)}
-          >
-            <a href="#" style={linkStyle}>Contáctenos</a>
-          </li>
-        </ul>
-      </nav>
+    <div className="navbar">
+      <div className="navbar-logo" onClick={handleLogoClick}>
+        <img src={logoImage} alt="Logo" />
+        <span className="brand-name">ASIA IMPORTS</span>
+      </div>
+
+      {/* Contenedor de la barra de búsqueda */}
+      <form className="search-container" onSubmit={handleSearch}>
+        <input
+          type="text"
+          className="search-box"
+          placeholder="Buscar..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <button type="submit" className="search-button">
+          <img src={searchIcon} alt="Buscar" />
+        </button>
+      </form>
+
+      <ul className={`menu ${menuOpen ? 'menu-open' : ''}`}>
+        <li><a href="#inicio" className="menu-item">INICIO</a></li>
+        <li><a href="#informacion" className="menu-item">INFORMACION</a></li>
+        <li><a href="#comprar" className="menu-item">COMPRAR</a></li>
+      </ul>
+
+      {/* Contenedor para los íconos de usuario y carrito */}
+      <div className="icon-container">
+        <button className="icon-button" onClick={() => console.log('User icon clicked')}>
+          <img src={userIcon} alt="User" className="icon" />
+        </button>
+        <button className="icon-button" onClick={() => console.log('Cart icon clicked')}>
+          <img src={cartIcon} alt="Cart" className="icon" />
+        </button>
+      </div>
     </div>
   );
 };
