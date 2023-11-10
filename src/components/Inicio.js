@@ -87,12 +87,6 @@ function Inicio() {
           className="d-block w-100" src={PromocionAsia} alt="First slide" />
         </Carousel.Item>
       </Carousel>
-      <div className="section-divider">
-        <p className="destacado-text"> Articulos Destacados </p>
-        <hr className="linea-divisora-blue-large" />
-        <Carrusel productos={productos} />
-        <hr className="linea-divisora-blue-med" />
-      </div>
       <div className="product-section">
         <div className="product-container">
           <a href="/parlantes" className="product-item">
@@ -120,6 +114,12 @@ function Inicio() {
             <p>Otros</p>
           </a>
         </div>
+      </div>
+      <div className="section-divider">
+        <p className="destacado-text"> Articulos Destacados </p>
+        <hr className="linea-divisora-blue-large" />
+        <Carrusel productos={productos} />
+        <hr className="linea-divisora-blue-med" />
       </div>
     </div>
   );

@@ -19,9 +19,7 @@
 
 .navbar-logo img {
   height: 80px;
-  /* Reduced height */
   max-width: 100%;
-  /* Ensure the logo is not bigger than its container */
 }
 
 .brand-name {
@@ -40,20 +38,16 @@
   list-style: none;
   padding: 0;
   margin: 0 0 0 30px;
-  /* Adjusted margin */
   transition: transform 0.3s ease;
 }
 
 .menu-item {
   padding: 5px 10px;
-  /* Reduced padding */
   margin-right: 10px;
-  /* Reduced margin */
   color: #000;
   cursor: pointer;
   font-family: 'Montserrat', sans-serif;
   font-size: 16px;
-  /* Adjusted font size */
   font-weight: bold;
   text-decoration: none;
   white-space: nowrap;
@@ -96,22 +90,17 @@
 
 .search-container {
   display: flex;
-  /* Mostrar la barra de búsqueda */
   margin-left: 0;
-  /* Alinea la barra de búsqueda a la derecha */
   position: relative;
 }
 
 .search-box {
   padding: 8px 32px 8px 8px;
-  /* Añade un padding a la derecha para hacer espacio para el icono de la lupa */
   padding-right: 40px;
   font-size: 16px;
   border: 3px solid #02A6FC;
   border-radius: 12px;
   width: 900px;
-  /* o el ancho que desees */
-  /* Asegúrate de que el input no tenga un borde derecho para que el botón parezca parte del input */
 }
 
 .search-button {
@@ -130,15 +119,12 @@
 
 .search-button img {
   width: 80%;
-  /* Ajusta el ancho del ícono para llenar el botón */
   height: auto;
-  /* Asegura que la altura del ícono se escale proporcionalmente */
   opacity: 0.4;
 }
 
 .icon-lupa-container {
   display: none;
-  /* Oculto por defecto */
 }
 
 .barraCategorias {
@@ -148,7 +134,6 @@
   justify-content: space-between;
   align-items: center;
   border-bottom: 10px;
-  /* Agrega otros estilos según tus necesidades */
 }
 
 .categorias {
@@ -178,7 +163,7 @@
 .botonesAdicionales {
   display: flex;
   gap: 10px;
-  
+
 }
 
 .botonAdicional {
@@ -194,25 +179,21 @@
   font-size: 15px;
 }
 
-/*/estilos pantalla pequena*/
+/*estilos pantalla pequena*/
 @media (max-width: 1435px) {
 
   .icon-lupa-container {
     display: flex;
     position: absolute;
     right: 130px;
-    /* Ajusta esto para mover más a la derecha según sea necesario */
     top: 30px;
   }
+
   .icon-container {
     position: absolute;
-    /* Posición absoluta para sacar de flujo normal y poder posicionar */
     top: 20px;
-    /* Espacio desde la parte superior del navbar */
     right: 10px;
-    /* Espacio desde la parte derecha del navbar */
     flex-direction: row;
-    /* Los íconos se apilan verticalmente */
   }
 
   .search-container {
@@ -223,26 +204,28 @@
     right: 0;
     width: 110%;
     z-index: 10;
-}
+  }
+
   .search-wrapper {
-    position: absolute; /* Establece un contexto de apilamiento */
+    position: absolute;
     width: 100%;
     top: 40px;
-}
-.search-button {
-  position: absolute;
-  z-index: 11; /* Mayor que .search-container para que aparezca encima */
-  top: 85px;
-  /* Añade top, right, o left si necesitas posicionar específicamente el botón */
-}
-.search-container, .search-button {
-  display: none;
-}
+  }
 
-.search-open {
-  display: block; /* O el display que corresponda */
-}
+  .search-button {
+    position: absolute;
+    z-index: 11;
+    top: 85px;
+  }
 
+  .search-container,
+  .search-button {
+    display: none;
+  }
+
+  .search-open {
+    display: block;
+  }
 
   .search-active .search-container {
     display: flex;
@@ -250,7 +233,6 @@
 
   .search-active .search-box {
     width: calc(100% - 50px);
-    /* Ajustar el ancho para dejar espacio a los íconos */
   }
 
   .menu {
@@ -278,9 +260,10 @@
     padding: auto;
     margin-right: -20px;
   }
+
   .icon-button:last-child {
     margin-right: 20px;
-}
+  }
 
   .icon-button p {
     display: none;
@@ -292,18 +275,15 @@
 
   .navbar {
     position: relative;
-    /* Establece la referencia para la posición absoluta de los íconos */
   }
-
-  
 
   .menu-open+.icon-container {
     right: 20px;
-    /* Ajusta el espacio a la derecha si es necesario */
   }
 
   .brand-name {
     font-size: 20px;
     margin-left: 5px;
   }
+
 }
