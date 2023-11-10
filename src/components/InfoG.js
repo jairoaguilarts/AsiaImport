@@ -68,6 +68,7 @@ const InfoG = () => {
   return (
     <div className="information-container">
       <div className="information-header">INFORMACION</div>
+      <hr className="linea-divisora-blue-large"/>
       <div className="cards-container">
         {cardsData.map((card, index) => (
           <div key={index} className="card">

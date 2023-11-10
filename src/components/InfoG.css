@@ -10,7 +10,7 @@
   /* Styles for the header */
   .information-header {
     font-size: 28px;
-    color:#007bff;
+    color:#02A6FC;
     margin-bottom: 20px;
     font-weight: bold; 
   }
@@ -52,7 +52,7 @@
   
   /* Styles for 'Ver más' link */
   .card-link {
-    color: #007bff;
+    color: #02A6FC;
     text-decoration: none;
     font-size: 14px;
     margin-top: 15px;
@@ -82,8 +82,8 @@
   
   /* Styles for the value icon */
   .value-icon {
-    width: 30px; /* or the size you want */
-    height: 30px; /* or the size you want */
+    width: 80px; /* or the size you want */
+    height: 80px; /* or the size you want */
     margin-bottom: 5px;
   }
   
@@ -92,7 +92,21 @@
     font-size: 16px;
     color:  #FDB254;
   }
+  .linea-divisora-blue-large {
+    border: 2px solid #02A6FC;
+    width: 100%;
+    margin: 0 auto;
+    margin-bottom: 25px;
+}
   @media (max-width: 768px) {
+    .value-icon {
+      width: 60px; /* Tamaño más pequeño para tabletas */
+      height: 60px;
+    }
+  
+    .value-title {
+      font-size: 12px; /* Fuente más pequeña para tabletas */
+    }
     .cards-container {
       flex-direction: column;
       align-items: center;
@@ -112,6 +126,14 @@
   
     .value {
       width: 50%; /* Ajusta el tamaño para que quepan dos valores por fila, o 100% para uno por fila */
+    }
+    .value-icon {
+      width: 40px; /* Tamaño aún más pequeño para teléfonos móviles */
+      height: 40px;
+    }
+  
+    .value-title {
+      font-size: 12px; /* Fuente más pequeña para teléfonos móviles */
     }
   }
   

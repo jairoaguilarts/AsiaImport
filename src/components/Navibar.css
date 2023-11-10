@@ -204,18 +204,45 @@
     /* Ajusta esto para mover más a la derecha según sea necesario */
     top: 30px;
   }
+  .icon-container {
+    position: absolute;
+    /* Posición absoluta para sacar de flujo normal y poder posicionar */
+    top: 20px;
+    /* Espacio desde la parte superior del navbar */
+    right: 10px;
+    /* Espacio desde la parte derecha del navbar */
+    flex-direction: row;
+    /* Los íconos se apilan verticalmente */
+  }
 
   .search-container {
     display: none;
     position: absolute;
     top: 80px;
-    /* Ajustar según la altura de tu navbar */
     left: 0;
     right: 0;
-    width: 100%;
+    width: 110%;
     z-index: 10;
-    /* Asegurarse de que se muestre sobre otros elementos */
-  }
+}
+  .search-wrapper {
+    position: absolute; /* Establece un contexto de apilamiento */
+    width: 100%;
+    top: 40px;
+}
+.search-button {
+  position: absolute;
+  z-index: 11; /* Mayor que .search-container para que aparezca encima */
+  top: 85px;
+  /* Añade top, right, o left si necesitas posicionar específicamente el botón */
+}
+.search-container, .search-button {
+  display: none;
+}
+
+.search-open {
+  display: block; /* O el display que corresponda */
+}
+
 
   .search-active .search-container {
     display: flex;
@@ -246,15 +273,21 @@
   }
 
   .icon-button img {
-    width: 25px;
+    width: 30px;
+    height: 30px;
+    padding: auto;
+    margin-right: -20px;
   }
+  .icon-button:last-child {
+    margin-right: 20px;
+}
 
   .icon-button p {
     display: none;
   }
 
   .navbar-logo img {
-    height: 80px;
+    height: 100px;
   }
 
   .navbar {
@@ -262,16 +295,7 @@
     /* Establece la referencia para la posición absoluta de los íconos */
   }
 
-  .icon-container {
-    position: absolute;
-    /* Posición absoluta para sacar de flujo normal y poder posicionar */
-    top: 20px;
-    /* Espacio desde la parte superior del navbar */
-    right: 10px;
-    /* Espacio desde la parte derecha del navbar */
-    flex-direction: row;
-    /* Los íconos se apilan verticalmente */
-  }
+  
 
   .menu-open+.icon-container {
     right: 20px;

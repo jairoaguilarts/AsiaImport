@@ -17,10 +17,10 @@ const Footer = () => {
       <div className="footer-content">
         <div className="social-media">
           <p className="social-media-label">Redes Sociales</p>
-          <a href="https://facebook.com">
+          <a href="https://www.facebook.com/profile.php?id=100088761409238&mibextid=LQQJ4d">
             <img className="social-media-icon" src={facebookIcon} alt="Facebook" />
           </a>
-          <a href="https://instagram.com">
+          <a href="https://instagram.com/importasiahn?igshid=OGQ5ZDc2ODk2ZA==">
             <img className="social-media-icon" src={instagramIcon} alt="Instagram" />
           </a>
         </div>

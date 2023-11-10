@@ -69,22 +69,30 @@ const Navibar = () => {
         <div className="icon-lupa-container">
           <button className="icon-button" onClick={toggleSearch}>
             <img src={searchIcon} alt="Buscar" className="icon" />
+            
+
           </button>
         </div>
 
         {/* Contenedor de la barra de búsqueda */}
-        <form className={`search-container ${searchOpen ? 'search-open' : ''}`} onSubmit={handleSearch}>
-          <input
+        <div className="search-wrapper">
+    <form className={`search-container ${searchOpen ? 'search-open' : ''}`} onSubmit={handleSearch}>
+        <input
             type="text"
             className="search-box"
             placeholder="Buscar..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <button type="submit" className="search-button">
-            <img src={searchIcon} alt="Buscar" />
-          </button>
-        </form>
+        />
+    </form>
+    <button 
+        type="submit" 
+        className={`search-button ${searchOpen ? 'search-open' : ''}`} 
+        onClick={handleSearch}
+    >
+        <img src={searchIcon} alt="Buscar" />
+    </button>
+</div>
 
         {/*<ul className={`menu ${menuOpen ? 'menu-open' : ''}`}>
         <li><a href="#inicio" className="menu-item"></a></li>
@@ -94,9 +102,7 @@ const Navibar = () => {
 
         {/* Contenedor para los íconos de usuario y carrito */}
         <div className="icon-container">
-        <button className="icon-button" onClick={() => console.log('Favorites icon clicked')}>
-            <img src={favoritesIcon} alt="Favs" className="icon" />
-          </button>
+       
           <button className="icon-button" onClick={() => console.log('User icon clicked')}>
             <img src={userIcon} alt="User" className="icon" />
             <p>Iniciar Sesion</p>

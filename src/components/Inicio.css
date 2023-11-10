@@ -17,7 +17,7 @@
 }
 .linea-divisora-blue-med {
     border: 2px solid #02A6FC;
-    width: 65%;
+    width: 105%;
     margin: 0 auto;
 }
 
@@ -42,6 +42,42 @@
     color: orange;
     margin: 0 auto;
 }
+
+@media (max-width: 768px) {
+    .destacado-text {
+        font-size: 40px;
+        font-weight: bold;
+        font-style: italic;
+        color: orange;
+        margin: 0 auto;
+    }
+    .destacado-container {
+        flex-wrap: wrap; /* Permite que los elementos se ajusten en varias líneas si es necesario */
+        padding: 2%; /* Ajusta el relleno para pantallas más pequeñas */
+        width: 100%; /* Usa el ancho completo para más espacio */
+        height: auto; /* Altura automática para acomodar contenido envuelto */
+      }
+    
+      .destacado-text {
+        font-size: 40px; /* Reduce el tamaño de la fuente para adaptarse a pantallas más pequeñas */
+        margin: 0 auto;
+      }
+    
+  }
+  
+  /* Estilos para teléfonos móviles (pantallas hasta 480px) */
+  @media (max-width: 480px) {
+    .destacado-text {
+        font-size: 35px;
+        font-weight: bold;
+        font-style: italic;
+        color: orange;
+        margin: 0 auto;
+    }
+  }
+
+
+
 
 .destacado-product-container {
     position: relative;
