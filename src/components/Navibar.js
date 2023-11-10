@@ -69,8 +69,6 @@ const Navibar = () => {
         <div className="icon-lupa-container">
           <button className="icon-button" onClick={toggleSearch}>
             <img src={searchIcon} alt="Buscar" className="icon" />
-
-
           </button>
         </div>
 
@@ -102,7 +100,6 @@ const Navibar = () => {
 
         {/* Contenedor para los íconos de usuario y carrito */}
         <div className="icon-container">
-
           <button className="icon-button" onClick={() => console.log('User icon clicked')}>
             <img src={userIcon} alt="User" className="icon" />
             <p>Iniciar Sesion</p>
@@ -139,14 +136,13 @@ const Navibar = () => {
             <Navbar.Collapse id="navbar-dark-example">
               <Nav>
                 <button className="btnCategorias" onClick={toggleDropdown}>
-
                   <NavDropdown
                     className='botonAdicional '
                     id="nav-dropdown-categorias"
                     title={
                       <span style={{ color: "white" }}>
                         <img src={menuIcon} alt='Categ' className='icon' />
-                        CATEGORIAS
+                        Categorias
                       </span>
                     }
                   >
