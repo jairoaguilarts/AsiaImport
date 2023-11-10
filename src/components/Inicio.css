@@ -3,3 +3,54 @@
     width: 10px;
     height: 10px;
 }
+
+.product-section {
+    background-color: #FFFFFF;
+    /* Fondo blanco para la sección de productos */
+    width: 100%;
+    padding: 20px 0;
+}
+
+.product-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: nowrap;
+    padding: 0 10%;
+}
+
+.product-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: box-shadow 0.3s, transform 0.3s;
+    /* Añade transiciones para sombra y transformación */
+    border: none;
+    /* Elimina bordes */
+    text-align: center;
+    /* Asegura que el texto esté centrado */
+}
+
+/* Aplica el efecto hover sin color de fondo y con sombra */
+.product-item:hover {
+    box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+}
+
+.product-item img {
+    width: auto;
+    /* Ancho automático para mantener la proporción */
+    height: 100px;
+    /* Altura fija para todas las imágenes */
+    object-fit: contain;
+    /* Asegura que las imágenes se ajusten sin distorsionarse */
+    margin: 8px;
+}
+
+.product-item p {
+    font-size: 16px;
+    color: #333;
+    margin: 10px;
+}
