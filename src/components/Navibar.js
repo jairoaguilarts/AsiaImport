@@ -138,13 +138,13 @@ const Navibar = () => {
             className='botonAdicional '
               id="nav-dropdown-categorias"
               title={
-                <span>
+                <span style={{color:"white"}}>
                   <img src={menuIcon} alt='Categ' className='icon' />
-                  Categorias
+                  CATEGORIAS
                 </span>
               }
             >
-              <NavDropdown.Item href="#accion">
+              <NavDropdown.Item  href="#accion">
                    Parlantes
                    <img src={parlantesImage} height="40px" alt="Parlantes" style={{ border: '7px solid #fff' }} />  
                </NavDropdown.Item>
@@ -176,9 +176,9 @@ const Navibar = () => {
             </NavDropdown>
           </button>
         
-            <Navbar.Brand className="botonAdicional" href="#ProductosDestacados">Productos Destacados</Navbar.Brand>
-            <Navbar.Brand className="botonAdicional" href="#ProductosDestacados">Historial De Compras</Navbar.Brand>
-            <Navbar.Brand className="botonAdicional" href="#ProductosDestacados">Lista de Deseos</Navbar.Brand>
+            <Navbar.Brand className="botonAdicional" style={{ color: "white", fontSize: 15 }} href="#ProductosDestacados">Productos Destacados</Navbar.Brand>
+            <Navbar.Brand className="botonAdicional" style={{ color: "white", fontSize: 15 }} href="#ProductosDestacados">Historial De Compras</Navbar.Brand>
+            <Navbar.Brand className="botonAdicional" style={{ color: "white", fontSize: 15 }} href="#ProductosDestacados">Lista de Deseos</Navbar.Brand>
           </Nav>
         </Navbar.Collapse>
       </Container>
