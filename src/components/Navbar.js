@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
-import logoImage from '../assets/LogoPng.png'; // Asegúrate de que la ruta al logo es correcta
-import userIcon from '../assets/user.png'; // Asegúrate de que la ruta al icono es correcta
-import cartIcon from '../assets/add-to-cart.png'; // Asegúrate de que la ruta al icono es correcta
-import searchIcon from '../assets/lupa.png'; // Asegúrate de que la ruta al icono es correcta
+import logoImage from '../assets/LogoPng.png'; 
+import favoritesIcon from '../assets/favoritos.png';
+import userIcon from '../assets/user.png'; 
+import cartIcon from '../assets/add-to-cart.png'; 
+import searchIcon from '../assets/lupa.png'; 
 import menuIcon from '../assets/menu.png';
 import downIcon from '../assets/down.png';
 import DropDown from './DropDown';
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false); // Estado para controlar la visibilidad de la barra de búsqueda
+  const [searchOpen, setSearchOpen] = useState(false); 
   const [searchTerm, setSearchTerm] = useState('');
   const [active, setActive] = useState(false);
   const handleLogoClick = () => {
@@ -19,7 +20,7 @@ const Navbar = () => {
     }
   };
 
-  const toggleSearch = () => { // Función para alternar la visibilidad de la barra de búsqueda
+  const toggleSearch = () => { 
     setSearchOpen(!searchOpen);
   };
 
@@ -83,8 +84,12 @@ const Navbar = () => {
 
         {/* Contenedor para los íconos de usuario y carrito */}
         <div className="icon-container">
+        <button className="icon-button" onClick={() => console.log('Favorites icon clicked')}>
+            <img src={favoritesIcon} alt="Favs" className="icon" />
+          </button>
           <button className="icon-button" onClick={() => console.log('User icon clicked')}>
             <img src={userIcon} alt="User" className="icon" />
+            <p>Iniciar Sesion</p>
           </button>
           <button className="icon-button" onClick={() => console.log('Cart icon clicked')}>
             <img src={cartIcon} alt="Cart" className="icon" />
