@@ -1,4 +1,4 @@
-import React,{ useState } from 'react';
+import React, { useState } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import CarouselItem from 'react-bootstrap/CarouselItem'
 import asiaImport from '../imagenes/asiaImport.png';
@@ -21,7 +21,7 @@ const productos = [
   { imagen: radio, nombre: 'Radio Recargable con Panel Solar', precio: 'L. 499' },
   { imagen: audifonosProduct, nombre: 'Audifonos UltraSound inalambricos', precio: 'L. 2,449' },
   { imagen: yeti, nombre: 'Vasos Termicos Yeti', precio: 'L. 349' }
-  
+
 ];
 
 const Carrusel = ({ productos }) => {
@@ -34,10 +34,10 @@ const Carrusel = ({ productos }) => {
     : productos.concat(productos).slice(currentIndex, currentIndex + itemsVisibles);
 
   const moverCarrusel = (direccion) => {
-      const totalItems = productos.length;
-      let newIndex = (currentIndex + direccion + totalItems) % totalItems;
+    const totalItems = productos.length;
+    let newIndex = (currentIndex + direccion + totalItems) % totalItems;
 
-      setCurrentIndex(newIndex);
+    setCurrentIndex(newIndex);
   };
 
   const handlePrevClick = (e) => {
@@ -51,49 +51,49 @@ const Carrusel = ({ productos }) => {
   };
 
   return (
-      <div className="destacado-container">
-        <div className="destacado-product-container">
-          <button className="prev-btn" onClick={handlePrevClick}>&#9664;</button>
-          <div className="destacado-lista">
-              {mostrarProductos.map((producto, index) => (
-                  <div key={index} className="elemento">
-                      <img src={producto.imagen} alt={producto.nombre} />
-                      <h3>{producto.nombre}</h3>
-                      <p>Precio: {producto.precio}</p>
-                      <button>Agregar al carrito</button>
-                  </div>
-              ))}
-          </div>
-          <button className="next-btn" onClick={handleNextClick}>&#9654;</button>
+    <div className="destacado-container">
+      <div className="destacado-product-container">
+        <button className="prev-btn" onClick={handlePrevClick}>&#9664;</button>
+        <div className="destacado-lista">
+          {mostrarProductos.map((producto, index) => (
+            <div key={index} className="elemento">
+              <img src={producto.imagen} alt={producto.nombre} />
+              <h3>{producto.nombre}</h3>
+              <p>Precio: {producto.precio}</p>
+              <button>Agregar al carrito</button>
+            </div>
+          ))}
         </div>
+        <button className="next-btn" onClick={handleNextClick}>&#9654;</button>
       </div>
+    </div>
   );
 };
 
 function Inicio() {
-    const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(0);
 
-    const handleSelect = (selectedIndex) => {
-      setIndex(selectedIndex);
-    };
+  const handleSelect = (selectedIndex) => {
+    setIndex(selectedIndex);
+  };
   return (
     <div className="Inicio">
-    <Carousel activeIndex={index} onSelect={handleSelect}>
-      <Carousel.Item>
-      <img  style={{ width: '100%', height: 'auto' }}
-        className="d-block w-100" src={PromoAsia}  alt="First slide"/>
-      </Carousel.Item>
-      <Carousel.Item>< img  style={{ width: '100%', height: 'auto' }}
-        className="d-block w-100" src={PromocionAsia}  alt="First slide"/>
-      </Carousel.Item>
-    </Carousel>
-    <div className="section-divider">
-      <p className="destacado-text"> Articulos Destacados </p>
-      <hr className="linea-divisora-blue-large" />
-      <Carrusel productos={productos} />
-      <hr className="linea-divisora-blue-med" />
-    </div>
-    <div className="product-section">
+      <Carousel activeIndex={index} onSelect={handleSelect}>
+        <Carousel.Item>
+          <img style={{ width: '100%', height: 'auto' }}
+            className="d-block w-100" src={PromoAsia} alt="First slide" />
+        </Carousel.Item>
+        <Carousel.Item>< img style={{ width: '100%', height: 'auto' }}
+          className="d-block w-100" src={PromocionAsia} alt="First slide" />
+        </Carousel.Item>
+      </Carousel>
+      <div className="section-divider">
+        <p className="destacado-text"> Articulos Destacados </p>
+        <hr className="linea-divisora-blue-large" />
+        <Carrusel productos={productos} />
+        <hr className="linea-divisora-blue-med" />
+      </div>
+      <div className="product-section">
         <div className="product-container">
           <a href="/parlantes" className="product-item">
             <img src={parlantesImage} alt="Parlantes" />
@@ -121,7 +121,7 @@ function Inicio() {
           </a>
         </div>
       </div>
-   </div>
+    </div>
   );
 }
 
