@@ -1,7 +1,7 @@
 // App.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
+import Navibar from './components/Navibar';
 import Footer from './components/Footer';
 import Inicio from './components/Inicio';
 import InfoG from './components/InfoG'; // Importa tu componente InfoG
@@ -11,7 +11,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Navbar />
+        <Navibar />
         <Routes>
           <Route path="/inicio" element={<Inicio />} />
           <Route path="/acerca" element={<InfoG />} /> {/* Ruta para InfoG */}

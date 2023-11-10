@@ -80,10 +80,10 @@ function Inicio() {
     <div className="Inicio">
     <Carousel activeIndex={index} onSelect={handleSelect}>
       <Carousel.Item>
-      <img style={{height:'70vh'}}
+      <img  style={{ width: '100%', height: 'auto' }}
         className="d-block w-100" src={PromoAsia}  alt="First slide"/>
       </Carousel.Item>
-      <Carousel.Item>< img style={{height:'70vh'}}
+      <Carousel.Item>< img  style={{ width: '100%', height: 'auto' }}
         className="d-block w-100" src={PromocionAsia}  alt="First slide"/>
       </Carousel.Item>
     </Carousel>
