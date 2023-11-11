@@ -1,6 +1,7 @@
 // App.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import MaintenancePage from'./components/maintenancePage';
 import Navibar from './components/Navibar';
 import Footer from './components/Footer';
 import Inicio from './components/Inicio';
