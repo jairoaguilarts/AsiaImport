@@ -65,7 +65,7 @@ function Login() {
             </button>
         </div>
         <div className="d-flex justify-content-center ">
-            <Button className="login " variant="primary" size="lg" onClick={handleClose}>
+            <Button className="login" variant="primary" size="lg" onClick={handleClose}>
                 INICIAR SESION
             </Button>
         </div>

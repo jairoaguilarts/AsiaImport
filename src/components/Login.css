@@ -28,8 +28,8 @@
   .login {
     background-color: #01A6FF;
     border-color: #01A6FF;
-    margin: 0px 40px 25px 30px; /* Ajusta según sea necesario para que coincida con el margen de tus formularios */
-    padding: 10px 20px; /* Ajusta según sea necesario para que coincida con el tamaño de tus formularios */
+    margin: 0px 40px 25px 30px; 
+    padding: 10px 20px; 
     font-size: 18px; 
   }
   .forgot{
