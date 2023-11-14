@@ -27,7 +27,7 @@ const Footer = () => {
         <div className="footer-links">
         <Link to="/acerca" className="footer-link">Acerca de Nosotros</Link>
         <Link to="/editar" className="footer-link">Editar Mi Perfil</Link>
-          <a href="/tiendas" className="footer-link">Tiendas</a>
+        <Link to="/preguntas" className="footer-link">Preguntas Frecuentes</Link>
         </div>
         <div className="logo-container">
           <img className="logo" src={logoImage} alt="Logo de la empresa" />

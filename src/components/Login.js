@@ -66,8 +66,8 @@ function Login() {
                   <Form.Control type="text" placeholder="Apellido" />
                 </Form.Group>
                 <Form.Group className="forms" controlId="formBasicID">
-                  <Form.Label>ID O RTN</Form.Label>
-                  <Form.Control type="text" placeholder="ID o RTN" />
+                  <Form.Label>ID</Form.Label>
+                  <Form.Control type="text" placeholder="ID" />
                 </Form.Group>
                 <Form.Group className="forms" controlId="formBasicEmailRegistro">
                   <Form.Label>Correo Electrónico</Form.Label>
