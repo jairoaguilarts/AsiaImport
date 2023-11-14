@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 import Inicio from './components/Inicio';
 import InfoG from './components/InfoG'; // Importa tu componente InfoG
 import 'bootstrap/dist/css/bootstrap.min.css';
+import EditarPerfil from './components/EditarPerfil';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Routes>
           <Route path="/inicio" element={<Inicio />} />
           <Route path="/acerca" element={<InfoG />} /> {/* Ruta para InfoG */}
+          <Route path="/editar" element={<EditarPerfil />} /> {/* Ruta para InfoG */}
           {/* Puedes añadir más rutas aquí */}
         </Routes>
         <Footer />

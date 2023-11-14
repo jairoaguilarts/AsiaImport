@@ -1,0 +1,160 @@
+.perfil-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 70px;
+    background-color: #fefdfd;
+  }
+  
+  .perfil-container {
+    width: 500px; /* Establece el ancho exacto del contenedor del formulario */
+    margin: auto;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .icono-usuario {
+    margin-right: -100px;
+    margin-left: 100px;
+    margin-bottom: 200px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .icono-usuario img {
+    width: 170px;
+  }
+  
+  .formulario-perfil {
+    display: grid;
+    gap: 15px;
+  }
+  
+  .campo-formulario {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .campo-formulario label {
+    margin-bottom: 5px;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  .campo-formulario input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .boton-guardar {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    text-transform: uppercase;
+    transition: background-color 0.3s;
+  }
+  
+  .boton-guardar:hover {
+    background-color: #0056b3;
+  }
+  
+  .cambiar-contrasena-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .lock-icon {
+    margin-right: 10px;
+    width: 20px;
+  }
+  
+  .cambiar-contrasena {
+    display: block;
+    margin-top: 10px;
+    color: #007bff;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  .info-usuario {
+    text-align: center; /* Alinea el contenido al centro */
+    margin-top: 10px; /* Espacio entre el ícono de usuario y la información */
+    margin-left: -80px;
+  }
+  
+  .icono-lapiz {
+    display: inline-block; /* Hace que el ícono del lápiz se comporte como un bloque en línea */
+    vertical-align: middle; /* Alinea verticalmente el ícono del lápiz con el texto */
+    width: 20px; /* Ajusta el tamaño según sea necesario */
+    margin-right: 5px; /* Espacio entre el ícono del lápiz y el texto */
+  }
+  
+  .etiqueta-usuario {
+    display: inline-block; /* Hace que la etiqueta se comporte como un bloque en línea */
+    vertical-align: middle; /* Alinea verticalmente el texto con el ícono del lápiz */
+    font-size: 16px; /* Ajusta el tamaño de fuente según sea necesario */
+    color: #333; /* Color del texto */
+  }
+
+  @media (max-width: 768px) {
+    .perfil-container {
+      width: 80%;
+      margin-left: 30px;
+    }
+  
+    .icono-usuario img {
+      width: 120px;
+      margin-left: -170px;
+    }
+  
+    .info-usuario {
+      margin-left: -40px; /* Reduce el margen izquierdo */
+    }
+  
+    .icono-lapiz {
+      width: 15px;
+    }
+  
+    .etiqueta-usuario {
+      font-size: 14px;
+    }
+  }
+  
+  /* Media query para pantallas hasta 480px */
+  @media (max-width: 480px) {
+    .perfil-wrapper {
+      padding: 20px;
+    }
+  
+    .perfil-container {
+      width: 100%;
+    }
+  
+    .icono-usuario {
+      margin: 0 auto;
+    }
+  
+    .icono-usuario img {
+      width: 100px;
+    }
+  
+    .info-usuario {
+      margin-left: -20px; /* Reduce aún más el margen izquierdo para pantallas pequeñas */
+    }
+  
+    .icono-lapiz {
+      width: 12px;
+    }
+  
+    .etiqueta-usuario {
+      font-size: 12px;
+    }
+  }
