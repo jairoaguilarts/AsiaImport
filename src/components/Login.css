@@ -1,49 +1,81 @@
+/* Estilos para el contenedor de botones del modal */
 .button-container {
-    display: flex;
-  }
-  
-  .iniciar-sesion{   
-     display: flex;
-    align-items: center;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 8px;
-    margin: 0px 40px 10px;
-    height: auto;
+  display: flex;
+  justify-content: space-between;
 }
-  .registrarse {
-    display: flex;
-    align-items: center;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 8px;
-    margin: 0px 30px 10px;
-    height: auto;
-  }
-  .forms{
-    margin: 0px 40px 25px 30px;
-  }
-  .login {
-    background-color: #01A6FF !important;
-    border-color: #01A6FF !important;
-    margin: 0px 40px 25px 30px; 
-    padding: 10px 20px; 
-    font-size: 18px; 
-  }
-  .forgot{
-    background: none;
-    border: none;
-    color: #01A6FF;
-    margin: 0px 40px 30px 30px;
-    height: auto;
-  }
-  .iniciar-sesion.selected,
-  .registrarse.selected {
-    border-bottom: 2px solid orange;
-  }
-  .iniciar-sesion p,
-.registrarse p {
-  margin: 0; 
+
+/* Estilos para los botones de iniciar sesión y registrarse */
+.iniciar-sesion, .registrarse {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  margin: 0 20px; /* Ajustar según sea necesario */
+  font-weight: bold;
 }
+
+/* Estilos para el botón seleccionado */
+.iniciar-sesion.selected,
+.registrarse.selected {
+  border-bottom: 2px solid orange;
+}
+
+/* Estilos para los campos del formulario */
+.forms {
+  margin-bottom: 15px;
+}
+
+/* Estilos para los input del formulario */
+.form-control {
+  border-radius: 10px;
+  border: 1px solid #ced4da;
+  padding: .375rem .75rem;
+}
+
+/* Estilos para el botón de olvidar contraseña */
+.forgot {
+  background: none;
+  border: none;
+  color: #01A6FF;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: .375rem .75rem;
+}
+
+/* Estilos para el botón de iniciar sesión/registrar en el modal */
+.login, .register {
+  background-color: #01A6FF !important;
+  border-color: #01A6FF !important;
+  border-radius: 10px;
+  padding: .5rem 1rem;
+  color: white;
+  font-size: 1rem;
+  margin-top: 20px; /* Espacio desde el último campo del formulario */
+  width: 100%; /* Botón de ancho completo */
+}
+
+/* Estilos para el botón cuando se pasa el cursor */
+.login:hover, .register:hover {
+  background-color: #0190e8; /* Ligeramente más oscuro al pasar el cursor */
+}
+
+/* Estilos para el botón de cerrar del modal */
+.close-button {
+  border: none;
+  background: transparent;
+}
+
+/* Estilo del título del modal */
+.modal-title {
+  flex-grow: 1; /* Asegura que el título ocupe todo el espacio disponible */
+  text-align: center;
+}
+
+/* Estilos adicionales para el modal */
+.modal-content {
+  border-radius: 15px;
+}
+
+/* Puedes necesitar ajustes adicionales para que coincida exactamente con tu diseño */
