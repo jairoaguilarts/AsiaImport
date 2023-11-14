@@ -26,8 +26,8 @@
     margin: 0px 40px 25px 30px;
   }
   .login {
-    background-color: #01A6FF;
-    border-color: #01A6FF;
+    background-color: #01A6FF !important;
+    border-color: #01A6FF !important;
     margin: 0px 40px 25px 30px; 
     padding: 10px 20px; 
     font-size: 18px; 
@@ -45,5 +45,5 @@
   }
   .iniciar-sesion p,
 .registrarse p {
-  margin: 0; /* Ajusta según sea necesario para eliminar el espacio entre las letras y la línea */
+  margin: 0; 
 }
