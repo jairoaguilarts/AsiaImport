@@ -19,6 +19,8 @@ import botestermosImage from '../assets/botestermos.png';
 import cargadoresImage from '../assets/cargadores.png';
 import relojesImage from '../assets/relojes.png';
 import otrosImage from '../assets/otros.png';
+import Login from './Login';
+
 const Navibar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -100,10 +102,7 @@ const Navibar = () => {
 
         {/* Contenedor para los íconos de usuario y carrito */}
         <div className="icon-container">
-          <button className="icon-button" onClick={() => console.log('User icon clicked')}>
-            <img src={userIcon} alt="User" className="icon" />
-            <p>Iniciar Sesion</p>
-          </button>
+          <Login/>
           <button className="icon-button" onClick={() => console.log('Cart icon clicked')}>
             <img src={cartIcon} alt="Cart" className="icon" />
           </button>
