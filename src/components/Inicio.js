@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
+import { Container, Button, Collapse } from 'react-bootstrap';
 import CarouselItem from 'react-bootstrap/CarouselItem'
 import asiaImport from '../imagenes/asiaImport.png';
 import PromoAsia from '../imagenes/PromoAsia.jpeg';
@@ -24,6 +25,7 @@ const productos = [
 
 ];
 
+//Funcion para el control de la lista de productos destacados
 const Carrusel = ({ productos }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -40,11 +42,13 @@ const Carrusel = ({ productos }) => {
     setCurrentIndex(newIndex);
   };
 
+  //Indice anterior en la lista de Productos Destacados
   const handlePrevClick = (e) => {
     e.preventDefault();
     moverCarrusel(-1);
   };
 
+  //Indice siguiente en la lista de Productos Destacados
   const handleNextClick = (e) => {
     e.preventDefault();
     moverCarrusel(1);
@@ -72,12 +76,16 @@ const Carrusel = ({ productos }) => {
 
 function Inicio() {
   const [index, setIndex] = useState(0);
+  const [open, setOpen] = useState(false);
+
+  const handleToggle = () => setOpen(!open);
 
   const handleSelect = (selectedIndex) => {
     setIndex(selectedIndex);
   };
   return (
     <div className="Inicio">
+
       <Carousel activeIndex={index} onSelect={handleSelect}>
         <Carousel.Item>
           <img style={{ width: '100%', height: 'auto' }}

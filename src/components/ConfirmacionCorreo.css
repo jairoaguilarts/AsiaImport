@@ -1,0 +1,42 @@
+.container {
+    width: 80%;
+    text-align: center;
+    align-items: center;
+}
+.logo {
+    height: 100px;
+    width: 100px;
+    margin-bottom: 0;
+}
+.linea_naranja {
+    border: 3px solid orange;
+    width: 30%;
+    margin: 0 auto;
+}
+
+.linea_azul {
+    border: 3px solid #01A6FF;
+    width: 25%;
+    margin: 0 auto;
+}
+
+.texto_bold {
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.texto_normal {
+    font-size: 16px;
+}
+
+.button {
+    background-color: #01A6FF;
+    margin: 10px 0 10px 0;
+    color: white;
+}
+
+.letra_peque {
+    margin-top: 10px;
+    font-size: 12px;
+}
