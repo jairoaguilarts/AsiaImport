@@ -1,0 +1,118 @@
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 400px;
+    /* Ajusta el ancho del modal */
+    position: relative;
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    margin-bottom: 20px;
+    position: relative;
+    /* Para posicionar el botón de cerrar de forma absoluta */
+    padding-bottom: 10px;
+    /* Espacio adicional debajo del texto antes de la línea divisoria */
+    border-bottom: 2px solid #0c63ba;
+    /* Línea divisoria debajo del encabezado */
+}
+
+
+.lock-icon {
+    margin-right: -50px;
+    margin-left: 40px;
+}
+
+.modal-header h4 {
+    margin: 0;
+    flex-grow: 1;
+    /* Asegura que el título se centre */
+    text-align: center;
+    /* Centra el texto del título */
+}
+
+.close-button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    position: absolute;
+    /* Se posiciona con respecto al modal-content */
+    right: 5px;
+    /* Se coloca a 20px del borde derecho */
+    top: -5px;
+    /* Se coloca a 20px del borde superior */
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding-right: 40px;
+}
+
+.visibility-icon {
+    position: absolute;
+    right: 10px;
+    top: 38px;
+    /* Ajustar según el tamaño de tu input */
+    height: 20px;
+    /* Ajustar al tamaño de tus íconos */
+    cursor: pointer;
+    opacity: 0.3;
+}
+
+.submit-button {
+    display: block;
+    /* Hace que el botón sea un bloque si no lo es ya */
+    margin-left: auto;
+    margin-right: auto;
+    width: 200px;
+    background-color: #ffa500;
+    /* Color similar al botón de la imagen */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    text-transform: uppercase;
+    transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+    background-color: #cc8400;
+}
