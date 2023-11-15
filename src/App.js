@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 import Inicio from './components/Inicio';
 import InfoG from './components/InfoG'; // Importa tu componente InfoG
 import Fa from './components/Fa'; // Importa tu componente InfoG
+import ProcederCompra from './components/ProcederCompra';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import EditarPerfil from './components/EditarPerfil';
 
@@ -20,6 +21,8 @@ function App() {
           <Route path="/acerca" element={<InfoG />} /> {/* Ruta para InfoG */}
           <Route path="/editar" element={<EditarPerfil />} /> {/* Ruta para InfoG */}
           <Route path="/preguntas" element={<Fa/>} /> {/* Ruta para InfoG */}
+          <Route path="/compra" element={<ProcederCompra/>} /> {/* Ruta para InfoG */}
+
           {/* Puedes añadir más rutas aquí */}
         </Routes>
         <Footer />

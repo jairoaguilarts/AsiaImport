@@ -20,6 +20,7 @@ import cargadoresImage from '../assets/cargadores.png';
 import relojesImage from '../assets/relojes.png';
 import otrosImage from '../assets/otros.png';
 import Login from './Login';
+import ProcederCompra from './ProcederCompra';
 
 const Navibar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -35,6 +36,8 @@ const Navibar = () => {
   const toggleSearch = () => {
     setSearchOpen(!searchOpen);
   };
+  const [showCategories, setShowCategories] = useState(true);
+
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -103,29 +106,11 @@ const Navibar = () => {
         {/* Contenedor para los íconos de usuario y carrito */}
         <div className="icon-container">
           <Login/>
-          <button className="icon-button" onClick={() => console.log('Cart icon clicked')}>
+          <Link to="/compra"className="icon-button">
             <img src={cartIcon} alt="Cart" className="icon" />
-          </button>
+          </Link>
         </div>
       </div>
-
-      {/* Seccion para las Categorias */}
-      {/* <div className="barraCategorias">
-        <div className='categorias'>
-          <button className="btnCategorias" onClick={toggleDropdown}>
-            <img src={menuIcon} alt='Categ' className='icon' />
-            <span className="textoCategorias">Categorías</span>
-            <img src={downIcon} alt='Categ' style={{ padding: '3px', width: '20px', height: '20px' }} />
-          </button>
-          {dropdown && <DropDown />}
-        </div>
-        <div className="botonesAdicionales">
-          <a href="/productos-destacados" className="botonAdicional">Productos Destacados</a>
-          <a href="/historial-de-compras" className="botonAdicional">Historial de Compras</a>
-          <a href="/lista-de-deseos" className="botonAdicional">Lista de Deseos</a>
-        </div>
-      </div> */}
-      {/* Fin de la seccion de Categorias */}
 
       {/* I Barra categorias con DropDown de Bootstrap*/}
       <div>

@@ -78,7 +78,6 @@ function Login() {
 
   const handleSubmit = () => {
     if (isLoginSelected) {
-      // Aquí iría tu lógica para el inicio de sesión
     } else {
       handleRegister();
     }
