@@ -69,21 +69,24 @@
   
   .cambiar-contrasena-container {
     display: flex;
-    align-items: center;
-  }
+    flex-direction: column; /* Cambia la dirección a columna */
+    align-items: center; /* Centra los elementos horizontalmente */
+    justify-content: center; /* Centra los elementos verticalmente */
+}
+
   
-  .lock-icon {
-    margin-right: 10px;
-    width: 20px;
-  }
+.lock-icon {
+  width: 20px;
+}
   
-  .cambiar-contrasena {
-    display: block;
-    margin-top: 10px;
-    color: #007bff;
-    text-decoration: none;
-    font-size: 14px;
-  }
+.cambiar-contrasena {
+  display: block;
+  color: #007bff;
+  text-decoration: none;
+  font-size: 18px;
+  margin: 0; /* Elimina el margen izquierdo negativo si existe */
+}
+
   .info-usuario {
     text-align: center; /* Alinea el contenido al centro */
     margin-top: 10px; /* Espacio entre el ícono de usuario y la información */
