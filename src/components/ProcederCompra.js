@@ -44,6 +44,7 @@ function ProcederCompra() {
 
   return (
     <div className="ProcederCompra">
+       
       <div className="button-container">
         <button
           onClick={handleDeliveryClick}
@@ -58,7 +59,8 @@ function ProcederCompra() {
           <p>Recoger en tienda</p>
         </button>
       </div>
-
+      {isDeliverySelected ? (
+        <>
       {/* Contenido de los departamentos */}
       <div className="forms-container"> 
       <form className='contenedores' >
@@ -91,7 +93,27 @@ function ProcederCompra() {
 
 
       </div>
+      </>
+     ) : (
+      <>
+      <div className="forms-container"> 
+      
+          {/* Contenido de PickUp */}
+          <p>Nombre de la persona que Recoge</p>
+            <Form.Control className='contenedores' type="text" placeholder="Ingrese un Nombre" />
+            <p>Numero de Identidad de la Persona que Recoge</p>
+            <Form.Control className='contenedores' type="text" placeholder="Ingrese un Numero de Identidad "/>
+            <p>Numero de Telefono</p>
+            <Form.Control className='contenedores' type="text" placeholder="Ingrese un Numero" />
 
+            <button className='boton-siguiente' >
+              <p>Siguiente</p>
+            </button>
+
+
+      </div>
+      </>
+     )}
      
     </div>
   );
