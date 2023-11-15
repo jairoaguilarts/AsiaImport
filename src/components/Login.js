@@ -2,14 +2,24 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
+import axios from 'axios'; // Asegúrate de tener axios instalado
 import userIcon from '../assets/user.png';
-import iconoLock from '../assets/lock.png'
+import iconoLock from '../assets/lock.png';
 import './Login.css';
 
 function Login() {
   const [show, setShow] = useState(false);
   const [isLoginSelected, setIsLoginSelected] = useState(true);
   const [showVentanaForgot, setShowVentanaForgot] = useState(false);
+
+  const [formData, setFormData] = useState({
+    nombre: '',
+    apellido: '',
+    numeroIdentidad: '',
+    correo: '',
+    contrasenia: '',
+    confirmarContrasenia: ''
+  });
 
   const handleClose = () => {
     setShow(false);
@@ -26,10 +36,59 @@ function Login() {
     setIsLoginSelected(false);
   };
 
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+
+  const handleRegister = async () => {
+    if (formData.contrasenia !== formData.confirmarContrasenia) {
+      alert('Las contraseñas no coinciden');
+      return;
+    }
+  
+    const datosRegistro = {
+      correo: formData.correo,
+      contrasenia: formData.contrasenia,
+      nombre: formData.nombre,
+      apellido: formData.apellido,
+      numeroIdentidad: formData.numeroIdentidad
+    };
+  
+    try {
+      const response = await fetch('http://localhost:3000/signUp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(datosRegistro)
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+      const data = await response.json();
+      console.log('Registro exitoso:', data);
+      handleClose();
+    } catch (error) {
+      console.error('Error en el registro:', error.message);
+    }
+  };
+  
+
+  const handleSubmit = () => {
+    if (isLoginSelected) {
+      // Aquí iría tu lógica para el inicio de sesión
+    } else {
+      handleRegister();
+    }
+  };
+
   const handleForgotShow = () => {
     setShowVentanaForgot(true);
     setShow(false);
   }
+
   const handleForgotClose = () => {
     setShowVentanaForgot(false);
     setShow(true);
@@ -41,9 +100,8 @@ function Login() {
         <img src={userIcon} alt="User" className="icon" />
         <p>Iniciar Sesión</p>
       </button>
-      
+
       {showVentanaForgot && (
-        // Ventana de Recuperacion de Contraseña
         <Modal show={showVentanaForgot} onHide={handleForgotClose} size='md' centered>
           <Modal.Header closeButton>
             <Modal.Title>
@@ -89,43 +147,41 @@ function Login() {
         <Modal.Body>
           <Form>
             {isLoginSelected ? (
-              // Formulario de inicio de sesión
               <>
-                <Form.Group className="forms" controlId="formBasicEmail">
+                <Form.Group className="forms" controlId="correo">
                   <Form.Label>Correo</Form.Label>
-                  <Form.Control type="email" placeholder="Correo Electrónico" autoFocus />
+                  <Form.Control type="email" placeholder="Correo Electrónico" autoFocus onChange={handleChange} />
                 </Form.Group>
-                <Form.Group className="forms" controlId="formBasicPassword">
+                <Form.Group className="forms" controlId="contrasenia">
                   <Form.Label>Contraseña</Form.Label>
-                  <Form.Control type="password" placeholder="Contraseña" autoFocus />
+                  <Form.Control type="password" placeholder="Contraseña" autoFocus onChange={handleChange} />
                 </Form.Group>
               </>
             ) : (
-              // Formulario de registro con campos adicionales
               <>
-                <Form.Group className="forms" controlId="formBasicNombre">
+                <Form.Group className="forms" controlId="nombre">
                   <Form.Label>Nombre</Form.Label>
-                  <Form.Control type="text" placeholder="Nombre" />
+                  <Form.Control type="text" placeholder="Nombre" onChange={handleChange} />
                 </Form.Group>
-                <Form.Group className="forms" controlId="formBasicApellido">
+                <Form.Group className="forms" controlId="apellido">
                   <Form.Label>Apellido</Form.Label>
-                  <Form.Control type="text" placeholder="Apellido" />
+                  <Form.Control type="text" placeholder="Apellido" onChange={handleChange} />
                 </Form.Group>
-                <Form.Group className="forms" controlId="formBasicID">
+                <Form.Group className="forms" controlId="numeroIdentidad">
                   <Form.Label>ID</Form.Label>
-                  <Form.Control type="text" placeholder="ID" />
+                  <Form.Control type="text" placeholder="ID" onChange={handleChange} />
                 </Form.Group>
-                <Form.Group className="forms" controlId="formBasicEmailRegistro">
+                <Form.Group className="forms" controlId="correo">
                   <Form.Label>Correo Electrónico</Form.Label>
-                  <Form.Control type="email" placeholder="Correo Electrónico" />
+                  <Form.Control type="email" placeholder="Correo Electrónico" onChange={handleChange} />
                 </Form.Group>
-                <Form.Group className="forms" controlId="formBasicPasswordRegistro">
+                <Form.Group className="forms" controlId="contrasenia">
                   <Form.Label>Contraseña</Form.Label>
-                  <Form.Control type="password" placeholder="Contraseña" />
+                  <Form.Control type="password" placeholder="Contraseña" onChange={handleChange} />
                 </Form.Group>
-                <Form.Group className="forms" controlId="formBasicConfirmPassword">
+                <Form.Group className="forms" controlId="confirmarContrasenia">
                   <Form.Label>Confirmar Contraseña</Form.Label>
-                  <Form.Control type="password" placeholder="Confirmar Contraseña" />
+                  <Form.Control type="password" placeholder="Confirmar Contraseña" onChange={handleChange} />
                 </Form.Group>
               </>
             )}
@@ -136,7 +192,7 @@ function Login() {
             </button>
           </div>
           <div className="d-flex justify-content-center">
-            <Button className="login" variant="primary" size="lg" onClick={handleClose}>
+            <Button className="login" variant="primary" size="lg" onClick={handleSubmit}>
               {isLoginSelected ? 'INICIAR SESIÓN' : 'REGISTRARSE'}
             </Button>
           </div>
