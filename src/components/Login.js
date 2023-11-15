@@ -9,6 +9,20 @@ function Login() {
   const [show, setShow] = useState(false);
   const [isLoginSelected, setIsLoginSelected] = useState(true);
 
+  const [formDataRegistro, setFormDataRegistro] = useState({
+    nombre: '',
+    apellido: '',
+    numeroIdentidad: '',
+    correo: '',
+    contrasenia: '',
+    confirmarContrasenia: ''
+  });
+
+  const [formDataLogIn, setFormDataLogIn] = useState({
+    correo: '',
+    contrasenia: ''
+  });
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -18,6 +32,93 @@ function Login() {
 
   const handleRegistrarseClick = () => {
     setIsLoginSelected(false);
+  };
+
+  const handleChangeRegistro = (e) => {
+    setFormDataRegistro({ ...formDataRegistro, [e.target.id]: e.target.value });
+  };
+
+  const handleChangeLogIn = (e) => {
+    setFormDataLogIn({...formDataLogIn, [e.target.id]: e.target.value });
+  };
+
+  const handleRegister = async () => {
+    if (formDataRegistro.formBasicPasswordRegistro !== formDataRegistro.formBasicConfirmPassword) {
+      alert('Las contraseñas no coinciden');
+      return;
+    }
+
+    const datosRegistro = {
+      correo: formDataRegistro.formBasicEmailRegistro,
+      contrasenia: formDataRegistro.formBasicPasswordRegistro,
+      nombre: formDataRegistro.formBasicNombre,
+      apellido: formDataRegistro.formBasicApellido,
+      numeroIdentidad: formDataRegistro.formBasicID
+    };
+
+    try {
+      const response = await fetch('http://localhost:3000/signUp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(datosRegistro)
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Error: ${errorData.message || response.status}`);
+      }
+
+      const data = await response.json();
+      console.log('Registro exitoso:', data);
+      handleClose();
+    } catch (error) {
+      console.error('Error en el registro:', error);
+      alert('Error en el registro: ' + error.message);
+    }
+  };
+
+  const handleLogIn = async () => {
+    if(!formDataLogIn.formBasicEmail.trim() || !formDataLogIn.formBasicPassword.trim()) {
+      alert('Los campos no estan completos');
+      return;
+    }
+
+    const datosLogIn = {
+      correo: formDataLogIn.formBasicEmail,
+      contrasenia: formDataLogIn.formBasicPassword
+    };
+
+    try {
+      const response = await fetch('http://localhost:3000/logIn', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(datosLogIn)
+      });
+
+      if(!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Error: ${errorData.message || response.status}`);
+      }
+
+      const data = await response.json();
+      console.log('Bienvenido ', data.usuario.nombre);
+      handleClose();
+    } catch (error) {
+      console.error('Error en el registro:', error);
+      alert('Error en el registro: ' + error.message);
+    }
+  };
+
+  const handleSubmit = () => {
+    if (isLoginSelected) {
+      handleLogIn();
+    } else {
+      handleRegister();
+    }
   };
 
   return (
@@ -46,11 +147,11 @@ function Login() {
               <>
                 <Form.Group className="forms" controlId="formBasicEmail">
                   <Form.Label>Correo</Form.Label>
-                  <Form.Control type="email" placeholder="Correo Electrónico" autoFocus />
+                  <Form.Control type="email" placeholder="Correo Electrónico" autoFocus onChange={handleChangeLogIn} />
                 </Form.Group>
                 <Form.Group className="forms" controlId="formBasicPassword">
                   <Form.Label>Contraseña</Form.Label>
-                  <Form.Control type="password" placeholder="Contraseña" />
+                  <Form.Control type="password" placeholder="Contraseña" onChange={handleChangeLogIn} />
                 </Form.Group>
                 <div className="d-flex justify-content-center">
                   <Button className="forgot" onClick={handleClose}>
@@ -62,34 +163,34 @@ function Login() {
               <>
                 <Form.Group className="forms" controlId="formBasicNombre">
                   <Form.Label>Nombre</Form.Label>
-                  <Form.Control type="text" placeholder="Nombre" />
+                  <Form.Control type="text" placeholder="Nombre" onChange={handleChangeRegistro} />
                 </Form.Group>
-                <Form.Group className="forms" controlId="formBasicApellido">
+                <Form.Group className="forms" controlId="formBasicApellido" >
                   <Form.Label>Apellido</Form.Label>
-                  <Form.Control type="text" placeholder="Apellido" />
+                  <Form.Control type="text" placeholder="Apellido" onChange={handleChangeRegistro} />
                 </Form.Group>
                 <Form.Group className="forms" controlId="formBasicID">
                   <Form.Label>ID</Form.Label>
-                  <Form.Control type="text" placeholder="ID" />
+                  <Form.Control type="text" placeholder="ID" onChange={handleChangeRegistro} />
                 </Form.Group>
                 <Form.Group className="forms" controlId="formBasicEmailRegistro">
                   <Form.Label>Correo Electrónico</Form.Label>
-                  <Form.Control type="email" placeholder="Correo Electrónico" />
+                  <Form.Control type="email" placeholder="Correo Electrónico" onChange={handleChangeRegistro} />
                 </Form.Group>
                 <Form.Group className="forms" controlId="formBasicPasswordRegistro">
                   <Form.Label>Contraseña</Form.Label>
-                  <Form.Control type="password" placeholder="Contraseña" />
+                  <Form.Control type="password" placeholder="Contraseña" onChange={handleChangeRegistro} />
                 </Form.Group>
                 <Form.Group className="forms" controlId="formBasicConfirmPassword">
                   <Form.Label>Confirmar Contraseña</Form.Label>
-                  <Form.Control type="password" placeholder="Confirmar Contraseña" />
+                  <Form.Control type="password" placeholder="Confirmar Contraseña" onChange={handleChangeRegistro} />
                 </Form.Group>
               </>
             )}
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button className="login" variant="primary" onClick={handleClose}>
+          <Button className="login" variant="primary" onClick={handleSubmit}>
             {isLoginSelected ? 'INICIAR SESIÓN' : 'REGISTRARSE'}
           </Button>
         </Modal.Footer>
