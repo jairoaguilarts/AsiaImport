@@ -1,0 +1,101 @@
+.sidebar {
+    background-color: #01A6FF;
+    padding: 10px;
+    color: white;
+    position: fixed;
+    height: 100vh;
+    width: 250px;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    border-right: 2px solid white;
+    overflow-x: hidden;
+    overflow-y: auto; /* Añadido para permitir desplazamiento vertical */
+    transition: 0.5s;
+  }
+  
+  .row {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .row button {
+    margin-bottom: 10px;
+  }
+  
+  /* Estilos para el contenido principal */
+  .content {
+    margin-left: 0;
+    transition: margin-left 0.5s;
+  }
+  
+  .content.active {
+    margin-left: 250px;
+  }
+  
+  /* Estilo adicional para el botón fijo */
+  .toggle-sidebar {
+    position: fixed;
+    top: 225px;
+    left: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    z-index: 1;
+  }
+  
+  .toggle-sidebar:hover {
+    transform: scale(1.2);
+  }
+  .sidebar-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .sidebar-item:hover {
+    background-color: rgba(255, 255, 255, 0.415);
+  }
+  
+  .icon-image {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+  }
+
+  .linea-divisora {
+    border: 3px solid white;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .sidebar-top-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  /* Centra la imagen en el medio del div */
+  .sidebar-top-item img {
+    display: block;
+    margin: 0 auto;
+  }
+  
+  /* Aplica el efecto hover solo a la imagen */
+  .sidebar-top-item:hover img {
+    transform: scale(1.2); 
+  }
+  a {
+    color: inherit !important; 
+    text-decoration: none !important;
+  }
+  
+  a:visited,
+  a:hover,
+  a:active {
+    color: inherit;
+    text-decoration: none;
+  }

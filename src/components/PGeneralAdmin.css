@@ -1,0 +1,156 @@
+.main-container {
+    display: flex !important; 
+    flex-direction: column;
+    font-family: 'Montserrat', sans-serif;
+}
+  
+.primer-contenedor {
+    flex: 1; 
+    background-color: #f0f0f0; 
+    padding: 20px;
+}
+
+.contenedor-box-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+  
+.cajita {
+    background-color: #9e9a9a1c;
+    width: 300px;
+    height: 150px;
+    color: black;
+    border: 3px solid #ccc;
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 25px;
+    margin-left: 50px;
+    margin-right: 50px;
+    text-align: center;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+  
+.cajita img {
+    margin-left: 15px;
+    margin-bottom: 25px;
+    margin-top: 15px;
+    width: 60px;
+    height: 60px;
+}
+
+.cajita .titulo {
+    font-size: 18px;
+    color: orange;
+    font-weight: bold;
+}
+
+.cajita .contenido-inf {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.cajita p{
+    font-size: 25px;
+    font-weight: bold;
+}
+  
+  /* Estilo del contenedor grande */
+.segundo-contenedor {
+    flex: 2; 
+    background-color: #e0e0e0; 
+    border: 2px solid #9e9a9a66;
+    padding: 20px; 
+}
+
+.cajita-2{
+    background-color: rgba(255, 255, 255, 0.368);
+    width: 300px;
+    height: 150px;
+    color: black;
+    border: 3px solid white;
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 25px;
+    margin-left: 50px;
+    margin-right: 50px;
+    text-align: center;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.cajita-2 img {
+    margin-left: 15px;
+    margin-bottom: 25px;
+    margin-top: 15px;
+    width: 60px;
+    height: 60px;
+}
+
+.cajita-2 .titulo {
+    font-size: 18px;
+    color: #01A6FF;
+    font-weight: bold;
+}
+
+.cajita-2 .contenido-inf {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.cajita-2 p{
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.tercer-contenedor {
+    flex: 3; 
+    background-color: #f0f0f0;
+    padding: 20px; 
+}
+
+.cajita-3 {
+    background-color: #9e9a9a1c;
+    width: 750px;
+    height: 500px;
+    color: black;
+    border: 3px solid #ccc;
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 25px;
+    margin-left: 50px;
+    margin-right: 50px;
+    text-align: center;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.cajita-3 .titulo {
+    font-size: 25px;
+    color: orange;
+    font-weight: bold;
+}
+
+.cajita-3 .contenido-inf {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.cajita-3 p{
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.linea-divisora {
+    border: 3px solid #01A6FF;
+    top: 0;
+    margin-bottom: 10px;
+}
