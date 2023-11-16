@@ -1,0 +1,70 @@
+.ProcederCompra {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 50px;
+  border: 2px solid #FDB254;
+
+}
+
+.button-container {
+  display: flex;
+  margin-top: 10px;
+  padding: 20px;
+  width: 80%;
+
+}
+
+.botones {
+  margin: 10px 10px;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  color: black;
+  background-color: #E7E4DD;
+  border-radius: 88px;
+  font-size: 18px;
+  width: 50%;
+
+}
+.boton-siguiente{
+  margin: 10px auto;  padding: 10px;
+  border: none;
+  cursor: pointer;
+  color: black;
+  background-color: #FDB254;
+  border-radius: 88px;
+  font-size: 18px;
+  width: 100%;
+}
+.delivery {
+  background-color: #E7E4DD;
+  
+}
+
+.pick-up {
+  background-color: #E7E4DD;
+}
+
+.selected {
+  background-color: #FDB254;
+}
+
+.forms-container {
+  padding: 20px;
+  font-size: 18px;
+  width: 70%;
+  margin-bottom: 20px;
+
+
+}
+.contenedores{
+  margin-Bottom: 10px;
+  font-size: 18px;
+  width: 100%;
+
+ }
+
+
+ 
