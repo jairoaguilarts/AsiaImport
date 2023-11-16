@@ -1,0 +1,75 @@
+.contenedor-principal {
+    display: flex;
+    justify-content: space-between; 
+    padding: 10px; 
+    
+  }
+
+.container-agregar,
+.container-editar {
+  width: 60%; 
+  
+  
+}
+.cuerpo{
+    padding-left: 60px;
+    padding-right: 60px;
+    font-size: 18px;
+    width: 100%;
+    align-items: center;
+    
+}
+.forms{
+    padding: 1px;  
+    margin: 5px;
+    font-size: 18px;
+    width: 100%;
+    
+}
+.encabezados{
+    border-bottom: 2px solid #FDB254;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 10px;
+}
+.titulos{
+    margin: 0;
+
+}
+.close {
+    align-self: flex-start; 
+}
+.botones{
+    margin: 10px auto;  padding: 10px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    background-color: #01A6FF;
+    border-radius: 88px;
+    font-weight: bold;
+    font-size: 14px;
+    width: 100%;
+}
+.btn-agregar{
+    margin: 10px auto;  padding: 10px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    background-color: #FDB254;
+    border-radius: 88px;
+    font-weight: bold;
+    font-size: 14px;
+    width: 100%;
+}
+.btn-editar{
+    margin: 10px 30px ;  padding: 10px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    background-color: #00BF63;
+    border-radius: 88px;
+    font-weight: bold;
+    font-size: 14px;
+    width: 100%;
+}

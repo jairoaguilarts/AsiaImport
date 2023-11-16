@@ -1,32 +1,33 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import './Navibar.css';
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import logoImage from '../assets/LogoPng.png';
-import favoritesIcon from '../assets/favoritos.png';
-import userIcon from '../assets/user.png';
-import cartIcon from '../assets/add-to-cart.png';
-import searchIcon from '../assets/lupa.png';
-import menuIcon from '../assets/menu.png';
-import downIcon from '../assets/down.png';
-import DropDown from './DropDown';
-import parlantesImage from '../assets/parlantes.png';
-import audifonosImage from '../assets/audifonos.png';
-import botestermosImage from '../assets/botestermos.png';
-import cargadoresImage from '../assets/cargadores.png';
-import relojesImage from '../assets/relojes.png';
-import otrosImage from '../assets/otros.png';
-import Login from './Login';
-import ProcederCompra from './ProcederCompra';
-import Carrito from './Carrito';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import "./Navibar.css";
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import NavDropdown from "react-bootstrap/NavDropdown";
+import logoImage from "../assets/LogoPng.png";
+import favoritesIcon from "../assets/favoritos.png";
+import userIcon from "../assets/user.png";
+import cartIcon from "../assets/add-to-cart.png";
+import searchIcon from "../assets/lupa.png";
+import menuIcon from "../assets/menu.png";
+import downIcon from "../assets/down.png";
+import DropDown from "./DropDown";
+import parlantesImage from "../assets/parlantes.png";
+import audifonosImage from "../assets/audifonos.png";
+import botestermosImage from "../assets/botestermos.png";
+import cargadoresImage from "../assets/cargadores.png";
+import relojesImage from "../assets/relojes.png";
+import otrosImage from "../assets/otros.png";
+import Login from "./Login";
+import ProcederCompra from "./ProcederCompra";
+import Carrito from "./Carrito";
+import AdministrarEmpleados from "./AdministrarEmpleados";
 
 const Navibar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [active, setActive] = useState(false);
   const handleLogoClick = () => {
     if (window.innerWidth < 768) {
@@ -39,11 +40,10 @@ const Navibar = () => {
   };
   const [showCategories, setShowCategories] = useState(true);
 
-
   const handleSearch = (e) => {
     e.preventDefault();
     // Implementa la lógica de búsqueda aquí, como enviar el término de búsqueda a una API o filtrar datos
-    console.log('Searching for:', searchTerm);
+    console.log("Searching for:", searchTerm);
   };
 
   const [dropdown, setDropdown] = useState(false);
@@ -52,18 +52,17 @@ const Navibar = () => {
     setDropdown(!dropdown);
   };
   const [carritoVisible, setCarritoVisible] = useState(false);
-    const [backgroundVisible, setBackgroundVisible] = useState(false);
+  const [backgroundVisible, setBackgroundVisible] = useState(false);
 
-    const toggleCarrito = () => {
-      setCarritoVisible(!carritoVisible);
-      setBackgroundVisible(!backgroundVisible);
-    };
-  
-    const handleCloseCarrito = () => {
-      setCarritoVisible(false);
-      setBackgroundVisible(false);
-    };
+  const toggleCarrito = () => {
+    setCarritoVisible(!carritoVisible);
+    setBackgroundVisible(!backgroundVisible);
+  };
 
+  const handleCloseCarrito = () => {
+    setCarritoVisible(false);
+    setBackgroundVisible(false);
+  };
 
   window.addEventListener("scroll", () => {
     if (window.screenY > 70) {
@@ -74,14 +73,12 @@ const Navibar = () => {
   });
   return (
     <div>
-
-      <div className={`navbar ${searchOpen ? 'search-active' : ''}`}>
+      <div className={`navbar ${searchOpen ? "search-active" : ""}`}>
         {/* Envuelve el logo con un componente Link */}
         <Link to="/inicio" className="navbar-logo" onClick={handleLogoClick}>
           <img src={logoImage} alt="Logo" />
           <span className="brand-name"></span>
         </Link>
-
 
         {/* Contenedor del ícono de la lupa, que será visible solo en pantallas pequeñas */}
         <div className="icon-lupa-container">
@@ -92,7 +89,10 @@ const Navibar = () => {
 
         {/* Contenedor de la barra de búsqueda */}
         <div className="search-wrapper">
-          <form className={`search-container ${searchOpen ? 'search-open' : ''}`} onSubmit={handleSearch}>
+          <form
+            className={`search-container ${searchOpen ? "search-open" : ""}`}
+            onSubmit={handleSearch}
+          >
             <input
               type="text"
               className="search-box"
@@ -103,7 +103,7 @@ const Navibar = () => {
           </form>
           <button
             type="submit"
-            className={`search-button ${searchOpen ? 'search-open' : ''}`}
+            className={`search-button ${searchOpen ? "search-open" : ""}`}
             onClick={handleSearch}
           >
             <img src={searchIcon} alt="Buscar" />
@@ -118,84 +118,129 @@ const Navibar = () => {
 
         {/* Contenedor para los íconos de usuario y carrito */}
         <div className="icon-container">
-          <Login/>
+          <Login />
           <div className="icon-button" onClick={toggleCarrito}>
-                <img src={cartIcon} alt="Cart" className="icon" />
+            <img src={cartIcon} alt="Cart" className="icon" />
+          </div>
+          {carritoVisible && (
+            <div className="carrito-popup">
+              <Carrito onClose={handleCloseCarrito} />
             </div>
-            {carritoVisible && (
-                <div className="carrito-popup">
-                    <Carrito onClose={handleCloseCarrito} />
-                </div>    
-            )}
-            {backgroundVisible && <div className="background" onClick={handleCloseCarrito} />}
-
-         
+          )}
+          {backgroundVisible && (
+            <div className="background" onClick={handleCloseCarrito} />
+          )}
         </div>
       </div>
 
       {/* I Barra categorias con DropDown de Bootstrap*/}
       <div>
-        <Navbar className="barraCategorias" expand="lg" >
+        <Navbar className="barraCategorias" expand="lg">
           <Container fluid>
             <Navbar.Toggle aria-controls="navbar-dark-example" />
             <Navbar.Collapse id="navbar-dark-example">
               <Nav>
                 <button className="btnCategorias" onClick={toggleDropdown}>
                   <NavDropdown
-                    className='botonAdicional '
+                    className="botonAdicional "
                     id="nav-dropdown-categorias"
                     title={
                       <span style={{ color: "white" }}>
-                        <img src={menuIcon} alt='Categ' className='icon' />
+                        <img src={menuIcon} alt="Categ" className="icon" />
                         Categorias
                       </span>
                     }
                   >
                     <NavDropdown.Item href="#accion">
                       Parlantes
-                      <img src={parlantesImage} height="40px" alt="Parlantes" style={{ border: '7px solid #fff' }} />
+                      <img
+                        src={parlantesImage}
+                        height="40px"
+                        alt="Parlantes"
+                        style={{ border: "7px solid #fff" }}
+                      />
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item href="#accion">
                       Audífonos
-                      <img src={audifonosImage} height="40px" alt="Parlantes" style={{ border: '7px solid #fff' }} />
+                      <img
+                        src={audifonosImage}
+                        height="40px"
+                        alt="Parlantes"
+                        style={{ border: "7px solid #fff" }}
+                      />
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item href="#accion">
                       Botes y Termos
-                      <img src={botestermosImage} height="40px" alt="Parlantes" style={{ border: '7px solid #fff' }} />
+                      <img
+                        src={botestermosImage}
+                        height="40px"
+                        alt="Parlantes"
+                        style={{ border: "7px solid #fff" }}
+                      />
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item href="#accion">
                       Cargadores para Móvil
-                      <img src={cargadoresImage} height="40px" alt="Parlantes" style={{ border: '7px solid #fff' }} />
+                      <img
+                        src={cargadoresImage}
+                        height="40px"
+                        alt="Parlantes"
+                        style={{ border: "7px solid #fff" }}
+                      />
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item href="#accion">
                       Relojes Inteligentes
-                      <img src={relojesImage} height="40px" alt="Parlantes" style={{ border: '7px solid #fff' }} />
+                      <img
+                        src={relojesImage}
+                        height="40px"
+                        alt="Parlantes"
+                        style={{ border: "7px solid #fff" }}
+                      />
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item href="#accion">
                       Otros
-                      <img src={otrosImage} height="40px" alt="Parlantes" style={{ border: '7px solid #fff' }} />
+                      <img
+                        src={otrosImage}
+                        height="40px"
+                        alt="Parlantes"
+                        style={{ border: "7px solid #fff" }}
+                      />
                     </NavDropdown.Item>
                   </NavDropdown>
                 </button>
 
-                <Navbar.Brand className="botonAdicional" style={{ color: "white", fontSize: 15 }} href="#ProductosDestacados">Productos Destacados</Navbar.Brand>
-                <Navbar.Brand className="botonAdicional" style={{ color: "white", fontSize: 15 }} href="#ProductosDestacados">Historial De Compras</Navbar.Brand>
-                <Navbar.Brand className="botonAdicional" style={{ color: "white", fontSize: 15 }} href="#ProductosDestacados">Lista de Deseos</Navbar.Brand>
+                <Navbar.Brand
+                  className="botonAdicional"
+                  style={{ color: "white", fontSize: 15 }}
+                  href="#ProductosDestacados"
+                >
+                  Productos Destacados
+                </Navbar.Brand>
+                <Navbar.Brand
+                  className="botonAdicional"
+                  style={{ color: "white", fontSize: 15 }}
+                  href="#ProductosDestacados"
+                >
+                  Historial De Compras
+                </Navbar.Brand>
+                <Navbar.Brand
+                  className="botonAdicional"
+                  style={{ color: "white", fontSize: 15 }}
+                  href="#ProductosDestacados"
+                >
+                  <AdministrarEmpleados />
+                </Navbar.Brand>
               </Nav>
             </Navbar.Collapse>
           </Container>
         </Navbar>
       </div>
-
     </div>
-
   );
 };
-
 
 export default Navibar;
