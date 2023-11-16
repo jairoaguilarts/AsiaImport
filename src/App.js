@@ -10,6 +10,7 @@ import Admin from './components/AdminPage'
 import Fa from './components/Fa'; // Importa tu componente InfoG
 import ProcederCompra from './components/ProcederCompra';
 import Carrito from './components/Carrito';
+import PGAdmin from './components/PGeneralAdmin';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import EditarPerfil from './components/EditarPerfil';
 
@@ -26,6 +27,7 @@ function App() {
           <Route path="/preguntas" element={<Fa/>} /> {/* Ruta para InfoG */}
           <Route path="/compra" element={<ProcederCompra/>} /> {/* Ruta para InfoG */}
           <Route path="/carrito" element={<Carrito/>} /> {/* Ruta para InfoG */}
+          <Route path="/adminGeneral" element={<PGAdmin/>} /> {/* Ruta para PGeneralAdmin */}
           {/* Puedes añadir más rutas aquí */}
         </Routes>
         <Footer />
