@@ -1,0 +1,206 @@
+.carrito {
+    position: fixed;
+    right: 0;
+    top: 0;
+    height: 100vh;
+    width: 410px;
+    padding: 20px;
+    background-color: #FFF8E7; /* El color de fondo claro de la imagen */
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    overflow-y: auto; /* En caso de que haya muchos productos */
+}
+
+.close-btn {
+    align-self: flex-end;
+    margin: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+   
+
+    /* Estilos para el botón que contiene la imagen */
+    width: 30px; /* Ajusta el tamaño según sea necesario */
+    height: 30px; /* Ajusta el tamaño según sea necesario */
+    padding: 0; /* Elimina el relleno si no es necesario */
+}
+.close-btn img {
+    width: 100%; /* Hace que la imagen llene el botón */
+    height: auto; /* Mantiene la proporción de aspecto de la imagen */
+}
+
+.carrito h2 {
+    margin-bottom: 10px;
+    color:  rgb(13, 155, 207); /* Color de texto oscuro */
+    font-weight: bold;
+    text-align: center; /* Centrar el texto */
+
+    /* Agregar línea divisoria debajo del encabezado */
+    
+}
+.carrito hr {
+    border: none; /* Elimina el borde predeterminado */
+    height: 2px; /* Altura de la línea */
+    background-color: blue; /* Color de la línea */
+    margin-top: 10px; /* Ajusta según sea necesario */
+    margin-bottom: 10px; /* Ajusta según sea necesario */
+}
+.producto {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2); /* Línea divisoria gris suave */
+    padding-bottom: 10px; /* Espaciado inferior para la línea divisoria */
+}
+
+.producto-info {
+    display: flex;
+    align-items: center;
+}
+
+.producto-nombre {
+    margin-left: 10px;
+    font-size: 12px;
+}
+
+.producto-cantidad {
+    display: flex;
+    align-items: center;
+}
+
+.producto-precio {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.producto button img {
+    height: 20px;
+}
+
+.totales {
+    margin-top: 20px;
+}
+
+.subtotal, .entrega, .total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.pagar-btn {
+    width: 100%;
+    padding: 10px;
+    height: px;
+    background-color: #FDB254; /* Color de fondo del botón */
+    color:  #f9f9f8; /* Color del texto del botón */
+    text-align: center;
+
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    margin-top: 1px; /* Espacio superior para separar el botón de los totales */
+    font-weight: bold; /* Hacer el texto en negrita */
+}
+
+.pagar-btn:hover {
+    background-color: #0080cc; /* Cambia el color de fondo cuando se pasa el mouse sobre el botón */
+}
+
+/* Estilos para los botones de cantidad y eliminar */
+.carrito button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* Ajustes para el input de número */
+.carrito input[type="number"] {
+    width: 50px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 1em;
+}
+
+.background {
+    /* Estilos si decides utilizar una sombra de fondo */
+}
+.producto img {
+    width: 50px; /* Ajusta esto al tamaño deseado */
+    height: auto; /* Esto mantendrá la proporción de la imagen */
+    /* Otras propiedades de estilo si son necesarias, como margin o border */
+}
+.carrito .producto-cantidad button img {
+    width: 20px; /* Establece el ancho deseado para el icono más y menos */
+    height: auto; /* Esto asegurará que la altura se ajuste proporcionalmente */
+    margin-left: 10px;
+}
+
+/* Opcional: si también deseas cambiar el tamaño del botón en sí, puedes ajustar estas propiedades */
+.carrito .producto-cantidad button {
+    width: 25px; /* Establece el ancho deseado para el botón */
+    height: 40px; /* Establece la altura deseada para el botón */
+    padding: 5px; /* Ajusta el relleno para que los botones no sean demasiado grandes o pequeños */
+    /* Otros estilos que desees, como bordes, fondo, etc. */
+}
+.carrito .producto-cantidad input[type="number"] {
+    -webkit-appearance: none; /* Para Chrome, Safari, y Opera */
+    -moz-appearance: textfield; /* Para Firefox */
+    appearance: none; /* Para el estándar */
+    margin-left: 15px;
+}
+
+/* Para IE11, puedes necesitar ocultar las flechas con estos pseudoelementos */
+.carrito .producto-cantidad input[type="number"]::-ms-clear,
+.carrito .producto-cantidad input[type="number"]::-ms-reveal {
+    display: none;
+}
+
+.carrito .producto-cantidad input[type="number"]::-webkit-inner-spin-button,
+.carrito .producto-cantidad input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Asegúrate de que el input no pueda ser editado directamente */
+.carrito .producto-cantidad input[type="number"] {
+    pointer-events: none; /* Esto evitará que el usuario haga clic en el input y lo edite */
+}
+.carrito .producto button img {
+    width: 16px; /* Tamaño deseado */
+    height: 16px;
+
+    
+}
+.producto-precio {
+    margin-right: 10px;
+    margin-left: 25px;
+    font-weight: bold;
+    width: 200px;
+    font-size: 14px; /* Ajusta esto al tamaño de fuente deseado */
+    /* Añade cualquier otra propiedad de estilo que necesites, como color o line-height */
+}
+/* Añade estilos responsivos si es necesario */
+.divisor {
+    border-top: 2px solid rgba(2, 166, 252, 0.5); /* Azul más claro con opacidad reducida */
+    margin: 10px 0; /* Añade margen si es necesario */
+}
+.card-icon {
+    margin-right: 10px; /* Espacio entre el icono y el texto */
+    width: 30px; /* Ajusta el tamaño del icono según sea necesario */
+    height: auto; /* Mantiene la proporción de aspecto del icono */
+}
+.carrito-header {
+    display: flex;
+    align-items: center; /* Alinea verticalmente los elementos en el centro */
+    justify-content: center; /* Centra los elementos horizontalmente */
+    margin-bottom: 5px; /* Espacio debajo del encabezado */
+    margin-top: -10px;
+    
+}

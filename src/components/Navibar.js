@@ -21,6 +21,7 @@ import relojesImage from '../assets/relojes.png';
 import otrosImage from '../assets/otros.png';
 import Login from './Login';
 import ProcederCompra from './ProcederCompra';
+import Carrito from './Carrito';
 
 const Navibar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -50,6 +51,18 @@ const Navibar = () => {
   const toggleDropdown = () => {
     setDropdown(!dropdown);
   };
+  const [carritoVisible, setCarritoVisible] = useState(false);
+    const [backgroundVisible, setBackgroundVisible] = useState(false);
+
+    const toggleCarrito = () => {
+      setCarritoVisible(!carritoVisible);
+      setBackgroundVisible(!backgroundVisible);
+    };
+  
+    const handleCloseCarrito = () => {
+      setCarritoVisible(false);
+      setBackgroundVisible(false);
+    };
 
 
   window.addEventListener("scroll", () => {
@@ -106,9 +119,17 @@ const Navibar = () => {
         {/* Contenedor para los íconos de usuario y carrito */}
         <div className="icon-container">
           <Login/>
-          <Link to="/compra"className="icon-button">
-            <img src={cartIcon} alt="Cart" className="icon" />
-          </Link>
+          <div className="icon-button" onClick={toggleCarrito}>
+                <img src={cartIcon} alt="Cart" className="icon" />
+            </div>
+            {carritoVisible && (
+                <div className="carrito-popup">
+                    <Carrito onClose={handleCloseCarrito} />
+                </div>    
+            )}
+            {backgroundVisible && <div className="background" onClick={handleCloseCarrito} />}
+
+         
         </div>
       </div>
 
@@ -175,5 +196,6 @@ const Navibar = () => {
 
   );
 };
+
 
 export default Navibar;
