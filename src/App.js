@@ -6,6 +6,7 @@ import Navibar from './components/Navibar';
 import Footer from './components/Footer';
 import Inicio from './components/Inicio';
 import InfoG from './components/InfoG'; // Importa tu componente InfoG
+import Admin from './components/AdminPage'
 import Fa from './components/Fa'; // Importa tu componente InfoG
 import 'bootstrap/dist/css/bootstrap.min.css';
 import EditarPerfil from './components/EditarPerfil';
@@ -15,6 +16,7 @@ function App() {
     <Router>
       <div className="App">
         <Navibar />
+        <Admin />
         <Routes>
           <Route path="/inicio" element={<Inicio />} />
           <Route path="/acerca" element={<InfoG />} /> {/* Ruta para InfoG */}
