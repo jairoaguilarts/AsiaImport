@@ -71,7 +71,6 @@ function Login() {
       }
 
       const data = await response.json();
-      console.log('Registro exitoso:', data);
       handleClose();
     } catch (error) {
       console.error('Error en el registro:', error);
@@ -105,7 +104,7 @@ function Login() {
       }
 
       const data = await response.json();
-      console.log('Bienvenido ', data.usuario.nombre);
+      alert('Bienvenido ', data.usuario.nombre);
       handleClose();
     } catch (error) {
       console.error('Error en el registro:', error);
