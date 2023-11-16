@@ -43,9 +43,9 @@ function AdministrarEmpleados() {
               <Form.Control type="input" placeholder="Numero de Identidad" />
             </Form.Group>
 
-            <Button className="botones" onClick={handleCloseAgregar}>
+            <button className="botones" onClick={handleCloseAgregar}>
               AGREGAR EMPLEADO
-            </Button>
+            </button>
           </Modal.Body>
         </Modal>
       </div>
@@ -78,9 +78,9 @@ function AdministrarEmpleados() {
               <Form.Control type="input" placeholder="Numero de Identidad" />
             </Form.Group>
 
-            <Button className="botones" onClick={handleCloseEditar}>
+            <button className="botones" onClick={handleCloseEditar}>
               EDITAR EMPLEADO
-            </Button>
+            </button>
           </Modal.Body>
         </Modal>
       </div>
