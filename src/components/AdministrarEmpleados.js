@@ -7,12 +7,30 @@ import Form from "react-bootstrap/Form";
 function AdministrarEmpleados() {
   const [showAgregar, setShowAgregar] = useState(false);
   const [showEditar, setShowEditar] = useState(false);
+  const [showConfirmar, setShowConfirmar] = useState(false);
 
   const handleShowAgregar = () => setShowAgregar(true);
-  const handleCloseAgregar = () => setShowAgregar(false);
-
   const handleShowEditar = () => setShowEditar(true);
+
+  const handleCloseAgregar = () => setShowAgregar(false);
   const handleCloseEditar = () => setShowEditar(false);
+
+  const handleConfirmacion = () => {
+    // Esta función se llama cuando se hace clic en "Agregar" o "Editar"
+    handleShowConfirmar();
+  }
+
+  const handleShowConfirmar = () => setShowConfirmar(true);
+  const handleCloseConfirmar = () => setShowConfirmar(false);
+
+  const handleConfirmar = () => {
+    alert("Cambio Realizado");
+    setShowConfirmar(false);
+    setShowAgregar(false);
+    setShowEditar(false);
+    // Aquí puedes agregar la lógica para agregar o editar el empleado
+  };
+
   return (
     <div className="contenedor-principal">
       {/*Agregar Empleado */}
@@ -43,7 +61,7 @@ function AdministrarEmpleados() {
               <Form.Control type="input" placeholder="Numero de Identidad" />
             </Form.Group>
 
-            <button className="botones" onClick={handleCloseAgregar}>
+            <button className="botones" onClick={handleConfirmacion}>
               AGREGAR EMPLEADO
             </button>
           </Modal.Body>
@@ -78,10 +96,27 @@ function AdministrarEmpleados() {
               <Form.Control type="input" placeholder="Numero de Identidad" />
             </Form.Group>
 
-            <button className="botones" onClick={handleCloseEditar}>
+            <button className="botones" onClick={handleConfirmacion}>
               EDITAR EMPLEADO
             </button>
           </Modal.Body>
+        </Modal>
+
+        <Modal className="modal-confirmar" show={showConfirmar} onHide={handleCloseConfirmar}>
+          <Modal.Header closeButton>
+            <Modal.Title>Desea Confirmar su Cambio</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+          <Button variant="secondary" onClick={handleCloseConfirmar}>
+              Cancelar
+            </Button>
+            <Button variant="primary" onClick={handleConfirmar}>
+              Confirmar
+            </Button>
+            {/* Contenido del cuerpo del modal, si es necesario */}
+          </Modal.Body>
+          <Modal.Footer>
+          </Modal.Footer>
         </Modal>
       </div>
     </div>

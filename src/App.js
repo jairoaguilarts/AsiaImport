@@ -13,6 +13,7 @@ import Carrito from './components/Carrito';
 import PGAdmin from './components/PGeneralAdmin';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import EditarPerfil from './components/EditarPerfil';
+import Ventas from './components/Ventas';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/compra" element={<ProcederCompra/>} /> {/* Ruta para InfoG */}
           <Route path="/carrito" element={<Carrito/>} /> {/* Ruta para InfoG */}
           <Route path="/adminGeneral" element={<PGAdmin/>} /> {/* Ruta para PGeneralAdmin */}
+          <Route path="/ventas" element={<Ventas/>} /> {/* Ruta para PGeneralAdmin */}
           {/* Puedes añadir más rutas aquí */}
         </Routes>
         <Footer />
