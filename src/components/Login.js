@@ -6,12 +6,14 @@ import Modal from "react-bootstrap/Modal";
 import userIcon from "../assets/user.png";
 import iconoLock from "../assets/lock.png";
 import "./Login.css";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [show, setShow] = useState(false);
   const [isLoginSelected, setIsLoginSelected] = useState(true);
   const [showVentanaForgot, setShowVentanaForgot] = useState(false);
 
+  const navigate = useNavigate();
   const [formDataRegistro, setFormDataRegistro] = useState({
     nombre: "",
     apellido: "",
@@ -134,7 +136,7 @@ function Login() {
 
       const userData = await response.json();
       setUserData(userData);
-      console.log(userData);
+      navigate("/inicio");
       handleClose();
     } catch (error) {
       console.error("Error en el registro:", error);

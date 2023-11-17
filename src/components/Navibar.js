@@ -23,7 +23,6 @@ import Login from "./Login";
 import ProcederCompra from "./ProcederCompra";
 import Carrito from "./Carrito";
 
-
 const Navibar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -231,9 +230,7 @@ const Navibar = () => {
                   className="botonAdicional"
                   style={{ color: "white", fontSize: 15 }}
                   href="#ProductosDestacados"
-                >
-                  
-                </Navbar.Brand>
+                ></Navbar.Brand>
               </Nav>
             </Navbar.Collapse>
           </Container>
