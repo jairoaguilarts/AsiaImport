@@ -14,6 +14,7 @@ import PGAdmin from './components/PGeneralAdmin';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import EditarPerfil from './components/EditarPerfil';
 import Ventas from './components/Ventas';
+import AdminEmpleados from './components/AdminEmpleados';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/carrito" element={<Carrito/>} /> {/* Ruta para InfoG */}
           <Route path="/adminGeneral" element={<PGAdmin/>} /> {/* Ruta para PGeneralAdmin */}
           <Route path="/ventas" element={<Ventas/>} /> {/* Ruta para PGeneralAdmin */}
+          <Route path="/adminempleados" element={<AdminEmpleados/>} /> {/* Ruta para AdminEmpleados */}
           {/* Puedes añadir más rutas aquí */}
         </Routes>
         <Footer />

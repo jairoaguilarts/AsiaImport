@@ -22,7 +22,7 @@ import otrosImage from "../assets/otros.png";
 import Login from "./Login";
 import ProcederCompra from "./ProcederCompra";
 import Carrito from "./Carrito";
-import AdministrarEmpleados from "./AdministrarEmpleados";
+
 
 const Navibar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -232,7 +232,7 @@ const Navibar = () => {
                   style={{ color: "white", fontSize: 15 }}
                   href="#ProductosDestacados"
                 >
-                  <AdministrarEmpleados />
+                  
                 </Navbar.Brand>
               </Nav>
             </Navbar.Collapse>

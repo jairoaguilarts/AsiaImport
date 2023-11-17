@@ -49,8 +49,10 @@ const AdminPage = () => {
                     </div>
                     <hr className='linea-divisora'/>
                     <div className="sidebar-item">
+                    <Link to="/adminempleados">
                         <img src={empleados} alt='emp' className='icon-image'/>
                         <span>Empleados</span>
+                        </Link>
                     </div>
                     <hr className='linea-divisora'/>
                     <div className="sidebar-item">
