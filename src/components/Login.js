@@ -77,18 +77,16 @@ function Login() {
     };
 
     try {
-<<<<<<< HEAD
-      const response = await fetch("http://localhost:3000/signUp", {
-        method: "POST",
-=======
-      const response = await fetch('https://importasia-api.onrender.com/signUp', {
-        method: 'POST',
->>>>>>> 2edab452c5fc84f5b6fe61a964dc75ad146c93f5
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(datosRegistro),
-      });
+      const response = await fetch(
+        "https://importasia-api.onrender.com/signUp",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(datosRegistro),
+        }
+      );
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -118,18 +116,16 @@ function Login() {
     };
 
     try {
-<<<<<<< HEAD
-      const response = await fetch("http://localhost:3000/logIn", {
-        method: "POST",
-=======
-      const response = await fetch('https://importasia-api.onrender.com/logIn', {
-        method: 'POST',
->>>>>>> 2edab452c5fc84f5b6fe61a964dc75ad146c93f5
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(datosLogIn),
-      });
+      const response = await fetch(
+        "https://importasia-api.onrender.com/logIn",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(datosLogIn),
+        }
+      );
 
       if (!response.ok) {
         const errorData = await response.json();
