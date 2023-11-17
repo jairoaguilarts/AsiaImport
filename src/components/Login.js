@@ -74,7 +74,7 @@ function Login() {
     };
 
     try {
-      const response = await fetch('http://localhost:3000/signUp', {
+      const response = await fetch('https://importasia-api.onrender.com/signUp', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -107,7 +107,7 @@ function Login() {
     };
 
     try {
-      const response = await fetch('http://localhost:3000/logIn', {
+      const response = await fetch('https://importasia-api.onrender.com/logIn', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
