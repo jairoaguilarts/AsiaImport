@@ -8,7 +8,6 @@ import iconoLock from "../assets/lock.png";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
 
-let userData;
 function Login() {
   const [show, setShow] = useState(false);
   const [isLoginSelected, setIsLoginSelected] = useState(true);
@@ -141,7 +140,7 @@ function Login() {
         throw new Error(`Error: ${errorData.message || response.status}`);
       }
 
-      userData = await response.json();
+      const userData = await response.json();
       setUserData(userData);
       navigate("/inicio");
       handleClose();
@@ -331,4 +330,4 @@ function Login() {
   );
 }
 
-export { userData, Login };
+export default Login;

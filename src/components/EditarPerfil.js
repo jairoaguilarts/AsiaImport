@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./EditarPerfil.css";
-import { userData } from "./Login";
+
 import userIcon from "../assets/avatar.png";
 import lockIcon from "../assets/locked.png";
 import lapizIcon from "../assets/lapiz.png";
@@ -32,9 +32,7 @@ const EditarPerfil = () => {
       </div>
       <div className="info-usuario">
         <img src={lapizIcon} alt="Editar" className="icono-lapiz" />
-        <label className="etiqueta-usuario">
-          userData.usuario.nombre + " "+ userData.usuario.apellido
-        </label>
+        <label className="etiqueta-usuario">Nombre de Usuario</label>
       </div>
       <div className="perfil-container">
         <form className="formulario-perfil" onSubmit={handleSubmit}>
