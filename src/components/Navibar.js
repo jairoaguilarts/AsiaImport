@@ -19,7 +19,7 @@ import botestermosImage from "../assets/botestermos.png";
 import cargadoresImage from "../assets/cargadores.png";
 import relojesImage from "../assets/relojes.png";
 import otrosImage from "../assets/otros.png";
-import Login from "./Login";
+import { Login, userData } from "./Login";
 import ProcederCompra from "./ProcederCompra";
 import Carrito from "./Carrito";
 

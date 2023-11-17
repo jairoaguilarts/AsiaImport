@@ -8,6 +8,7 @@ import iconoLock from "../assets/lock.png";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
 
+let userData;
 function Login() {
   const [show, setShow] = useState(false);
   const [isLoginSelected, setIsLoginSelected] = useState(true);
@@ -37,7 +38,6 @@ function Login() {
     if (userData?.usuario?.nombre) {
       navigate("/editar");
     } else {
-      // Si no está autenticado, mostrar el modal de inicio de sesión
       setShow(true);
     }
   };
@@ -141,7 +141,7 @@ function Login() {
         throw new Error(`Error: ${errorData.message || response.status}`);
       }
 
-      const userData = await response.json();
+      userData = await response.json();
       setUserData(userData);
       navigate("/inicio");
       handleClose();
@@ -331,4 +331,4 @@ function Login() {
   );
 }
 
-export default Login;
+export { userData, Login };
