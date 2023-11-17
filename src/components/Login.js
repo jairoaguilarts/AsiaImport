@@ -33,7 +33,14 @@ function Login() {
     setShowVentanaForgot(false);
   };
 
-  const handleShow = () => setShow(true);
+  const handleShow = () => {
+    if (userData?.usuario?.nombre) {
+      navigate("/editar");
+    } else {
+      // Si no está autenticado, mostrar el modal de inicio de sesión
+      setShow(true);
+    }
+  };
 
   const handleForgotShow = () => {
     setShowVentanaForgot(true);
