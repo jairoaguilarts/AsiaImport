@@ -128,16 +128,13 @@ function Login() {
     };
 
     try {
-      const response = await fetch(
-        "https://importasia-api.onrender.com/logIn",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(datosLogIn),
-        }
-      );
+      const response = await fetch("http://localhost:3000/logIn", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(datosLogIn),
+      });
 
       if (!response.ok) {
         const errorData = await response.json();

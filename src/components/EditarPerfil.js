@@ -13,17 +13,48 @@ const EditarPerfil = () => {
   const [id, setId] = useState("");
   const [showModal, setShowModal] = useState(false);
   const { firebaseUID } = useUserContext();
-  const handleSubmit = (event) => {
+  const [datosEditados, setdatosEditados] = useState({});
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log({ nombre, apellido, id });
+
+    try {
+      const response = await fetch(
+        `http://localhost:3000/perfil?firebaseUID=${"a7jCfhWftKPk8tOwilZdToKJ9vq1"}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            nombre: nombre, // Asegúrate de tener estas variables definidas en tu estado
+            apellido: apellido,
+            identidad: id,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.text();
+        throw new Error(`Error: ${errorData.message || response.status}`);
+      }
+
+      const userData = await response.json();
+      console.log("Datos actualizados del usuario:", userData);
+      // Puedes realizar otras acciones después de la actualización, si es necesario.
+    } catch (error) {
+      console.error("Error al actualizar información del usuario:", error);
+      // Puedes manejar el error de acuerdo a tus necesidades.
+    }
   };
+
   const handleGetInfo = async () => {
     try {
       console.log("Prueba antes de Response:", firebaseUID);
 
       console.log(firebaseUID);
       const response = await fetch(
-        `https://importasia-api.onrender.com/perfil?firebaseUID=${"a7jCfhWftKPk8tOwilZdToKJ9vq1"}`,
+        `http://localhost:3000/perfil?firebaseUID=${"a7jCfhWftKPk8tOwilZdToKJ9vq1"}`,
         {
           method: "GET",
           headers: {
@@ -72,8 +103,7 @@ const EditarPerfil = () => {
       </div>
       <div className="info-usuario">
         <img src={lapizIcon} alt="Editar" className="icono-lapiz" />
-        <label className="etiqueta-usuario">{nombre + apellido}</label>
-        <label className="etiqueta-usuario">F no funciona</label>
+        <label className="etiqueta-usuario">{nombre + " " + apellido}</label>
       </div>
       <div className="perfil-container">
         <form className="formulario-perfil" onSubmit={handleSubmit}>
@@ -117,7 +147,11 @@ const EditarPerfil = () => {
             </a>
           </div>
           <div className="campo-formulario">
-            <button type="submit" className="boton-guardar">
+            <button
+              type="submit"
+              className="boton-guardar"
+              onClick={handleSubmit}
+            >
               GUARDAR
             </button>
           </div>
