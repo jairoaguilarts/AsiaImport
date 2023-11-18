@@ -17,9 +17,10 @@ const EditarPerfil = () => {
     event.preventDefault();
     console.log({ nombre, apellido, id });
   };
-  console.log("Firebase UID from UserContext:", firebaseUID);
   const handleGetInfo = async () => {
     try {
+      console.log("Prueba antes de Response:", firebaseUID);
+
       console.log(firebaseUID);
       const response = await fetch(
         `https://importasia-api.onrender.com/perfil?firebaseUID=${firebaseUID}`,
@@ -30,6 +31,7 @@ const EditarPerfil = () => {
           },
         }
       );
+      console.log("Response:", response);
 
       if (!response.ok) {
         const errorData = await response.json();
