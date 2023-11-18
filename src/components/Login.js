@@ -152,6 +152,7 @@ function Login() {
         userId: userData.usuario.firebaseUID,
       });
 
+      console.log(useUserContext.userId);
       setUserData(userData);
       navigate("/inicio");
       handleClose();
