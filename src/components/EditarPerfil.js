@@ -17,7 +17,7 @@ const EditarPerfil = () => {
     event.preventDefault();
     console.log({ nombre, apellido, id });
   };
-
+  console.log("Firebase UID from UserContext:", firebaseUID);
   const handleGetInfo = async () => {
     try {
       console.log(firebaseUID);
@@ -37,6 +37,7 @@ const EditarPerfil = () => {
       }
 
       const userData = await response.json();
+      console.log("UserData:", userData);
 
       setNombre(userData.nombre);
       setApellido(userData.apellido);
