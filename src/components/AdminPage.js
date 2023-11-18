@@ -22,7 +22,7 @@ const AdminPage = () => {
     setSidebarOpen(false);
   };
 
-  if (!isAdmin || !isLoggedIn) {
+  if (!isAdmin) {
     return null;
   }
 

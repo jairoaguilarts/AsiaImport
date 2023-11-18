@@ -147,6 +147,8 @@ function Login() {
       const userData = await response.json();
       
       const isAdmin = userData.userType === "*";
+      console.log("isLoggedIn:", true);
+      console.log("isAdmin:", isAdmin);
       updateUserState({
         isAdmin,
         isLoggedIn: true,
