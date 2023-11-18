@@ -23,7 +23,7 @@ const EditarPerfil = () => {
 
       console.log(firebaseUID);
       const response = await fetch(
-        `https://importasia-api.onrender.com/perfil?firebaseUID=${firebaseUID}`,
+        `https://importasia-api.onrender.com/perfil?firebaseUID=${"a7jCfhWftKPk8tOwilZdToKJ9vq1"}`,
         {
           method: "GET",
           headers: {
