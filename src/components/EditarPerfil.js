@@ -21,7 +21,7 @@ const EditarPerfil = () => {
   const handleGetInfo = async () => {
     try {
       const response = await fetch(
-        `https://importasia-api.onrender.com/Perfil?firebaseUID=${firebaseUID}`,
+        `https://importasia-api.onrender.com/perfil?firebaseUID=${firebaseUID}`,
         {
           method: "GET",
           headers: {
