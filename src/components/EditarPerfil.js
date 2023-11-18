@@ -68,7 +68,8 @@ const EditarPerfil = () => {
       </div>
       <div className="info-usuario">
         <img src={lapizIcon} alt="Editar" className="icono-lapiz" />
-        <label className="etiqueta-usuario">Nombre de Usuario</label>
+        <label className="etiqueta-usuario">{nombre + apellido}</label>
+        <label className="etiqueta-usuario">F no funciona</label>
       </div>
       <div className="perfil-container">
         <form className="formulario-perfil" onSubmit={handleSubmit}>
