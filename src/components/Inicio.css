@@ -152,6 +152,7 @@
     color: white;
     border: none;
     padding: 3px;
+    background: transparent;
     font-size: 42px;
     cursor: crosshair;
     position: absolute;
@@ -166,11 +167,6 @@
 
 .next-btn {
     right: 10px;
-}
-
-.prev-btn:hover,
-.next-btn:hover {
-    background-color: #02a4fc39;
 }
 /* <Productos Destacados> */
 

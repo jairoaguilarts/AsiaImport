@@ -5,6 +5,7 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import userIcon from "../assets/user.png";
 import iconoLock from "../assets/lock.png";
+import { useUserContext, userContext } from './UserContext';
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
 
@@ -66,7 +67,10 @@ function Login() {
   const handleChangeLogIn = (e) => {
     setFormDataLogIn({ ...formDataLogIn, [e.target.id]: e.target.value });
   };
+
   const [userData, setUserData] = useState(null);
+  const { updateUserState } = useUserContext();
+
   const handleRegister = async () => {
     if (
       formDataRegistro.formBasicPasswordRegistro !==
@@ -141,6 +145,13 @@ function Login() {
       }
 
       const userData = await response.json();
+      
+      const isAdmin = userData.userType === "*";
+      updateUserState({
+        isAdmin,
+        isLoggedIn: true,
+      });
+
       setUserData(userData);
       navigate("/inicio");
       handleClose();

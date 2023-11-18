@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Button, Collapse } from 'react-bootstrap';
+import { Container, Collapse } from 'react-bootstrap';
 import './AdminPage.css';
 import { Link } from 'react-router-dom';
 import menu from '../assets/menu-sidebar.png';
@@ -8,9 +8,11 @@ import editar from '../assets/pEdit.png';
 import empleados from '../assets/pEmpleados.png';
 import ventas from '../assets/pVentas.png';
 import logOut from '../assets/logout.png';
+import { useUserContext } from './UserContext';
 
 const AdminPage = () => {
-  const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [isSidebarOpen, setSidebarOpen] = useState(true);
+  const { isAdmin, isLoggedIn } = useUserContext();
 
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
@@ -19,6 +21,10 @@ const AdminPage = () => {
   const closeSidebar = () => {
     setSidebarOpen(false);
   };
+
+  if (!isAdmin || !isLoggedIn) {
+    return null;
+  }
 
   return (
     <Container fluid>
