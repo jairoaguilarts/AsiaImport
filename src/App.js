@@ -15,27 +15,30 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import EditarPerfil from './components/EditarPerfil';
 import Ventas from './components/Ventas';
 import AdminEmpleados from './components/AdminEmpleados';
+import { UserProvider } from './components/UserContext';
 
 function App() {
   return (
     <Router>
-      <div className="App">
-        <Navibar />
-        <Admin />
-        <Routes>
-          <Route path="/inicio" element={<Inicio />} />
-          <Route path="/acerca" element={<InfoG />} /> {/* Ruta para InfoG */}
-          <Route path="/editar" element={<EditarPerfil />} /> {/* Ruta para InfoG */}
-          <Route path="/preguntas" element={<Fa/>} /> {/* Ruta para InfoG */}
-          <Route path="/compra" element={<ProcederCompra/>} /> {/* Ruta para InfoG */}
-          <Route path="/carrito" element={<Carrito/>} /> {/* Ruta para InfoG */}
-          <Route path="/adminGeneral" element={<PGAdmin/>} /> {/* Ruta para PGeneralAdmin */}
-          <Route path="/ventas" element={<Ventas/>} /> {/* Ruta para PGeneralAdmin */}
-          <Route path="/adminempleados" element={<AdminEmpleados/>} /> {/* Ruta para AdminEmpleados */}
-          {/* Puedes añadir más rutas aquí */}
-        </Routes>
-        <Footer />
-      </div>
+      <UserProvider>
+        <div className="App">
+          <Navibar />
+          <Admin />
+          <Routes>
+            <Route path="/inicio" element={<Inicio />} />
+            <Route path="/acerca" element={<InfoG />} /> {/* Ruta para InfoG */}
+            <Route path="/editar" element={<EditarPerfil />} /> {/* Ruta para InfoG */}
+            <Route path="/preguntas" element={<Fa/>} /> {/* Ruta para InfoG */}
+            <Route path="/compra" element={<ProcederCompra/>} /> {/* Ruta para InfoG */}
+            <Route path="/carrito" element={<Carrito/>} /> {/* Ruta para InfoG */}
+            <Route path="/adminGeneral" element={<PGAdmin/>} /> {/* Ruta para PGeneralAdmin */}
+            <Route path="/ventas" element={<Ventas/>} /> {/* Ruta para PGeneralAdmin */}
+            <Route path="/adminempleados" element={<AdminEmpleados/>} /> {/* Ruta para AdminEmpleados */}
+            {/* Puedes añadir más rutas aquí */}
+          </Routes>
+          <Footer />
+        </div>
+      </UserProvider>
     </Router>
   );
 }
