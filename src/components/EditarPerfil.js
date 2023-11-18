@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./EditarPerfil.css";
+import { useUserContext, userContext } from "./UserContext";
 
 import userIcon from "../assets/avatar.png";
 import lockIcon from "../assets/locked.png";
@@ -11,12 +12,40 @@ const EditarPerfil = () => {
   const [apellido, setApellido] = useState("");
   const [id, setId] = useState("");
   const [showModal, setShowModal] = useState(false);
-
+  const { firebaseUID } = useUserContext();
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log({ nombre, apellido, id });
   };
 
+  const handleGetInfo = async () => {
+    try {
+      const response = await fetch(
+        `https://importasia-api.onrender.com/Perfil?firebaseUID=${firebaseUID}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Error: ${errorData.message || response.status}`);
+      }
+
+      const userData = await response.json();
+
+      setNombre(userData.nombre);
+      setApellido(userData.apellido);
+      setId(userData.numeroIdentidad);
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    handleGetInfo();
+  }, []);
   const handlePasswordChangeClick = () => {
     setShowModal(true);
   };
@@ -24,6 +53,13 @@ const EditarPerfil = () => {
   const handleCloseModal = () => {
     setShowModal(false);
   };
+
+  const [userID, setUserID] = useState("");
+
+  const [formDataLogIn, setFormDataLogIn] = useState({
+    correo: "",
+    contrasenia: "",
+  });
 
   return (
     <div className="perfil-wrapper">
@@ -40,7 +76,7 @@ const EditarPerfil = () => {
             <label htmlFor="nombre">Nombre*</label>
             <input
               type="text"
-              id="nombre"
+              id="Nombre-editar"
               value={nombre}
               onChange={(e) => setNombre(e.target.value)}
               required
@@ -50,7 +86,7 @@ const EditarPerfil = () => {
             <label htmlFor="apellido">Apellido*</label>
             <input
               type="text"
-              id="apellido"
+              id="Apellido-editar"
               value={apellido}
               onChange={(e) => setApellido(e.target.value)}
               required
@@ -60,7 +96,7 @@ const EditarPerfil = () => {
             <label htmlFor="id">ID*</label>
             <input
               type="text"
-              id="id"
+              id="Identidad-editar"
               value={id}
               onChange={(e) => setId(e.target.value)}
               required

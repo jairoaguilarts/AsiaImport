@@ -5,7 +5,7 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import userIcon from "../assets/user.png";
 import iconoLock from "../assets/lock.png";
-import { useUserContext, userContext } from './UserContext';
+import { useUserContext, userContext } from "./UserContext";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
 
@@ -149,6 +149,7 @@ function Login() {
       updateUserState({
         isAdmin: userData.userType === "*",
         isLoggedIn: true,
+        userId: userData.usuario.firebaseUID,
       });
 
       setUserData(userData);
