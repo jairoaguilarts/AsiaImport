@@ -6,6 +6,7 @@ import Modal from "react-bootstrap/Modal";
 import userIcon from "../assets/user.png";
 import iconoLock from "../assets/lock.png";
 import { useUserContext, userContext } from "./UserContext";
+import ConfirmacionCorreo from "./ConfirmacionCorreo";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
 
@@ -13,6 +14,8 @@ function Login() {
   const [show, setShow] = useState(false);
   const [isLoginSelected, setIsLoginSelected] = useState(true);
   const [showVentanaForgot, setShowVentanaForgot] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false); // Estado para ConfirmacionCorreo
+  const [emailRecovery, setEmailRecovery] = useState("");
 
   const navigate = useNavigate();
   const [formDataRegistro, setFormDataRegistro] = useState({
@@ -77,6 +80,8 @@ function Login() {
       formDataRegistro.formBasicConfirmPassword
     ) {
       alert("Las contraseñas no coinciden");
+      setShowConfirmation(true);
+      handleClose();
       return;
     }
 
@@ -90,7 +95,7 @@ function Login() {
 
     try {
       const response = await fetch(
-        "https://importasia-api.onrender.com/signUp",
+        "http://localhost:3000/signUp",
         {
           method: "POST",
           headers: {
@@ -106,6 +111,8 @@ function Login() {
       }
 
       const data = await response.json();
+      handleClose();
+      setShowConfirmation(true); // Mostrar la ventana de confirmación
       handleClose();
     } catch (error) {
       console.error("Error en el registro:", error);
@@ -138,7 +145,15 @@ function Login() {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(`Error: ${errorData.message || response.status}`);
+        if (
+          response.status === 401 &&
+          errorData.error === "Correo electrónico no verificado"
+        ) {
+          setShowConfirmation(true);
+        } else {
+          throw new Error(`Error: ${errorData.message || response.status}`);
+        }
+        return;
       }
 
       const userData = await response.json();
@@ -155,6 +170,43 @@ function Login() {
     } catch (error) {
       console.error("Error en el registro:", error);
       alert("Error en el registro: " + error.message);
+    }
+  };
+
+  const handlePasswordRecovery = async () => {
+    if (!emailRecovery.trim()) {
+      alert("Por favor, ingresa un correo electrónico");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:3000/recoverPassword", {
+        method: "POST", // Asegúrate de usar el método POST
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ correo: emailRecovery }),
+      });
+
+      if (!response.ok) {
+        const contentType = response.headers.get("content-type");
+        if (contentType && contentType.includes("application/json")) {
+          const errorData = await response.json();
+          alert(`Error: ${errorData.message}`);
+        } else {
+          const errorText = await response.text();
+          alert(`Error: ${errorText}`);
+        }
+        return;
+      }
+
+      alert("Se ha enviado un correo de recuperación a tu email");
+      setEmailRecovery("");
+      handleForgotClose();
+    } catch (error) {
+      alert(
+        "Error en la recuperación de contraseña. Por favor, verifica tu conexión a internet y intenta de nuevo."
+      );
     }
   };
 
@@ -334,6 +386,66 @@ function Login() {
           </Button>
         </Modal.Footer>
       </Modal>
+
+      {showConfirmation && (
+        <ConfirmacionCorreo onClose={() => setShowConfirmation(false)} />
+      )}
+
+      {showVentanaForgot && ( //recuperar contraseña diseño
+        <Modal
+          show={showVentanaForgot}
+          onHide={handleForgotClose}
+          size="md"
+          centered
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>
+              <div className="forgot_container">
+                <img src={iconoLock} alt="icono_lock" className="forgot_icon" />
+                <h1
+                  className="forgot_titulo"
+                  style={{
+                    fontSize: "1.5rem",
+                    marginRight: "10px",
+                    whiteSpace: "nowrap",
+                    overflow: "visible",
+                    textOverflow: "clip",
+                    maxWidth: "100%",
+                  }}
+                >
+                  Recuperar Contraseña
+                </h1>{" "}
+              </div>
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p className="body_text">
+              Ingresa tu correo electrónico para recuperar tu contraseña.
+            </p>
+            <Form>
+              <Form.Group controlId="formBasicEmailRecovery">
+                <Form.Label>Correo Electrónico</Form.Label>
+                <Form.Control
+                  type="email"
+                  value={emailRecovery}
+                  onChange={(e) => setEmailRecovery(e.target.value)}
+                  autoFocus
+                />
+              </Form.Group>
+            </Form>
+            <div className="d-flex justify-content-center">
+              <Button
+                className="recuperar"
+                variant="primary"
+                size="md"
+                onClick={handlePasswordRecovery}
+              >
+                RECUPERAR
+              </Button>
+            </div>
+          </Modal.Body>
+        </Modal>
+      )}
     </>
   );
 }

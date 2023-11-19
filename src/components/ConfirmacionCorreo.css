@@ -1,42 +1,60 @@
-.container {
-    width: 80%;
-    text-align: center;
-    align-items: center;
-}
-.logo {
-    height: 100px;
-    width: 100px;
-    margin-bottom: 0;
-}
-.linea_naranja {
-    border: 3px solid orange;
-    width: 30%;
-    margin: 0 auto;
+.modal-content {
+    padding: 30px;
+    border-radius: 8px; 
+    border: none; 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
 }
 
-.linea_azul {
-    border: 3px solid #01A6FF;
-    width: 25%;
-    margin: 0 auto;
+.modal-header {
+    border-bottom: none; 
+    justify-content: center; 
+    padding-bottom: 0; 
+}
+
+.modal-body {
+    text-align: center; 
+}
+
+.logo {
+    width: 200px; 
+    margin: 0 auto 20px; 
+}
+
+.linea_azul, .linea_naranja {
+    height: 4px; 
+    margin: 20px auto; 
+    border-radius: 2px; 
 }
 
 .texto_bold {
-    margin-top: 10px;
-    font-size: 20px;
+    font-size: 22px; 
     font-weight: bold;
+    color: #ff1c1c; 
+    margin: 20px 0; 
 }
 
 .texto_normal {
-    font-size: 16px;
+    font-size: 18px; 
+    color: #555; 
+    line-height: 1.6;
+    margin-bottom: 25px; 
 }
 
 .button {
-    background-color: #01A6FF;
-    margin: 10px 0 10px 0;
+    background-color: #01A6FF; 
+    border: none;
+    padding: 10px 30px; 
+    font-size: 18px;
+    border-radius: 5px; 
+    margin: 20px 0; 
+    display: inline-block;
     color: white;
 }
 
 .letra_peque {
-    margin-top: 10px;
-    font-size: 12px;
+    font-size: 14px; 
+    color: #666;
+    margin-top: 20px;
 }
+
+
