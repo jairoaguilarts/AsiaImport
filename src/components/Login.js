@@ -275,9 +275,8 @@ function Login() {
             <div className="button-container">
               <button
                 onClick={handleIniciarSesionClick}
-                className={`iniciar-sesion ${
-                  isLoginSelected ? "selected" : ""
-                }`}
+                className={`iniciar-sesion ${isLoginSelected ? "selected" : ""
+                  }`}
               >
                 <p>Iniciar Sesión</p>
               </button>

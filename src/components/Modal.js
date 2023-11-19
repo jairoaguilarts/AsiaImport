@@ -6,7 +6,7 @@ import visibleIcon from '../assets/visible.png'; // Asegúrate de que la ruta se
 
 const Modal = ({ onClose }) => {
   const [passwordShown, setPasswordShown] = useState(false);
-  
+
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown => !passwordShown);
   };

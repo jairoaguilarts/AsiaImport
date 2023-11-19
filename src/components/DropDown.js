@@ -26,10 +26,10 @@ function DropDown() {
 
       </button>
       <button className="btnCategorias" >
-       Otros
+        Otros
 
       </button>
-    
+
     </div>
   );
 }

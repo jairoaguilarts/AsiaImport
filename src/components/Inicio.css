@@ -66,7 +66,6 @@
 
 }
 
-/* Estilos para teléfonos móviles (pantallas hasta 480px) */
 @media (max-width: 480px) {
     .destacado-text {
         font-size: 35px;
@@ -148,7 +147,8 @@
     background-color: #0277bd;
 }
 
-.prev-btn, .next-btn {
+.prev-btn,
+.next-btn {
     color: white;
     border: none;
     padding: 3px;
@@ -168,7 +168,8 @@
 .next-btn {
     right: 10px;
 }
-/* <Productos Destacados> */
+
+/* </Productos Destacados> */
 
 /* <Categorias> */
 .product-section {
@@ -216,4 +217,5 @@
     color: #333;
     margin: 10px;
 }
-/* <Categorias> */
+
+/* </Categorias> */

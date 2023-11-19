@@ -5,13 +5,13 @@
     height: 100vh;
     width: 410px;
     padding: 20px;
-    background-color: #FFF8E7; /* El color de fondo claro de la imagen */
+    background-color: #FFF8E7;
     border-radius: 5px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     z-index: 1000;
-    overflow-y: auto; /* En caso de que haya muchos productos */
+    overflow-y: auto;
 }
 
 .close-btn {
@@ -20,41 +20,38 @@
     background: none;
     border: none;
     cursor: pointer;
-   
-
-    /* Estilos para el botón que contiene la imagen */
-    width: 30px; /* Ajusta el tamaño según sea necesario */
-    height: 30px; /* Ajusta el tamaño según sea necesario */
-    padding: 0; /* Elimina el relleno si no es necesario */
+    width: 30px;
+    height: 30px;
+    padding: 0;
 }
+
 .close-btn img {
-    width: 100%; /* Hace que la imagen llene el botón */
-    height: auto; /* Mantiene la proporción de aspecto de la imagen */
+    width: 100%;
+    height: auto;
 }
 
 .carrito h2 {
     margin-bottom: 10px;
-    color:  rgb(13, 155, 207); /* Color de texto oscuro */
+    color: rgb(13, 155, 207);
     font-weight: bold;
-    text-align: center; /* Centrar el texto */
+    text-align: center;
+}
 
-    /* Agregar línea divisoria debajo del encabezado */
-    
-}
 .carrito hr {
-    border: none; /* Elimina el borde predeterminado */
-    height: 2px; /* Altura de la línea */
-    background-color: blue; /* Color de la línea */
-    margin-top: 10px; /* Ajusta según sea necesario */
-    margin-bottom: 10px; /* Ajusta según sea necesario */
+    border: none;
+    height: 2px;
+    background-color: blue;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
+
 .producto {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 10px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2); /* Línea divisoria gris suave */
-    padding-bottom: 10px; /* Espaciado inferior para la línea divisoria */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding-bottom: 10px;
 }
 
 .producto-info {
@@ -85,7 +82,9 @@
     margin-top: 20px;
 }
 
-.subtotal, .entrega, .total {
+.subtotal,
+.entrega,
+.total {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -96,29 +95,27 @@
     width: 100%;
     padding: 10px;
     height: px;
-    background-color: #FDB254; /* Color de fondo del botón */
-    color:  #f9f9f8; /* Color del texto del botón */
+    background-color: #FDB254;
+    color: #f9f9f8;
     text-align: center;
 
     border-radius: 5px;
     font-size: 1.1em;
     cursor: pointer;
-    margin-top: 1px; /* Espacio superior para separar el botón de los totales */
-    font-weight: bold; /* Hacer el texto en negrita */
+    margin-top: 1px;
+    font-weight: bold;
 }
 
 .pagar-btn:hover {
-    background-color: #0080cc; /* Cambia el color de fondo cuando se pasa el mouse sobre el botón */
+    background-color: #0080cc;
 }
 
-/* Estilos para los botones de cantidad y eliminar */
 .carrito button {
     background: none;
     border: none;
     cursor: pointer;
 }
 
-/* Ajustes para el input de número */
 .carrito input[type="number"] {
     width: 50px;
     padding: 5px;
@@ -128,35 +125,30 @@
     font-size: 1em;
 }
 
-.background {
-    /* Estilos si decides utilizar una sombra de fondo */
-}
 .producto img {
-    width: 50px; /* Ajusta esto al tamaño deseado */
-    height: auto; /* Esto mantendrá la proporción de la imagen */
-    /* Otras propiedades de estilo si son necesarias, como margin o border */
+    width: 50px;
+    height: auto;
 }
+
 .carrito .producto-cantidad button img {
-    width: 20px; /* Establece el ancho deseado para el icono más y menos */
-    height: auto; /* Esto asegurará que la altura se ajuste proporcionalmente */
+    width: 20px;
+    height: auto;
     margin-left: 10px;
 }
 
-/* Opcional: si también deseas cambiar el tamaño del botón en sí, puedes ajustar estas propiedades */
 .carrito .producto-cantidad button {
-    width: 25px; /* Establece el ancho deseado para el botón */
-    height: 40px; /* Establece la altura deseada para el botón */
-    padding: 5px; /* Ajusta el relleno para que los botones no sean demasiado grandes o pequeños */
-    /* Otros estilos que desees, como bordes, fondo, etc. */
+    width: 25px;
+    height: 40px;
+    padding: 5px;
 }
+
 .carrito .producto-cantidad input[type="number"] {
-    -webkit-appearance: none; /* Para Chrome, Safari, y Opera */
-    -moz-appearance: textfield; /* Para Firefox */
-    appearance: none; /* Para el estándar */
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+    appearance: none;
     margin-left: 15px;
 }
 
-/* Para IE11, puedes necesitar ocultar las flechas con estos pseudoelementos */
 .carrito .producto-cantidad input[type="number"]::-ms-clear,
 .carrito .producto-cantidad input[type="number"]::-ms-reveal {
     display: none;
@@ -168,39 +160,42 @@
     margin: 0;
 }
 
-/* Asegúrate de que el input no pueda ser editado directamente */
 .carrito .producto-cantidad input[type="number"] {
-    pointer-events: none; /* Esto evitará que el usuario haga clic en el input y lo edite */
+    pointer-events: none;
 }
+
 .carrito .producto button img {
-    width: 16px; /* Tamaño deseado */
+    width: 16px;
     height: 16px;
 
-    
+
 }
+
 .producto-precio {
     margin-right: 10px;
     margin-left: 25px;
     font-weight: bold;
     width: 200px;
-    font-size: 14px; /* Ajusta esto al tamaño de fuente deseado */
-    /* Añade cualquier otra propiedad de estilo que necesites, como color o line-height */
+    font-size: 14px;
 }
-/* Añade estilos responsivos si es necesario */
+
+
 .divisor {
-    border-top: 2px solid rgba(2, 166, 252, 0.5); /* Azul más claro con opacidad reducida */
-    margin: 10px 0; /* Añade margen si es necesario */
+    border-top: 2px solid rgba(2, 166, 252, 0.5);
+    margin: 10px 0;
 }
+
 .card-icon {
-    margin-right: 10px; /* Espacio entre el icono y el texto */
-    width: 30px; /* Ajusta el tamaño del icono según sea necesario */
-    height: auto; /* Mantiene la proporción de aspecto del icono */
+    margin-right: 10px;
+    width: 30px;
+    height: auto;
 }
+
 .carrito-header {
     display: flex;
-    align-items: center; /* Alinea verticalmente los elementos en el centro */
-    justify-content: center; /* Centra los elementos horizontalmente */
-    margin-bottom: 5px; /* Espacio debajo del encabezado */
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 5px;
     margin-top: -10px;
-    
+
 }

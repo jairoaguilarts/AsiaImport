@@ -75,7 +75,7 @@ const EditarPerfil = () => {
       setNombre(userData.nombre);
       setApellido(userData.apellido);
       setId(userData.numeroIdentidad);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   useEffect(() => {

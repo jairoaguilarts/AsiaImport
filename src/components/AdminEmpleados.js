@@ -176,7 +176,7 @@ const AdminEmpleados = () => {
                     {/* Contenido del pie de página del modal, si es necesario */}
                 </Modal.Footer>
             </Modal>
-            
+
             {/* Modal de confirmación de hacer admin */}
             <Modal show={showHacerAdminConfirmar} onHide={handleCloseHacerAdminConfirmar}>
                 <Modal.Header closeButton>
