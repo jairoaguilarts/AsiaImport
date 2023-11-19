@@ -22,10 +22,6 @@ const AdminPage = () => {
     setSidebarOpen(false);
   };
 
-  if (!isAdmin) {
-    return null;
-  }
-
   return (
     <Container fluid>
         {/* Botón fijo para activar el sidebar */}
