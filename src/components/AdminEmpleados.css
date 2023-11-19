@@ -1,207 +1,201 @@
+/* Estilos generales para el contenedor principal */
 .admin-empleados-container {
-    padding: 40px; /* Aumentar el padding para más espacio interno */
-    background-color: #fff; /* Color de fondo blanco */
-    border-radius: 10px; /* Bordes más redondeados */
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15); /* Sombra más prominente */
-    margin: 40px 220px 40px auto; /* Aumentar margen derecho para mover más a la izquierda */
-    max-width: 1200px; /* Ancho máximo más grande del contenedor */
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start; /* Cambiado para alinear elementos hijos a la izquierda */
+  padding: 5%;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
+  margin: 5% 13% 5% auto; /* Ajustado el margen derecho para mover 25% más a la izquierda */
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
-
-h1 {
-    font-size: 50px;
-    font-weight: bold;
-    font-style: italic;
-    color: orange;
-  margin: 40px -160px 40px auto;
-    text-align: center;
-    margin-bottom: 30px; /* Tamaño de fuente más grande para el título */
+/* Estilos para el título principal */
+h1, .titulo-empleados {
+  font-size: 3rem;
+  font-weight: bold;
+  font-style: italic;
+  color: orange;
+  text-align: center;
+  margin-bottom: 2rem; /* Espacio inferior reducido */
 }
 
-.titulo-empleados{
-    
-        font-size: 50px;
-        font-weight: bold;
-        font-style: italic;
-        color: orange;
-        margin: 40px -160px 40px auto;
-    
-        text-align: center;
-        margin-bottom: 30px; 
-}
-
+/* Estilos para los botones */
 .boton-anaranjado, .boton-verde, .boton-rojo {
-    background-color: #FFA500; /* Para botón anaranjado */
-    color: white;
-    border: none;
-    padding: 15px 20px; /* Padding más grande para botones más grandes */
-    border-radius: 8px; /* Bordes redondeados más grandes */
-    cursor: pointer;
-    margin-right: 15px;
-    margin-bottom: 30px;
-    font-size: 1.2em; /* Tamaño de fuente más grande para los botones */
+  background-color: #FFA500; /* Para botón anaranjado */
+  color: white;
+  border: none;
+  padding: 1rem 2rem; /* Padding más grande para botones más grandes */
+  border-radius: 8px; /* Bordes redondeados más grandes */
+  cursor: pointer;
+  margin: 0.5rem;
+  font-size: 1.2rem; /* Tamaño de fuente más grande para los botones */
 }
 
 .boton-verde {
-    background-color: #28a745; /* Color verde */
+  background-color: #28a745; /* Color verde */
 }
 
 .boton-rojo {
-    background-color: #dc3545; /* Color rojo */
+  background-color: #dc3545; /* Color rojo */
 }
 
+/* Estilos para la tabla */
 .tabla-empleados {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 30px;
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem;
 }
 
 .tabla-empleados th, .tabla-empleados td {
-    border: 1px solid #ddd;
-    padding: 12px; /* Padding más grande para celdas más grandes */
-    text-align: center;
-    font-size: 1.1em; /* Tamaño de fuente más grande para texto de tabla */
+  border: 1px solid #ddd;
+  padding: 1.5rem; /* Padding más grande para celdas más grandes */
+  text-align: center;
+  font-size: 1.1rem; /* Tamaño de fuente más grande para texto de tabla */
 }
 
 .tabla-empleados th {
-    background-color: #f2f2f2;
-    font-size: 1.2em; /* Tamaño de fuente aún más grande para cabeceras de tabla */
+  background-color: #f2f2f2;
+  font-size: 1.2rem; /* Tamaño de fuente aún más grande para cabeceras de tabla */
 }
 
-/* Estilos adicionales para mejorar la apariencia pueden ser añadidos aquí */
+/* Estilos para los contenedores de agregar y editar */
+.container-agregar, .container-editar {
+  width: 60%;
+}
 
-.contenedor-principal {
-    display: flex;
-    justify-content: space-between; 
-    padding: 10px; 
-    
-  }
+/* Estilos para el cuerpo */
+.cuerpo {
+  padding: 1rem;
+  font-size: 1rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-.container-agregar,
-.container-editar {
-  width: 60%; 
-  
-  
+/* Estilos para los formularios */
+.forms {
+  padding: 1rem;
+  margin: 0.5rem;
+  font-size: 1rem;
+  width: 100%;
 }
-.cuerpo{
-    padding-left: 60px;
-    padding-right: 60px;
-    font-size: 18px;
-    width: 100%;
-    align-items: center;
-    
-}
-.forms{
-    padding: 1px;  
-    margin: 5px;
-    font-size: 18px;
-    width: 100%;
-    
-}
-.encabezados{
-    border-bottom: 2px solid #FDB254;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 10px;
-}
-.titulos{
-    margin: 0;
 
+/* Estilos para los encabezados */
+.encabezados {
+  border-bottom: 2px solid #FDB254;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 10px;
 }
+
+/* Estilos para los títulos */
+.titulos {
+  margin: 0;
+}
+
+/* Estilos para el botón de cerrar */
 .close {
-    align-self: flex-start; 
-}
-.botones{
-    margin: 10px auto;  padding: 10px;
-    border: none;
-    cursor: pointer;
-    color: white;
-    background-color: #01A6FF;
-    border-radius: 88px;
-    font-weight: bold;
-    font-size: 14px;
-    width: 100%;
-}
-.btn-agregar{
-    margin: 10px auto;  padding: 10px;
-    border: none;
-    cursor: pointer;
-    color: white;
-    background-color: #FDB254;
-    border-radius: 88px;
-    font-weight: bold;
-    font-size: 14px;
-    width: 100%;
-}
-.btn-editar{
-    margin: 10px 30px ;  padding: 10px;
-    border: none;
-    cursor: pointer;
-    color: white;
-    background-color: #00BF63;
-    border-radius: 88px;
-    font-weight: bold;
-    font-size: 14px;
-    width: 100%;
+  align-self: flex-start;
 }
 
-/* Estilos generales para el modal de confirmación */
+/* Estilos para los botones generales */
+.botones {
+  margin: 1rem auto;
+  padding: 1rem;
+  border: none;
+  cursor: pointer;
+  color: white;
+  background-color: #01A6FF;
+  border-radius: 88px;
+  font-weight: bold;
+  font-size: 1rem;
+  width: 100%;
+}
+
+/* Estilos para el botón de agregar */
+.btn-agregar {
+  margin: 1rem auto;
+  padding: 1rem;
+  border: none;
+  cursor: pointer;
+  color: white;
+  background-color: #FDB254;
+  border-radius: 88px;
+  font-weight: bold;
+  font-size: 1rem;
+  width: 100%;
+}
+
+/* Estilos para el botón de editar */
+.btn-editar {
+  margin: 1rem 0.5rem;
+  padding: 1rem;
+  border: none;
+  cursor: pointer;
+  color: white;
+  background-color: #00BF63;
+  border-radius: 88px;
+  font-weight: bold;
+  font-size: 1rem;
+  width: 100%;
+}
+
+/* Estilos para el modal de confirmación */
 .modal-confirmar .modal-dialog {
-    max-width: 500px;
-    margin: 30px auto;
-  }
-  
-  .modal-confirmar .modal-content {
-    border-radius: 15px;
-    border: none;
-  }
-  
-  /* Estilos para el encabezado del modal de confirmación */
-  .modal-confirmar .modal-header {
-    background-color: #f8f9fa;
-    border-bottom: 2px solid #FDB254;
-    padding: 15px;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-  }
-  
-  .modal-confirmar .modal-title {
-    font-weight: bold;
-    color: #FDB254;
-    font-size: 20px;
-    text-align: center;
-  }
-  
-  /* ... tus estilos existentes ... */
+  max-width: 500px;
+  margin: 5% auto;
+}
+
+.modal-confirmar .modal-content {
+  border-radius: 15px;
+  border: none;
+}
+
+/* Estilos para el encabezado del modal de confirmación */
+.modal-confirmar .modal-header {
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #FDB254;
+  padding: 1rem;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.modal-confirmar .modal-title {
+  font-weight: bold;
+  color: #FDB254;
+  font-size: 1.25rem;
+  text-align: center;
+}
 
 /* Estilos para el cuerpo del modal de confirmación */
 .modal-confirmar .modal-body {
-    display: flex; /* Usa flexbox para alinear los elementos internos */
-    justify-content: center; /* Centra los elementos horizontalmente */
-    align-items: center; /* Centra los elementos verticalmente */
-    flex-direction: row; /* Alinea los elementos en una fila */
-    padding: 20px; /* Añade un poco de espacio alrededor del contenido del modal */
-  }
-  
-  /* Estilos para los botones dentro del cuerpo del modal */
-  .modal-confirmar .modal-body .btn {
-    margin: 0 10px; /* Espaciado entre los botones */
-    min-width: 140px; /* Asegura un ancho mínimo para los botones */
-  }
-  
-  /* Botón Cancelar */
-  .modal-confirmar .modal-body .btn-secondary {
-    background-color: #6c757d; /* Color gris */
-    color: white;
-  }
-  
-  /* Botón Confirmar */
-  .modal-confirmar .modal-body .btn-primary {
-    background-color: #01A6FF; /* Color azul */
-    color: white;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  padding: 1.5rem;
+}
+
+/* Estilos para los botones dentro del cuerpo del modal */
+.modal-confirmar .modal-body .btn {
+  margin: 0 1rem;
+  min-width: 140px;
+}
+
+/* Botón Cancelar */
+.modal-confirmar .modal-body .btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+/* Botón Confirmar */
+.modal-confirmar .modal-body .btn-primary {
+  background-color: #01A6FF;
+  color: white;
+}
+
+

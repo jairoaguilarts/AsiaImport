@@ -10,6 +10,7 @@ const AdminEmpleados = () => {
     const [showEditar, setShowEditar] = useState(false);
     const [showConfirmar, setShowConfirmar] = useState(false);
     const [showEliminarConfirmar, setShowEliminarConfirmar] = useState(false);
+    const [showHacerAdminConfirmar, setShowHacerAdminConfirmar] = useState(false);
 
     const handleShowAgregar = () => setShowAgregar(true);
     const handleCloseAgregar = () => setShowAgregar(false);
@@ -39,13 +40,25 @@ const AdminEmpleados = () => {
     const handleShowEliminarConfirmar = () => setShowEliminarConfirmar(true);
     const handleCloseEliminarConfirmar = () => setShowEliminarConfirmar(false);
 
+    const handleShowHacerAdminConfirmar = () => setShowHacerAdminConfirmar(true);
+    const handleCloseHacerAdminConfirmar = () => setShowHacerAdminConfirmar(false);
+
+    const handleHacerAdminConfirmacion = () => {
+        // Esta función se llama cuando se hace clic en "Hacer Admin"
+        handleShowHacerAdminConfirmar();
+    };
+
+    const handleHacerAdmin = () => {
+        // Aquí puedes agregar la lógica para hacer admin al empleado
+        alert("Empleado hecho admin");
+        setShowHacerAdminConfirmar(false);
+    };
+
     const handleEliminar = () => {
         // Aquí puedes agregar la lógica para eliminar el empleado
         alert("Empleado eliminado");
         handleCloseEliminarConfirmar(); // Cerrar el modal de confirmación de eliminación
     };
-
-    
 
     return (
         <div>
@@ -71,7 +84,9 @@ const AdminEmpleados = () => {
                             <td>Pedro Ramirez</td>
                             <td>p.rami@example.com</td>
                             <td>
-                                <button className="boton-anaranjado">Hacer Admin</button>
+                                <button className="boton-anaranjado" onClick={handleHacerAdminConfirmacion}>
+                                    Hacer Admin
+                                </button>
                                 <button className="boton-verde" onClick={handleShowEditar}>
                                     Editar
                                 </button>
@@ -161,8 +176,27 @@ const AdminEmpleados = () => {
                     {/* Contenido del pie de página del modal, si es necesario */}
                 </Modal.Footer>
             </Modal>
-             {/* Modal de confirmación de eliminación */}
-             <Modal className="modal-confirmar" show={showEliminarConfirmar} onHide={handleCloseEliminarConfirmar}>
+            
+            {/* Modal de confirmación de hacer admin */}
+            <Modal show={showHacerAdminConfirmar} onHide={handleCloseHacerAdminConfirmar}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Confirmar Admin</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    ¿Estás seguro de que deseas hacer admin a este empleado?
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleCloseHacerAdminConfirmar}>
+                        Cancelar
+                    </Button>
+                    <Button variant="primary" onClick={handleHacerAdmin}>
+                        Confirmar
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+
+            {/* Modal de confirmación de eliminación */}
+            <Modal className="modal-confirmar" show={showEliminarConfirmar} onHide={handleCloseEliminarConfirmar}>
                 <Modal.Header closeButton>
                     <Modal.Title>Confirmar Eliminación</Modal.Title>
                 </Modal.Header>
@@ -179,7 +213,6 @@ const AdminEmpleados = () => {
                 </Modal.Footer>
             </Modal>
 
-            
         </div>
     );
 };
