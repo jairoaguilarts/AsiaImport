@@ -16,6 +16,7 @@ const EditarPerfil = () => {
   const [datosEditados, setdatosEditados] = useState({});
 
   const handleSubmit = async (event) => {
+  
     event.preventDefault();
 
     try {
@@ -46,6 +47,8 @@ const EditarPerfil = () => {
       console.error("Error al actualizar información del usuario:", error);
       // Puedes manejar el error de acuerdo a tus necesidades.
     }
+    alert("Cambios Realizados");
+
   };
 
   const handleGetInfo = async () => {

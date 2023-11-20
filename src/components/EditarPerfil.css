@@ -113,8 +113,7 @@
   }
 
   .icono-usuario img {
-    width: 120px;
-    margin-left: -170px;
+    display: none; /* Ocultar el icono de usuario en pantallas más pequeñas */
   }
 
   .info-usuario {
@@ -122,7 +121,7 @@
   }
 
   .icono-lapiz {
-    width: 15px;
+    display: none; /* Ocultar el icono del lápiz en pantallas más pequeñas */
   }
 
   .etiqueta-usuario {
@@ -140,19 +139,11 @@
   }
 
   .icono-usuario {
-    margin: 0 auto;
-  }
-
-  .icono-usuario img {
-    width: 100px;
+    display: none; /* Ocultar completamente el contenedor del icono de usuario */
   }
 
   .info-usuario {
     margin-left: -20px;
-  }
-
-  .icono-lapiz {
-    width: 12px;
   }
 
   .etiqueta-usuario {
