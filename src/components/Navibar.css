@@ -201,110 +201,123 @@
 }
 
 /*estilos pantalla pequena*/
-@media (max-width: 1435px) {
-
-  .icon-lupa-container {
+@media (max-width: 768px) {
+  .navbar .navbar-collapse {
     display: flex;
-    position: absolute;
-    right: 130px;
-    top: 30px;
+    flex-basis: 100%;
+    flex-direction: column;
   }
 
-  .icon-container {
-    position: absolute;
-    top: 20px;
-    right: 10px;
-    flex-direction: row;
-  }
-
-  .search-container {
-    display: none;
-    position: absolute;
-    top: 80px;
-    left: 0;
-    right: 0;
-    width: 110%;
-    z-index: 10;
-  }
-
-  .search-wrapper {
-    position: absolute;
-    width: 100%;
-    top: 40px;
-  }
-
-  .search-button {
-    position: absolute;
-    z-index: 11;
-    top: 85px;
-  }
-
-  .search-container,
-  .search-button {
-    display: none;
-  }
-
-  .search-open {
+  .navbar .nav-item {
     display: block;
   }
 
-  .search-active .search-container {
-    display: flex;
-  }
-
-  .search-active .search-box {
-    width: calc(100% - 50px);
-  }
-
-  .menu {
+  .navbar .dropdown-menu {
+    position: static !important;
+    float: none !important;
     display: none;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
+    visibility: hidden;
   }
 
-  .menu-open {
-    display: flex;
-    margin-left: 0;
+  .navbar .dropdown-menu.show {
+    display: block;
+    visibility: visible;
   }
 
-  .menu-item {
-    width: 100%;
-    text-align: center;
-    padding: 10px;
-    margin-right: 0;
-  }
-
-  .icon-button img {
-    width: 30px;
-    height: 30px;
-    padding: auto;
-    margin-right: -20px;
-  }
-
-  .icon-button:last-child {
-    margin-right: 20px;
-  }
-
-  .icon-button p {
+  .navbar .dropdown-toggle:after {
     display: none;
   }
 
-  .navbar-logo img {
-    height: 100px;
+  /* Ajustes para el botón de categorías */
+  .navbar .btnCategorias {
+    display: block;
+    width: 100%;
+    text-align: left;
   }
 
-  .navbar {
-    position: relative;
+  /* Ocultar imágenes en el menú desplegable */
+  .navbar .dropdown-menu .nav-link img {
+    display: none;
   }
 
-  .menu-open+.icon-container {
-    right: 20px;
+  /* Estilos para los enlaces dentro del menú desplegable */
+  .navbar .dropdown-menu .nav-link {
+    font-size: 14px;
+    color: #000;
+    padding: 0.5rem 1rem;
   }
 
-  .brand-name {
-    font-size: 20px;
-    margin-left: 5px;
+  /* Estilos para los items del menú desplegable */
+  .navbar .dropdown-item {
+    display: block;
+    width: 100%;
+    clear: both;
+    font-weight: 400;
+    color: #212529;
+    text-align: inherit;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
+  }
+
+  @media (max-width: 900px) {
+    .navbar .navbar-collapse {
+      display: flex;
+      flex-basis: 100%;
+      flex-direction: column;
+    }
+  
+    .navbar .nav-item {
+      display: block;
+    }
+  
+    .navbar .dropdown-menu {
+      position: static !important;
+      float: none !important;
+      display: none;
+      visibility: hidden;
+    }
+  
+    .navbar .dropdown-menu.show {
+      display: block;
+      visibility: visible;
+    }
+  
+    .navbar .dropdown-toggle:after {
+      display: none;
+    }
+  
+    /* Ajustes para el botón de categorías */
+    .navbar .btnCategorias {
+      display: block;
+      width: 100%;
+      text-align: left;
+    }
+  
+    /* Ocultar imágenes en el menú desplegable */
+    .navbar .dropdown-menu .nav-link img {
+      display: none;
+    }
+  
+    /* Estilos para los enlaces dentro del menú desplegable */
+    .navbar .dropdown-menu .nav-link {
+      font-size: 14px;
+      color: #000;
+      padding: 0.5rem 1rem;
+    }
+  
+    /* Estilos para los items del menú desplegable */
+    .navbar .dropdown-item {
+      display: block;
+      width: 100%;
+      clear: both;
+      font-weight: 400;
+      color: #212529;
+      text-align: inherit;
+      white-space: nowrap;
+      background-color: transparent;
+      border: 0;
+    }
   }
 
 }
