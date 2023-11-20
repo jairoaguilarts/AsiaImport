@@ -159,9 +159,11 @@ function Login() {
       const userData = await response.json();
 
       const FUID = userData.usuario.firebaseUID;
+      const UserType=userData.usuario.userType;
       localStorage.setItem("FireBaseUID", FUID);
+      localStorage.setItem("UserType",UserType);
       console.log("Este es el FirebaseUID en Login: ", FUID);
-
+      console.log("Este es el UT en Login: ", UserType);
       setUserData(userData);
       navigate("/inicio");
       handleClose();

@@ -12,7 +12,7 @@ const EditarPerfil = () => {
   const [apellido, setApellido] = useState("");
   const [id, setId] = useState("");
   const [showModal, setShowModal] = useState(false);
-  const { firebaseUID } = useUserContext();
+  const firebaseUID = localStorage.getItem("FireBaseUID");
   const [datosEditados, setdatosEditados] = useState({});
 
   const handleSubmit = async (event) => {
@@ -20,7 +20,7 @@ const EditarPerfil = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:3000/perfil?firebaseUID=${"a7jCfhWftKPk8tOwilZdToKJ9vq1"}`,
+        `http://localhost:3000/perfil?firebaseUID=${firebaseUID}`,
         {
           method: "PUT",
           headers: {
@@ -54,7 +54,7 @@ const EditarPerfil = () => {
 
       console.log(firebaseUID);
       const response = await fetch(
-        `http://localhost:3000/perfil?firebaseUID=${"a7jCfhWftKPk8tOwilZdToKJ9vq1"}`,
+        `http://localhost:3000/perfil?firebaseUID=${firebaseUID}`,
         {
           method: "GET",
           headers: {
@@ -75,7 +75,7 @@ const EditarPerfil = () => {
       setNombre(userData.nombre);
       setApellido(userData.apellido);
       setId(userData.numeroIdentidad);
-    } catch (error) { }
+    } catch (error) {}
   };
 
   useEffect(() => {

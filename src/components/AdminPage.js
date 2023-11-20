@@ -11,6 +11,7 @@ import logOut from '../assets/logout.png';
 
 const AdminPage = () => {
     const firebaseUID = localStorage.getItem("FireBaseUID");
+    const UserType = localStorage.getItem("UserType");
     const [isSidebarOpen, setSidebarOpen] = useState(true);
 
     const toggleSidebar = () => {
