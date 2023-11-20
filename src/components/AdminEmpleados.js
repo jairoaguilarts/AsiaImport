@@ -12,6 +12,18 @@ const AdminEmpleados = () => {
     const [showEliminarConfirmar, setShowEliminarConfirmar] = useState(false);
     const [showHacerAdminConfirmar, setShowHacerAdminConfirmar] = useState(false);
 
+    const [formDataAgregar, setFormDataAgregar] = useState({
+        nombre: "",
+        numeroIdentidad: "",
+        correo: "",
+        contrasenia: ""
+    });
+
+    const [formDataModificar, setFormDataModificar] = useState({
+        nombre: "",
+        numeroIdentidad: ""
+    });
+
     const handleShowAgregar = () => setShowAgregar(true);
     const handleCloseAgregar = () => setShowAgregar(false);
 
@@ -19,7 +31,6 @@ const AdminEmpleados = () => {
     const handleCloseEditar = () => setShowEditar(false);
 
     const handleConfirmacion = () => {
-        // Esta función se llama cuando se hace clic en "Agregar" o "Editar"
         handleShowConfirmar();
     };
 
@@ -30,9 +41,79 @@ const AdminEmpleados = () => {
         setShowEliminarConfirmar(true);
     };
 
-    const handleConfirmar = () => {
-        // Aquí puedes agregar la lógica para agregar o editar el empleado
-        alert("Cambio Realizado");
+    const handleChangeAgregar = (e) => {
+        setFormDataAgregar({ ...formDataAgregar, [e.target.id]: e.target.value });
+    };
+
+    const handleChangeModificar = (e) => {
+        setFormDataModificar({ ...formDataModificar, [e.target.id]: e.target.value });
+    };
+
+    const handleConfirmar = async () => {
+        if (showAgregar) {
+            //Agregar empleado
+            const nombreApellido = formDataAgregar.formNombre.split(" ");
+            const datosAgregar = {
+                nombre: nombreApellido[0],
+                apellido: nombreApellido[1],
+                numeroIdentidad: formDataAgregar.formID,
+                correo: formDataAgregar.formCorreo,
+                contrasenia: formDataAgregar.formPass,
+                userCreatingType: "*" //Tiene que traer el tipo de usuario desde el login
+            };
+
+            try {
+                const response = await fetch("https://importasia-api.onrender.com/agregarEmpleado",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(datosAgregar),
+                    }
+                );
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(`Error: ${errorData.message || response.status}`);
+                }
+                alert("Empleado agregado exitosamente");
+            } catch (error) {
+                console.error("Error en el registro:", error);
+                alert("Error en el registro: " + error.message);
+            }
+        } else if (showEditar) {
+            //Modificar empleado
+            const nombreApellido = formDataModificar.nombreEditar.split(" ");
+            const datosEditar = {
+                nombre: nombreApellido[0],
+                apellido: nombreApellido[1],
+                numeroIdentidad: formDataModificar.formIDEditar,
+                correo: formDataModificar.formCorreoEditar,
+                userModifyingType: "*" //Tiene que traer el tipo de usuario desde el login
+            };
+
+            try {
+                const response = await fetch(`https://importasia-api.onrender.com/modificarEmpleado?firebaseUID=${"scQCn79Pc0YbVisK3sYLYrhWt3T2"}`,
+                    {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(datosEditar),
+                    }
+                );
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(`Error: ${errorData.message || response.status}`);
+                }
+                alert("Empleado agregado exitosamente");
+            } catch (error) {
+                console.error("Error en el registro:", error);
+                alert("Error en el registro: " + error.message);
+            }
+        }
         setShowConfirmar(false);
         handleCloseEditar(); // Cerrar el modal de edición
     };
@@ -108,19 +189,19 @@ const AdminEmpleados = () => {
                 <Modal.Body className="cuerpo">
                     <Form.Group className="forms" controlId="formNombre">
                         <Form.Label>Nombre de Empleado</Form.Label>
-                        <Form.Control
-                            type="input"
-                            placeholder="Nombre de Empleado"
-                            autoFocus
-                        />
-                    </Form.Group>
-                    <Form.Group className="forms" controlId="formCorreo">
-                        <Form.Label>Correo Electrónico</Form.Label>
-                        <Form.Control type="email" placeholder="Correo Electrónico" />
+                        <Form.Control type="input" placeholder="Nombre de Empleado" onChange={handleChangeAgregar} autoFocus />
                     </Form.Group>
                     <Form.Group className="forms" controlId="formID">
                         <Form.Label>Numero de Identidad</Form.Label>
-                        <Form.Control type="input" placeholder="Numero de Identidad" />
+                        <Form.Control type="input" placeholder="Numero de Identidad" onChange={handleChangeAgregar} />
+                    </Form.Group>
+                    <Form.Group className="forms" controlId="formCorreo">
+                        <Form.Label>Correo Electrónico</Form.Label>
+                        <Form.Control type="email" placeholder="Correo Electrónico" onChange={handleChangeAgregar} />
+                    </Form.Group>
+                    <Form.Group className="forms" controlId="formPass">
+                        <Form.Label>Contraseña</Form.Label>
+                        <Form.Control type="password" placeholder="Contraseña" onChange={handleChangeAgregar} />
                     </Form.Group>
 
                     <button className="botones" onClick={handleConfirmacion}>
@@ -135,27 +216,24 @@ const AdminEmpleados = () => {
                     <Modal.Title className="titulos">Editar Empleado</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="cuerpo">
-                    <Form.Group className="forms" controlId="formNombre-editar">
+                    <Form.Group className="forms" controlId="nombreEditar">
                         <Form.Label>Nombre de Empleado</Form.Label>
-                        <Form.Control
-                            type="input"
-                            placeholder="Nombre de Empleado"
-                            autoFocus
-                        />
+                        <Form.Control type="input" placeholder="Nombre de Empleado" onChange={handleChangeModificar} autoFocus />
                     </Form.Group>
-                    <Form.Group className="forms" controlId="formCorreo-editar">
+                    <Form.Group className="forms" controlId="formCorreoEditar">
                         <Form.Label>Correo Electrónico</Form.Label>
-                        <Form.Control type="email" placeholder="Correo Electrónico" />
+                        <Form.Control type="email" placeholder="Correo Electrónico" onChange={handleChangeModificar} />
                     </Form.Group>
-                    <Form.Group className="forms" controlId="formID-editar">
+                    <Form.Group className="forms" controlId="formIDEditar">
                         <Form.Label>Numero de Identidad</Form.Label>
-                        <Form.Control type="input" placeholder="Numero de Identidad" />
+                        <Form.Control type="input" placeholder="Numero de Identidad" onChange={handleChangeModificar} />
                     </Form.Group>
-
-                    <button className="botones" onClick={handleConfirmacion}>
-                        EDITAR EMPLEADO
-                    </button>
                 </Modal.Body>
+                <Modal.Footer>
+                    <Button className="botones" onClick={handleConfirmar}>
+                        EDITAR EMPLEADO
+                    </Button>
+                </Modal.Footer>
             </Modal>
 
             {/* Modal de confirmación */}
