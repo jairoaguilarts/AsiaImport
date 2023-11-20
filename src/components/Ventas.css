@@ -1,40 +1,39 @@
 .ventas-container {
-    font-family: 'Arial', sans-serif; /* Elige la fuente que prefieras */
-    margin: 20px;
-    padding: 20px;
-    border-radius: 8px; /* Para los bordes redondeados */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave alrededor del contenedor */
-    background-color: #bee5eb; /* Fondo blanco o el color que prefieras */
-  }
-  
-  .ventas-container h1 {
-    font-size: 50px;
-    font-weight: bold;
-    font-style: italic;
-    color:  #FDB254;;
-    margin: 0 auto;
+  font-family: 'Arial', sans-serif;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #bee5eb;
+}
 
-    text-align: center;
-    padding-bottom: 20px;
-    border-bottom: 2px solid #f3f6f7;
-    margin-bottom: 20px;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    color: rgb(0, 0, 0);
-  }
-  
-  th, td {
-    border: 1px solid #cccccc; /* Borde de las celdas */
-    text-align: left;
-    padding: 8px;
-  }
-  
-  th {
-    background-color: #eeeeee; /* Fondo de los encabezados de tabla */
-  }
-  
-  /* Agrega más estilos personalizados según necesites */
-  
+.ventas-container h1 {
+  font-size: 50px;
+  font-weight: bold;
+  font-style: italic;
+  color: #FDB254;
+  ;
+  margin: 0 auto;
+
+  text-align: center;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #f3f6f7;
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  color: rgb(0, 0, 0);
+}
+
+th,
+td {
+  border: 1px solid #cccccc;
+  text-align: left;
+  padding: 8px;
+}
+
+th {
+  background-color: #eeeeee;
+}

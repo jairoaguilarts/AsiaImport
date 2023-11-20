@@ -44,7 +44,7 @@ function ProcederCompra() {
 
   return (
     <div className="ProcederCompra">
-       
+
       <div className="button-container">
         <button
           onClick={handleDeliveryClick}
@@ -55,54 +55,35 @@ function ProcederCompra() {
         <button
           onClick={handlePickupClick}
           className={`botones pick-up ${!isDeliverySelected ? 'selected' : ''}`}
-        > 
+        >
           <p>Recoger en tienda</p>
         </button>
       </div>
       {isDeliverySelected ? (
         <>
-      {/* Contenido de los departamentos */}
-      <div className="forms-container"> 
-      <form className='contenedores' >
-      <p>Departamento</p>
-      <Select
-        name="departamento"
-        value={options.find((opt) => opt.value === departamento)}
-        onChange={handleDepartamentoChange}
-        options={options}
-        isSearchable
-        placeholder="Seleccione una opcion" 
-        className="select-with-scroll"
-      />
+          {/* Contenido de los departamentos */}
+          <div className="forms-container">
+            <form className='contenedores' >
+              <p>Departamento</p>
+              <Select
+                name="departamento"
+                value={options.find((opt) => opt.value === departamento)}
+                onChange={handleDepartamentoChange}
+                options={options}
+                isSearchable
+                placeholder="Seleccione una opcion"
+                className="select-with-scroll"
+              />
 
-    </form>
-  
-  {/* Contenido de los Municipios */}
-    <p>Municipio</p>
-      <Form.Control className='contenedores' type="text" placeholder="Ingrese un Municipio" />
-      <p>Direccion de Envio 1</p>
-      <Form.Control className='contenedores' type="text" placeholder="Ingrese una Direccion" />
-      <p>Direccion de Envio 2</p>
-      <Form.Control className='contenedores' type="text" placeholder="Ingrese una Direccion" />
-      <p>Numero de Telefono</p>
-      <Form.Control className='contenedores' type="text" placeholder="Ingrese un Numero" />
+            </form>
 
-      <button className='boton-siguiente' >
-        <p>Siguiente</p>
-      </button>
-
-
-      </div>
-      </>
-     ) : (
-      <>
-      <div className="forms-container"> 
-      
-          {/* Contenido de PickUp */}
-          <p>Nombre de la persona que Recoge</p>
-            <Form.Control className='contenedores' type="text" placeholder="Ingrese un Nombre" />
-            <p>Numero de Identidad de la Persona que Recoge</p>
-            <Form.Control className='contenedores' type="text" placeholder="Ingrese un Numero de Identidad "/>
+            {/* Contenido de los Municipios */}
+            <p>Municipio</p>
+            <Form.Control className='contenedores' type="text" placeholder="Ingrese un Municipio" />
+            <p>Direccion de Envio 1</p>
+            <Form.Control className='contenedores' type="text" placeholder="Ingrese una Direccion" />
+            <p>Direccion de Envio 2</p>
+            <Form.Control className='contenedores' type="text" placeholder="Ingrese una Direccion" />
             <p>Numero de Telefono</p>
             <Form.Control className='contenedores' type="text" placeholder="Ingrese un Numero" />
 
@@ -111,10 +92,29 @@ function ProcederCompra() {
             </button>
 
 
-      </div>
-      </>
-     )}
-     
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="forms-container">
+
+            {/* Contenido de PickUp */}
+            <p>Nombre de la persona que Recoge</p>
+            <Form.Control className='contenedores' type="text" placeholder="Ingrese un Nombre" />
+            <p>Numero de Identidad de la Persona que Recoge</p>
+            <Form.Control className='contenedores' type="text" placeholder="Ingrese un Numero de Identidad " />
+            <p>Numero de Telefono</p>
+            <Form.Control className='contenedores' type="text" placeholder="Ingrese un Numero" />
+
+            <button className='boton-siguiente' >
+              <p>Siguiente</p>
+            </button>
+
+
+          </div>
+        </>
+      )}
+
     </div>
   );
 }

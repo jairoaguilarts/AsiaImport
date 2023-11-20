@@ -13,23 +13,23 @@ function PGeneralAdmin() {
                 <div className="contenedor-box-info">
                     <div className="cajita">
                         <div className='titulo'> Ganancias (Mensuales)</div>
-                            <div className='contenido-inf'>
-                                <p>L. 45,000.00</p>
-                                <img src={maleta} alt="maleta"/>
-                            </div>
+                        <div className='contenido-inf'>
+                            <p>L. 45,000.00</p>
+                            <img src={maleta} alt="maleta" />
+                        </div>
                     </div>
                     <div className="cajita">
                         <div className='titulo'> Ganancias (Anuales)</div>
                         <div className='contenido-inf'>
                             <p>L. 108,000.00</p>
-                            <img src={dinero} alt="money"/>
+                            <img src={dinero} alt="money" />
                         </div>
                     </div>
                     <div className="cajita">
                         <div className='titulo'> Ventas Totales</div>
                         <div className='contenido-inf'>
                             <p>74,500 .uds</p>
-                            <img src={venta} alt="venta$$$"/>
+                            <img src={venta} alt="venta$$$" />
                         </div>
                     </div>
                 </div>
@@ -40,14 +40,14 @@ function PGeneralAdmin() {
                         <div className='titulo'>Empleados</div>
                         <div className='contenido-inf'>
                             <p>38</p>
-                            <img src={emp} alt="empleados"/>
+                            <img src={emp} alt="empleados" />
                         </div>
                     </div>
                     <div className='cajita-2'>
                         <div className='titulo'>Administradores</div>
                         <div className='contenido-inf'>
                             <p>5</p>
-                            <img src={admin} alt="admin"/>
+                            <img src={admin} alt="admin" />
                         </div>
                     </div>
                 </div>
@@ -57,7 +57,7 @@ function PGeneralAdmin() {
                     <div className='cajita-3'>
                         <div className='titulo'>
                             Grafica de Ganancias
-                            <hr className='linea-divisora'/>
+                            <hr className='linea-divisora' />
                         </div>
                         <div className='contenido-inf'></div>
                     </div>

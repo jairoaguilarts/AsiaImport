@@ -95,7 +95,7 @@ function Login() {
 
     try {
       const response = await fetch(
-        "http://localhost:3000/signUp",
+        "https://importasia-api.onrender.com/signUp",
         {
           method: "POST",
           headers: {
@@ -135,7 +135,7 @@ function Login() {
     };
 
     try {
-      const response = await fetch("http://localhost:3000/logIn", {
+      const response = await fetch("https://importasia-api.onrender.com/logIn", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -180,8 +180,8 @@ function Login() {
     }
 
     try {
-      const response = await fetch("http://localhost:3000/recoverPassword", {
-        method: "POST", // Asegúrate de usar el método POST
+      const response = await fetch("https://importasia-api.onrender.com/recoverPassword", {
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
@@ -275,9 +275,8 @@ function Login() {
             <div className="button-container">
               <button
                 onClick={handleIniciarSesionClick}
-                className={`iniciar-sesion ${
-                  isLoginSelected ? "selected" : ""
-                }`}
+                className={`iniciar-sesion ${isLoginSelected ? "selected" : ""
+                  }`}
               >
                 <p>Iniciar Sesión</p>
               </button>

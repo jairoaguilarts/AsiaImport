@@ -132,19 +132,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; /* Asegúrate de que el z-index sea mayor que el del contenido de la página */
+  z-index: 1000;
 }
+
 .background {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Fondo opaco */
-  z-index: 999; /* Asegúrate de que el z-index sea menor que el del carrito */
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
 }
-
-
 
 .icon-lupa-container {
   display: none;
@@ -165,7 +164,6 @@
 
 .btnCategorias {
   background: none;
-
   border: none;
   cursor: pointer;
   padding: 8px;

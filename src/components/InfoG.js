@@ -26,21 +26,21 @@ const InfoG = () => {
     {
       title: 'Misión',
       description: 'Proveer a nuestros clientes una amplia gama de accesorios para teléfonos y artículos tecnológicos de alta calidad y vanguardia,',
-      descriptionC:' importados directamente de los mejores fabricantes de Asia. Nos comprometemos a ofrecer los mejores precios del mercado, garantizando una experiencia de compra excepcional, con un servicio al cliente inigualable y una atención personalizada que entiende y satisface las necesidades tecnológicas de una sociedad en constante evolución.',
+      descriptionC: ' importados directamente de los mejores fabricantes de Asia. Nos comprometemos a ofrecer los mejores precios del mercado, garantizando una experiencia de compra excepcional, con un servicio al cliente inigualable y una atención personalizada que entiende y satisface las necesidades tecnológicas de una sociedad en constante evolución.',
       icon: iconMission, // This should be the path to your image
     },
     {
-        title: 'Vision',
-        description: 'Ser la empresa líder en importación y distribución de accesorios para teléfonos y artículos tecnológicos en Honduras....',
-        descriptionC:'reconocida por su excelencia operativa y su capacidad para anticiparse y adaptarse a las tendencias del mercado. Aspiramos a ser el punto de referencia para los consumidores que buscan innovación, calidad y precios accesibles, expandiendo nuestra presencia a nivel nacional e internacional y fomentando la tecnología accesible como pilar de un futuro conectado y dinámico.',
-        icon: iconVision, // This should be the path to your image
-      },
-      {
-        title: 'Historia',
-        description: 'En 2022, noté una creciente demanda de accesorios para dispositivos electrónicos y una oportunidad de mercado debido....',
-        descriptionC:' a los altos precios locales. Conversando con amigos, confirmé que los precios eran prohibitivos en comparación con opciones en línea o internacionales. Esto me motivó a contactar a un fabricante y negociar precios ventajosos, permitiéndome ofrecer productos asequibles en mi país y posibilitando que otros emprendieran en la reventa. Conseguí un crédito del fabricante, lo que me dio libertad financiera para enfocarme en la calidad y estrategia de comercialización. Tuve la suerte de encontrar un local comercial ideal para abrir mi tienda, en un espacio ofrecido por un comerciante jubilado. Este fue el comienzo de mi viaje empresarial, buscando no solo rentabilidad sino democratizar el acceso a la tecnología y fomentar el emprendimiento en mi comunidad. Con una filosofía de equidad y accesibilidad, mi empresa empezó a ganar la confianza de los clientes, sentando las bases para lo que espero sea una historia de éxito e innovación.',
-        icon: iconHistoria, // This should be the path to your image
-      }
+      title: 'Vision',
+      description: 'Ser la empresa líder en importación y distribución de accesorios para teléfonos y artículos tecnológicos en Honduras....',
+      descriptionC: 'reconocida por su excelencia operativa y su capacidad para anticiparse y adaptarse a las tendencias del mercado. Aspiramos a ser el punto de referencia para los consumidores que buscan innovación, calidad y precios accesibles, expandiendo nuestra presencia a nivel nacional e internacional y fomentando la tecnología accesible como pilar de un futuro conectado y dinámico.',
+      icon: iconVision, // This should be the path to your image
+    },
+    {
+      title: 'Historia',
+      description: 'En 2022, noté una creciente demanda de accesorios para dispositivos electrónicos y una oportunidad de mercado debido....',
+      descriptionC: ' a los altos precios locales. Conversando con amigos, confirmé que los precios eran prohibitivos en comparación con opciones en línea o internacionales. Esto me motivó a contactar a un fabricante y negociar precios ventajosos, permitiéndome ofrecer productos asequibles en mi país y posibilitando que otros emprendieran en la reventa. Conseguí un crédito del fabricante, lo que me dio libertad financiera para enfocarme en la calidad y estrategia de comercialización. Tuve la suerte de encontrar un local comercial ideal para abrir mi tienda, en un espacio ofrecido por un comerciante jubilado. Este fue el comienzo de mi viaje empresarial, buscando no solo rentabilidad sino democratizar el acceso a la tecnología y fomentar el emprendimiento en mi comunidad. Con una filosofía de equidad y accesibilidad, mi empresa empezó a ganar la confianza de los clientes, sentando las bases para lo que espero sea una historia de éxito e innovación.',
+      icon: iconHistoria, // This should be the path to your image
+    }
     // ... other cards
   ];
 
@@ -50,25 +50,25 @@ const InfoG = () => {
       icon: iconInnovation, // This should be the path to your image
     },
     {
-        title: 'Liderazgo',
-        icon: iconL, // This should be the path to your image
-      }, {
-        title: 'Responsabilidad',
-        icon: iconR, // This should be the path to your image
-      }, {
-        title: 'Solidaridad',
-        icon: iconS, // This should be the path to your image
-      }, {
-        title: 'Justicia',
-        icon: iconJ, // This should be the path to your image
-      }
+      title: 'Liderazgo',
+      icon: iconL, // This should be the path to your image
+    }, {
+      title: 'Responsabilidad',
+      icon: iconR, // This should be the path to your image
+    }, {
+      title: 'Solidaridad',
+      icon: iconS, // This should be the path to your image
+    }, {
+      title: 'Justicia',
+      icon: iconJ, // This should be the path to your image
+    }
     // ... other values
   ];
 
   return (
     <div className="information-container">
       <div className="information-header">INFORMACION</div>
-      <hr className="linea-divisora-blue-large"/>
+      <hr className="linea-divisora-blue-large" />
       <div className="cards-container">
         {cardsData.map((card, index) => (
           <div key={index} className="card">
@@ -80,7 +80,7 @@ const InfoG = () => {
                 <div className="additional-info">
                   {/* Aquí puedes poner más información sobre la tarjeta */}
                   {card.descriptionC}
-                 
+
                 </div>
               )}
             </div>

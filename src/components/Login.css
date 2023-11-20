@@ -1,49 +1,47 @@
-/* Contenedor para los botones de iniciar sesión y registrarse */
-
-/* Botones de iniciar sesión y registrarse */
-.iniciar-sesion, .registrarse {
-  flex-grow: 0; /* no permite que los botones crezcan */
+.iniciar-sesion,
+.registrarse {
+  flex-grow: 0;
   cursor: pointer;
   background: none;
   border: none;
-  padding: 8px 16px; /* Espacio horizontal para evitar que el texto se envuelva */
+  padding: 8px 16px;
   font-size: 1rem;
   font-weight: bold;
   position: relative;
-  border-bottom: 3px solid transparent; /* Mantiene la altura constante */
+  border-bottom: 3px solid transparent;
 }
 
-/* Estilo para el botón seleccionado con barra naranja */
-.iniciar-sesion.selected, .registrarse.selected {
+.iniciar-sesion.selected,
+.registrarse.selected {
   border-bottom: 3px solid orange;
   background-color: white;
 }
 
-/* This will ensure the text is underlined only when selected */
-.iniciar-sesion:not(.selected), .registrarse:not(.selected) {
+.iniciar-sesion:not(.selected),
+.registrarse:not(.selected) {
   border-bottom: 3px solid transparent;
   background-color: white;
 }
 
-/* Ensure the background remains white */
-.iniciar-sesion, .registrarse {
+.iniciar-sesion,
+.registrarse {
   background-color: white;
 }
 
-.iniciar-sesion:active, .registrarse:active {
-  background-color: white; /* Cambia el fondo a blanco */
-  color: black; /* Opcional: Cambia el color del texto si es necesario */
+.iniciar-sesion:active,
+.registrarse:active {
+  background-color: white;
+  color: black;
 }
 
 
-/* Asegura que los párrafos dentro de los botones no tengan márgenes para evitar envolturas innecesarias */
-.iniciar-sesion p, .registrarse p {
+.iniciar-sesion p,
+.registrarse p {
   margin: 0;
-  white-space: nowrap; /* Asegura que el texto no se envuelva en una nueva línea */
+  white-space: nowrap;
 }
 
-/* Resto de estilos necesarios para formularios y elementos del modal */
-.forms{
+.forms {
   margin: 20px;
 }
 
@@ -81,29 +79,32 @@
 }
 
 .forgot_container {
-  display: flex; 
+  display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  overflow: hidden; 
+  overflow: hidden;
   white-space: nowrap;
   width: 100%;
   margin: 0 auto;
   padding: 2px;
 }
- .body_text {
-    color: gray;
- }
-.forgot_icon {
-    width: 25px;
-    height: 25px;
-    margin: 0px 5px 5px 10px;
+
+.body_text {
+  color: gray;
 }
+
+.forgot_icon {
+  width: 25px;
+  height: 25px;
+  margin: 0px 5px 5px 10px;
+}
+
 .recuperar {
-    background-color: orange !important;
-    border-color: orange !important;
-    margin: 20px 15px 25px 30px; 
-    padding: 10px 20px; 
-    font-size: 18px; 
-    color: white;
+  background-color: orange !important;
+  border-color: orange !important;
+  margin: 20px 15px 25px 30px;
+  padding: 10px 20px;
+  font-size: 18px;
+  color: white;
 }

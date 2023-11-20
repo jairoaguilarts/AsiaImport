@@ -1,139 +1,129 @@
-/* General styles for the container */
 .information-container {
-    display: flex;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+}
+
+.information-header {
+  font-size: 28px;
+  color: #02A6FC;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.cards-container {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.card {
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px #FDB254;
+  padding: 20px;
+  width: 30%;
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card-title {
+  font-size: 20px;
+  color: #080808;
+  margin-bottom: 10px;
+}
+
+.card-description {
+  font-size: 14px;
+  color: #FDB254;
+}
+
+.card-link {
+  color: #02A6FC;
+  text-decoration: none;
+  font-size: 14px;
+  margin-top: 15px;
+  display: inline-block;
+}
+
+.card-icon {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 10px;
+}
+
+.values-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.value {
+  text-align: center;
+  width: 20%;
+}
+
+.value-icon {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 5px;
+}
+
+.value-title {
+  font-size: 16px;
+  color: #FDB254;
+}
+
+.linea-divisora-blue-large {
+  border: 2px solid #02A6FC;
+  width: 100%;
+  margin: 0 auto;
+  margin-bottom: 25px;
+}
+
+@media (max-width: 768px) {
+  .value-icon {
+    width: 60px;
+    height: 60px;
+  }
+
+  .value-title {
+    font-size: 12px;
+  }
+
+  .cards-container {
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    margin: 20px;
   }
-  
-  /* Styles for the header */
-  .information-header {
-    font-size: 28px;
-    color:#02A6FC;
-    margin-bottom: 20px;
-    font-weight: bold; 
-  }
-  
-  /* Styles for the cards container */
-  .cards-container {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-  }
-  
-  /* Styles for each card */
+
   .card {
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px #FDB254;
-    padding: 20px;
-    width: 30%;
-    text-align: center;
-    transition: transform 0.3s;
+    width: 80%;
+    margin-bottom: 20px;
   }
-  
-  .card:hover {
-    transform: translateY(-5px);
-  }
-  
-  /* Styles for the card title */
-  .card-title {
-    font-size: 20px;
-    color:#080808;
-    margin-bottom: 10px;
-  }
-  
-  /* Styles for the card description */
-  .card-description {
-    font-size: 14px;
-    color: #FDB254;
-  }
-  
-  /* Styles for 'Ver más' link */
-  .card-link {
-    color: #02A6FC;
-    text-decoration: none;
-    font-size: 14px;
-    margin-top: 15px;
-    display: inline-block;
-  }
-  
-  /* Styles for the icon in each card */
-  .card-icon {
-    width: 50px; /* or the size you want */
-    height: 50px; /* or the size you want */
-    margin-bottom: 10px;
-  }
-  
-  /* Styles for the values section */
-  .values-container {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    margin-top: 20px;
-  }
-  
-  /* Styles for each value */
-  .value {
-    text-align: center;
-    width: 20%;
-  }
-  
-  /* Styles for the value icon */
-  .value-icon {
-    width: 80px; /* or the size you want */
-    height: 80px; /* or the size you want */
-    margin-bottom: 5px;
-  }
-  
-  /* Styles for the value title */
-  .value-title {
-    font-size: 16px;
-    color:  #FDB254;
-  }
-  .linea-divisora-blue-large {
-    border: 2px solid #02A6FC;
-    width: 100%;
-    margin: 0 auto;
-    margin-bottom: 25px;
 }
-  @media (max-width: 768px) {
-    .value-icon {
-      width: 60px; /* Tamaño más pequeño para tabletas */
-      height: 60px;
-    }
-  
-    .value-title {
-      font-size: 12px; /* Fuente más pequeña para tabletas */
-    }
-    .cards-container {
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    .card {
-      width: 80%; /* O el tamaño que prefieras para tabletas */
-      margin-bottom: 20px; /* Añade un espacio entre tarjetas */
-    }
+
+@media (max-width: 480px) {
+  .card {
+    width: 90%;
   }
-  
-  /* Estilos para pantallas de teléfonos móviles */
-  @media (max-width: 480px) {
-    .card {
-      width: 90%; /* O el tamaño que prefieras para teléfonos móviles */
-    }
-  
-    .value {
-      width: 50%; /* Ajusta el tamaño para que quepan dos valores por fila, o 100% para uno por fila */
-    }
-    .value-icon {
-      width: 40px; /* Tamaño aún más pequeño para teléfonos móviles */
-      height: 40px;
-    }
-  
-    .value-title {
-      font-size: 12px; /* Fuente más pequeña para teléfonos móviles */
-    }
+
+  .value {
+    width: 50%;
   }
-  
+
+  .value-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .value-title {
+    font-size: 12px;
+  }
+}

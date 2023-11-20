@@ -17,7 +17,6 @@
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     width: 400px;
-    /* Ajusta el ancho del modal */
     position: relative;
 }
 
@@ -27,13 +26,9 @@
     justify-content: start;
     margin-bottom: 20px;
     position: relative;
-    /* Para posicionar el botón de cerrar de forma absoluta */
     padding-bottom: 10px;
-    /* Espacio adicional debajo del texto antes de la línea divisoria */
     border-bottom: 2px solid #0c63ba;
-    /* Línea divisoria debajo del encabezado */
 }
-
 
 .lock-icon {
     margin-right: -50px;
@@ -43,9 +38,7 @@
 .modal-header h4 {
     margin: 0;
     flex-grow: 1;
-    /* Asegura que el título se centre */
     text-align: center;
-    /* Centra el texto del título */
 }
 
 .close-button {
@@ -54,11 +47,8 @@
     font-size: 1.5rem;
     cursor: pointer;
     position: absolute;
-    /* Se posiciona con respecto al modal-content */
     right: 5px;
-    /* Se coloca a 20px del borde derecho */
     top: -5px;
-    /* Se coloca a 20px del borde superior */
 }
 
 .modal-body {
@@ -88,21 +78,17 @@
     position: absolute;
     right: 10px;
     top: 38px;
-    /* Ajustar según el tamaño de tu input */
     height: 20px;
-    /* Ajustar al tamaño de tus íconos */
     cursor: pointer;
     opacity: 0.3;
 }
 
 .submit-button {
     display: block;
-    /* Hace que el botón sea un bloque si no lo es ya */
     margin-left: auto;
     margin-right: auto;
     width: 200px;
     background-color: #ffa500;
-    /* Color similar al botón de la imagen */
     color: white;
     padding: 10px 15px;
     border: none;
