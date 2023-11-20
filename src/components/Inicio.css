@@ -30,8 +30,8 @@
     align-items: center;
     flex-wrap: nowrap;
     padding: 3%;
-    width: 80%;
-    height: 400px;
+    width: 90%;
+    height: 100%;
     margin: 0 auto;
 }
 
@@ -63,18 +63,134 @@
         font-size: 40px;
         margin: 0 auto;
     }
-
+    .destacado-product-container {
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex: 1;
+        height: 200px;
+        width: 150px;
+        margin: 0 auto;
+        justify-content: center;
+    }
 }
 
 /* Estilos para teléfonos móviles (pantallas hasta 480px) */
 @media (max-width: 480px) {
+    .destacado-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 3%;
+        max-width: 480px;
+        margin: 0 auto;
+    }
+    
     .destacado-text {
         font-size: 35px;
         font-weight: bold;
         font-style: italic;
         color: orange;
-        margin: 0 auto;
+        margin-bottom: 15px;
     }
+    
+    .destacado-product-container {
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex: 1;
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 15px;
+    }
+    
+    .destacado-lista {
+        display: flex;
+        overflow: hidden;
+        transition: transform 0.5s ease-in-out;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+        border: 10px #333;
+    }
+    
+    .elemento {
+        text-align: center;
+        margin: 10px !important; 
+        width: 50% !important;
+        height: 350px !important;
+        transition: transform 0.3s ease-in-out;
+    }
+    
+    .elemento img {
+        width: 80% !important;
+        height: 50% !important;
+        object-fit: cover; /* Cambiado a 'cover' para adaptarse a diferentes proporciones de imagen */
+        transition: transform 0.3s ease;
+    }
+    
+    .elemento img:hover {
+        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+        transform: scale(1.1); /* Cambiado a una sola propiedad 'scale' para evitar conflictos */
+        transition: transform 0.3s ease;
+    }
+    
+    .elemento h3 {
+        width: 70% !important;
+        margin: 0 auto;
+        height: 50px;
+        font-size: 16px; /* Aumentado el tamaño de la fuente */
+        font-weight: bold;
+    }
+    
+    .elemento p {
+        height: 40px !important;
+        width: 80% !important;
+        margin: 10px auto !important;
+        font-size: 12px; /* Aumentado el tamaño de la fuente */
+        font-weight: bold;
+    }
+    
+    .elemento button {
+        height: 60px;
+        width: 60% !important;
+        margin: 0 auto;
+        background-color: orange;
+        color: white;
+        border: none;
+        padding: 8px;
+        font-size: 14px;
+        cursor: pointer;
+    }
+    
+    .elemento button:hover {
+        background-color: #0277bd;
+    }
+    
+    .prev-btn,
+    .next-btn {
+        color: white;
+        border: none;
+        padding: 3px;
+        background: transparent;
+        font-size: 35px !important;
+        cursor: crosshair;
+        position: absolute;
+        opacity: 0.5 !important;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1;
+    }
+    
+    .prev-btn {
+        left: 0 !important;
+    }
+    
+    .next-btn {
+        right: 0 !important;
+    }
+
 }
 
 .destacado-product-container {
@@ -82,8 +198,8 @@
     overflow: hidden;
     display: flex;
     flex: 1;
-    height: 375px;
-    width: 800px;
+    height: 100%;
+    width: 100%;
     margin: 0 auto;
     justify-content: center;
 }
@@ -91,8 +207,8 @@
 .destacado-lista {
     display: flex;
     transition: transform 0.5s ease-in-out;
-    width: 700px;
-    max-height: 100%;
+    width: 100%;
+    height: 100%;
     justify-content: center;
     align-items: center;
     margin: 0 auto;
@@ -102,16 +218,16 @@
 .elemento {
     flex: 0 0 auto;
     text-align: center;
-    margin: 35px 15px;
+    margin: 15px 15px;
     width: 300px;
-    height: 100%;
+    height: 450px;
     transition: transform 0.3s ease-in-out;
     backface-visibility: hidden;
 }
 
 .elemento img {
     width: 250px;
-    height: 250px;
+    height: 280px;
     object-fit: fill;
     transition: transform 0.3s ease;
 }
@@ -124,18 +240,25 @@
 }
 
 .elemento h3 {
+    width: 200px;
+    margin: 0 auto;
+    height: 50px;
     font-size: 15px;
     font-weight: bold;
-    margin: 5px 0;
 }
 
 .elemento p {
+    height: 50px;
+    width: 225px;
+    margin: 0 auto;
     font-size: 17px;
     font-weight: bold;
-    margin: 0;
 }
 
 .elemento button {
+    height: 60px;
+    width: 250px;
+    margin: 0 auto;
     background-color: orange;
     color: white;
     border: none;

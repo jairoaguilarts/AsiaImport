@@ -154,3 +154,49 @@
     top: 0;
     margin-bottom: 10px;
 }
+@media (max-width: 480px) {
+    .main-container {
+        display: flex !important; 
+        flex-direction: column;
+        font-family: 'Montserrat', sans-serif;
+    }
+    .primer-contenedor,
+    .segundo-contenedor,
+    .tercer-contenedor {
+        flex: 1; 
+        padding: 10px;
+    }
+    .contenedor-box-info {
+        display: flex;
+        flex-direction: column; 
+        align-items: center;
+        width: 100%;
+    } 
+    .cajita,
+    .cajita-2,
+    .cajita-3 {
+        width: 100%;
+        margin: 10px 0;
+    }   
+    .cajita img,
+    .cajita-2 img {
+        width: 40px;
+        height: 40px;
+        margin-bottom: 10px;
+    }   
+    .cajita .titulo,
+    .cajita-2 .titulo,
+    .cajita-3 .titulo {
+        font-size: 16px;
+    }   
+    .cajita .contenido-inf,
+    .cajita-2 .contenido-inf,
+    .cajita-3 .contenido-inf {
+        flex-direction: column;
+    } 
+    .cajita p,
+    .cajita-2 p,
+    .cajita-3 p {
+        font-size: 18px;
+    }
+}
