@@ -158,11 +158,9 @@ function Login() {
 
       const userData = await response.json();
 
-      updateUserState({
-        isAdmin: userData.userType === "*",
-        isLoggedIn: true,
-        userId: userData.usuario.firebaseUID,
-      });
+      const FUID = userData.usuario.firebaseUID;
+      localStorage.setItem("FireBaseUID", FUID);
+      console.log("Este es el FirebaseUID en Login: ", FUID);
 
       setUserData(userData);
       navigate("/inicio");

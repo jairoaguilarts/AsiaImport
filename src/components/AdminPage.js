@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Collapse } from 'react-bootstrap';
 import './AdminPage.css';
 import { Link } from 'react-router-dom';
@@ -8,13 +8,13 @@ import editar from '../assets/pEdit.png';
 import empleados from '../assets/pEmpleados.png';
 import ventas from '../assets/pVentas.png';
 import logOut from '../assets/logout.png';
-import { useUserContext } from './UserContext';
 
 const AdminPage = () => {
+    const firebaseUID = localStorage.getItem("FireBaseUID");
     const [isSidebarOpen, setSidebarOpen] = useState(true);
-    const { isAdmin, isLoggedIn } = useUserContext();
 
     const toggleSidebar = () => {
+        console.log('FirebaseUID recuperado en OtroComponente:', firebaseUID);
         setSidebarOpen(!isSidebarOpen);
     };
 
