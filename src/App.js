@@ -23,7 +23,7 @@ function App() {
       <UserProvider>
         <div className="App">
           <Navibar />
-          <Admin />
+          {/*<Admin />*/}
           <Routes>
             <Route path="/inicio" element={<Inicio />} />
             <Route path="/acerca" element={<InfoG />} /> {/* Ruta para InfoG */}
