@@ -21,7 +21,7 @@ const EditarPerfil = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:3000/perfil?firebaseUID=${firebaseUID}`,
+        `https://importasia-api.onrender.com/perfil?firebaseUID=${firebaseUID}`,
         {
           method: "PUT",
           headers: {
@@ -57,7 +57,7 @@ const EditarPerfil = () => {
 
       console.log(firebaseUID);
       const response = await fetch(
-        `http://localhost:3000/perfil?firebaseUID=${firebaseUID}`,
+        `https://importasia-api.onrender.com/perfil?firebaseUID=${firebaseUID}`,
         {
           method: "GET",
           headers: {
