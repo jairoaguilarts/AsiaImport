@@ -13,12 +13,21 @@ const EditarPerfil = () => {
   const [id, setId] = useState("");
   const [showModal, setShowModal] = useState(false);
   const firebaseUID = localStorage.getItem("FireBaseUID");
-  const [datosEditados, setdatosEditados] = useState({});
+  const [datosViejos, setdatosViejos] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmit = async (event) => {
   
     event.preventDefault();
-
+    if (!nombre || !apellido || !id) {
+      alert("Todos los campos son obligatorios");
+      return;
+    }
+    // Validar si no se ha realizado ningún cambio
+    if (nombre ===datosViejos.nombre && apellido === datosViejos.apellido && id === datosViejos.numeroIdentidad) {
+      alert("No se han realizado cambios para guardar");
+      return;
+    }
     try {
       const response = await fetch(
         `http://localhost:3000/perfil?firebaseUID=${firebaseUID}`,
@@ -32,7 +41,7 @@ const EditarPerfil = () => {
             apellido: apellido,
             identidad: id,
           }),
-        }
+        }    
       );
 
       if (!response.ok) {
@@ -42,13 +51,13 @@ const EditarPerfil = () => {
 
       const userData = await response.json();
       console.log("Datos actualizados del usuario:", userData);
+      
       // Puedes realizar otras acciones después de la actualización, si es necesario.
     } catch (error) {
       console.error("Error al actualizar información del usuario:", error);
       // Puedes manejar el error de acuerdo a tus necesidades.
     }
     alert("Cambios Realizados");
-
   };
 
   const handleGetInfo = async () => {
@@ -74,10 +83,11 @@ const EditarPerfil = () => {
 
       const userData = await response.json();
       console.log("UserData:", userData);
-
+      setdatosViejos(userData);
       setNombre(userData.nombre);
       setApellido(userData.apellido);
       setId(userData.numeroIdentidad);
+      
     } catch (error) {}
   };
 
@@ -153,12 +163,15 @@ const EditarPerfil = () => {
             <button
               type="submit"
               className="boton-guardar"
-              onClick={handleSubmit}
+            //  onClick={handleSubmit}
             >
               GUARDAR
             </button>
           </div>
+          {error && <div className="error-message">{error}</div>} 
         </form>
+        {showModal && <Modal onClose={handleCloseModal} />}
+
       </div>
       {showModal && <Modal onClose={handleCloseModal} />}
     </div>
