@@ -6,6 +6,7 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 
 const AdminEmpleados = () => {
+    const UserType = localStorage.getItem("UserType");
     const [showAgregar, setShowAgregar] = useState(false);
     const [showEditar, setShowEditar] = useState(false);
     const [showConfirmar, setShowConfirmar] = useState(false);
@@ -59,7 +60,7 @@ const AdminEmpleados = () => {
                 numeroIdentidad: formDataAgregar.formID,
                 correo: formDataAgregar.formCorreo,
                 contrasenia: formDataAgregar.formPass,
-                userCreatingType: "*" //Tiene que traer el tipo de usuario desde el login
+                userCreatingType: UserType
             };
 
             try {
@@ -90,7 +91,7 @@ const AdminEmpleados = () => {
                 apellido: nombreApellido[1],
                 numeroIdentidad: formDataModificar.formIDEditar,
                 correo: formDataModificar.formCorreoEditar,
-                userModifyingType: "*" //Tiene que traer el tipo de usuario desde el login
+                userModifyingType: UserType
             };
 
             try {
