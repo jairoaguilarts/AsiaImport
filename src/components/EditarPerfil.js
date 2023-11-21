@@ -16,13 +16,30 @@ const EditarPerfil = () => {
   const [datosViejos, setdatosViejos] = useState("");
   const [error, setError] = useState("");
 
+  const validarDatos = () => {
+    const regexNombreApellido = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$/;
+    const regexId = /^\d+$/;
+
+    if (!regexNombreApellido.test(nombre) || !regexNombreApellido.test(apellido)) {
+      alert("Datos incorrectos en nombre o apellido. Solo se permiten letras.");
+      return false;
+    }
+
+    if (!regexId.test(id)) {
+      alert("Datos incorrectos en ID. Solo se permiten números.");
+      return false;
+    }
+
+    return true;
+  };
+
   const handleSubmit = async (event) => {
   
     event.preventDefault();
-    if (!nombre || !apellido || !id) {
-      alert("Todos los campos son obligatorios");
+    if (!validarDatos()) {
       return;
     }
+    
     // Validar si no se ha realizado ningún cambio
     if (nombre ===datosViejos.nombre && apellido === datosViejos.apellido && id === datosViejos.numeroIdentidad) {
       alert("No se han realizado cambios para guardar");
