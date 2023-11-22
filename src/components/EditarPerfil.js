@@ -1,25 +1,40 @@
 import React, { useState, useEffect } from "react";
 import "./EditarPerfil.css";
 import { useUserContext, userContext } from "./UserContext";
-
 import userIcon from "../assets/avatar.png";
 import lockIcon from "../assets/locked.png";
 import lapizIcon from "../assets/lapiz.png";
-import Modal from "./Modal"; // Asegúrate de tener este componente
+import Modal from "./Modal";
 import { useNavigate } from "react-router-dom";
+
 const EditarPerfil = () => {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [id, setId] = useState("");
   const [showModal, setShowModal] = useState(false);
+
   const firebaseUID = localStorage.getItem("FireBaseUID");
+  const logueado = localStorage.getItem("logueado");
+
   const [datosViejos, setdatosViejos] = useState("");
   const [error, setError] = useState("");
+
   const navigate = useNavigate();
-  const handleLogout=()=>{
-    localStorage.removeItem("logueado");
-    alert("Se cerro sesion");
-    navigate("/inicio");
+
+  const handleLogout = async () => {
+    if (logueado) {
+      const response = await fetch("https://importasia-api.onrender.com/logOut", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        localStorage.removeItem("logueado");
+        navigate("/inicio");
+      }
+    }
   }
 
   const validarDatos = () => {
@@ -145,7 +160,7 @@ const EditarPerfil = () => {
         </label>
         <button
           className="boton-out"
-         onClick={handleLogout}
+          onClick={handleLogout}
         >
           Logout
         </button>
