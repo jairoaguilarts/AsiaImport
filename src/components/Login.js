@@ -78,14 +78,42 @@ function Login() {
 
   const handleRegister = async () => {
     if (
-      formDataRegistro.formBasicPasswordRegistro !==
-      formDataRegistro.formBasicConfirmPassword
+      !formDataRegistro.formBasicNombre.trim() ||
+      !formDataRegistro.formBasicApellido.trim() ||
+      !formDataRegistro.formBasicID.trim() ||
+      !formDataRegistro.formBasicEmailRegistro.trim() ||
+      !formDataRegistro.formBasicPasswordRegistro.trim() ||
+      !formDataRegistro.formBasicConfirmPassword.trim()
     ) {
-      alert("Las contraseñas no coinciden");
-      setShowConfirmation(true);
-      handleClose();
+      alert("Todos los campos son necesarios");
       return;
     }
+  
+    if (!/^[a-zA-Z ]+$/.test(formDataRegistro.formBasicNombre) || !/^[a-zA-Z ]+$/.test(formDataRegistro.formBasicApellido)) {
+      alert("El nombre y apellido solo deben contener letras");
+      return;
+    }
+  
+    if (!/^\d+$/.test(formDataRegistro.formBasicID)) {
+      alert("El ID solo debe contener números y no debe contener espacios");
+      return;
+    }
+  
+    if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formDataRegistro.formBasicEmailRegistro)) {
+      alert("Formato de correo electrónico no válido");
+      return;
+    }
+  
+    if (formDataRegistro.formBasicPasswordRegistro.length < 6) {
+      alert("La contraseña debe tener al menos 6 caracteres");
+      return;
+    }
+  
+    if (formDataRegistro.formBasicPasswordRegistro !== formDataRegistro.formBasicConfirmPassword) {
+      alert("Las contraseñas no coinciden");
+      return;
+    }
+  
 
     const datosRegistro = {
       correo: formDataRegistro.formBasicEmailRegistro,
