@@ -19,9 +19,11 @@
 .icono-usuario {
   margin-right: -100px;
   margin-left: 100px;
-  margin-bottom: 200px;
+  margin-bottom: 280px;
   display: flex;
   justify-content: center;
+
+
 }
 
 .icono-usuario img {
@@ -67,6 +69,32 @@
   background-color: #0056b3;
 }
 
+.boton-out {
+  padding: 10px 15px;
+  background-color: #ff0800;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  text-transform: uppercase;
+  transition: background-color 0.3s;
+  margin-top: 8px;
+}
+
+.etiqueta-usuario {
+  margin: 10px 0px 0px auto;
+  margin-right: 30px;
+  display: flex;
+}
+
+.info-usuario {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .cambiar-contrasena-container {
   display: flex;
   flex-direction: column;
@@ -97,6 +125,7 @@
   vertical-align: middle;
   width: 20px;
   margin-right: 5px;
+  margin-left: 10px;
 }
 
 .etiqueta-usuario {
@@ -113,7 +142,8 @@
   }
 
   .icono-usuario img {
-    display: none; /* Ocultar el icono de usuario en pantallas más pequeñas */
+    display: none;
+    /* Ocultar el icono de usuario en pantallas más pequeñas */
   }
 
   .info-usuario {
@@ -121,7 +151,8 @@
   }
 
   .icono-lapiz {
-    display: none; /* Ocultar el icono del lápiz en pantallas más pequeñas */
+    display: none;
+    /* Ocultar el icono del lápiz en pantallas más pequeñas */
   }
 
   .etiqueta-usuario {
@@ -139,7 +170,8 @@
   }
 
   .icono-usuario {
-    display: none; /* Ocultar completamente el contenedor del icono de usuario */
+    display: none;
+    /* Ocultar completamente el contenedor del icono de usuario */
   }
 
   .info-usuario {

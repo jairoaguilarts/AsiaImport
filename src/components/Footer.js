@@ -11,7 +11,7 @@ import metodosPagoImage from '../assets/metodos.png';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-
+  
   return (
     <footer className="footer">
       <div className="footer-content">
@@ -34,7 +34,7 @@ const Footer = () => {
           <p>&copy; {currentYear} Tu Empresa. Todos los derechos reservados.</p>
         </div>
         <div className="footer-link-with-icon">
-          <a href="/servicio-al-cliente" className="footer-link">Servicio al Cliente</a>
+          <a href="/servicio-al-cliente" className="footer-link" >Servicio al Cliente</a>
           <a href="/quejas" className="footer-link">Quejas y Reclamos</a>
           <a href="/privacidad" className="footer-link">Política de Privacidad</a>
           <img className="icon2" src={metodosPagoImage} alt="Métodos de Pago" />

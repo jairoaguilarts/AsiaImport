@@ -14,6 +14,7 @@ import PGAdmin from './components/PGeneralAdmin';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import EditarPerfil from './components/EditarPerfil';
 import Ventas from './components/Ventas';
+import Login from './components/Login';
 import AdminEmpleados from './components/AdminEmpleados';
 import { UserProvider } from './components/UserContext';
 

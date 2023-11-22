@@ -16,6 +16,7 @@ function Login() {
   const [showVentanaForgot, setShowVentanaForgot] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false); // Estado para ConfirmacionCorreo
   const [emailRecovery, setEmailRecovery] = useState("");
+  const login=window.localStorage.getItem("logueado");
 
   const navigate = useNavigate();
   const [formDataRegistro, setFormDataRegistro] = useState({
@@ -38,7 +39,8 @@ function Login() {
   };
 
   const handleShow = () => {
-    if (userData?.usuario?.nombre) {
+
+    if (login) {
       navigate("/editar");
     } else {
       setShow(true);
@@ -167,6 +169,7 @@ function Login() {
       setUserData(userData);
       navigate("/inicio");
       handleClose();
+      window.localStorage.setItem("logueado",true);
     } catch (error) {
       console.error("Error en el registro:", error);
       alert("Error en el registro: " + error.message);

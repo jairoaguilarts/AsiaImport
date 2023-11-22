@@ -6,7 +6,7 @@ import userIcon from "../assets/avatar.png";
 import lockIcon from "../assets/locked.png";
 import lapizIcon from "../assets/lapiz.png";
 import Modal from "./Modal"; // Asegúrate de tener este componente
-
+import { useNavigate } from "react-router-dom";
 const EditarPerfil = () => {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
@@ -15,6 +15,12 @@ const EditarPerfil = () => {
   const firebaseUID = localStorage.getItem("FireBaseUID");
   const [datosViejos, setdatosViejos] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const handleLogout=()=>{
+    localStorage.removeItem("logueado");
+    alert("Se cerro sesion");
+    navigate("/inicio");
+  }
 
   const validarDatos = () => {
     const regexNombreApellido = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$/;
@@ -34,14 +40,14 @@ const EditarPerfil = () => {
   };
 
   const handleSubmit = async (event) => {
-  
+
     event.preventDefault();
     if (!validarDatos()) {
       return;
     }
-    
+
     // Validar si no se ha realizado ningún cambio
-    if (nombre ===datosViejos.nombre && apellido === datosViejos.apellido && id === datosViejos.numeroIdentidad) {
+    if (nombre === datosViejos.nombre && apellido === datosViejos.apellido && id === datosViejos.numeroIdentidad) {
       alert("No se han realizado cambios para guardar");
       return;
     }
@@ -58,7 +64,7 @@ const EditarPerfil = () => {
             apellido: apellido,
             identidad: id,
           }),
-        }    
+        }
       );
 
       if (!response.ok) {
@@ -68,7 +74,7 @@ const EditarPerfil = () => {
 
       const userData = await response.json();
       console.log("Datos actualizados del usuario:", userData);
-      
+
       // Puedes realizar otras acciones después de la actualización, si es necesario.
     } catch (error) {
       console.error("Error al actualizar información del usuario:", error);
@@ -104,8 +110,8 @@ const EditarPerfil = () => {
       setNombre(userData.nombre);
       setApellido(userData.apellido);
       setId(userData.numeroIdentidad);
-      
-    } catch (error) {}
+
+    } catch (error) { }
   };
 
   useEffect(() => {
@@ -132,8 +138,17 @@ const EditarPerfil = () => {
         <img src={userIcon} alt="Ícono de Usuario" />
       </div>
       <div className="info-usuario">
-        <img src={lapizIcon} alt="Editar" className="icono-lapiz" />
-        <label className="etiqueta-usuario">{nombre + " " + apellido}</label>
+
+        <label className="etiqueta-usuario">
+          <img src={lapizIcon} alt="Editar" className="icono-lapiz" />
+          {nombre + " " + apellido}
+        </label>
+        <button
+          className="boton-out"
+         onClick={handleLogout}
+        >
+          Logout
+        </button>
       </div>
       <div className="perfil-container">
         <form className="formulario-perfil" onSubmit={handleSubmit}>
@@ -185,7 +200,7 @@ const EditarPerfil = () => {
               GUARDAR
             </button>
           </div>
-          {error && <div className="error-message">{error}</div>} 
+          {error && <div className="error-message">{error}</div>}
         </form>
         {showModal && <Modal onClose={handleCloseModal} />}
 

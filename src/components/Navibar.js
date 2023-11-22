@@ -28,6 +28,7 @@ const Navibar = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [active, setActive] = useState(false);
+  const login=window.localStorage.getItem("logueado");
   const handleLogoClick = () => {
     if (window.innerWidth < 768) {
       setMenuOpen(!menuOpen);
@@ -112,7 +113,7 @@ const Navibar = () => {
         {/*<ul className={`menu ${menuOpen ? 'menu-open' : ''}`}>
         <li><a href="#inicio" className="menu-item"></a></li>
         <li><a href="#informacion" className="menu-item"></a></li>
-        <li><a href="#comprar" className="menu-item"></a></li>
+        <li><a href="#comprar" className="menu-item"></a></li> {login ? <EditarPerfil/>:<Login/>} {login ? <EditarPerfil/>:<Login/>}
       </ul>*/}
 
         {/* Contenedor para los íconos de usuario y carrito */}
