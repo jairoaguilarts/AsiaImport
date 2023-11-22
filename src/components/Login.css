@@ -108,3 +108,85 @@
   font-size: 18px;
   color: white;
 }
+
+.user-menu {
+  position: relative;
+}
+
+.menu-content {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  border: 1px solid #ccc;
+  z-index: 100;
+}
+
+.menu-content button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: none;
+  text-align: left;
+}
+
+.menu-content button:hover {
+  background-color: #f6f6f6;
+}
+
+.menu-options {
+  display: none; /* Escondido por defecto */
+  position: absolute;
+  background-color: #ffffff;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Cuando menuOpen es verdadero, se muestra el menú */
+.menu-open .menu-options {
+  display: block;
+}
+
+/* Estilos base para el menú desplegable */
+.menu-options {
+  display: none; /* Oculto por defecto */
+  position: absolute;
+  top: 100%; /* Ajusta esto para que el menú se muestre debajo del botón */
+  right: 0;
+  background-color: #ffffff;
+  border: 1px solid #ddd; /* Añade un borde ligero para definir el menú */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Sombra suave para darle profundidad */
+  border-radius: 4px; /* Bordes redondeados para suavizar el aspecto */
+  z-index: 1000; /* Asegúrate de que se muestre por encima de otros elementos */
+  min-width: 150px; /* Ancho mínimo para el menú */
+}
+
+/* Mostrar el menú cuando `menuOpen` es true */
+.menu-open {
+  display: block;
+}
+
+/* Estilos para los botones dentro del menú */
+.menu-options button {
+  display: block;
+  width: 100%;
+  padding: 10px 15px; /* Espaciado interno para hacer los botones más accesibles */
+  border: none; /* Remueve bordes innecesarios */
+  background: none; /* Fondo transparente */
+  text-align: left; /* Alinea el texto a la izquierda */
+  color: #333; /* Color del texto más oscuro para mejor contraste */
+  font-size: 1rem; /* Tamaño de la fuente legible */
+  cursor: pointer; /* Indica que los elementos son clicables */
+  border-bottom: 1px solid #ddd; /* Borde inferior para separar los elementos */
+}
+
+/* Remueve el borde del último botón */
+.menu-options button:last-child {
+  border-bottom: none;
+}
+
+/* Estilos para el botón al pasar el mouse */
+.menu-options button:hover {
+  background-color: #f7f7f7; /* Color de fondo al pasar el mouse */
+}

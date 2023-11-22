@@ -8,6 +8,7 @@ import iconoLock from "../assets/lock.png";
 import ConfirmacionCorreo from "./ConfirmacionCorreo";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
+import "./EditarPerfil.js";
 
 function Login() {
   const [show, setShow] = useState(false);
@@ -16,6 +17,11 @@ function Login() {
   const [showConfirmation, setShowConfirmation] = useState(false); // Estado para ConfirmacionCorreo
   const [emailRecovery, setEmailRecovery] = useState("");
   const [nombre, setNombre] = useState("");
+  const logueado = localStorage.getItem("logueado");
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(!!localStorage.getItem("logueado"));
+  const [menuOpen, setMenuOpen] = useState(false);
+
+
 
   const login = window.localStorage.getItem("logueado");
   const firebaseUID = localStorage.getItem("FireBaseUID");
@@ -34,6 +40,15 @@ function Login() {
     correo: "",
     contrasenia: "",
   });
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
+  const handleEditProfile = () => {
+    navigate("/editar");
+  };
+  
 
   const handleClose = () => {
     setShow(false);
@@ -74,6 +89,8 @@ function Login() {
   const handleChangeLogIn = (e) => {
     setFormDataLogIn({ ...formDataLogIn, [e.target.id]: e.target.value });
   };
+
+
 
   const [userData, setUserData] = useState(null);
 
@@ -243,6 +260,25 @@ function Login() {
     }
   };
 
+  const handleLogout = async () => {
+    if (logueado) {
+      const response = await fetch("https://importasia-api.onrender.com/logOut", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        localStorage.removeItem("logueado");
+        setMenuOpen(false); 
+        navigate("/inicio");
+      }
+    }
+  };
+
+
+
   const handleSubmit = () => {
     if (isLoginSelected) {
       handleLogIn();
@@ -273,16 +309,26 @@ function Login() {
     } catch (error) { }
   };
 
+
   return (
     <>
-      <button onClick={handleShow} className="icon-button" onLoad={handleGetInfo}>
+      {!logueado ? (
+      <button onClick={handleShow} className="icon-button">
         <img src={userIcon} alt="User" className="icon" />
-        <p>
-          {login
-            ? `Hola, ${nombre}`
-            : "Iniciar Sesión"}
-        </p>
+        <p>Iniciar Sesión</p>
       </button>
+    ) : (
+      <div className="user-menu">
+        <button onClick={toggleMenu} className="icon-button" onLoad={handleGetInfo}>
+          <img src={userIcon} alt="User" className="icon" />
+          <p>Hola, {nombre}</p>
+        </button>
+        <div className={menuOpen ? 'menu-options menu-open' : 'menu-options'}>
+          <button onClick={handleEditProfile}>Editar perfil</button>
+          <button onClick={handleLogout}>Cerrar sesión</button>
+        </div>
+      </div>
+    )}
 
       {showVentanaForgot && (
         // Ventana de Recuperacion de Contraseña
