@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "./EditarPerfil.css";
-import { useUserContext, userContext } from "./UserContext";
 import userIcon from "../assets/avatar.png";
 import lockIcon from "../assets/locked.png";
 import lapizIcon from "../assets/lapiz.png";
@@ -20,22 +19,6 @@ const EditarPerfil = () => {
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
-
-  const handleLogout = async () => {
-    if (logueado) {
-      const response = await fetch("https://importasia-api.onrender.com/logOut", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (response.ok) {
-        localStorage.removeItem("logueado");
-        navigate("/inicio");
-      }
-    }
-  }
 
   const validarDatos = () => {
     const regexNombreApellido = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$/;
@@ -100,9 +83,6 @@ const EditarPerfil = () => {
 
   const handleGetInfo = async () => {
     try {
-      console.log("Prueba antes de Response:", firebaseUID);
-
-      console.log(firebaseUID);
       const response = await fetch(
         `https://importasia-api.onrender.com/perfil?firebaseUID=${firebaseUID}`,
         {
@@ -112,7 +92,6 @@ const EditarPerfil = () => {
           },
         }
       );
-      console.log("Response:", response);
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -128,6 +107,22 @@ const EditarPerfil = () => {
 
     } catch (error) { }
   };
+
+  const handleLogout = async () => {
+    if (logueado) {
+      const response = await fetch("https://importasia-api.onrender.com/logOut", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        localStorage.removeItem("logueado");
+        navigate("/inicio");
+      }
+    }
+  }
 
   useEffect(() => {
     handleGetInfo();

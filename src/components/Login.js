@@ -5,7 +5,6 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import userIcon from "../assets/user.png";
 import iconoLock from "../assets/lock.png";
-import { useUserContext, userContext } from "./UserContext";
 import ConfirmacionCorreo from "./ConfirmacionCorreo";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
@@ -16,7 +15,10 @@ function Login() {
   const [showVentanaForgot, setShowVentanaForgot] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false); // Estado para ConfirmacionCorreo
   const [emailRecovery, setEmailRecovery] = useState("");
-  const login=window.localStorage.getItem("logueado");
+  const [nombre, setNombre] = useState("");
+
+  const login = window.localStorage.getItem("logueado");
+  const firebaseUID = localStorage.getItem("FireBaseUID");
 
   const navigate = useNavigate();
   const [formDataRegistro, setFormDataRegistro] = useState({
@@ -74,7 +76,6 @@ function Login() {
   };
 
   const [userData, setUserData] = useState(null);
-  const { updateUserState } = useUserContext();
 
   const handleRegister = async () => {
     if (
@@ -189,13 +190,14 @@ function Login() {
       const userData = await response.json();
 
       const FUID = userData.usuario.firebaseUID;
-      const UserType=userData.usuario.userType;
+      const UserType = userData.usuario.userType;
       localStorage.setItem("FireBaseUID", FUID);
       localStorage.setItem("UserType",UserType);
       console.log("Este es el FirebaseUID en Login: ", FUID);
       console.log("Este es el UT en Login: ", UserType);
       setUserData(userData);
       navigate("/inicio");
+      setNombre(userData.usuario.nombre);
       handleClose();
       window.localStorage.setItem("logueado",true);
     } catch (error) {
@@ -249,13 +251,35 @@ function Login() {
     }
   };
 
+  const handleGetInfo = async () => {
+    try {
+      const response = await fetch(
+        `https://importasia-api.onrender.com/perfil?firebaseUID=${firebaseUID}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Error: ${errorData.message || response.status}`);
+      }
+
+      const userData = await response.json();
+      setNombre(userData.nombre);
+    } catch (error) { }
+  };
+
   return (
     <>
-      <button onClick={handleShow} className="icon-button">
+      <button onClick={handleShow} className="icon-button" onLoad={handleGetInfo}>
         <img src={userIcon} alt="User" className="icon" />
         <p>
-          {userData?.usuario?.nombre
-            ? `Hola, ${userData.usuario.nombre}`
+          {login
+            ? `Hola, ${nombre}`
             : "Iniciar Sesión"}
         </p>
       </button>
