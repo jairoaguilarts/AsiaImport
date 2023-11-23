@@ -34,7 +34,7 @@ const EditarPerfil = () => {
     // Ocultar la alerta después de 5 segundos (5000 milisegundos)
     setTimeout(() => {
       setShowAlert(false);
-    }, 3000); // Cambia este valor según el tiempo que quieras que la alerta esté visible
+    }, 1500); // Cambia este valor según el tiempo que quieras que la alerta esté visible
   };
 
   const validarDatos = () => {
