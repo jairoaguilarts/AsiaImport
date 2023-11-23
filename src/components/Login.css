@@ -19,7 +19,7 @@
 }
 
 .button-container {
-  margin: 0px !important;
+  margin: 10px !important;
   padding: 0% !important;
 }
 
@@ -87,7 +87,6 @@
   padding: .375rem .75rem;
   margin-top: .5rem;
   cursor: pointer;
-  border: 3px solid !important;
 }
 
 .login {
