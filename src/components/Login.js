@@ -23,7 +23,7 @@ function Login() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
-  const [alertVariant, setAlertVariant] = useState('danger');
+  const [alertVariant, setAlertVariant] = useState('white');
 
 
 
@@ -31,14 +31,14 @@ function Login() {
   const firebaseUID = localStorage.getItem("FireBaseUID");
 
   const mostrarAlerta = (message, variant) => {
-    setAlertVariant(variant);
+    setAlertVariant('danger');
     setAlertMessage(message);
     setShowAlert(true);
 
     // Ocultar la alerta después de 5 segundos (5000 milisegundos)
     setTimeout(() => {
       setShowAlert(false);
-    }, 3000); // Cambia este valor según el tiempo que quieras que la alerta esté visible
+    }, 1500);// Cambia este valor según el tiempo que quieras que la alerta esté visible
   };
 
   const navigate = useNavigate();
@@ -71,7 +71,6 @@ function Login() {
   };
 
   const handleShow = () => {
-
     if (login) {
       navigate("/editar");
     } else {
@@ -91,10 +90,12 @@ function Login() {
 
   const handleIniciarSesionClick = () => {
     setIsLoginSelected(true);
+    setShowAlert(false);
   };
 
   const handleRegistrarseClick = () => {
     setIsLoginSelected(false);
+    setShowAlert(false);
   };
 
   const handleChangeRegistro = (e) => {
@@ -126,33 +127,41 @@ function Login() {
       !formDataRegistro.formBasicConfirmPassword.trim()
     ) {
      
-
-      alert("Todos los campos son necesarios");
+      mostrarAlerta('Todos los campos son necesarios','danger');
+      setTimeout(() => {
+        setShowAlert(false);
+      }, 1500);
+      //alert("Todos los campos son necesarios");
       return;
     }
   
     if (!/^[a-zA-Z ]+$/.test(formDataRegistro.formBasicNombre) || !/^[a-zA-Z ]+$/.test(formDataRegistro.formBasicApellido)) {
-      alert("El nombre y apellido solo deben contener letras");
+      mostrarAlerta('El nombre y apellido solo deben contener letras','danger');
+     // alert("El nombre y apellido solo deben contener letras");
       return;
     }
   
     if (!/^\d+$/.test(formDataRegistro.formBasicID)) {
-      alert("El ID solo debe contener números y no debe contener espacios");
+      mostrarAlerta('El ID solo debe contener números y no debe contener espacios','danger');
+    //  alert("El ID solo debe contener números y no debe contener espacios");
       return;
     }
   
     if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formDataRegistro.formBasicEmailRegistro)) {
-      alert("Formato de correo electrónico no válido");
+      mostrarAlerta('Formato de correo electrónico no válido','danger');
+     // alert("Formato de correo electrónico no válido");
       return;
     }
   
     if (formDataRegistro.formBasicPasswordRegistro.length < 6) {
-      alert("La contraseña debe tener al menos 6 caracteres");
+      mostrarAlerta('La contraseña debe tener al menos 6 caracteres','danger');
+    //  alert("La contraseña debe tener al menos 6 caracteres");
       return;
     }
   
     if (formDataRegistro.formBasicPasswordRegistro !== formDataRegistro.formBasicConfirmPassword) {
-      alert("Las contraseñas no coinciden");
+      mostrarAlerta('Las contraseñas no coinciden','danger');
+     // alert("Las contraseñas no coinciden");
       return;
     }
   
@@ -190,7 +199,8 @@ function Login() {
       handleClose();
     } catch (error) {
       console.error("Error en el registro:", error);
-      alert("Error en el registro: " + error.message);
+     // alert("Error en el registro: " + error.message);
+      mostrarAlerta("Error en el registro ",'danger');
     }
   };
 
@@ -199,7 +209,8 @@ function Login() {
       !formDataLogIn.formBasicEmail.trim() ||
       !formDataLogIn.formBasicPassword.trim()
     ) {
-      alert("Los campos no estan completos");
+      //alert("Los campos no estan completos");
+      mostrarAlerta('Los campos no estan completos','danger');
       return;
     }
 
@@ -254,13 +265,16 @@ function Login() {
       window.localStorage.setItem("logueado",true);
     } catch (error) {
       console.error("Error en el registro:", error);
-      alert("Error en el registro: " + error.message);
+     // alert("Error en el registro: " + error.message);
+      mostrarAlerta("Error en el registro: " + error.message,'danger');
+
     }
   };
 
   const handlePasswordRecovery = async () => {
     if (!emailRecovery.trim()) {
-      alert("Por favor, ingresa un correo electrónico");
+      //alert("Por favor, ingresa un correo electrónico");
+      mostrarAlerta('Por favor, ingresa un correo electrónico','danger');
       return;
     }
 
@@ -511,7 +525,13 @@ function Login() {
                     type="password"
                     placeholder="Confirmar Contraseña"
                     onChange={handleChangeRegistro}
-                  />
+                  />   
+                   <CustomAlert 
+
+          message={alertMessage}
+          variant={alertVariant}
+          onClose={() => setShowAlert(false)}
+        />
                 </Form.Group>
               </>
             )}
@@ -521,6 +541,7 @@ function Login() {
           <Button className="login" variant="primary" onClick={handleSubmit}>
             {isLoginSelected ? "INICIAR SESIÓN" : "REGISTRARSE"}
           </Button>
+        
         </Modal.Footer>
       </Modal>
 
