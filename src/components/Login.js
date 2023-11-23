@@ -97,6 +97,12 @@ function Login() {
 
   const handleRegister = async () => {
     if (
+      !formDataRegistro.formBasicNombre ||
+      !formDataRegistro.formBasicApellido ||
+      !formDataRegistro.formBasicID ||
+      !formDataRegistro.formBasicEmailRegistro ||
+      !formDataRegistro.formBasicPasswordRegistro ||
+      !formDataRegistro.formBasicConfirmPassword ||
       !formDataRegistro.formBasicNombre.trim() ||
       !formDataRegistro.formBasicApellido.trim() ||
       !formDataRegistro.formBasicID.trim() ||
@@ -132,6 +138,8 @@ function Login() {
       alert("Las contraseñas no coinciden");
       return;
     }
+  
+
   
 
     const datosRegistro = {
