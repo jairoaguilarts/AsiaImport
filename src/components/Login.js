@@ -257,6 +257,7 @@ function Login() {
 
       if (UserType === "*") {
         setIsAdmin(true);
+        navigate("/adminGeneral")
         window.location.reload();
       }
       console.log("Click");

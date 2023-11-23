@@ -14,6 +14,7 @@ import PGAdmin from './components/PGeneralAdmin';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import EditarPerfil from './components/EditarPerfil';
 import Ventas from './components/Ventas';
+import AdmiNav from './components/AdmiNav';
 import Login from './components/Login';
 import AdminEmpleados from './components/AdminEmpleados';
 
@@ -24,7 +25,8 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Navibar />
+        {!userType && <Navibar/>} 
+        {userType && <AdmiNav />}
         {userType && <Admin />}
         <Routes>
           <Route path="/inicio" element={<Inicio />} />
