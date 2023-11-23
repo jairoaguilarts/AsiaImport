@@ -1,15 +1,72 @@
-.iniciar-sesion,
-.registrarse {
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
+
+:root {
+  --main-bg-color: white;
+  --active-color: orange;
+  --link-color: #01A6FF;
+  --text-color: gray;
+  --button-bg-color: #01A6FF;
+  --button-text-color: white;
+  --border-radius: 10px;
+  --font-family-y2k: 'Roboto Mono', monospace;
+  --font-family-serif: 'Times New Roman', serif;
+}
+
+body {
+  font-family: var(--font-family-y2k);
+}
+.iniciar-sesion, .registrarse {
   flex-grow: 0;
   cursor: pointer;
-  background: none;
+  background: white;
   border: none;
   padding: 8px 16px;
   font-size: 1rem;
   font-weight: bold;
   position: relative;
   border-bottom: 3px solid transparent;
+  transition: background-color 0.3s ease-in-out, border-bottom-color 0.3s ease-in-out; /* Smooth transition for background and border */
+}
+
+#formIniciarSesion, #formRegistrar {
+  animation: fadeIn 1s ease-in-out;
+}
+
+.iniciar-sesion:hover, .registrarse:hover {
   background-color: red;
+  border-bottom-color: orange;
+}
+.iniciar-sesion.selected, .registrarse.selected {
+  animation: pulse 1s infinite;
+  border-bottom: 3px solid orange;
+  background-color: white;
+}
+
+
+.selected {
+  border-bottom: 3px solid var(--active-color);
+}
+
+:active {
+  color: var(--text-color);
+}
+
+p {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.forms {
+  margin: 20px;
+  animation: fadeIn 1s ease-in-out;
+  display: flex;
+  flex-direction: column;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .inicio-registro {
@@ -117,6 +174,10 @@
   margin: 0 auto;
   padding: 2px;
 }
+.forgot, .login, .recuperar {
+  cursor: pointer;
+  text-decoration: underline; /* Makes links more distinguishable */
+}
 
 .body_text {
   color: gray;
@@ -217,4 +278,55 @@
 /* Estilos para el botón al pasar el mouse */
 .menu-options button:hover {
   background-color: #f7f7f7; /* Color de fondo al pasar el mouse */
+}
+
+/* Media queries para diseño responsivo */
+
+/* Pantallas grandes */
+@media (min-width: 992px) {
+  .form-container {
+    padding: 1rem 2rem; /* Aumenta el padding en pantallas grandes */
+  }
+}
+
+/* Pantallas medianas, tabletas */
+@media (min-width: 768px) and (max-width: 991px) {
+  .form-container {
+    padding: 1rem 1.5rem; /* Ajusta el padding */
+  }
+}
+
+/* Pantallas pequeñas, teléfonos */
+@media (max-width: 767px) {
+  .button {
+    padding: 8px 12px; /* Padding más pequeño para botones */
+    font-size: .9rem; /* Tamaño de fuente más pequeño */
+  }
+
+  .form-control {
+    padding: .375rem .5rem; /* Padding más pequeño para controles de formulario */
+  }
+
+  .login,
+  .recuperar {
+    padding: 10px; /* Padding uniforme */
+    margin: 1rem .5rem; /* Ajusta los márgenes */
+    font-size: .9rem; /* Tamaño de fuente más pequeño */
+  }
+
+  .form-container {
+    padding: 1rem; /* Padding más pequeño para el contenedor del formulario */
+  }
+
+  .forgot {
+    margin-top: .25rem; /* Margen superior más pequeño para el enlace olvidé mi contraseña */
+  }
+}
+
+/* Esto asegura que el formulario tome todo el ancho en pantallas extra pequeñas */
+@media (max-width: 576px) {
+  .form-container {
+    width: 100%;
+    max-width: none; /* Elimina el ancho máximo para permitir que el formulario se expanda */
+  }
 }
