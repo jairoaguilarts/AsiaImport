@@ -18,11 +18,14 @@ import Login from './components/Login';
 import AdminEmpleados from './components/AdminEmpleados';
 
 function App() {
+  const userType = localStorage.getItem("UserType");
+  console.log(userType);
+
   return (
     <Router>
       <div className="App">
         <Navibar />
-        {/*<Admin />*/}
+        {userType && <Admin />}
         <Routes>
           <Route path="/inicio" element={<Inicio />} />
           <Route path="/acerca" element={<InfoG />} /> {/* Ruta para InfoG */}

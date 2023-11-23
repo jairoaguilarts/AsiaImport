@@ -93,6 +93,7 @@ function Login() {
 
 
   const [userData, setUserData] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const handleRegister = async () => {
     if (
@@ -208,10 +209,18 @@ function Login() {
 
       const FUID = userData.usuario.firebaseUID;
       const UserType = userData.usuario.userType;
+
+      if(UserType === "*") {
+        setIsAdmin(true);
+        window.location.reload();
+      }
+      console.log("Click");
+
       localStorage.setItem("FireBaseUID", FUID);
-      localStorage.setItem("UserType",UserType);
-      console.log("Este es el FirebaseUID en Login: ", FUID);
-      console.log("Este es el UT en Login: ", UserType);
+      localStorage.setItem("UserType", isAdmin);
+      
+
+
       setUserData(userData);
       navigate("/inicio");
       setNombre(userData.usuario.nombre);
@@ -271,8 +280,10 @@ function Login() {
 
       if (response.ok) {
         localStorage.removeItem("logueado");
+        localStorage.removeItem("UserType");
         setMenuOpen(false); 
         navigate("/inicio");
+        window.location.reload();
       }
     }
   };
