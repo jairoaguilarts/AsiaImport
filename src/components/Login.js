@@ -382,7 +382,7 @@ function Login() {
       )}
 
       <Modal show={show} onHide={handleClose} size="md" centered>
-        <Modal.Header closeButton>
+        <Modal.Header className="inicio-registro" closeButton>
           <Modal.Title>
             <div className="button-container">
               <button
@@ -491,7 +491,7 @@ function Login() {
             )}
           </Form>
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer className="footer-cont">
           <Button className="login" variant="primary" onClick={handleSubmit}>
             {isLoginSelected ? "INICIAR SESIÓN" : "REGISTRARSE"}
           </Button>

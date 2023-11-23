@@ -9,12 +9,34 @@
   font-weight: bold;
   position: relative;
   border-bottom: 3px solid transparent;
+  background-color: red;
+}
+
+.inicio-registro {
+  margin-top: 0px !important;
+  padding-top: 0% !important;
+  padding-bottom: 0% !important;
+}
+
+.button-container {
+  margin: 0px !important;
+  padding: 0% !important;
+}
+
+.footer-cont {
+  padding-top: 10px !important;
+  margin: 0% 20px !important;
 }
 
 .iniciar-sesion.selected,
 .registrarse.selected {
   border-bottom: 3px solid orange;
   background-color: white;
+}
+
+.iniciar-sesion.selected p,
+.registrarse.selected p {
+  color: orange;
 }
 
 .iniciar-sesion:not(.selected),
@@ -42,14 +64,20 @@
 }
 
 .forms {
-  margin: 20px;
+  margin: 0px !important;
+  display: flex;
+  flex-direction: column;
 }
 
 .form-control {
   border-radius: 10px;
   border: 1px solid #ced4da;
-  padding: .375rem .75rem;
-  margin-bottom: 1rem;
+}
+
+.form-label {
+  text-align: left; 
+  margin-bottom: 0.5rem; 
+  margin-left: 12px;
 }
 
 .forgot {
@@ -59,6 +87,7 @@
   padding: .375rem .75rem;
   margin-top: .5rem;
   cursor: pointer;
+  border: 3px solid !important;
 }
 
 .login {
