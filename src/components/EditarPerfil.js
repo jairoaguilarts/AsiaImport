@@ -3,6 +3,7 @@ import "./EditarPerfil.css";
 import userIcon from "../assets/avatar.png";
 import lockIcon from "../assets/locked.png";
 import lapizIcon from "../assets/lapiz.png";
+import CustomAlert from './CustomAlert';
 import Modal from "./Modal";
 import { useNavigate } from "react-router-dom";
 
@@ -11,26 +12,43 @@ const EditarPerfil = () => {
   const [apellido, setApellido] = useState("");
   const [id, setId] = useState("");
   const [showModal, setShowModal] = useState(false);
-
+  const [show, setShow] = useState(true);
   const firebaseUID = localStorage.getItem("FireBaseUID");
   const logueado = localStorage.getItem("logueado");
 
   const [datosViejos, setdatosViejos] = useState("");
   const [error, setError] = useState("");
 
+  
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [alertVariant, setAlertVariant] = useState('danger');
+
   const navigate = useNavigate();
+
+  const mostrarAlerta = (message, variant) => {
+    setAlertVariant(variant);
+    setAlertMessage(message);
+    setShowAlert(true);
+
+    // Ocultar la alerta después de 5 segundos (5000 milisegundos)
+    setTimeout(() => {
+      setShowAlert(false);
+    }, 3000); // Cambia este valor según el tiempo que quieras que la alerta esté visible
+  };
 
   const validarDatos = () => {
     const regexNombreApellido = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$/;
     const regexId = /^\d+$/;
 
-    if (!regexNombreApellido.test(nombre) || !regexNombreApellido.test(apellido)) {
-      alert("Datos incorrectos en nombre o apellido. Solo se permiten letras.");
+    if (!regexNombreApellido.test(nombre) || !regexNombreApellido.test(apellido)) {   
+    mostrarAlerta('Datos incorrectos en nombre o apellido. Solo se permiten letras.','danger');
+
       return false;
     }
 
     if (!regexId.test(id)) {
-      alert("Datos incorrectos en ID. Solo se permiten números.");
+      mostrarAlerta('Datos incorrectos en ID. Solo se permiten números.','danger');
       return false;
     }
 
@@ -46,7 +64,8 @@ const EditarPerfil = () => {
 
     // Validar si no se ha realizado ningún cambio
     if (nombre === datosViejos.nombre && apellido === datosViejos.apellido && id === datosViejos.numeroIdentidad) {
-      alert("No se han realizado cambios para guardar");
+      mostrarAlerta('"No se han realizado cambios para guardar"','danger');
+    
       return;
     }
     try {
@@ -78,7 +97,8 @@ const EditarPerfil = () => {
       console.error("Error al actualizar información del usuario:", error);
       // Puedes manejar el error de acuerdo a tus necesidades.
     }
-    alert("Cambios Realizados");
+    mostrarAlerta('Cambios Realizados','success');
+  
   };
 
   const handleGetInfo = async () => {
@@ -205,10 +225,17 @@ const EditarPerfil = () => {
             <button
               type="submit"
               className="boton-guardar"
-            //  onClick={handleSubmit}
+            // onClick={handleSubmit}
             >
               GUARDAR
             </button>
+            {showAlert && (
+        <CustomAlert
+          message={alertMessage}
+          variant={alertVariant}
+          onClose={() => setShowAlert(false)}
+        />
+      )}
           </div>
           {error && <div className="error-message">{error}</div>}
         </form>

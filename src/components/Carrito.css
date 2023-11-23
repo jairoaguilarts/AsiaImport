@@ -12,8 +12,12 @@
     flex-direction: column;
     z-index: 1000;
     overflow-y: auto;
+    transition: right 20s ease-in-out;
 }
-
+.carrito.visible {
+    right: 40;
+  }
+  
 .close-btn {
     align-self: flex-end;
     margin: 10px;

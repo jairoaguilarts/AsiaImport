@@ -6,6 +6,7 @@ import Modal from "react-bootstrap/Modal";
 import userIcon from "../assets/user.png";
 import iconoLock from "../assets/lock.png";
 import ConfirmacionCorreo from "./ConfirmacionCorreo";
+import CustomAlert from './CustomAlert';
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
 import "./EditarPerfil.js";
@@ -20,11 +21,25 @@ function Login() {
   const logueado = localStorage.getItem("logueado");
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(!!localStorage.getItem("logueado"));
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [alertVariant, setAlertVariant] = useState('danger');
 
 
 
   const login = window.localStorage.getItem("logueado");
   const firebaseUID = localStorage.getItem("FireBaseUID");
+
+  const mostrarAlerta = (message, variant) => {
+    setAlertVariant(variant);
+    setAlertMessage(message);
+    setShowAlert(true);
+
+    // Ocultar la alerta después de 5 segundos (5000 milisegundos)
+    setTimeout(() => {
+      setShowAlert(false);
+    }, 3000); // Cambia este valor según el tiempo que quieras que la alerta esté visible
+  };
 
   const navigate = useNavigate();
   const [formDataRegistro, setFormDataRegistro] = useState({
@@ -104,6 +119,8 @@ function Login() {
       !formDataRegistro.formBasicPasswordRegistro.trim() ||
       !formDataRegistro.formBasicConfirmPassword.trim()
     ) {
+     
+
       alert("Todos los campos son necesarios");
       return;
     }
