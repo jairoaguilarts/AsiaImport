@@ -6,7 +6,7 @@ import Modal from "react-bootstrap/Modal";
 import userIcon from "../assets/user.png";
 import iconoLock from "../assets/lock.png";
 import ConfirmacionCorreo from "./ConfirmacionCorreo";
-import CustomAlert from './CustomAlert';
+import CustomAlert from "./CustomAlert";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
 import "./EditarPerfil.js";
@@ -19,26 +19,25 @@ function Login() {
   const [emailRecovery, setEmailRecovery] = useState("");
   const [nombre, setNombre] = useState("");
   const logueado = localStorage.getItem("logueado");
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(!!localStorage.getItem("logueado"));
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(
+    !!localStorage.getItem("logueado")
+  );
   const [menuOpen, setMenuOpen] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
-  const [alertMessage, setAlertMessage] = useState('');
-  const [alertVariant, setAlertVariant] = useState('white');
-
-
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertVariant, setAlertVariant] = useState("white");
 
   const login = window.localStorage.getItem("logueado");
   const firebaseUID = localStorage.getItem("FireBaseUID");
 
   const mostrarAlerta = (message, variant) => {
-    setAlertVariant('danger');
+    setAlertVariant(variant);
     setAlertMessage(message);
     setShowAlert(true);
 
-    // Ocultar la alerta después de 5 segundos (5000 milisegundos)
     setTimeout(() => {
       setShowAlert(false);
-    }, 1500);// Cambia este valor según el tiempo que quieras que la alerta esté visible
+    }, 1400);
   };
 
   const navigate = useNavigate();
@@ -63,7 +62,6 @@ function Login() {
   const handleEditProfile = () => {
     navigate("/editar");
   };
-  
 
   const handleClose = () => {
     setShow(false);
@@ -90,12 +88,12 @@ function Login() {
 
   const handleIniciarSesionClick = () => {
     setIsLoginSelected(true);
-    setShowAlert(false);
+    mostrarAlerta("Asegurate de completar todos los datos", "info");
   };
 
   const handleRegistrarseClick = () => {
     setIsLoginSelected(false);
-    setShowAlert(false);
+    mostrarAlerta("Asegurate de completar todos los datos", "info");
   };
 
   const handleChangeRegistro = (e) => {
@@ -105,8 +103,6 @@ function Login() {
   const handleChangeLogIn = (e) => {
     setFormDataLogIn({ ...formDataLogIn, [e.target.id]: e.target.value });
   };
-
-
 
   const [userData, setUserData] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
@@ -126,47 +122,57 @@ function Login() {
       !formDataRegistro.formBasicPasswordRegistro.trim() ||
       !formDataRegistro.formBasicConfirmPassword.trim()
     ) {
-     
-      mostrarAlerta('Todos los campos son necesarios','danger');
-      setTimeout(() => {
-        setShowAlert(false);
-      }, 1500);
-      //alert("Todos los campos son necesarios");
-      return;
-    }
-  
-    if (!/^[a-zA-Z ]+$/.test(formDataRegistro.formBasicNombre) || !/^[a-zA-Z ]+$/.test(formDataRegistro.formBasicApellido)) {
-      mostrarAlerta('El nombre y apellido solo deben contener letras','danger');
-     // alert("El nombre y apellido solo deben contener letras");
-      return;
-    }
-  
-    if (!/^\d+$/.test(formDataRegistro.formBasicID)) {
-      mostrarAlerta('El ID solo debe contener números y no debe contener espacios','danger');
-    //  alert("El ID solo debe contener números y no debe contener espacios");
-      return;
-    }
-  
-    if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formDataRegistro.formBasicEmailRegistro)) {
-      mostrarAlerta('Formato de correo electrónico no válido','danger');
-     // alert("Formato de correo electrónico no válido");
-      return;
-    }
-  
-    if (formDataRegistro.formBasicPasswordRegistro.length < 6) {
-      mostrarAlerta('La contraseña debe tener al menos 6 caracteres','danger');
-    //  alert("La contraseña debe tener al menos 6 caracteres");
-      return;
-    }
-  
-    if (formDataRegistro.formBasicPasswordRegistro !== formDataRegistro.formBasicConfirmPassword) {
-      mostrarAlerta('Las contraseñas no coinciden','danger');
-     // alert("Las contraseñas no coinciden");
-      return;
-    }
-  
+      mostrarAlerta("Todos los campos son necesarios", "danger");
 
-  
+      //alert("Todos los campos son necesarios");
+      return false;
+    }
+
+    if (
+      !/^[a-zA-Z ]+$/.test(formDataRegistro.formBasicNombre) ||
+      !/^[a-zA-Z ]+$/.test(formDataRegistro.formBasicApellido)
+    ) {
+      mostrarAlerta(
+        "El nombre y apellido solo deben contener letras",
+        "danger"
+      );
+      // alert("El nombre y apellido solo deben contener letras");
+      return;
+    }
+
+    if (!/^\d+$/.test(formDataRegistro.formBasicID)) {
+      mostrarAlerta(
+        "El ID solo debe contener números y no debe contener espacios",
+        "danger"
+      );
+      //  alert("El ID solo debe contener números y no debe contener espacios");
+      return;
+    }
+
+    if (
+      !/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(
+        formDataRegistro.formBasicEmailRegistro
+      )
+    ) {
+      mostrarAlerta("Formato de correo electrónico no válido", "danger");
+      // alert("Formato de correo electrónico no válido");
+      return;
+    }
+
+    if (formDataRegistro.formBasicPasswordRegistro.length < 6) {
+      mostrarAlerta("La contraseña debe tener al menos 6 caracteres", "danger");
+      //  alert("La contraseña debe tener al menos 6 caracteres");
+      return;
+    }
+
+    if (
+      formDataRegistro.formBasicPasswordRegistro !==
+      formDataRegistro.formBasicConfirmPassword
+    ) {
+      mostrarAlerta("Las contraseñas no coinciden", "danger");
+      // alert("Las contraseñas no coinciden");
+      return;
+    }
 
     const datosRegistro = {
       correo: formDataRegistro.formBasicEmailRegistro,
@@ -199,8 +205,8 @@ function Login() {
       handleClose();
     } catch (error) {
       console.error("Error en el registro:", error);
-     // alert("Error en el registro: " + error.message);
-      mostrarAlerta("Error en el registro ",'danger');
+      // alert("Error en el registro: " + error.message);
+      mostrarAlerta("Error en el registro ", "danger");
     }
   };
 
@@ -210,7 +216,7 @@ function Login() {
       !formDataLogIn.formBasicPassword.trim()
     ) {
       //alert("Los campos no estan completos");
-      mostrarAlerta('Los campos no estan completos','danger');
+      mostrarAlerta("Los campos no estan completos", "danger");
       return;
     }
 
@@ -220,13 +226,16 @@ function Login() {
     };
 
     try {
-      const response = await fetch("https://importasia-api.onrender.com/logIn", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(datosLogIn),
-      });
+      const response = await fetch(
+        "https://importasia-api.onrender.com/logIn",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(datosLogIn),
+        }
+      );
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -246,7 +255,7 @@ function Login() {
       const FUID = userData.usuario.firebaseUID;
       const UserType = userData.usuario.userType;
 
-      if(UserType === "*") {
+      if (UserType === "*") {
         setIsAdmin(true);
         window.location.reload();
       }
@@ -254,37 +263,37 @@ function Login() {
 
       localStorage.setItem("FireBaseUID", FUID);
       localStorage.setItem("UserType", isAdmin);
-      
-
 
       setUserData(userData);
       navigate("/inicio");
       setNombre(userData.usuario.nombre);
       handleClose();
-      window.localStorage.setItem("logueado",true);
+      window.localStorage.setItem("logueado", true);
     } catch (error) {
       console.error("Error en el registro:", error);
-     // alert("Error en el registro: " + error.message);
-      mostrarAlerta("Error en el registro: " + error.message,'danger');
-
+      // alert("Error en el registro: " + error.message);
+      mostrarAlerta("Error en el registro ", "danger");
     }
   };
 
   const handlePasswordRecovery = async () => {
     if (!emailRecovery.trim()) {
       //alert("Por favor, ingresa un correo electrónico");
-      mostrarAlerta('Por favor, ingresa un correo electrónico','danger');
+      mostrarAlerta("Por favor, ingresa un correo electrónico", "danger");
       return;
     }
 
     try {
-      const response = await fetch("https://importasia-api.onrender.com/recoverPassword", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ correo: emailRecovery }),
-      });
+      const response = await fetch(
+        "https://importasia-api.onrender.com/recoverPassword",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ correo: emailRecovery }),
+        }
+      );
 
       if (!response.ok) {
         const contentType = response.headers.get("content-type");
@@ -310,24 +319,25 @@ function Login() {
 
   const handleLogout = async () => {
     if (logueado) {
-      const response = await fetch("https://importasia-api.onrender.com/logOut", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        "https://importasia-api.onrender.com/logOut",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (response.ok) {
         localStorage.removeItem("logueado");
         localStorage.removeItem("UserType");
-        setMenuOpen(false); 
+        setMenuOpen(false);
         navigate("/inicio");
         window.location.reload();
       }
     }
   };
-
-
 
   const handleSubmit = () => {
     if (isLoginSelected) {
@@ -356,29 +366,32 @@ function Login() {
 
       const userData = await response.json();
       setNombre(userData.nombre);
-    } catch (error) { }
+    } catch (error) {}
   };
-
 
   return (
     <>
       {!logueado ? (
-      <button onClick={handleShow} className="icon-button">
-        <img src={userIcon} alt="User" className="icon" />
-        <p>Iniciar Sesión</p>
-      </button>
-    ) : (
-      <div className="user-menu">
-        <button onClick={toggleMenu} className="icon-button" onLoad={handleGetInfo}>
+        <button onClick={handleShow} className="icon-button">
           <img src={userIcon} alt="User" className="icon" />
-          <p>Hola, {nombre}</p>
+          <p>Iniciar Sesión</p>
         </button>
-        <div className={menuOpen ? 'menu-options menu-open' : 'menu-options'}>
-          <button onClick={handleEditProfile}>Editar perfil</button>
-          <button onClick={handleLogout}>Cerrar sesión</button>
+      ) : (
+        <div className="user-menu">
+          <button
+            onClick={toggleMenu}
+            className="icon-button"
+            onLoad={handleGetInfo}
+          >
+            <img src={userIcon} alt="User" className="icon" />
+            <p>Hola, {nombre}</p>
+          </button>
+          <div className={menuOpen ? "menu-options menu-open" : "menu-options"}>
+            <button onClick={handleEditProfile}>Editar perfil</button>
+            <button onClick={handleLogout}>Cerrar sesión</button>
+          </div>
         </div>
-      </div>
-    )}
+      )}
 
       {showVentanaForgot && (
         // Ventana de Recuperacion de Contraseña
@@ -426,8 +439,9 @@ function Login() {
             <div className="button-container">
               <button
                 onClick={handleIniciarSesionClick}
-                className={`iniciar-sesion ${isLoginSelected ? "selected" : ""
-                  }`}
+                className={`iniciar-sesion ${
+                  isLoginSelected ? "selected" : ""
+                }`}
               >
                 <p>Iniciar Sesión</p>
               </button>
@@ -524,13 +538,14 @@ function Login() {
                     type="password"
                     placeholder="Confirmar Contraseña"
                     onChange={handleChangeRegistro}
-                  />   
-                   <CustomAlert 
-
-          message={alertMessage}
-          variant={alertVariant}
-          onClose={() => setShowAlert(false)}
-        />
+                  />
+                  {showAlert && (
+                    <CustomAlert
+                      message={alertMessage}
+                      variant={alertVariant}
+                      onClose={() => setShowAlert(false)}
+                    />
+                  )}
                 </Form.Group>
               </>
             )}
@@ -540,7 +555,6 @@ function Login() {
           <Button className="login" variant="primary" onClick={handleSubmit}>
             {isLoginSelected ? "INICIAR SESIÓN" : "REGISTRARSE"}
           </Button>
-        
         </Modal.Footer>
       </Modal>
 
