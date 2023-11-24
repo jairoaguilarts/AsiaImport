@@ -1,22 +1,22 @@
 // App.js
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import MaintenancePage from './components/maintenancePage';
-import Navibar from './components/Navibar';
-import Footer from './components/Footer';
-import Inicio from './components/Inicio';
-import InfoG from './components/InfoG'; // Importa tu componente InfoG
-import Admin from './components/AdminPage'
-import Fa from './components/Fa'; // Importa tu componente InfoG
-import ProcederCompra from './components/ProcederCompra';
-import Carrito from './components/Carrito';
-import PGAdmin from './components/PGeneralAdmin';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import EditarPerfil from './components/EditarPerfil';
-import Ventas from './components/Ventas';
-import AdmiNav from './components/AdmiNav';
-import Login from './components/Login';
-import AdminEmpleados from './components/AdminEmpleados';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import MaintenancePage from "./components/maintenancePage";
+import Navibar from "./components/Navibar";
+import Footer from "./components/Footer";
+import Inicio from "./components/Inicio";
+import InfoG from "./components/InfoG"; // Importa tu componente InfoG
+import Admin from "./components/AdminPage";
+import Fa from "./components/Fa"; // Importa tu componente InfoG
+import ProcederCompra from "./components/ProcederCompra";
+import Carrito from "./components/Carrito";
+import PGAdmin from "./components/PGeneralAdmin";
+import "bootstrap/dist/css/bootstrap.min.css";
+import EditarPerfil from "./components/EditarPerfil";
+import Ventas from "./components/Ventas";
+import AdmiNav from "./components/AdmiNav";
+import Login from "./components/Login";
+import AdminEmpleados from "./components/AdminEmpleados";
 
 function App() {
   const userType = localStorage.getItem("IsAdmin");
@@ -25,18 +25,26 @@ function App() {
   return (
     <Router>
       <div className="App">
-        {!userType && <Navibar/>} 
+        {!userType && <Navibar />}
         {userType && <Admin />}
+
         <Routes>
+          <Route path="/" element={<Inicio />} />
           <Route path="/inicio" element={<Inicio />} />
           <Route path="/acerca" element={<InfoG />} /> {/* Ruta para InfoG */}
-          <Route path="/editar" element={<EditarPerfil />} /> {/* Ruta para InfoG */}
+          <Route path="/editar" element={<EditarPerfil />} />{" "}
+          {/* Ruta para InfoG */}
           <Route path="/preguntas" element={<Fa />} /> {/* Ruta para InfoG */}
-          <Route path="/compra" element={<ProcederCompra />} /> {/* Ruta para InfoG */}
-          <Route path="/carrito" element={<Carrito />} /> {/* Ruta para InfoG */}
-          <Route path="/adminGeneral" element={<PGAdmin />} /> {/* Ruta para PGeneralAdmin */}
-          <Route path="/ventas" element={<Ventas />} /> {/* Ruta para PGeneralAdmin */}
-          <Route path="/adminempleados" element={<AdminEmpleados />} /> {/* Ruta para AdminEmpleados */}
+          <Route path="/compra" element={<ProcederCompra />} />{" "}
+          {/* Ruta para InfoG */}
+          <Route path="/carrito" element={<Carrito />} />{" "}
+          {/* Ruta para InfoG */}
+          <Route path="/adminGeneral" element={<PGAdmin />} />{" "}
+          {/* Ruta para PGeneralAdmin */}
+          <Route path="/ventas" element={<Ventas />} />{" "}
+          {/* Ruta para PGeneralAdmin */}
+          <Route path="/adminempleados" element={<AdminEmpleados />} />{" "}
+          {/* Ruta para AdminEmpleados */}
           {/* Puedes añadir más rutas aquí */}
         </Routes>
         {!userType && <Footer />}
@@ -46,4 +54,3 @@ function App() {
 }
 
 export default App;
-
