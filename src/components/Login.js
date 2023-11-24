@@ -263,7 +263,7 @@ function Login() {
       console.log("Click");
 
       localStorage.setItem("FireBaseUID", FUID);
-      localStorage.setItem("UserType", isAdmin);
+      localStorage.setItem("IsAdmin", isAdmin);
 
       setUserData(userData);
       navigate("/inicio");
@@ -332,7 +332,7 @@ function Login() {
 
       if (response.ok) {
         localStorage.removeItem("logueado");
-        localStorage.removeItem("UserType");
+        localStorage.removeItem("IsAdmin");
         setMenuOpen(false);
         navigate("/inicio");
         window.location.reload();

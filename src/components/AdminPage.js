@@ -12,8 +12,8 @@ import { useNavigate } from "react-router-dom";
 
 const AdminPage = () => {
   const firebaseUID = localStorage.getItem("FireBaseUID");
-  const UserType = localStorage.getItem("UserType");
   const [isSidebarOpen, setSidebarOpen] = useState(true);
+  const logueado = localStorage.getItem("logueado");
   const navigate = useNavigate();
 
   const toggleSidebar = () => {
@@ -23,6 +23,27 @@ const AdminPage = () => {
 
   const closeSidebar = () => {
     setSidebarOpen(false);
+  };
+
+  const handleLogout = async () => {
+    if (logueado) {
+      const response = await fetch(
+        "https://importasia-api.onrender.com/logOut",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.ok) {
+        localStorage.removeItem("logueado");
+        localStorage.removeItem("IsAdmin");
+        navigate("/inicio");
+        window.location.reload();
+      }
+    }
   };
 
   return (
@@ -68,10 +89,7 @@ const AdminPage = () => {
             </div>
             <hr className="linea-divisora" />
 
-            <div
-              className="sidebar-item"
-              style={{ cursor: "pointer" }}
-            >
+            <div className="sidebar-item" onClick={handleLogout}>
               <img src={logOut} alt="logout" className="icon-image" />
               <span>Logout</span>
             </div>

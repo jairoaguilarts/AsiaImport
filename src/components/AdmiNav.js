@@ -33,11 +33,11 @@ const AdmiNav = () => {
   });
   return (
     <div>
-      <div className={`navbar ${searchOpen ? "search-active" : ""}`}>
+      <div className={`admiNav ${searchOpen ? "search-active" : ""}`}>
         {/* Envuelve el logo con un componente Link */}
-        <Link to="/adminGeneral" className="navbar-logo" onClick={handleLogoClick}>
+        <Link to="/adminGeneral" className="admiNav-logo" onClick={handleLogoClick}>
           <img src={logoImage} alt="Logo" />
-          <span className="brand-name"></span>
+          <span className="bran-name"></span>
         </Link> 
       </div>
     </div>
