@@ -184,3 +184,45 @@ h1,
   background-color: #01A6FF;
   color: white;
 }
+
+@media only screen and (max-width: 600px) {
+  .admin-empleados-container {
+    margin: 5% 1% 5% 1%;
+  }
+
+  .titulo-empleados {
+    font-size: 2rem;
+  }
+
+  .boton-anaranjado,
+  .boton-verde,
+  .boton-rojo,
+  .btn-agregar,
+  .btn-editar,
+  .botones {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    margin: 4px 0;
+  }
+
+  .tabla-empleados,
+  .tabla-empleados th,
+  .tabla-empleados td {
+    font-size: 0.8rem; 
+    padding: 8px; 
+  }
+
+  .acciones {
+    flex-direction: column; 
+    align-items: center; 
+    padding: 4px;
+  }
+
+  .acciones .boton-accion {
+    margin-bottom: 2px; 
+  }
+
+  .tabla-empleados .columna-ocultar {
+    display: none;
+  }
+}
