@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -41,19 +41,38 @@ function Login() {
   };
 
   const navigate = useNavigate();
+
   const [formDataRegistro, setFormDataRegistro] = useState({
-    nombre: "",
-    apellido: "",
-    numeroIdentidad: "",
-    correo: "",
-    contrasenia: "",
-    confirmarContrasenia: "",
+    formBasicNombre: "",
+    formBasicApellido: "",
+    formBasicID: "",
+    formBasicEmailRegistro: "",
+    formBasicPasswordRegistro: "",
+    formBasicConfirmPassword: "",
   });
 
   const [formDataLogIn, setFormDataLogIn] = useState({
-    correo: "",
-    contrasenia: "",
+    formBasicEmail: "",
+    formBasicPassword: "",
   });
+
+  useEffect(() => {
+    if (isLoginSelected) {
+      setFormDataLogIn({
+        formBasicEmail: "",
+        formBasicPassword: "",
+      });
+    } else {
+      setFormDataRegistro({
+        formBasicNombre: "",
+        formBasicApellido: "",
+        formBasicID: "",
+        formBasicEmailRegistro: "",
+        formBasicPasswordRegistro: "",
+        formBasicConfirmPassword: "",
+      });
+    }
+  }, [isLoginSelected]);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -66,12 +85,17 @@ function Login() {
   const handleClose = () => {
     setShow(false);
     setShowVentanaForgot(false);
+    setFormDataLogIn({
+      formBasicEmail: "",
+      formBasicPassword: "",
+    });
   };
 
   const handleShow = () => {
     if (login) {
       navigate("/editar");
     } else {
+      setIsLoginSelected(true);
       setShow(true);
     }
   };
@@ -97,11 +121,19 @@ function Login() {
   };
 
   const handleChangeRegistro = (e) => {
-    setFormDataRegistro({ ...formDataRegistro, [e.target.id]: e.target.value });
+    const { name, value } = e.target;
+    setFormDataRegistro(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
   };
 
   const handleChangeLogIn = (e) => {
-    setFormDataLogIn({ ...formDataLogIn, [e.target.id]: e.target.value });
+    const { name, value } = e.target;
+    setFormDataLogIn(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
   };
 
   const [userData, setUserData] = useState(null);
@@ -172,7 +204,6 @@ function Login() {
       handleClose();
     } catch (error) {
       console.error("Error en el registro:", error);
-      // alert("Error en el registro: " + error.message);
       mostrarAlerta("Error en el registro ", "danger");
     }
   };
@@ -429,17 +460,21 @@ function Login() {
                   <Form.Label>Correo</Form.Label>
                   <Form.Control
                     type="email"
+                    name="formBasicEmail"
                     placeholder="Correo Electrónico"
                     autoFocus
                     onChange={handleChangeLogIn}
+                    value={formDataLogIn.formBasicEmail}
                   />
                 </Form.Group>
                 <Form.Group className="forms" controlId="formBasicPassword">
                   <Form.Label>Contraseña</Form.Label>
                   <Form.Control
                     type="password"
+                    name="formBasicPassword"
                     placeholder="Contraseña"
                     onChange={handleChangeLogIn}
+                    value={formDataLogIn.formBasicPassword}
                   />
                 </Form.Group>
                 <div className="d-flex justify-content-center">
@@ -454,57 +489,60 @@ function Login() {
                   <Form.Label>Nombre</Form.Label>
                   <Form.Control
                     type="text"
+                    name="formBasicNombre"
                     placeholder="Nombre"
                     onChange={handleChangeRegistro}
+                    value={formDataRegistro.formBasicNombre}
                   />
                 </Form.Group>
                 <Form.Group className="forms" controlId="formBasicApellido">
                   <Form.Label>Apellido</Form.Label>
                   <Form.Control
                     type="text"
+                    name="formBasicApellido"
                     placeholder="Apellido"
                     onChange={handleChangeRegistro}
+                    value={formDataRegistro.formBasicApellido}
                   />
                 </Form.Group>
                 <Form.Group className="forms" controlId="formBasicID">
                   <Form.Label>ID</Form.Label>
                   <Form.Control
                     type="text"
+                    name="formBasicID"
                     placeholder="ID"
                     onChange={handleChangeRegistro}
+                    value={formDataRegistro.formBasicID}
                   />
                 </Form.Group>
-                <Form.Group
-                  className="forms"
-                  controlId="formBasicEmailRegistro"
-                >
+                <Form.Group className="forms" controlId="formBasicEmailRegistro">
                   <Form.Label>Correo Electrónico</Form.Label>
                   <Form.Control
                     type="email"
+                    name="formBasicEmailRegistro"
                     placeholder="Correo Electrónico"
                     onChange={handleChangeRegistro}
+                    value={formDataRegistro.formBasicEmailRegistro}
                   />
                 </Form.Group>
-                <Form.Group
-                  className="forms"
-                  controlId="formBasicPasswordRegistro"
-                >
+                <Form.Group className="forms" controlId="formBasicPasswordRegistro">
                   <Form.Label>Contraseña</Form.Label>
                   <Form.Control
                     type="password"
+                    name="formBasicPasswordRegistro"
                     placeholder="Contraseña"
                     onChange={handleChangeRegistro}
+                    value={formDataRegistro.formBasicPasswordRegistro}
                   />
                 </Form.Group>
-                <Form.Group
-                  className="forms"
-                  controlId="formBasicConfirmPassword"
-                >
+                <Form.Group className="forms" controlId="formBasicConfirmPassword">
                   <Form.Label>Confirmar Contraseña</Form.Label>
                   <Form.Control
                     type="password"
+                    name="formBasicConfirmPassword"
                     placeholder="Confirmar Contraseña"
                     onChange={handleChangeRegistro}
+                    value={formDataRegistro.formBasicConfirmPassword}
                   />
                 </Form.Group>
                 {showAlert && (
