@@ -16,6 +16,7 @@
 body {
   font-family: var(--font-family-y2k);
 }
+
 .iniciar-sesion, .registrarse {
   flex-grow: 0;
   cursor: pointer;
@@ -37,12 +38,12 @@ body {
   background-color: red;
   border-bottom-color: orange;
 }
+
 .iniciar-sesion.selected, .registrarse.selected {
   animation: pulse 1s infinite;
   border-bottom: 3px solid orange;
   background-color: white;
 }
-
 
 .selected {
   border-bottom: 3px solid var(--active-color);

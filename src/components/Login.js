@@ -37,7 +37,7 @@ function Login() {
 
     setTimeout(() => {
       setShowAlert(false);
-    }, 1400);
+    }, 2400);
   };
 
   const navigate = useNavigate();
@@ -109,12 +109,6 @@ function Login() {
 
   const handleRegister = async () => {
     if (
-      !formDataRegistro.formBasicNombre ||
-      !formDataRegistro.formBasicApellido ||
-      !formDataRegistro.formBasicID ||
-      !formDataRegistro.formBasicEmailRegistro ||
-      !formDataRegistro.formBasicPasswordRegistro ||
-      !formDataRegistro.formBasicConfirmPassword ||
       !formDataRegistro.formBasicNombre.trim() ||
       !formDataRegistro.formBasicApellido.trim() ||
       !formDataRegistro.formBasicID.trim() ||
@@ -123,54 +117,27 @@ function Login() {
       !formDataRegistro.formBasicConfirmPassword.trim()
     ) {
       mostrarAlerta("Todos los campos son necesarios", "danger");
-
-      //alert("Todos los campos son necesarios");
       return false;
-    }
-
-    if (
-      !/^[a-zA-Z ]+$/.test(formDataRegistro.formBasicNombre) ||
-      !/^[a-zA-Z ]+$/.test(formDataRegistro.formBasicApellido)
-    ) {
-      mostrarAlerta(
-        "El nombre y apellido solo deben contener letras",
-        "danger"
-      );
-      // alert("El nombre y apellido solo deben contener letras");
+    } else if (!/^[a-zA-Z ]+$/.test(formDataRegistro.formBasicNombre)) {
+      mostrarAlerta("El nombre solo debe contener letras", "danger");
       return;
-    }
-
-    if (!/^\d+$/.test(formDataRegistro.formBasicID)) {
-      mostrarAlerta(
-        "El ID solo debe contener números y no debe contener espacios",
-        "danger"
-      );
-      //  alert("El ID solo debe contener números y no debe contener espacios");
+    } else if (!/^[a-zA-Z ]+$/.test(formDataRegistro.formBasicApellido)) {
+      mostrarAlerta("El apellido solo debe contener letras", "danger");
       return;
-    }
-
-    if (
-      !/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(
-        formDataRegistro.formBasicEmailRegistro
-      )
-    ) {
+    } else if (!/^\d+$/.test(formDataRegistro.formBasicID)) {
+      mostrarAlerta("El ID es incorrecto", "danger");
+      return;
+    } else if (document.getElementById('formBasicID').value.length < 13) {
+      mostrarAlerta("Ingrese un ID valido", "danger");
+      return;
+    } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formDataRegistro.formBasicEmailRegistro)) {
       mostrarAlerta("Formato de correo electrónico no válido", "danger");
-      // alert("Formato de correo electrónico no válido");
       return;
-    }
-
-    if (formDataRegistro.formBasicPasswordRegistro.length < 6) {
+    } else if (formDataRegistro.formBasicPasswordRegistro.length < 6) {
       mostrarAlerta("La contraseña debe tener al menos 6 caracteres", "danger");
-      //  alert("La contraseña debe tener al menos 6 caracteres");
       return;
-    }
-
-    if (
-      formDataRegistro.formBasicPasswordRegistro !==
-      formDataRegistro.formBasicConfirmPassword
-    ) {
+    } else if (formDataRegistro.formBasicPasswordRegistro !== formDataRegistro.formBasicConfirmPassword) {
       mostrarAlerta("Las contraseñas no coinciden", "danger");
-      // alert("Las contraseñas no coinciden");
       return;
     }
 
@@ -367,7 +334,7 @@ function Login() {
 
       const userData = await response.json();
       setNombre(userData.nombre);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   return (
@@ -440,9 +407,8 @@ function Login() {
             <div className="button-container">
               <button
                 onClick={handleIniciarSesionClick}
-                className={`iniciar-sesion ${
-                  isLoginSelected ? "selected" : ""
-                }`}
+                className={`iniciar-sesion ${isLoginSelected ? "selected" : ""
+                  }`}
               >
                 <p>Iniciar Sesión</p>
               </button>
@@ -540,14 +506,14 @@ function Login() {
                     placeholder="Confirmar Contraseña"
                     onChange={handleChangeRegistro}
                   />
-                  {showAlert && (
-                    <CustomAlert
-                      message={alertMessage}
-                      variant={alertVariant}
-                      onClose={() => setShowAlert(false)}
-                    />
-                  )}
                 </Form.Group>
+                {showAlert && (
+                  <CustomAlert className="alerta"
+                    message={alertMessage}
+                    variant={alertVariant}
+                    onClose={() => setShowAlert(false)}
+                  />
+                )}
               </>
             )}
           </Form>
