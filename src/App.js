@@ -20,29 +20,23 @@ import AdminEmpleados from "./components/AdminEmpleados";
 
 function App() {
   const userType = localStorage.getItem("IsAdmin");
-  console.log(userType);
 
   return (
     <Router>
       <div className="App">
-        {!userType && <Navibar />}
-        {userType && <Admin />}
+        {userType === "false" && <Navibar />}
+        {userType === "true" && <Admin />}
 
         <Routes>
           <Route path="/" element={<Inicio />} />
           <Route path="/inicio" element={<Inicio />} />
-          <Route path="/acerca" element={<InfoG />} /> {/* Ruta para InfoG */}
+          <Route path="/acerca" element={<InfoG />} />
           <Route path="/editar" element={<EditarPerfil />} />{" "}
-          {/* Ruta para InfoG */}
-          <Route path="/preguntas" element={<Fa />} /> {/* Ruta para InfoG */}
+          <Route path="/preguntas" element={<Fa />} />
           <Route path="/compra" element={<ProcederCompra />} />{" "}
-          {/* Ruta para InfoG */}
           <Route path="/carrito" element={<Carrito />} />{" "}
-          {/* Ruta para InfoG */}
           <Route path="/adminGeneral" element={<PGAdmin />} />{" "}
-          {/* Ruta para PGeneralAdmin */}
           <Route path="/ventas" element={<Ventas />} />{" "}
-          {/* Ruta para PGeneralAdmin */}
           <Route path="/adminempleados" element={<AdminEmpleados />} />{" "}
           {/* Ruta para AdminEmpleados */}
           {/* Puedes añadir más rutas aquí */}

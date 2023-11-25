@@ -45,6 +45,10 @@ body {
   background-color: white;
 }
 
+.justify-content-center {
+  margin-bottom: 20px !important;
+}
+
 .selected {
   border-bottom: 3px solid var(--active-color);
 }

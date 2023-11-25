@@ -18,7 +18,6 @@ function Login() {
   const [showConfirmation, setShowConfirmation] = useState(false); // Estado para ConfirmacionCorreo
   const [emailRecovery, setEmailRecovery] = useState("");
   const [nombre, setNombre] = useState("");
-  const logueado = localStorage.getItem("logueado");
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(
     !!localStorage.getItem("logueado")
   );
@@ -27,7 +26,7 @@ function Login() {
   const [alertMessage, setAlertMessage] = useState("");
   const [alertVariant, setAlertVariant] = useState("white");
 
-  const login = window.localStorage.getItem("logueado");
+  const logueado = localStorage.getItem("logueado");
   const firebaseUID = localStorage.getItem("FireBaseUID");
 
   const mostrarAlerta = (message, variant) => {
@@ -92,7 +91,7 @@ function Login() {
   };
 
   const handleShow = () => {
-    if (login) {
+    if (logueado) {
       navigate("/editar");
     } else {
       setIsLoginSelected(true);
@@ -203,7 +202,6 @@ function Login() {
       setShowConfirmation(true); // Mostrar la ventana de confirmación
       handleClose();
     } catch (error) {
-      console.error("Error en el registro:", error);
       mostrarAlerta("Error en el registro ", "danger");
     }
   };
@@ -213,7 +211,6 @@ function Login() {
       !formDataLogIn.formBasicEmail.trim() ||
       !formDataLogIn.formBasicPassword.trim()
     ) {
-      //alert("Los campos no estan completos");
       mostrarAlerta("Los campos no estan completos", "danger");
       return;
     }
@@ -255,30 +252,28 @@ function Login() {
 
       if (UserType === "*") {
         setIsAdmin(true);
-        navigate("/adminGeneral")
-        window.location.reload();
+        navigate("/adminGeneral");
       }
-      console.log("Click");
-
-      localStorage.setItem("FireBaseUID", FUID);
-      localStorage.setItem("IsAdmin", isAdmin);
 
       setUserData(userData);
       navigate("/inicio");
       setNombre(userData.usuario.nombre);
       handleClose();
+
       window.localStorage.setItem("logueado", true);
+      localStorage.setItem("FireBaseUID", FUID);
+      localStorage.setItem("IsAdmin", isAdmin);
     } catch (error) {
-      console.error("Error en el registro:", error);
-      // alert("Error en el registro: " + error.message);
-      mostrarAlerta("Error en el registro ", "danger");
+      mostrarAlerta("Correo o contraseña incorrecto ", "danger");
     }
   };
 
   const handlePasswordRecovery = async () => {
     if (!emailRecovery.trim()) {
-      //alert("Por favor, ingresa un correo electrónico");
       mostrarAlerta("Por favor, ingresa un correo electrónico", "danger");
+      return;
+    } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(emailRecovery)) {
+      mostrarAlerta("Formato de correo electrónico no válido", "danger");
       return;
     }
 
@@ -306,13 +301,10 @@ function Login() {
         return;
       }
 
-      alert("Se ha enviado un correo de recuperación a tu email");
+      mostrarAlerta("Se ha enviado un correo de recuperación a tu email", "info");
       setEmailRecovery("");
-      handleForgotClose();
     } catch (error) {
-      alert(
-        "Error en la recuperación de contraseña. Por favor, verifica tu conexión a internet y intenta de nuevo."
-      );
+      mostrarAlerta("Error en la recuperación de contraseña. Por favor, verifica tu conexión a internet y intenta de nuevo.", "danger");
     }
   };
 
@@ -331,9 +323,9 @@ function Login() {
       if (response.ok) {
         localStorage.removeItem("logueado");
         localStorage.removeItem("IsAdmin");
+        localStorage.removeItem("FireBaseUID");
         setMenuOpen(false);
         navigate("/inicio");
-        window.location.reload();
       }
     }
   };
@@ -482,6 +474,13 @@ function Login() {
                     ¿Olvidaste tu Contraseña?
                   </Button>
                 </div>
+                {showAlert && (
+                  <CustomAlert className="alerta"
+                    message={alertMessage}
+                    variant={alertVariant}
+                    onClose={() => setShowAlert(false)}
+                  />
+                )}
               </>
             ) : (
               <>
@@ -619,6 +618,13 @@ function Login() {
                 RECUPERAR
               </Button>
             </div>
+            {showAlert && (
+              <CustomAlert className="alerta"
+                message={alertMessage}
+                variant={alertVariant}
+                onClose={() => setShowAlert(false)}
+              />
+            )}
           </Modal.Body>
         </Modal>
       )}
