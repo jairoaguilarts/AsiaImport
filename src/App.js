@@ -24,7 +24,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        {userType === "false" && <Navibar />}
+        {userType !== "true" && <Navibar />}
         {userType === "true" && <Admin />}
 
         <Routes>
