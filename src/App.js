@@ -41,7 +41,7 @@ function App() {
           {/* Ruta para AdminEmpleados */}
           {/* Puedes añadir más rutas aquí */}
         </Routes>
-        {!userType && <Footer />}
+        {userType !== "true" && <Footer />}
       </div>
     </Router>
   );
