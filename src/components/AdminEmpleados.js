@@ -1,5 +1,4 @@
-// Importa los componentes y el CSS necesario
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./AdminEmpleados.css";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -12,6 +11,14 @@ const AdminEmpleados = () => {
   const [showConfirmar, setShowConfirmar] = useState(false);
   const [showEliminarConfirmar, setShowEliminarConfirmar] = useState(false);
   const [showHacerAdminConfirmar, setShowHacerAdminConfirmar] = useState(false);
+  const [empleados, setEmpleados] = useState([]);
+
+  useEffect(() => {
+    fetch('https://importasia-api.onrender.com/empleados')
+      .then(response => response.json())
+      .then(data => setEmpleados(data))
+      .catch(error => console.error('Error:', error));
+  }, []);
 
   const [formDataAgregar, setFormDataAgregar] = useState({
     nombre: "",
@@ -132,7 +139,6 @@ const AdminEmpleados = () => {
     setShowHacerAdminConfirmar(false);
 
   const handleHacerAdminConfirmacion = () => {
-    // Esta función se llama cuando se hace clic en "Hacer Admin"
     handleShowHacerAdminConfirmar();
   };
 
@@ -145,7 +151,7 @@ const AdminEmpleados = () => {
   const handleEliminar = () => {
     // Aquí puedes agregar la lógica para eliminar el empleado
     alert("Empleado eliminado");
-    handleCloseEliminarConfirmar(); // Cerrar el modal de confirmación de eliminación
+    handleCloseEliminarConfirmar();
   };
 
   return (
@@ -160,36 +166,32 @@ const AdminEmpleados = () => {
           <thead>
             <tr>
               <th>ID</th>
-              <th>Nombre</th>
+              <th>Apellido</th>
               <th>Correo</th>
               <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
-            {/* Aquí irían los datos de los empleados mapeados desde un estado o prop */}
-            <tr>
-              <td>1</td>
-              <td>Pedro Ramirez</td>
-              <td>p.rami@example.com</td>
-              <td>
-                <button
-                  className="boton-anaranjado"
-                  onClick={handleHacerAdminConfirmacion}
-                >
-                  Hacer Admin
-                </button>
-                <button className="boton-verde" onClick={handleShowEditar}>
-                  Editar
-                </button>
-                <button
-                  className="boton-rojo"
-                  onClick={handleEliminarConfirmacion}
-                >
-                  Eliminar
-                </button>
-              </td>
-            </tr>
-            {/* Repetir por cada empleado */}
+            {empleados.map((empleado) => {
+              return (
+                <tr>
+                  <td>{empleado.firebaseUID}</td>
+                  <td>{empleado.apellido}</td>
+                  <td>{empleado.correo}</td>
+                  <td>
+                    <button className="boton-anaranjado" onClick={handleHacerAdminConfirmacion}>
+                      Hacer Admin
+                    </button>
+                    <button className="boton-verde" onClick={handleShowEditar}>
+                      Editar
+                    </button>
+                    <button className="boton-rojo" onClick={handleEliminarConfirmacion}>
+                      Eliminar
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
