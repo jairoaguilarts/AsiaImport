@@ -1,10 +1,10 @@
 import React from 'react';
 import './PGeneralAdmin.css';
-import maleta from '../assets/maleta.png';
-import dinero from '../assets/money.png';
-import venta from '../assets/discounts.png';
-import emp from '../assets/empleadoss.png';
-import admin from '../assets/admin.png';
+import maleta from '../../assets/maleta.png';
+import dinero from '../../assets/money.png';
+import venta from '../../assets/discounts.png';
+import emp from '../../assets/empleadoss.png';
+import admin from '../../assets/admin.png';
 import AdmiNav from './AdmiNav';
 
 

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import './Modal.css'; // Asegúrate de tener este archivo de estilos
+import './Modal.css';
 
-import lockIcon from '../assets/locked.png'; // Asegúrate de que la ruta sea correcta
-import visibleIcon from '../assets/visible.png'; // Asegúrate de que la ruta sea correcta
+import lockIcon from '../../assets/locked.png';
+import visibleIcon from '../../assets/visible.png';
 
 const Modal = ({ onClose }) => {
   const [passwordShown, setPasswordShown] = useState(false);

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Modal } from 'react-bootstrap';
-import logo from '../assets/LogoPng.png';
+import logo from '../../assets/LogoPng.png';
 import './ConfirmacionCorreo.css';
 
 function ConfirmacionCorreo(props) {

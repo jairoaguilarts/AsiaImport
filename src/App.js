@@ -1,23 +1,19 @@
 // App.js
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate} from "react-router-dom";
-import MaintenancePage from "./components/maintenancePage";
-import Navibar from "./components/Navibar";
-import Footer from "./components/Footer";
-import Inicio from "./components/Inicio";
-import InfoG from "./components/InfoG"; // Importa tu componente InfoG
-import Admin from "./components/AdminPage";
-import Fa from "./components/Fa"; // Importa tu componente InfoG
-import ProcederCompra from "./components/ProcederCompra";
-import Carrito from "./components/Carrito";
-import PGAdmin from "./components/PGeneralAdmin";
+import Navibar from "./components/General_screens/Navibar";
+import Footer from "./components/General_screens/Footer";
+import Inicio from "./components/Client_screens/Inicio";
+import InfoG from "./components/Informative_screens/InfoG";
+import Admin from "./components/Admin_screens/AdminPage";
+import Fa from "./components/Informative_screens/Fa"; 
+import ProcederCompra from "./components/Client_screens/ProcederCompra";
+import Carrito from "./components/Client_screens/Carrito";
+import PGAdmin from "./components/Admin_screens/PGeneralAdmin";
 import "bootstrap/dist/css/bootstrap.min.css";
-import EditarPerfil from "./components/EditarPerfil";
-import Ventas from "./components/Ventas";
-import AdmiNav from "./components/AdmiNav";
-import Login from "./components/Login";
-import AdminEmpleados from "./components/AdminEmpleados";
-import AdminPage from "./components/AdminPage";
+import EditarPerfil from "./components/Client_screens/EditarPerfil";
+import Ventas from "./components/Admin_screens/Ventas";
+import AdminEmpleados from "./components/Admin_screens/AdminEmpleados";
 
 function App() {
   const userType = localStorage.getItem("IsAdmin");

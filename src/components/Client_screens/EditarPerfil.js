@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./EditarPerfil.css";
-import userIcon from "../assets/avatar.png";
-import lockIcon from "../assets/locked.png";
-import lapizIcon from "../assets/lapiz.png";
-import CustomAlert from './CustomAlert';
+import userIcon from "../../assets/avatar.png";
+import lapizIcon from "../../assets/lapiz.png";
+import CustomAlert from '../Informative_screens/CustomAlert';
 import Modal from "./Modal";
 import { useNavigate } from "react-router-dom";
 

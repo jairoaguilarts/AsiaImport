@@ -1,21 +1,18 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Carousel from 'react-bootstrap/Carousel';
-import { Container, Button, Collapse } from 'react-bootstrap';
-import CarouselItem from 'react-bootstrap/CarouselItem'
-import asiaImport from '../imagenes/asiaImport.png';
-import PromoAsia from '../imagenes/PromoAsia.jpeg';
-import PromocionAsia from '../imagenes/PromocionAsia.jpg';
-import parlantesImage from '../assets/parlantes.png';
-import audifonosImage from '../assets/audifonos.png';
-import botestermosImage from '../assets/botestermos.png';
-import cargadoresImage from '../assets/cargadores.png';
-import relojesImage from '../assets/relojes.png';
-import otrosImage from '../assets/otros.png';
-import parlanteProduct from '../assets/Parlante Bluetooth.png';
-import radio from '../assets/Radio Recargable.png';
-import audifonosProduct from '../assets/Audifonos UltraSound.png';
-import yeti from '../assets/Yeti Fake.png';
+import PromoAsia from '../../imagenes/PromoAsia.jpeg';
+import PromocionAsia from '../../imagenes/PromocionAsia.jpg';
+import parlantesImage from '../../assets/parlantes.png';
+import audifonosImage from '../../assets/audifonos.png';
+import botestermosImage from '../../assets/botestermos.png';
+import cargadoresImage from '../../assets/cargadores.png';
+import relojesImage from '../../assets/relojes.png';
+import otrosImage from '../../assets/otros.png';
+import parlanteProduct from '../../assets/Parlante Bluetooth.png';
+import radio from '../../assets/Radio Recargable.png';
+import audifonosProduct from '../../assets/Audifonos UltraSound.png';
+import yeti from '../../assets/Yeti Fake.png';
 import './Inicio.css';
 
 const productos = [

@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Container, Collapse } from "react-bootstrap";
 import "./AdminPage.css";
 import { Link } from "react-router-dom";
-import menu from "../assets/menu-sidebar.png";
-import general from "../assets/pGeneral.png";
-import editar from "../assets/pEdit.png";
-import empleados from "../assets/pEmpleados.png";
-import ventas from "../assets/pVentas.png";
-import logOut from "../assets/logout.png";
+import menu from "../../assets/menu-sidebar.png";
+import general from "../../assets/pGeneral.png";
+import editar from "../../assets/pEdit.png";
+import empleados from "../../assets/pEmpleados.png";
+import ventas from "../../assets/pVentas.png";
+import logOut from "../../assets/logout.png";
 import { useNavigate } from "react-router-dom";
 
 const AdminPage = () => {

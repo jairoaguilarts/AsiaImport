@@ -3,11 +3,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Footer.css";
 
-// Importa las imágenes desde tu carpeta assets
-import facebookIcon from "../assets/facebook.png";
-import instagramIcon from "../assets/instagram.png";
-import logoImage from "../assets/LogoPng.png";
-import metodosPagoImage from "../assets/metodos.png";
+import facebookIcon from "../../assets/facebook.png";
+import instagramIcon from "../../assets/instagram.png";
+import logoImage from "../../assets/LogoPng.png";
+import metodosPagoImage from "../../assets/metodos.png";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();

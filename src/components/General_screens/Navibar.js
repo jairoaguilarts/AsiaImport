@@ -5,23 +5,18 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import logoImage from "../assets/LogoPng.png";
-import favoritesIcon from "../assets/favoritos.png";
-import userIcon from "../assets/user.png";
-import cartIcon from "../assets/add-to-cart.png";
-import searchIcon from "../assets/lupa.png";
-import menuIcon from "../assets/menu.png";
-import downIcon from "../assets/down.png";
-import DropDown from "./DropDown";
-import parlantesImage from "../assets/parlantes.png";
-import audifonosImage from "../assets/audifonos.png";
-import botestermosImage from "../assets/botestermos.png";
-import cargadoresImage from "../assets/cargadores.png";
-import relojesImage from "../assets/relojes.png";
-import otrosImage from "../assets/otros.png";
+import logoImage from "../../assets/LogoPng.png";
+import cartIcon from "../../assets/add-to-cart.png";
+import searchIcon from "../../assets/lupa.png";
+import menuIcon from "../../assets/menu.png";
+import parlantesImage from "../../assets/parlantes.png";
+import audifonosImage from "../../assets/audifonos.png";
+import botestermosImage from "../../assets/botestermos.png";
+import cargadoresImage from "../../assets/cargadores.png";
+import relojesImage from "../../assets/relojes.png";
+import otrosImage from "../../assets/otros.png";
 import Login from "./Login";
-import ProcederCompra from "./ProcederCompra";
-import Carrito from "./Carrito";
+import Carrito from "../Client_screens/Carrito";
 
 const Navibar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -109,12 +104,6 @@ const Navibar = () => {
             <img src={searchIcon} alt="Buscar" />
           </button>
         </div>
-
-        {/*<ul className={`menu ${menuOpen ? 'menu-open' : ''}`}>
-        <li><a href="#inicio" className="menu-item"></a></li>
-        <li><a href="#informacion" className="menu-item"></a></li>
-        <li><a href="#comprar" className="menu-item"></a></li> {login ? <EditarPerfil/>:<Login/>} {login ? <EditarPerfil/>:<Login/>}
-      </ul>*/}
 
         {/* Contenedor para los íconos de usuario y carrito */}
         <div className="icon-container">

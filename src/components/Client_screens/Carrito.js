@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import './Carrito.css';
-import minus from '../assets/minus.png';
-import plus from '../assets/plus.png';
-import cartIcon2 from '../assets/add-to-cart.png';
-import imagenAudifonos from '../assets/Audifonos UltraSound.png';
-import imagenParlante from '../assets/Parlante Bluetooth.png';
-import deleteIcon from '../assets/delete.png';
-import closeIcon from '../assets/close.png';
+import minus from '../../assets/minus.png';
+import plus from '../../assets/plus.png';
+import cartIcon2 from '../../assets/add-to-cart.png';
+import imagenAudifonos from '../../assets/Audifonos UltraSound.png';
+import imagenParlante from '../../assets/Parlante Bluetooth.png';
+import deleteIcon from '../../assets/delete.png';
+import closeIcon from '../../assets/close.png';
 import { Link } from 'react-router-dom';
 
 const Carrito = ({ onClose }) => {

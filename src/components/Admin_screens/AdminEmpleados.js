@@ -128,7 +128,7 @@ const AdminEmpleados = () => {
       }
     }
     setShowConfirmar(false);
-    handleCloseEditar(); // Cerrar el modal de edición
+    handleCloseEditar();
   };
 
   const handleShowEliminarConfirmar = () => setShowEliminarConfirmar(true);

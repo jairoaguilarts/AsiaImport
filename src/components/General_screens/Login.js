@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
-import userIcon from "../assets/user.png";
-import iconoLock from "../assets/lock.png";
-import ConfirmacionCorreo from "./ConfirmacionCorreo";
-import CustomAlert from "./CustomAlert";
+import userIcon from "../../assets/user.png";
+import iconoLock from "../../assets/lock.png";
+import ConfirmacionCorreo from "../Informative_screens/ConfirmacionCorreo.js";
+import CustomAlert from "../Informative_screens/CustomAlert.js";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
-import "./EditarPerfil.js";
+import "../Client_screens/EditarPerfil.js";
 
 function Login() {
   const [show, setShow] = useState(false);
   const [isLoginSelected, setIsLoginSelected] = useState(true);
   const [showVentanaForgot, setShowVentanaForgot] = useState(false);
-  const [showConfirmation, setShowConfirmation] = useState(false); // Estado para ConfirmacionCorreo
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const [emailRecovery, setEmailRecovery] = useState("");
   const [nombre, setNombre] = useState("");
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(

@@ -1,19 +1,16 @@
 
 import React, { useState } from 'react';
+import './InfoG.css';
 
-import './InfoG.css'; // Make sure the path is correct
-
-// You can import your images like this
-import iconMission from '../assets/mission.png';
-import iconInnovation from '../assets/innovation.png';
-import iconVision from '../assets/visionary.png';
-import iconHistoria from '../assets/history-book.png';
-import iconL from '../assets/leadership.png';
-import iconR from '../assets/hand-shake.png';
-import iconS from '../assets/charity.png';
-import iconJ from '../assets/balance.png';
+import iconMission from '../../assets/mission.png';
+import iconInnovation from '../../assets/innovation.png';
+import iconVision from '../../assets/visionary.png';
+import iconHistoria from '../../assets/history-book.png';
+import iconL from '../../assets/leadership.png';
+import iconR from '../../assets/hand-shake.png';
+import iconS from '../../assets/charity.png';
+import iconJ from '../../assets/balance.png';
 const InfoG = () => {
-  // Define your card and value data here, for example
   const [expandedInfo, setExpandedInfo] = useState({});
   const toggleExpansion = (index) => {
     setExpandedInfo(prevState => ({

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './ProcederCompra.css';  // Asegúrate de importar el archivo de estilos CSS correspondiente
+import './ProcederCompra.css';
 import Form from 'react-bootstrap/Form';
 import Select from 'react-select';
 

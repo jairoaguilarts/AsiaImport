@@ -1,11 +1,10 @@
 import React from 'react';
 import './Fa.css';
-// Importa tus imágenes
-import checkIcon from '../assets/quality.png'; // Reemplaza con la ruta correcta de tu imagen
-import discountIcon from '../assets/sale.png'; // Reemplaza con la ruta correcta de tu imagen
-import returnIcon from '../assets/return.png'; // Reemplaza con la ruta correcta de tu imagen
-import warrantyIcon from '../assets/safe.png'; // Reemplaza con la ruta correcta de tu imagen
-import originIcon from '../assets/maneki-neko.png'; // Reemplaza con la ruta correcta de tu imagen
+import checkIcon from '../../assets/quality.png'; 
+import discountIcon from '../../assets/sale.png'; 
+import returnIcon from '../../assets/return.png'; 
+import warrantyIcon from '../../assets/safe.png'; 
+import originIcon from '../../assets/maneki-neko.png'; 
 
 function Fa() {
   return (
