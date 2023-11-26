@@ -251,8 +251,11 @@ function Login() {
       const UserType = userData.usuario.userType;
 
       if (UserType === "*") {
-        setIsAdmin(true);
+        localStorage.setItem("IsAdmin", true);
         navigate("/adminGeneral");
+        window.location.reload();
+      } else {
+        localStorage.setItem("IsAdmin", false);
       }
 
       setUserData(userData);
@@ -262,7 +265,6 @@ function Login() {
 
       window.localStorage.setItem("logueado", true);
       localStorage.setItem("FireBaseUID", FUID);
-      localStorage.setItem("IsAdmin", isAdmin);
     } catch (error) {
       mostrarAlerta("Correo o contraseña incorrecto ", "danger");
     }

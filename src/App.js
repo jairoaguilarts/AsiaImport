@@ -1,6 +1,6 @@
 // App.js
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate} from "react-router-dom";
 import MaintenancePage from "./components/maintenancePage";
 import Navibar from "./components/Navibar";
 import Footer from "./components/Footer";
@@ -17,6 +17,7 @@ import Ventas from "./components/Ventas";
 import AdmiNav from "./components/AdmiNav";
 import Login from "./components/Login";
 import AdminEmpleados from "./components/AdminEmpleados";
+import AdminPage from "./components/AdminPage";
 
 function App() {
   const userType = localStorage.getItem("IsAdmin");
@@ -24,22 +25,19 @@ function App() {
   return (
     <Router>
       <div className="App">
-        {userType !== "true" && <Navibar />}
-        {userType === "true" && <Admin />}
+        {(userType === "true") ? <Admin /> : <Navibar />}
 
         <Routes>
-          <Route path="/" element={<Inicio />} />
+          <Route path="/" element={(userType === "true") ? <PGAdmin /> : <Inicio />} />
           <Route path="/inicio" element={<Inicio />} />
           <Route path="/acerca" element={<InfoG />} />
           <Route path="/editar" element={<EditarPerfil />} />{" "}
           <Route path="/preguntas" element={<Fa />} />
           <Route path="/compra" element={<ProcederCompra />} />{" "}
           <Route path="/carrito" element={<Carrito />} />{" "}
-          <Route path="/adminGeneral" element={<PGAdmin />} />{" "}
-          <Route path="/ventas" element={<Ventas />} />{" "}
-          <Route path="/adminempleados" element={<AdminEmpleados />} />{" "}
-          {/* Ruta para AdminEmpleados */}
-          {/* Puedes añadir más rutas aquí */}
+          <Route path="/adminGeneral" element={(userType === "true") ? <PGAdmin /> : <Navigate to="/inicio" />} />{" "}
+          <Route path="/ventas" element={(userType === "true") ? <Ventas /> : <Navigate to="/inicio" />} />{" "}
+          <Route path="/adminempleados" element={userType === "true" ? <AdminEmpleados /> : <Navigate to="/inicio" />} />
         </Routes>
         {userType !== "true" && <Footer />}
       </div>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import Carousel from 'react-bootstrap/Carousel';
 import { Container, Button, Collapse } from 'react-bootstrap';
 import CarouselItem from 'react-bootstrap/CarouselItem'
@@ -78,11 +79,14 @@ function Inicio() {
   const [index, setIndex] = useState(0);
   const [open, setOpen] = useState(false);
 
+  const navigate = useNavigate();
+
   const handleToggle = () => setOpen(!open);
 
   const handleSelect = (selectedIndex) => {
     setIndex(selectedIndex);
   };
+
   return (
     <div className="Inicio">
 
