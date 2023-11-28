@@ -1,27 +1,67 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Carousel from 'react-bootstrap/Carousel';
-import PromoAsia from '../../imagenes/PromoAsia.jpeg';
-import PromocionAsia from '../../imagenes/PromocionAsia.jpg';
-import parlantesImage from '../../assets/parlantes.png';
-import audifonosImage from '../../assets/audifonos.png';
-import botestermosImage from '../../assets/botestermos.png';
-import cargadoresImage from '../../assets/cargadores.png';
-import relojesImage from '../../assets/relojes.png';
-import otrosImage from '../../assets/otros.png';
-import parlanteProduct from '../../assets/Parlante Bluetooth.png';
-import radio from '../../assets/Radio Recargable.png';
-import audifonosProduct from '../../assets/Audifonos UltraSound.png';
-import yeti from '../../assets/Yeti Fake.png';
-import './Inicio.css';
+import Carousel from "react-bootstrap/Carousel";
+import PromoAsia from "../../imagenes/PromoAsia.jpeg";
+import PromocionAsia from "../../imagenes/PromocionAsia.jpg";
+import parlantesImage from "../../assets/parlantes.png";
+import audifonosImage from "../../assets/audifonos.png";
+import botestermosImage from "../../assets/botestermos.png";
+import cargadoresImage from "../../assets/cargadores.png";
+import relojesImage from "../../assets/relojes.png";
+import otrosImage from "../../assets/otros.png";
+import parlanteProduct from "../../assets/Parlante Bluetooth.png";
+import radio from "../../assets/Radio Recargable.png";
+import audifonosProduct from "../../assets/Audifonos UltraSound.png";
+import yeti from "../../assets/Yeti Fake.png";
+import "./Inicio.css";
+import "firebase/storage";
 
 const productos = [
-  { imagen: parlanteProduct, nombre: 'Parlante Bluetooth con Luz Led', precio: 'L. 849' },
-  { imagen: radio, nombre: 'Radio Recargable con Panel Solar', precio: 'L. 499' },
-  { imagen: audifonosProduct, nombre: 'Audifonos UltraSound inalambricos', precio: 'L. 2,449' },
-  { imagen: yeti, nombre: 'Vasos Termicos Yeti', precio: 'L. 349' }
-
+  {
+    imagen: parlanteProduct,
+    nombre: "Parlante Bluetooth con Luz Led",
+    precio: "L. 849",
+  },
+  {
+    imagen: radio,
+    nombre: "Radio Recargable con Panel Solar",
+    precio: "L. 499",
+  },
+  {
+    imagen: audifonosProduct,
+    nombre: "Audifonos UltraSound inalambricos",
+    precio: "L. 2,449",
+  },
+  { imagen: yeti, nombre: "Vasos Termicos Yeti", precio: "L. 349" },
 ];
+
+//funcion de subir imagen a firebase 
+/*const uploadImage = (file) => {
+  const storageRef = firebase.storage().ref();
+  const fileRef = storageRef.child(`images/${file.name}`);
+
+  return fileRef.put(file).then(() => {
+    console.log("Imagen subida correctamente");
+    return fileRef.getDownloadURL(); 
+  });
+};*/
+
+//funcion de cargar imagen
+/*const getImageUrl = (fileName) => {
+  const storageRef = firebase.storage().ref();
+  const fileRef = storageRef.child(`images/${fileName}`);
+
+  return fileRef.getDownloadURL();
+};
+getImageUrl('nombre-de-tu-imagen.jpg').then(url => {
+  console.log('URL de la imagen:', url);
+});
+
+
+const file = document.querySelector("#tu-input-file").files[0];
+uploadImage(file).then((url) => {
+  console.log("URL de la imagen:", url);
+});*/
 
 //Funcion para el control de la lista de productos destacados
 const Carrusel = ({ productos }) => {
@@ -29,9 +69,12 @@ const Carrusel = ({ productos }) => {
 
   const itemsVisibles = 4;
 
-  const mostrarProductos = productos.length < itemsVisibles
-    ? productos
-    : productos.concat(productos).slice(currentIndex, currentIndex + itemsVisibles);
+  const mostrarProductos =
+    productos.length < itemsVisibles
+      ? productos
+      : productos
+          .concat(productos)
+          .slice(currentIndex, currentIndex + itemsVisibles);
 
   const moverCarrusel = (direccion) => {
     const totalItems = productos.length;
@@ -55,7 +98,9 @@ const Carrusel = ({ productos }) => {
   return (
     <div className="destacado-container">
       <div className="destacado-product-container">
-        <button className="prev-btn" onClick={handlePrevClick}>&#9664;</button>
+        <button className="prev-btn" onClick={handlePrevClick}>
+          &#9664;
+        </button>
         <div className="destacado-lista">
           {mostrarProductos.map((producto, index) => (
             <div key={index} className="elemento">
@@ -66,7 +111,9 @@ const Carrusel = ({ productos }) => {
             </div>
           ))}
         </div>
-        <button className="next-btn" onClick={handleNextClick}>&#9654;</button>
+        <button className="next-btn" onClick={handleNextClick}>
+          &#9654;
+        </button>
       </div>
     </div>
   );
@@ -86,14 +133,22 @@ function Inicio() {
 
   return (
     <div className="Inicio">
-
       <Carousel activeIndex={index} onSelect={handleSelect}>
         <Carousel.Item>
-          <img style={{ width: '100%', height: 'auto' }}
-            className="d-block w-100" src={PromoAsia} alt="First slide" />
+          <img
+            style={{ width: "100%", height: "auto" }}
+            className="d-block w-100"
+            src={PromoAsia}
+            alt="First slide"
+          />
         </Carousel.Item>
-        <Carousel.Item>< img style={{ width: '100%', height: 'auto' }}
-          className="d-block w-100" src={PromocionAsia} alt="First slide" />
+        <Carousel.Item>
+          <img
+            style={{ width: "100%", height: "auto" }}
+            className="d-block w-100"
+            src={PromocionAsia}
+            alt="First slide"
+          />
         </Carousel.Item>
       </Carousel>
       <div className="product-section">
