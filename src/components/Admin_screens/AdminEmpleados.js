@@ -3,6 +3,7 @@ import "./AdminEmpleados.css";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
+import CustomAlert from "../Informative_screens/CustomAlert.js";
 
 const AdminEmpleados = () => {
   const UserType = localStorage.getItem("UserType");
@@ -12,6 +13,21 @@ const AdminEmpleados = () => {
   const [showEliminarConfirmar, setShowEliminarConfirmar] = useState(false);
   const [showHacerAdminConfirmar, setShowHacerAdminConfirmar] = useState(false);
   const [empleados, setEmpleados] = useState([]);
+  const [selectedFirebaseUID, setSelectedFirebaseUID] = useState(null);
+
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertVariant, setAlertVariant] = useState("white");
+
+  const mostrarAlerta = (message, variant) => {
+    setAlertVariant(variant);
+    setAlertMessage(message);
+    setShowAlert(true);
+
+    setTimeout(() => {
+      setShowAlert(false);
+    }, 2400);
+  };
 
   useEffect(() => {
     fetch('https://importasia-api.onrender.com/empleados')
@@ -60,9 +76,52 @@ const AdminEmpleados = () => {
     });
   };
 
+  const handleSelectEmpleado = (firebaseUID, actionType) => {
+    setSelectedFirebaseUID(firebaseUID);
+    if (actionType === 'editar') {
+      handleShowEditar();
+    } else if (actionType === 'eliminar') {
+      handleEliminarConfirmacion();
+    } else if (actionType === "hacer-admin") {
+      handleHacerAdminConfirmacion();
+    }
+  };
+
   const handleConfirmar = async () => {
     if (showAgregar) {
       //Agregar empleado
+      const { formNombre, formID, formCorreo, formPass } = formDataAgregar;
+      if (
+        !formNombre || !formNombre.trim() ||
+        !formID || !formID.trim() ||
+        !formCorreo || !formCorreo.trim() ||
+        !formPass || !formPass.trim()
+      ) {
+        mostrarAlerta("Todos los campos son necesarios", "danger");
+        handleCloseConfirmar();
+        return false;
+      } else if (!/^[a-zA-Z ]+$/.test(formNombre)) {
+        mostrarAlerta("El nombre solo debe contener letras", "danger");
+        handleCloseConfirmar();
+        return;
+      } else if (!/^\d+$/.test(formID)) {
+        mostrarAlerta("El ID es incorrecto", "danger");
+        handleCloseConfirmar();
+        return;
+      } else if (formID.length < 13) {
+        mostrarAlerta("Ingrese un ID valido", "danger");
+        handleCloseConfirmar();
+        return;
+      } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formCorreo)) {
+        mostrarAlerta("Formato de correo electrónico no válido", "danger");
+        handleCloseConfirmar();
+        return;
+      } else if (formPass.length < 6) {
+        mostrarAlerta("La contraseña debe tener al menos 6 caracteres", "danger");
+        handleCloseConfirmar();
+        return;
+      }
+
       const nombreApellido = formDataAgregar.formNombre.split(" ");
       const datosAgregar = {
         nombre: nombreApellido[0],
@@ -70,7 +129,7 @@ const AdminEmpleados = () => {
         numeroIdentidad: formDataAgregar.formID,
         correo: formDataAgregar.formCorreo,
         contrasenia: formDataAgregar.formPass,
-        userCreatingType: UserType,
+        userCreatingType: "*",
       };
 
       try {
@@ -89,25 +148,39 @@ const AdminEmpleados = () => {
           const errorData = await response.json();
           throw new Error(`Error: ${errorData.message || response.status}`);
         }
-        alert("Empleado agregado exitosamente");
+        mostrarAlerta("Empleado agregado exitosamente", "info");
       } catch (error) {
-        console.error("Error en el registro:", error);
-        alert("Error en el registro: " + error.message);
+        mostrarAlerta("Error al agregar empleado", "danger");
       }
     } else if (showEditar) {
       //Modificar empleado
-      const nombreApellido = formDataModificar.nombreEditar.split(" ");
+      const { nombreEditar, formIDEditar, formCorreoEditar } = formDataModificar;
+
+      if (nombreEditar && !/^[a-zA-Z ]+$/.test(nombreEditar.trim())) {
+        mostrarAlerta("El nombre solo debe contener letras", "danger");
+        return;
+      } else if (formIDEditar && !/^\d+$/.test(formIDEditar.trim())) {
+        mostrarAlerta("El ID es incorrecto", "danger");
+        return;
+      } else if (formIDEditar && formIDEditar.trim().length < 13) {
+        mostrarAlerta("Ingrese un ID valido", "danger");
+        return;
+      } else if (formCorreoEditar && !/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formCorreoEditar.trim())) {
+        mostrarAlerta("Formato de correo electrónico no válido", "danger");
+        return;
+      }
+
       const datosEditar = {
-        nombre: nombreApellido[0],
-        apellido: nombreApellido[1],
-        numeroIdentidad: formDataModificar.formIDEditar,
-        correo: formDataModificar.formCorreoEditar,
-        userModifyingType: UserType,
+        ...(nombreEditar && { nombre: nombreEditar.trim().split(" ")[0] }),
+        ...(nombreEditar && { apellido: nombreEditar.trim().split(" ")[1] }),
+        ...(formIDEditar && { numeroIdentidad: formIDEditar.trim() }),
+        ...(formCorreoEditar && { correo: formCorreoEditar.trim() }),
+        userModifyingType: "*",
       };
 
       try {
         const response = await fetch(
-          `https://importasia-api.onrender.com/modificarEmpleado?firebaseUID=${"scQCn79Pc0YbVisK3sYLYrhWt3T2"}`,
+          `https://importasia-api.onrender.com/modificarEmpleado?firebaseUID=${selectedFirebaseUID}`,
           {
             method: "PUT",
             headers: {
@@ -121,14 +194,13 @@ const AdminEmpleados = () => {
           const errorData = await response.json();
           throw new Error(`Error: ${errorData.message || response.status}`);
         }
-        alert("Empleado agregado exitosamente");
+        mostrarAlerta("Empleado modificado exitosamente", "info");
       } catch (error) {
-        console.error("Error en el registro:", error);
-        alert("Error en el registro: " + error.message);
+        mostrarAlerta("Error al modificar empleado", "danger");
       }
     }
     setShowConfirmar(false);
-    handleCloseEditar();
+    setSelectedFirebaseUID("");
   };
 
   const handleShowEliminarConfirmar = () => setShowEliminarConfirmar(true);
@@ -142,17 +214,70 @@ const AdminEmpleados = () => {
     handleShowHacerAdminConfirmar();
   };
 
-  const handleHacerAdmin = () => {
-    // Aquí puedes agregar la lógica para hacer admin al empleado
-    alert("Empleado hecho admin");
+  const handleHacerAdmin = async () => {
+    if (!selectedFirebaseUID) {
+      mostrarAlerta("No se ha seleccionado ningún empleado", "danger");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `https://importasia-api.onrender.com/hacerAdmin?firebaseUID=${selectedFirebaseUID}`,
+        {
+          method: "PUT",
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        mostrarAlerta("Empleado promovido a administrador exitosamente", "success");
+      } else {
+        throw new Error(data.error || "Error al hacer admin al empleado");
+      }
+    } catch (error) {
+      mostrarAlerta(error.message, "danger");
+    }
     setShowHacerAdminConfirmar(false);
   };
 
-  const handleEliminar = () => {
-    // Aquí puedes agregar la lógica para eliminar el empleado
-    alert("Empleado eliminado");
+  const handleEliminar = async () => {
+    if (!selectedFirebaseUID) {
+      mostrarAlerta("No se ha seleccionado ningún empleado", "danger");
+      return;
+    }
+
+    const datosEliminar = {
+      userDeletingType: "*",
+    };
+
+    try {
+      const response = await fetch(
+        `https://importasia-api.onrender.com/eliminarEmpleado?firebaseUID=${selectedFirebaseUID}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(datosEliminar),
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Error: ${errorData.message || response.status}`);
+      }
+      mostrarAlerta("Empleado eliminado exitosamente", "info");
+      // Actualizar la lista de empleados tras la eliminación
+      setEmpleados(empleados.filter((empleado) => empleado.firebaseUID !== selectedFirebaseUID));
+    } catch (error) {
+      mostrarAlerta("Error al eliminar empleado", "danger");
+    }
+
     handleCloseEliminarConfirmar();
+    setSelectedFirebaseUID(null);
   };
+
 
   return (
     <div>
@@ -165,33 +290,35 @@ const AdminEmpleados = () => {
         <table className="tabla-empleados">
           <thead>
             <tr>
-              <th>ID</th>
+              <th>FireBase UID</th>
               <th>Apellido</th>
               <th>Correo</th>
               <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
-            {empleados.map((empleado) => {
-              return (
-                <tr>
-                  <td>{empleado.firebaseUID}</td>
-                  <td>{empleado.apellido}</td>
-                  <td>{empleado.correo}</td>
-                  <td>
-                    <button className="boton-anaranjado" onClick={handleHacerAdminConfirmacion}>
-                      Hacer Admin
-                    </button>
-                    <button className="boton-verde" onClick={handleShowEditar}>
-                      Editar
-                    </button>
-                    <button className="boton-rojo" onClick={handleEliminarConfirmacion}>
-                      Eliminar
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
+            {
+              empleados.map((empleado) => {
+                return (
+                  <tr key={empleado.firebaseUID}>
+                    <td>{empleado.firebaseUID}</td>
+                    <td>{empleado.apellido}</td>
+                    <td>{empleado.correo}</td>
+                    <td>
+                      <button className="boton-anaranjado" onClick={() => handleSelectEmpleado(empleado.firebaseUID, 'hacer-admin')}>
+                        Hacer Admin
+                      </button>
+                      <button className="boton-verde" onClick={() => handleSelectEmpleado(empleado.firebaseUID, 'editar')}>
+                        Editar
+                      </button>
+                      <button className="boton-rojo" onClick={() => handleSelectEmpleado(empleado.firebaseUID, 'eliminar')}>
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })
+            }
           </tbody>
         </table>
       </div>
@@ -239,6 +366,13 @@ const AdminEmpleados = () => {
           <button className="botones" onClick={handleConfirmacion}>
             AGREGAR EMPLEADO
           </button>
+          {showAlert && (
+            <CustomAlert className="alerta"
+              message={alertMessage}
+              variant={alertVariant}
+              onClose={() => setShowAlert(false)}
+            />
+          )}
         </Modal.Body>
       </Modal>
 
@@ -279,6 +413,13 @@ const AdminEmpleados = () => {
             EDITAR EMPLEADO
           </Button>
         </Modal.Footer>
+        {showAlert && (
+          <CustomAlert className="alerta"
+            message={alertMessage}
+            variant={alertVariant}
+            onClose={() => setShowAlert(false)}
+          />
+        )}
       </Modal>
 
       {/* Modal de confirmación */}
