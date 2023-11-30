@@ -14,6 +14,7 @@ const AdminEmpleados = () => {
   const [showHacerAdminConfirmar, setShowHacerAdminConfirmar] = useState(false);
   const [empleados, setEmpleados] = useState([]);
   const [selectedFirebaseUID, setSelectedFirebaseUID] = useState(null);
+  const [datosViejos, setdatosViejos] = useState("");
 
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
@@ -87,7 +88,7 @@ const AdminEmpleados = () => {
     }
   };
 
-  const handleConfirmar = async () => {
+  const handleConfirmar = async (event) => {
     if (showAgregar) {
       //Agregar empleado
       const { formNombre, formID, formCorreo, formPass } = formDataAgregar;
@@ -149,54 +150,61 @@ const AdminEmpleados = () => {
           throw new Error(`Error: ${errorData.message || response.status}`);
         }
         mostrarAlerta("Empleado agregado exitosamente", "info");
+        window.location.reload();
       } catch (error) {
         mostrarAlerta("Error al agregar empleado", "danger");
       }
     } else if (showEditar) {
       //Modificar empleado
+      event.preventDefault();
       const { nombreEditar, formIDEditar, formCorreoEditar } = formDataModificar;
 
-      if (nombreEditar && !/^[a-zA-Z ]+$/.test(nombreEditar.trim())) {
-        mostrarAlerta("El nombre solo debe contener letras", "danger");
-        return;
-      } else if (formIDEditar && !/^\d+$/.test(formIDEditar.trim())) {
-        mostrarAlerta("El ID es incorrecto", "danger");
-        return;
-      } else if (formIDEditar && formIDEditar.trim().length < 13) {
-        mostrarAlerta("Ingrese un ID valido", "danger");
-        return;
-      } else if (formCorreoEditar && !/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formCorreoEditar.trim())) {
-        mostrarAlerta("Formato de correo electrónico no válido", "danger");
-        return;
-      }
-
-      const datosEditar = {
-        ...(nombreEditar && { nombre: nombreEditar.trim().split(" ")[0] }),
-        ...(nombreEditar && { apellido: nombreEditar.trim().split(" ")[1] }),
-        ...(formIDEditar && { numeroIdentidad: formIDEditar.trim() }),
-        ...(formCorreoEditar && { correo: formCorreoEditar.trim() }),
-        userModifyingType: "*",
-      };
-
-      try {
-        const response = await fetch(
-          `https://importasia-api.onrender.com/modificarEmpleado?firebaseUID=${selectedFirebaseUID}`,
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(datosEditar),
-          }
-        );
-
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(`Error: ${errorData.message || response.status}`);
+      if (nombreEditar !== undefined || formIDEditar !== undefined || formCorreoEditar !== undefined) {
+        if (nombreEditar && !/^[a-zA-Z ]+$/.test(nombreEditar.trim())) {
+          mostrarAlerta("El nombre solo debe contener letras", "danger");
+          return;
+        } else if (formIDEditar && !/^\d+$/.test(formIDEditar.trim())) {
+          mostrarAlerta("El ID es incorrecto", "danger");
+          return;
+        } else if (formIDEditar && formIDEditar.trim().length < 13) {
+          mostrarAlerta("Ingrese un ID valido", "danger");
+          return;
+        } else if (formCorreoEditar && !/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formCorreoEditar.trim())) {
+          mostrarAlerta("Formato de correo electrónico no válido", "danger");
+          return;
         }
-        mostrarAlerta("Empleado modificado exitosamente", "info");
-      } catch (error) {
-        mostrarAlerta("Error al modificar empleado", "danger");
+
+        const datosEditar = {
+          ...(nombreEditar && { nombre: nombreEditar.trim().split(" ")[0] }),
+          ...(nombreEditar && { apellido: nombreEditar.trim().split(" ")[1] }),
+          ...(formIDEditar && { numeroIdentidad: formIDEditar.trim() }),
+          ...(formCorreoEditar && { correo: formCorreoEditar.trim() }),
+          userModifyingType: "*",
+        };
+
+        try {
+          const response = await fetch(
+            `http://localhost:3000/modificarEmpleado?firebaseUID=${selectedFirebaseUID}`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(datosEditar),
+            }
+          );
+
+          if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(`Error: ${errorData.message || response.status}`);
+          }
+          mostrarAlerta("Empleado modificado exitosamente", "info");
+          window.location.reload();
+        } catch (error) {
+          mostrarAlerta("Error al modificar empleado", "danger");
+        }
+      } else {
+        mostrarAlerta("No se han resgistrado cambios", "danger");
       }
     }
     setShowConfirmar(false);
@@ -232,6 +240,7 @@ const AdminEmpleados = () => {
 
       if (response.ok) {
         mostrarAlerta("Empleado promovido a administrador exitosamente", "success");
+        window.location.reload();
       } else {
         throw new Error(data.error || "Error al hacer admin al empleado");
       }
@@ -268,7 +277,6 @@ const AdminEmpleados = () => {
         throw new Error(`Error: ${errorData.message || response.status}`);
       }
       mostrarAlerta("Empleado eliminado exitosamente", "info");
-      // Actualizar la lista de empleados tras la eliminación
       setEmpleados(empleados.filter((empleado) => empleado.firebaseUID !== selectedFirebaseUID));
     } catch (error) {
       mostrarAlerta("Error al eliminar empleado", "danger");
@@ -299,10 +307,12 @@ const AdminEmpleados = () => {
           <tbody>
             {
               empleados.map((empleado) => {
+                const inicio = empleado.firebaseUID.slice(0, 2);
+                const fin = empleado.firebaseUID.slice(-3);
                 return (
                   <tr key={empleado.firebaseUID}>
-                    <td>{empleado.firebaseUID}</td>
-                    <td>{empleado.apellido}</td>
+                    <td>{inicio + "..." + fin}</td>
+                    <td>{empleado.nombre+" "+empleado.apellido}</td>
                     <td>{empleado.correo}</td>
                     <td>
                       <button className="boton-anaranjado" onClick={() => handleSelectEmpleado(empleado.firebaseUID, 'hacer-admin')}>

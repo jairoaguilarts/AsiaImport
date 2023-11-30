@@ -18,7 +18,7 @@ const EditarPerfil = () => {
   const [datosViejos, setdatosViejos] = useState("");
   const [error, setError] = useState("");
 
-  
+
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
   const [alertVariant, setAlertVariant] = useState('danger');
@@ -40,14 +40,13 @@ const EditarPerfil = () => {
     const regexNombreApellido = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$/;
     const regexId = /^\d+$/;
 
-    if (!regexNombreApellido.test(nombre) || !regexNombreApellido.test(apellido)) {   
-    mostrarAlerta('Datos incorrectos en nombre o apellido. Solo se permiten letras.','danger');
-
+    if (!regexNombreApellido.test(nombre) || !regexNombreApellido.test(apellido)) {
+      mostrarAlerta('Datos incorrectos en nombre o apellido. Solo se permiten letras.', 'danger');
       return false;
     }
 
     if (!regexId.test(id)) {
-      mostrarAlerta('Datos incorrectos en ID. Solo se permiten números.','danger');
+      mostrarAlerta('Datos incorrectos en ID. Solo se permiten números.', 'danger');
       return false;
     }
 
@@ -63,8 +62,7 @@ const EditarPerfil = () => {
 
     // Validar si no se ha realizado ningún cambio
     if (nombre === datosViejos.nombre && apellido === datosViejos.apellido && id === datosViejos.numeroIdentidad) {
-      mostrarAlerta('"No se han realizado cambios para guardar"','danger');
-    
+      mostrarAlerta('"No se han realizado cambios para guardar"', 'danger');
       return;
     }
     try {
@@ -76,7 +74,7 @@ const EditarPerfil = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            nombre: nombre, // Asegúrate de tener estas variables definidas en tu estado
+            nombre: nombre, 
             apellido: apellido,
             identidad: id,
           }),
@@ -89,15 +87,10 @@ const EditarPerfil = () => {
       }
 
       const userData = await response.json();
-      console.log("Datos actualizados del usuario:", userData);
-
-      // Puedes realizar otras acciones después de la actualización, si es necesario.
+      mostrarAlerta('Cambios Realizados', 'success');
     } catch (error) {
-      console.error("Error al actualizar información del usuario:", error);
-      // Puedes manejar el error de acuerdo a tus necesidades.
+      mostrarAlerta("Error al actualizar información del usuario.");
     }
-    mostrarAlerta('Cambios Realizados','success');
-  
   };
 
   const handleGetInfo = async () => {
@@ -229,12 +222,12 @@ const EditarPerfil = () => {
               GUARDAR
             </button>
             {showAlert && (
-        <CustomAlert
-          message={alertMessage}
-          variant={alertVariant}
-          onClose={() => setShowAlert(false)}
-        />
-      )}
+              <CustomAlert
+                message={alertMessage}
+                variant={alertVariant}
+                onClose={() => setShowAlert(false)}
+              />
+            )}
           </div>
           {error && <div className="error-message">{error}</div>}
         </form>
