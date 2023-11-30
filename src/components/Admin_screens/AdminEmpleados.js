@@ -184,7 +184,7 @@ const AdminEmpleados = () => {
 
         try {
           const response = await fetch(
-            `http://localhost:3000/modificarEmpleado?firebaseUID=${selectedFirebaseUID}`,
+            `https://importasia-api.onrender.com/modificarEmpleado?firebaseUID=${selectedFirebaseUID}`,
             {
               method: "PUT",
               headers: {
