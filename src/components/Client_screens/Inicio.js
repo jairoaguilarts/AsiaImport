@@ -14,7 +14,7 @@ import radio from "../../assets/Radio Recargable.png";
 import audifonosProduct from "../../assets/Audifonos UltraSound.png";
 import yeti from "../../assets/Yeti Fake.png";
 import "./Inicio.css";
-import "firebase/storage";
+//import "firebase/storage";
 
 const productos = [
   {

@@ -70,8 +70,10 @@ const AdminPage = () => {
             </div>
             <hr className="linea-divisora" />
             <div className="sidebar-item">
+              < Link to="/gestionpw">
               <img src={editar} alt="editar" className="icon-image" />
               <span>Editar Página Web</span>
+              </Link>
             </div>
             <hr className="linea-divisora" />
             <div className="sidebar-item">

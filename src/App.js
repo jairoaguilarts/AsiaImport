@@ -14,6 +14,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import EditarPerfil from "./components/Client_screens/EditarPerfil";
 import Ventas from "./components/Admin_screens/Ventas";
 import AdminEmpleados from "./components/Admin_screens/AdminEmpleados";
+import GestionPW from "./components/Admin_screens/GestionPW";
 
 function App() {
   const userType = localStorage.getItem("IsAdmin");
@@ -34,6 +35,7 @@ function App() {
           <Route path="/adminGeneral" element={(userType === "true") ? <PGAdmin /> : <Navigate to="/inicio" />} />{" "}
           <Route path="/ventas" element={(userType === "true") ? <Ventas /> : <Navigate to="/inicio" />} />{" "}
           <Route path="/adminempleados" element={userType === "true" ? <AdminEmpleados /> : <Navigate to="/inicio" />} />
+          <Route path="/gestionpw" element={userType === "true" ? <GestionPW/> : <Navigate to="/inicio" />} />       
         </Routes>
         {userType !== "true" && <Footer />}
       </div>
