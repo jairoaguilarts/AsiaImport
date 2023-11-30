@@ -1,4 +1,4 @@
-
+/*css de nuestros productos y botones de navegacion */
 .title-bar {
     background-color: orange;
     width: 100%;
@@ -172,3 +172,104 @@
   .modal-confirmar .btn-danger {
     background-color: #dc3545; /* Bootstrap danger button color */
   }
+
+  .navbar {
+    display: flex;
+    justify-content: space-around;
+    background-color: #333;
+    padding: 10px 0;
+  }
+  
+  .navbar button {
+    color: white;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px 20px;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+  }
+  
+  .navbar button:hover {
+    background-color: #555;
+  }
+  
+  .section {
+    margin: 20px 0;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  
+
+  @media (max-width: 1435px) {
+    .gestion-container {
+      width: 90%; /* Aumentar el ancho para aprovechar mejor el espacio */
+    }
+  
+    .search-container {
+        display: none; /* Esto ocultará la barra de búsqueda en pantallas pequeñas */
+      }
+    
+  
+    .search-bar {
+      width: 60%; /* Aumentar el ancho de la barra de búsqueda para mayor facilidad de uso */
+    }
+  
+    .product-row {
+      flex-direction: column; /* Cambiar las filas de productos a disposición vertical */
+      align-items: flex-start; /* Alinear elementos al inicio para un mejor flujo */
+    }
+  
+    .product-actions {
+      justify-content: flex-start; /* Alinear botones al inicio para un acceso más fácil */
+    }
+  
+    .add-product-btn {
+      padding: 8px 12px; /* Ajustar el padding para mantener la proporcionalidad */
+    }
+  }
+
+  
+  @media (max-width: 768px) {
+    .title-bar {
+      padding: 20px 0; /* Reducir el padding para ahorrar espacio */
+    }
+  
+    .title {
+      font-size: 1.5em; /* Reducir el tamaño del título para que se ajuste mejor */
+    }
+  
+    .gestion-container {
+      width: 100%; /* Utilizar todo el ancho disponible */
+      padding: 10px; /* Reducir el padding */
+    }
+  
+    .top-bar, .search-container {
+      flex-direction: column; /* Cambiar a disposición vertical */
+      align-items: flex-start; /* Alinear al inicio */
+    }
+
+    .search-container {
+        display: none; /* Esto ocultará la barra de búsqueda en pantallas pequeñas */
+      }
+    
+  
+    .search-bar {
+      width: 100%; /* Hacer que la barra de búsqueda ocupe todo el ancho */
+      margin-top: 10px; /* Añadir un margen superior para separar de otros elementos */
+    }
+  
+    .product-row {
+      padding: 10px; /* Reducir el padding para ahorrar espacio */
+    }
+  
+    .product-actions {
+      flex-direction: column; /* Cambiar botones a disposición vertical */
+      margin-top: 10px; /* Añadir margen superior para separar de la descripción del producto */
+    }
+  }
+  
+/*css de nuestros productos y botones de navegacion */
+
+  
