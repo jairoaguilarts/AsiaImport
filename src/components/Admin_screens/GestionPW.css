@@ -55,7 +55,7 @@
     /* Asegúrate de que no haya margen a la derecha del botón */
   }
   
-  .search-container {
+  .search-container2 {
     display: flex;
     justify-content: center; /* Centra la barra de búsqueda */
     align-items: center; /* Alineación vertical */
@@ -65,7 +65,7 @@
 
   }
   
-  .search-bar {
+  .search-bar2 {
     width: 50%; /* La barra de búsqueda es la mitad de largo */
     padding: 10px;
     border: 1px solid #ccc;
@@ -173,14 +173,14 @@
     background-color: #dc3545; /* Bootstrap danger button color */
   }
 
-  .navbar {
+  .navbar2 {
     display: flex;
     justify-content: space-around;
     background-color: #333;
     padding: 10px 0;
   }
   
-  .navbar button {
+  .navbar2 button {
     color: white;
     background: none;
     border: none;
@@ -190,7 +190,7 @@
     transition: background-color 0.3s;
   }
   
-  .navbar button:hover {
+  .navbar2 button:hover {
     background-color: #555;
   }
   
@@ -207,12 +207,12 @@
       width: 90%; /* Aumentar el ancho para aprovechar mejor el espacio */
     }
   
-    .search-container {
+    .search-container2 {
         display: none; /* Esto ocultará la barra de búsqueda en pantallas pequeñas */
       }
     
   
-    .search-bar {
+    .search-bar2 {
       width: 60%; /* Aumentar el ancho de la barra de búsqueda para mayor facilidad de uso */
     }
   
@@ -245,17 +245,17 @@
       padding: 10px; /* Reducir el padding */
     }
   
-    .top-bar, .search-container {
+    .top-bar, .search-container2 {
       flex-direction: column; /* Cambiar a disposición vertical */
       align-items: flex-start; /* Alinear al inicio */
     }
 
-    .search-container {
+    .search-container2 {
         display: none; /* Esto ocultará la barra de búsqueda en pantallas pequeñas */
       }
     
   
-    .search-bar {
+    .search-bar2 {
       width: 100%; /* Hacer que la barra de búsqueda ocupe todo el ancho */
       margin-top: 10px; /* Añadir un margen superior para separar de otros elementos */
     }

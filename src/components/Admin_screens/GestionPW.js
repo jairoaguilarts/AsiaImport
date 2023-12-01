@@ -79,7 +79,7 @@ const GestionPW = () => {
   return (
     <div className="gestion-wrapper">
       {/* Barra de navegación */}
-      <div className="navbar">
+      <div className="navbar2">
         <button onClick={() => scrollToSection(nuestrosProductosRef)}>Nuestros Productos</button>
         <button onClick={() => scrollToSection(editarProductosDestacadosRef)}>Editar Productos Destacados</button>
         <button onClick={() => scrollToSection(editarImagenesCarrouselRef)}>Editar Imágenes Carrousel</button>
@@ -97,8 +97,8 @@ const GestionPW = () => {
             <Link to="/agregarp">
             <button className="add-product-btn">Crear Nuevo Producto</button>
             </Link>
-            <div className="search-container">
-              <input type="text" placeholder="Buscar..." className="search-bar" />
+            <div className="search-container2">
+              <input type="text" placeholder="Buscar..." className="search-bar2" />
             </div>
           </div>
           <div className="product-table">
