@@ -17,16 +17,34 @@ const ModificarP = ({ product, onSave }) => {
     const handleSave = () => {
         // Lógica para guardar los cambios
         const cambios = {
-            nombre: '', // Obtén el valor del campo de nombre
-            modelo: '', // Obtén el valor del campo de modelo
-            descripcion: '', // Obtén el valor del campo de descripción
-            caracteristicas: caracteristicas, // Usa el estado para las características
-            precio: '', // Obtén el valor del campo de precio
-            imagenes: imagenes, // Usa el estado para las imágenes
+            Descripcion: descripcion,
+            Caracteristicas: caracteristicas,
+            Precio: precio,
+            Cantidad: cantidad,
         };
 
-        // Llama a la función 'onSave' y pasa los cambios
-        onSave(cambios);
+        try {
+            const response = await fetch('https://importasiahn.netlify.app/modificarProducto?Modelo=' + modelo, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(cambios),
+            });
+
+            console.log(response);
+
+            const data = await response.json();
+
+            if (response.ok) {
+                mostrarAlerta("Producto modificado con exito", "success");
+                navigate('/gestionpw');
+            } else {
+                mostrarAlerta("Error al modificar producto", "danger");
+            }
+        } catch (error) {
+            mostrarAlerta("Ocurrio un error", "danger");
+        }
     };
 
     const handleImagenesChange = (e) => {
