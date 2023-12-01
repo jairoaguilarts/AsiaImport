@@ -1,275 +1,507 @@
 /*css de nuestros productos y botones de navegacion */
 .title-bar {
-    background-color: orange;
-    width: 100%;
-    padding: 40px 0; /* Aumentado para hacer la barra más gruesa */
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-    
-  .title-bar::after {
-    content: '';
-    position: absolute; /* Posiciona la barra azul absolutamente respecto a su padre */
-    bottom: -10px; /* Alinea la barra azul al fondo del título */
-    left: 0; /* Alinea la barra azul a la izquierda */
-    width: 100%; /* La barra azul ocupa todo el ancho */
-    height: 10px; /* Altura de la barra azul */
-    background-color: #02a6fc; /* Color azul */
-  }
-  
-  .title {
-    color: #ff9900; /* Texto del título en blanco */
-    font-size: 2em; /* Tamaño grande para el título */
-    z-index: 1; /* Asegura que el texto esté sobre la barra azul */
-  }
-  
-  .gestion-container {
-    background-color: #ef92064f;
-    padding: 20px;
-    border-radius: 10px;
-    width: 80%;
-    max-width: 1000px;
-    margin: 20px auto; /* Ajustado para centrar el contenedor */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .top-bar {
-    display: flex;
-    justify-content: space-between; /* Alinea elementos a ambos extremos */
-    align-items: center; /* Centra los elementos verticalmente */
-    padding: 20px; /* Añade padding en todos los lados */
-  }
-  
-  .add-product-btn {
-    background-color: #02a6fc; /* Color azul para el botón, igual a la barra */
-    color: white;
-    padding: 10px 15px;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-    /* Asegúrate de que no haya margen a la derecha del botón */
-  }
-  
-  .search-container2 {
-    display: flex;
-    justify-content: center; /* Centra la barra de búsqueda */
-    align-items: center; /* Alineación vertical */
-    flex-grow: 1; /* Ocupa el espacio disponible */
-    margin-left: auto; /* Esto empujará la barra de búsqueda hacia la derecha */
-    margin-right: -250px;
+  background-color: orange;
+  width: 100%;
+  padding: 40px 0;
+  /* Aumentado para hacer la barra más gruesa */
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
-  }
-  
-  .search-bar2 {
-    width: 50%; /* La barra de búsqueda es la mitad de largo */
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .product-table {
-    width: 100%; /* La tabla ocupa todo el ancho del contenedor */
-    border-collapse: collapse; /* Colapsa los bordes de la tabla */
-  }
-  
-  .product-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px; /* Aumenta el padding para más espacio */
-    border: 2px solid  orange; /* Borde anaranjado */
-    margin: 10px 0; /* Añade un margen entre filas */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Sombra ligera para profundidad */
-    background-color: #fff; /* Fondo blanco para las filas */
-    border-radius: 8px; /* Bordes redondeados */
-  }
-  
-  
-  
-  .pagination {
-    text-align: center;
-    padding: 10px 0; /* Espaciado vertical para la paginación */
-  }
+.title-bar::after {
+  content: '';
+  position: absolute;
+  /* Posiciona la barra azul absolutamente respecto a su padre */
+  bottom: -10px;
+  /* Alinea la barra azul al fondo del título */
+  left: 0;
+  /* Alinea la barra azul a la izquierda */
+  width: 100%;
+  /* La barra azul ocupa todo el ancho */
+  height: 10px;
+  /* Altura de la barra azul */
+  background-color: #02a6fc;
+  /* Color azul */
+}
+
+.title {
+  color: #ff9900;
+  /* Texto del título en blanco */
+  font-size: 2em;
+  /* Tamaño grande para el título */
+  z-index: 1;
+  /* Asegura que el texto esté sobre la barra azul */
+}
+
+.gestion-container {
+  background-color: #ef92064f;
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 1000px;
+  margin-left: 250px;
+  margin-right: 50px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  /* Alinea elementos a ambos extremos */
+  align-items: center;
+  /* Centra los elementos verticalmente */
+  padding: 20px;
+  /* Añade padding en todos los lados */
+}
+
+.add-product-btn {
+  background-color: #02a6fc;
+  /* Color azul para el botón, igual a la barra */
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  /* Asegúrate de que no haya margen a la derecha del botón */
+}
+
+.search-container2 {
+  display: flex;
+  justify-content: center;
+  /* Centra la barra de búsqueda */
+  align-items: center;
+  /* Alineación vertical */
+  flex-grow: 1;
+  /* Ocupa el espacio disponible */
+  margin-left: auto;
+  /* Esto empujará la barra de búsqueda hacia la derecha */
+  margin-right: -250px;
+
+}
+
+.search-bar2 {
+  width: 50%;
+  /* La barra de búsqueda es la mitad de largo */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.product-table {
+  width: 100%;
+  /* La tabla ocupa todo el ancho del contenedor */
+  border-collapse: collapse;
+  /* Colapsa los bordes de la tabla */
+}
+
+.product-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  /* Aumenta el padding para más espacio */
+  border: 2px solid orange;
+  /* Borde anaranjado */
+  margin: 10px 0;
+  /* Añade un margen entre filas */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* Sombra ligera para profundidad */
+  background-color: #fff;
+  /* Fondo blanco para las filas */
+  border-radius: 8px;
+  /* Bordes redondeados */
+}
+
+
+
+.pagination {
+  text-align: center;
+  padding: 10px 0;
+  /* Espaciado vertical para la paginación */
+}
 
 
 .product-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid #eee; /* Línea divisoria para cada fila */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  /* Línea divisoria para cada fila */
+}
+
+.product-row>span {
+  flex: 1;
+  /* This will ensure that each category takes up equal space */
+  margin: 0 10px;
+  /* This adds spacing between each data field */
+}
+
+.product-actions {
+  display: flex;
+  justify-content: space-around;
+  /* This will space out your edit and delete buttons */
+  flex: 1;
+  /* Adjust the flex value to set the width of the action column */
+}
+
+.edit-btn,
+.delete-btn {
+  background-color: #f3f3f3;
+  /* Light grey background */
+  color: #333;
+  /* Dark text color for contrast */
+  padding: 5px 10px;
+  margin: 0 5px;
+  /* Space out the buttons */
+  border: 1px solid #ccc;
+  /* Add a border */
+  border-radius: 5px;
+  /* Optional: rounded corners */
+  cursor: pointer;
+}
+
+.edit-btn:hover,
+.delete-btn:hover {
+  background-color: #e7e7e7;
+  /* Slightly darker background on hover */
+}
+
+/* Add styles for the header row if needed */
+.product-row.header {
+  background-color: #ddd;
+  font-weight: bold;
+}
+
+.edit-btn,
+.delete-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.edit-btn img,
+.delete-btn img {
+  width: 20px;
+  /* Adjust size as needed */
+  height: auto;
+}
+
+/* Modal custom styles */
+.modal-confirmar .modal-header,
+.modal-confirmar .modal-footer {
+  border: none;
+  /* Removes the default borders */
+}
+
+.modal-confirmar .modal-title {
+  font-weight: bold;
+}
+
+.modal-confirmar .modal-body {
+  font-size: 1rem;
+  /* Adjust size as needed */
+}
+
+.modal-confirmar .btn {
+  border-radius: 5px;
+  /* Rounded buttons */
+}
+
+.modal-confirmar .btn-secondary {
+  background-color: #6c757d;
+  /* Bootstrap secondary button color */
+}
+
+.modal-confirmar .btn-danger {
+  background-color: #dc3545;
+  /* Bootstrap danger button color */
+}
+
+.navbar2 {
+  display: flex;
+  justify-content: space-around;
+  background-color: #333;
+  padding: 10px 0;
+}
+
+.navbar2 button {
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px 20px;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.navbar2 button:hover {
+  background-color: #555;
+}
+
+.section {
+  margin: 20px 0;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+
+@media (max-width: 1435px) {
+  .gestion-container {
+    width: 90%;
+    /* Aumentar el ancho para aprovechar mejor el espacio */
   }
-  
-  .product-row > span {
-    flex: 1; /* This will ensure that each category takes up equal space */
-    margin: 0 10px; /* This adds spacing between each data field */
+
+  .search-container2 {
+    display: none;
+    /* Esto ocultará la barra de búsqueda en pantallas pequeñas */
   }
-  
+
+
+  .search-bar2 {
+    width: 60%;
+    /* Aumentar el ancho de la barra de búsqueda para mayor facilidad de uso */
+  }
+
+  .product-row {
+    flex-direction: column;
+    /* Cambiar las filas de productos a disposición vertical */
+    align-items: flex-start;
+    /* Alinear elementos al inicio para un mejor flujo */
+  }
+
   .product-actions {
-    display: flex;
-    justify-content: space-around; /* This will space out your edit and delete buttons */
-    flex: 1; /* Adjust the flex value to set the width of the action column */
-  }
-  
-  .edit-btn, .delete-btn {
-    background-color: #f3f3f3; /* Light grey background */
-    color: #333; /* Dark text color for contrast */
-    padding: 5px 10px;
-    margin: 0 5px; /* Space out the buttons */
-    border: 1px solid #ccc; /* Add a border */
-    border-radius: 5px; /* Optional: rounded corners */
-    cursor: pointer;
-  }
-  
-  .edit-btn:hover, .delete-btn:hover {
-    background-color: #e7e7e7; /* Slightly darker background on hover */
-  }
-  
-  /* Add styles for the header row if needed */
-  .product-row.header {
-    background-color: #ddd;
-    font-weight: bold;
+    justify-content: flex-start;
+    /* Alinear botones al inicio para un acceso más fácil */
   }
 
-  .edit-btn, .delete-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
+  .add-product-btn {
+    padding: 8px 12px;
+    /* Ajustar el padding para mantener la proporcionalidad */
   }
-  
-  .edit-btn img, .delete-btn img {
-    width: 20px; /* Adjust size as needed */
-    height: auto;
-  }
-  
-  /* Modal custom styles */
-  .modal-confirmar .modal-header,
-  .modal-confirmar .modal-footer {
-    border: none; /* Removes the default borders */
-  }
-  
-  .modal-confirmar .modal-title {
-    font-weight: bold;
-  }
-  
-  .modal-confirmar .modal-body {
-    font-size: 1rem; /* Adjust size as needed */
-  }
-  
-  .modal-confirmar .btn {
-    border-radius: 5px; /* Rounded buttons */
-  }
-  
-  .modal-confirmar .btn-secondary {
-    background-color: #6c757d; /* Bootstrap secondary button color */
-  }
-  
-  .modal-confirmar .btn-danger {
-    background-color: #dc3545; /* Bootstrap danger button color */
+}
+
+
+@media (max-width: 768px) {
+  .title-bar {
+    padding: 20px 0;
+    /* Reducir el padding para ahorrar espacio */
   }
 
-  .navbar2 {
-    display: flex;
-    justify-content: space-around;
-    background-color: #333;
-    padding: 10px 0;
-  }
-  
-  .navbar2 button {
-    color: white;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 10px 20px;
-    font-size: 1rem;
-    transition: background-color 0.3s;
-  }
-  
-  .navbar2 button:hover {
-    background-color: #555;
-  }
-  
-  .section {
-    margin: 20px 0;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-  }
-  
-
-  @media (max-width: 1435px) {
-    .gestion-container {
-      width: 90%; /* Aumentar el ancho para aprovechar mejor el espacio */
-    }
-  
-    .search-container2 {
-        display: none; /* Esto ocultará la barra de búsqueda en pantallas pequeñas */
-      }
-    
-  
-    .search-bar2 {
-      width: 60%; /* Aumentar el ancho de la barra de búsqueda para mayor facilidad de uso */
-    }
-  
-    .product-row {
-      flex-direction: column; /* Cambiar las filas de productos a disposición vertical */
-      align-items: flex-start; /* Alinear elementos al inicio para un mejor flujo */
-    }
-  
-    .product-actions {
-      justify-content: flex-start; /* Alinear botones al inicio para un acceso más fácil */
-    }
-  
-    .add-product-btn {
-      padding: 8px 12px; /* Ajustar el padding para mantener la proporcionalidad */
-    }
+  .title {
+    font-size: 1.5em;
+    /* Reducir el tamaño del título para que se ajuste mejor */
   }
 
-  
-  @media (max-width: 768px) {
-    .title-bar {
-      padding: 20px 0; /* Reducir el padding para ahorrar espacio */
-    }
-  
-    .title {
-      font-size: 1.5em; /* Reducir el tamaño del título para que se ajuste mejor */
-    }
-  
-    .gestion-container {
-      width: 100%; /* Utilizar todo el ancho disponible */
-      padding: 10px; /* Reducir el padding */
-    }
-  
-    .top-bar, .search-container2 {
-      flex-direction: column; /* Cambiar a disposición vertical */
-      align-items: flex-start; /* Alinear al inicio */
-    }
+  .gestion-container {
+    width: 100%;
+    /* Utilizar todo el ancho disponible */
+    padding: 10px;
+    /* Reducir el padding */
+  }
 
-    .search-container2 {
-        display: none; /* Esto ocultará la barra de búsqueda en pantallas pequeñas */
-      }
-    
-  
-    .search-bar2 {
-      width: 100%; /* Hacer que la barra de búsqueda ocupe todo el ancho */
-      margin-top: 10px; /* Añadir un margen superior para separar de otros elementos */
-    }
-  
-    .product-row {
-      padding: 10px; /* Reducir el padding para ahorrar espacio */
-    }
-  
-    .product-actions {
-      flex-direction: column; /* Cambiar botones a disposición vertical */
-      margin-top: 10px; /* Añadir margen superior para separar de la descripción del producto */
-    }
+  .top-bar,
+  .search-container2 {
+    flex-direction: column;
+    /* Cambiar a disposición vertical */
+    align-items: flex-start;
+    /* Alinear al inicio */
+  }
+
+  .search-container2 {
+    display: none;
+    /* Esto ocultará la barra de búsqueda en pantallas pequeñas */
+  }
+
+
+  .search-bar2 {
+    width: 100%;
+    /* Hacer que la barra de búsqueda ocupe todo el ancho */
+    margin-top: 10px;
+    /* Añadir un margen superior para separar de otros elementos */
+  }
+
+  .product-row {
+    padding: 10px;
+    /* Reducir el padding para ahorrar espacio */
+  }
+
+  .product-actions {
+    flex-direction: column;
+    /* Cambiar botones a disposición vertical */
+    margin-top: 10px;
+    /* Añadir margen superior para separar de la descripción del producto */
+  }
+}
+
+/* CSS para la sección de Editar Información con estilos actualizados */
+.editar-informacion {
+  background-color: #ef92064f;
+  /* Fondo semi-transparente con tono naranja */
+  border-radius: 8px;
+  padding: 20px;
+  margin-left: 250px;
+  margin-right: 50px;
+}
+
+.editar-informacion-title {
+  color: #ff9900;
+  /* Texto del título en blanco */
+  font-size: 1em;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 10px;
+  /* Reducir el margen si se desea */
+  position: relative;
+  /* Para la línea divisoria */
+}
+
+.editar-informacion-title::after {
+  content: '';
+  display: block;
+  width: 100%;
+  /* Ancho completo del contenedor */
+  height: 4px;
+  /* Altura de la línea divisoria */
+  background-color: #01A6FF;
+  /* Color azul para la línea divisoria */
+  position: absolute;
+  bottom: -10px;
+  /* Posicionamiento debajo del título */
+  left: 0;
+}
+
+.editar-informacion-container {
+  /* Ajustes adicionales pueden ser necesarios aquí */
+}
+
+.editar-informacion-field {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Centra los elementos en el eje cruzado */
+}
+
+.editar-informacion-field label {
+  display: block;
+  margin-bottom: 5px;
+  color: #01A6FF;
+  /* Color azul especificado */
+  font-size: 1.2em;
+  /* Hacer la etiqueta más grande */
+  font-weight: bold;
+  /* Hacer la etiqueta en negrita */
+  align-self: flex-start;
+  /* Alinea la etiqueta al inicio del contenedor flex */
+}
+
+.editar-informacion-field textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  min-height: 100px;
+  margin-bottom: 10px;
+}
+
+.editar-informacion-btn {
+  background-color: #01A6FF;
+  /* Color azul */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 200px;
+  /* Ancho fijo para todos los botones */
+}
+
+.editar-informacion-btn:hover {
+  background-color: #FDB254;
+  /* Color naranja al pasar el cursor */
+}
+
+/* Asegúrate de que tus clases y ids sean únicos para evitar conflictos de estilos */
+
+/* Estilos para Editar Imágenes del Carrusel con un margen izquierdo de 250px */
+.editar-imagenes-carrousel-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  margin-left: 250px; /* Margen izquierdo de 250px */
+  margin-top: 20px;
+  gap: 20px; /* Espacio entre los elementos del flexbox */
+}
+
+.editar-imagenes-carrousel-container > div {
+  flex-basis: calc(50% - 10px); /* Se ajusta al 50% del contenedor padre menos el gap */
+  border: 1px solid #ccc; /* Contorno suave */
+  background-color: #fff; /* Fondo blanco para ambos contenedores */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil para profundidad */
+}
+
+.current-images-display {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.current-images-display img {
+  width: 100px; /* Ajustar según necesidades */
+  height: 100px; /* Ajustar según necesidades */
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.image-upload-container h2 {
+  color: #01A6FF; /* Color del título de subida de imagen */
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+.current-images-container h2 {
+  color: #01A6FF; /* Color del título de subida de imagen */
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.editar-informacion-btn {
+  background-color: #01A6FF; /* Color azul para el botón */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1em;
+  margin-top: 20px; /* Espacio antes del botón */
+  width: auto; /* Auto-ajuste al contenido */
+  align-self: center; /* Centrar el botón en su contenedor */
+}
+
+.editar-informacion-btn:hover {
+  background-color: #FDB254; /* Color naranja al pasar el cursor */
+}
+
+/* Media query para ajustar el diseño en pantallas más pequeñas */
+@media (max-width: 1024px) {
+  .editar-imagenes-carrousel-container {
+    flex-direction: column;
+    margin-left: 0;
+    padding: 0;
   }
   
-/*css de nuestros productos y botones de navegacion */
-
-  
+  .editar-imagenes-carrousel-container > div {
+    flex-basis: 100%;
+    margin-bottom: 20px;
+  }
+}

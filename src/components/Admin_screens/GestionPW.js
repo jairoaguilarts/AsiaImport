@@ -75,6 +75,15 @@ const GestionPW = () => {
   const scrollToSection = (ref) => {
     window.scrollTo({ top: ref.current.offsetTop, behavior: 'smooth' });
   };
+  const handleActualizar = () => {
+    // Lógica de actualización irá aquí
+  };
+  const handleUploadImage = (event) => {
+    // Aquí manejarías la imagen subida
+    const file = event.target.files[0];
+    console.log('Imagen para subir:', file);
+    // Aquí luego implementarás la lógica para subir la imagen
+  };
 
   return (
     <div className="gestion-wrapper">
@@ -91,11 +100,13 @@ const GestionPW = () => {
         <div className="title-bar">
           {/* Empty title bar used as a fixed header */}
         </div>
-        <h1 className="title">Nuestros Productos</h1>
+        <div className="editar-informacion-title">
+          <h1 className="title">Nuestros Productos</h1>
+        </div>
         <div className="gestion-container">
           <div className="top-bar">
             <Link to="/agregarp">
-            <button className="add-product-btn">Crear Nuevo Producto</button>
+              <button className="add-product-btn">Crear Nuevo Producto</button>
             </Link>
             <div className="search-container2">
               <input type="text" placeholder="Buscar..." className="search-bar2" />
@@ -118,13 +129,13 @@ const GestionPW = () => {
                 <span className="product-description">{product.description}</span>
                 <img src={product.image} alt="Product" className="product-image" />
                 <div className="product-actions">
-                <Link to="/modificarp">
-                  <button
-                    className="edit-btn"
-                    aria-label="Edit"
-                  >
-                    <img src={iconEdit} alt="Edit" />
-                  </button>
+                  <Link to="/modificarp">
+                    <button
+                      className="edit-btn"
+                      aria-label="Edit"
+                    >
+                      <img src={iconEdit} alt="Edit" />
+                    </button>
                   </Link>
                   <button
                     className="delete-btn"
@@ -149,14 +160,52 @@ const GestionPW = () => {
 
       {/* Sección Editar Imágenes Carrousel */}
       <div ref={editarImagenesCarrouselRef} className="section">
-        <h2>Editar Imágenes Carrousel</h2>
-        {/* Contenido para Editar Imágenes Carrousel */}
+        <div className="editar-informacion-title">
+          <h1 className="title">Editar Imágenes del Carrusel</h1>
+        </div>
+        <div className="editar-imagenes-carrousel-container">
+          <div className="current-images-container">
+            <h2>Imágenes Actuales</h2>
+            {/* Componente o código para mostrar las imágenes actuales del carrusel */}
+            <div className="current-images-display">
+              {/* Aquí se mostrarían las imágenes actuales */}
+            </div>
+          </div>
+          <div className="image-upload-container">
+            <h2>Subir Nueva Imagen</h2>
+            {/* Input modificado para aceptar múltiples archivos */}
+            <input type="file" multiple onChange={handleUploadImage} />
+            <p>Selecciona una o varias imágenes y luego haz clic en 'Actualizar Imágenes' para subir.</p>
+            <button className="editar-informacion-btn">Actualizar Imágenes</button>
+          </div>
+        </div>
+
       </div>
 
       {/* Sección Editar Información */}
       <div ref={editarInformacionRef} className="section">
-        <h2>Editar Información</h2>
+        <div className="editar-informacion-title">
+          <h1 className="title">Editar Informacion</h1>
+        </div>
         {/* Contenido para Editar Información */}
+        <div ref={editarInformacionRef} className="section editar-informacion">
+
+          <div className="editar-informacion-container">
+            <div className="editar-informacion-field">
+              <label htmlFor="mision">Misión</label>
+              <textarea id="mision" placeholder="Aqui se carga la mision..."></textarea>
+            </div>
+            <div className="editar-informacion-field">
+              <label htmlFor="vision">Visión</label>
+              <textarea id="vision" placeholder="Aqui se carga la vision..."></textarea>
+            </div>
+            <div className="editar-informacion-field">
+              <label htmlFor="historia">Historia</label>
+              <textarea id="historia" placeholder="Aqui la historia..."></textarea>
+              <button className="editar-informacion-btn" onClick={handleActualizar}>Actualizar Información</button>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Modal para confirmación de eliminación */}
