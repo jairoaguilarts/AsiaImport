@@ -17,7 +17,6 @@ const AdminPage = () => {
   const navigate = useNavigate();
 
   const toggleSidebar = () => {
-    console.log("FirebaseUID recuperado en OtroComponente:", firebaseUID);
     setSidebarOpen(!isSidebarOpen);
   };
 
@@ -72,7 +71,7 @@ const AdminPage = () => {
             <div className="sidebar-item">
               < Link to="/gestionpw">
               <img src={editar} alt="editar" className="icon-image" />
-              <span>Editar Página Web</span>
+              <span>Gestionar Productos</span>
               </Link>
             </div>
             <hr className="linea-divisora" />

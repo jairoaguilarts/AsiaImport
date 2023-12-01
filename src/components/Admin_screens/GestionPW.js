@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './GestionPW.css';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
@@ -7,36 +7,18 @@ import iconDelete from "../../assets/delete.png";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import ModificarP from '../modalesProductos/ModificarP';
-const products = [
-  {
-    id: 1,
-    model: 'IK92L',
-    category: 'Audífonos',
-    name: 'Srhhythm NiceComfort',
-    description: 'Los audífonos inalámbricos WH-CH520, diseñados con la comodidad para...',
-    // image: productImage1
-  },
-  {
-    id: 2,
-    model: 'IK92L',
-    category: 'Audífonos',
-    name: 'Edifier W820NB Plus',
-    description: 'Los audífonos inalámbricos WH-CH520 plus, diseñados con la comodidad para...',
-    // image: productImage2
-  },
-  {
-    id: 3,
-    model: 'IK92L',
-    category: 'Audífonos',
-    name: 'Tozo HT2 Hybrid',
-    description: 'Los audífonos inalámbricos WH-CH520 plus, diseñados con la comodidad para...',
-    // image: productImage3
-  }
-];
 
 const GestionPW = () => {
   const [showEliminarConfirmar, setShowEliminarConfirmar] = useState(false);
   const [productToDelete, setProductToDelete] = useState(null);
+
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    fetch('http://localhost:3000/productos')
+      .then(response => response.json())
+      .then(data => setProducts(data))
+      .catch(error => console.error('Error:', error));
+  }, []);
 
   const nuestrosProductosRef = useRef(null);
   const editarProductosDestacadosRef = useRef(null);
@@ -56,7 +38,10 @@ const GestionPW = () => {
   const toggleModal = () => {
     setShowModalModificarP(!showModalModificarP);
   };
-
+  
+  const handleModelSubmit = (Modelo) => {
+    localStorage.setItem("Modelo", Modelo);
+  }
 
   const handleShowEliminarConfirmar = (productId) => {
     setProductToDelete(productId);
@@ -111,17 +96,18 @@ const GestionPW = () => {
               <span>Editar</span>
             </div>
             {products.map(product => (
-              <div className="product-row" key={product.id}>
-                <span className="product-model">{product.model}</span>
-                <span className="product-category">{product.category}</span>
-                <span className="product-name">{product.name}</span>
-                <span className="product-description">{product.description}</span>
-                <img src={product.image} alt="Product" className="product-image" />
+              <div className="product-row" key={product.Modelo}>
+                <span className="product-model">{product.Modelo}</span>
+                <span className="product-category">{product.Categoria}</span>
+                <span className="product-name">{product.Nombre}</span>
+                <span className="product-description">{product.Descripcion}</span>
+                <img src={product.ImagenID[0]} alt="Product" className="product-image" />
                 <div className="product-actions">
                 <Link to="/modificarp">
                   <button
                     className="edit-btn"
                     aria-label="Edit"
+                    onClick={() => handleModelSubmit(product.Modelo)}
                   >
                     <img src={iconEdit} alt="Edit" />
                   </button>
@@ -129,7 +115,7 @@ const GestionPW = () => {
                   <button
                     className="delete-btn"
                     aria-label="Delete"
-                    onClick={() => handleShowEliminarConfirmar(product.id)}
+                    onClick={() => handleShowEliminarConfirmar(product.Modelo)}
                   >
                     <img src={iconDelete} alt="Delete" />
                   </button>

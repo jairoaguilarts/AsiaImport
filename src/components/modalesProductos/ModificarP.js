@@ -1,36 +1,72 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import CustomAlert from '../Informative_screens/CustomAlert';
 
 import './ModificarP.css';
 
-const ModificarP = ({ product, onSave }) => {
-    // Estado para las características
-    const [caracteristicas, setCaracteristicas] = useState(product?.caracteristicas || '');
+function ModificarP() {
     const navigate = useNavigate();
 
-    // Estado para las imágenes
-    const [imagenes, setImagenes] = useState([]);
-    const handleCancel = () => {
-        // Redireccionar al usuario al componente deseado al cancelar
-        navigate('/gestionpw'); // Reemplaza '/ruta-deseada' con tu ruta específica
+    const mostrarAlerta = (message, variant) => {
+        setAlertVariant(variant);
+        setAlertMessage(message);
+        setShowAlert(true);
+
+        setTimeout(() => {
+            setShowAlert(false);
+        }, 2400);
     };
-    const handleSave = () => {
-        // Lógica para guardar los cambios
+
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
+    const [alertVariant, setAlertVariant] = useState("white");
+
+    const [imagenes, setImagenes] = useState([]);
+    const [cantidad, setCantidad] = useState("");
+    const [descripcion, setDescripcion] = useState('');
+    const [caracteristicas, setCaracteristicas] = useState('');
+    const [precio, setPrecio] = useState('');
+
+    const modelo = localStorage.getItem("Modelo");
+
+    const handleCancel = () => {
+        localStorage.removeItem("Modelo");
+        navigate('/gestionpw');
+    };
+
+    const handleSave = async () => {
         const cambios = {
-            nombre: '', // Obtén el valor del campo de nombre
-            modelo: '', // Obtén el valor del campo de modelo
-            descripcion: '', // Obtén el valor del campo de descripción
-            caracteristicas: caracteristicas, // Usa el estado para las características
-            precio: '', // Obtén el valor del campo de precio
-            imagenes: imagenes, // Usa el estado para las imágenes
+            Descripcion: descripcion,
+            Caracteristicas: caracteristicas,
+            Precio: precio,
+            Cantidad: cantidad,
         };
 
-        // Llama a la función 'onSave' y pasa los cambios
-        onSave(cambios);
+        try {
+            const response = await fetch('http://localhost:3000/modificarProducto?Modelo=' + modelo, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(cambios),
+            });
+
+            console.log(response);
+
+            const data = await response.json();
+
+            if (response.ok) {
+                mostrarAlerta("Producto modificado con exito", "success");
+                navigate('/gestionpw');
+            } else {
+                mostrarAlerta("Error al modificar producto", "danger");
+            }
+        } catch (error) {
+            mostrarAlerta("Ocurrio un error", "danger");
+        }
     };
 
     const handleImagenesChange = (e) => {
-        // Manejo de cambios en la carga de imágenes
         const files = e.target.files;
         const nuevasImagenes = [];
 
@@ -49,23 +85,17 @@ const ModificarP = ({ product, onSave }) => {
             </button>
             <h2>Modificar Producto</h2>
             <div className="form-group">
-                <label>Nombre de Producto*</label>
-                <input type="text" placeholder="Srhhythm NiceComfort" />
-            </div>
-            <div className="form-group">
-                <label>Modelo*</label>
-                <input type="text" placeholder="IK92L" />
-            </div>
-            <div className="form-group">
                 <label>Descripción*</label>
-                <textarea placeholder="Los audífonos inalámbricos WH-CH520, diseñados con la comodidad para..."></textarea>
+                <textarea
+                    value={descripcion}
+                    onChange={(e) => setDescripcion(e.target.value)}
+                ></textarea>
             </div>
             <div className="form-group">
                 <label>Características*</label>
                 <textarea
-                    //value={caracteristicas}
-                    // onChange={(e) => setCaracteristicas(e.target.value)}
-                    placeholder="Ejemplo de características: Tamaño: Pequeño, Color: Negro, Peso: 200g"
+                    value={caracteristicas}
+                    onChange={(e) => setCaracteristicas(e.target.value)}
                 ></textarea>
             </div>
             <div className="form-group">
@@ -79,8 +109,29 @@ const ModificarP = ({ product, onSave }) => {
             </div>
             <div className="form-group">
                 <label>Precio*</label>
-                <input type="text" placeholder="L. 2199.00" />
+                <input
+                    type="text"
+                    value={precio}
+                    onChange={(e) => setPrecio(e.target.value)}
+                />
             </div>
+            <div className="form-group">
+                <label>Cantidad*</label>
+                <input
+                    type="text"
+                    id="cantidadProducto"
+                    value={cantidad}
+                    onChange={(e) => setCantidad(e.target.value)}
+                />
+            </div>
+            {showAlert && (
+                <CustomAlert
+                    className="alerta"
+                    message={alertMessage}
+                    variant={alertVariant}
+                    onClose={() => setShowAlert(false)}
+                />
+            )}
             <div className="buttons">
                 <button className="btn-cancelar" onClick={handleCancel}>
                     Cancelar

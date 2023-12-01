@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./ModificarP.css";
 import CustomAlert from "../Informative_screens/CustomAlert.js";
@@ -17,34 +17,23 @@ function AgregarP() {
   };
 
   const [nombre, setNombre] = useState("");
-
   const [modelo, setModelo] = useState("");
-
   const [categoria, setCategoria] = useState("");
-
   const [descripcion, setDescripcion] = useState("");
-
   const [caracteristicas, setCaracteristicas] = useState("");
-
   const [showAlert, setShowAlert] = useState(false);
-
   const [alertMessage, setAlertMessage] = useState("");
-
   const [alertVariant, setAlertVariant] = useState("white");
-
   const [cantidad, setCantidad] = useState("");
-
   const [precio, setPrecio] = useState("");
-
   const [imagenes, setImagenes] = useState([]);
+  const userType = localStorage.getItem("userType");
 
-  const [userType, setUserType] = useState("");
   const handleCancel = () => {
     navigate("/gestionpw");
   };
 
   const handleSave = async () => {
-    setUserType(localStorage.getItem("userType"));
     const cambios = {
       Nombre: nombre,
       Modelo: modelo,
@@ -54,7 +43,7 @@ function AgregarP() {
       Cantidad: cantidad,
       Precio: precio,
       Imagenes: imagenes,
-      userCreatingType: "*",
+      userCreatingType: userType,
     };
 
     try {
@@ -68,7 +57,7 @@ function AgregarP() {
         mostrarAlerta("Todos los campos son obligatorios", "danger");
         return;
       }
-      const response = await fetch("http://localhost:3000/agregarProducto", {
+      const response = await fetch("https://importasia-api.onrender.com/agregarProducto", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -81,6 +70,7 @@ function AgregarP() {
         throw new Error(`Error: ${errorData.message || response.status}`);
       } else {
         mostrarAlerta("Producto agregado correctamente", "success");
+        window.location.reload();
       }
       return;
     } catch (error) {
