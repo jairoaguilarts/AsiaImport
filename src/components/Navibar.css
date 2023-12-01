@@ -1,0 +1,330 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gravitas+One&display=swap');
+
+.navbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #FDB254;
+  padding: 0px 0px;
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-left: 40px;
+}
+
+.navbar-logo img {
+  height: 80px;
+  max-width: 100%;
+}
+
+.brand-name {
+  font-family: 'Gravitas One', sans-serif;
+  font-size: 24px;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-left: 10px;
+  margin-right: 5px;
+  white-space: nowrap;
+}
+
+.menu {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0 30px;
+  transition: transform 0.3s ease;
+}
+
+.menu-item {
+  padding: 5px 10px;
+  margin-right: 10px;
+  color: #000;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.menu-item:hover {
+  color: #02A6FC;
+  text-decoration: underline;
+}
+
+.icon-button {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  margin: 0px 10px;
+  height: auto;
+}
+
+.icon-button p {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  text-transform: uppercase;
+  margin-top: auto;
+  font-weight: bold;
+}
+
+.icon {
+  height: 30px;
+  margin: 10px;
+}
+
+.icon-container {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+}
+
+.search-container {
+  display: flex;
+  margin-left: 0;
+  position: relative;
+}
+
+.search-box {
+  padding: 8px 32px 8px 8px;
+  padding-right: 40px;
+  font-size: 16px;
+  border: 3px solid #02A6FC;
+  border-radius: 12px;
+  width: 900px;
+}
+
+.search-button {
+  padding: auto;
+  background: none;
+  border: none;
+  width: 34px;
+  height: 34px;
+  position: absolute;
+  right: 0;
+  height: 100%;
+  cursor: pointer;
+  margin-right: 10px;
+  margin-top: 2px;
+}
+
+.search-button img {
+  width: 80%;
+  height: auto;
+  opacity: 0.4;
+}
+
+.carrito-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.icon-lupa-container {
+  display: none;
+}
+
+.barraCategorias {
+  background-color: #01A6FF;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 10px;
+}
+
+.categorias {
+  align-items: center;
+}
+
+.btnCategorias {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  margin: 0px 10px;
+  height: auto;
+  display: flex;
+  align-items: center;
+}
+
+.textoCategorias {
+  margin-left: 10px;
+  margin-right: 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  color: white;
+}
+
+.botonesAdicionales {
+  display: flex;
+  gap: 10px;
+
+}
+
+.botonAdicional {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  font-style: normal;
+  font-family: 'Montserrat', sans-serif;
+  margin-right: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  color: white;
+  font-size: 15px;
+}
+
+/*estilos pantalla pequena*/
+@media (max-width: 768px) {
+  .icon-lupa-container {
+    display: flex;
+  }
+  .search-wrapper {
+    display: none;
+  }
+
+  .navbar .navbar-collapse {
+    display: flex;
+    flex-basis: 100%;
+    flex-direction: column;
+  }
+
+  .navbar .nav-item {
+    display: block;
+  }
+
+  .navbar .dropdown-menu {
+    position: static !important;
+    float: none !important;
+    display: none;
+    visibility: hidden;
+  }
+
+  .navbar .dropdown-menu.show {
+    display: block;
+    visibility: visible;
+  }
+
+  .navbar .dropdown-toggle:after {
+    display: none;
+  }
+
+  /* Ajustes para el botón de categorías */
+  .navbar .btnCategorias {
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+
+  /* Ocultar imágenes en el menú desplegable */
+  .navbar .dropdown-menu .nav-link img {
+    display: none;
+  }
+
+  /* Estilos para los enlaces dentro del menú desplegable */
+  .navbar .dropdown-menu .nav-link {
+    font-size: 14px;
+    color: #000;
+    padding: 0.5rem 1rem;
+  }
+
+  /* Estilos para los items del menú desplegable */
+  .navbar .dropdown-item {
+    display: block;
+    width: 100%;
+    clear: both;
+    font-weight: 400;
+    color: #212529;
+    text-align: inherit;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
+  }
+
+  @media (max-width: 900px) {
+    .navbar .navbar-collapse {
+      display: flex;
+      flex-basis: 100%;
+      flex-direction: column;
+    }
+  
+    .navbar .nav-item {
+      display: block;
+    }
+  
+    .navbar .dropdown-menu {
+      position: static !important;
+      float: none !important;
+      display: none;
+      visibility: hidden;
+    }
+  
+    .navbar .dropdown-menu.show {
+      display: block;
+      visibility: visible;
+    }
+  
+    .navbar .dropdown-toggle:after {
+      display: none;
+    }
+  
+    /* Ajustes para el botón de categorías */
+    .navbar .btnCategorias {
+      display: block;
+      width: 100%;
+      text-align: left;
+    }
+  
+    /* Ocultar imágenes en el menú desplegable */
+    .navbar .dropdown-menu .nav-link img {
+      display: none;
+    }
+  
+    /* Estilos para los enlaces dentro del menú desplegable */
+    .navbar .dropdown-menu .nav-link {
+      font-size: 14px;
+      color: #000;
+      padding: 0.5rem 1rem;
+    }
+  
+    /* Estilos para los items del menú desplegable */
+    .navbar .dropdown-item {
+      display: block;
+      width: 100%;
+      clear: both;
+      font-weight: 400;
+      color: #212529;
+      text-align: inherit;
+      white-space: nowrap;
+      background-color: transparent;
+      border: 0;
+    }
+  }
+
+}

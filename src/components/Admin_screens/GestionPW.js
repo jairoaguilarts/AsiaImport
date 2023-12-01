@@ -6,19 +6,35 @@ import iconEdit from "../../assets/edit .png";
 import iconDelete from "../../assets/delete.png";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import CustomAlert from '../Informative_screens/CustomAlert';
 import ModificarP from '../modalesProductos/ModificarP';
 
 const GestionPW = () => {
   const [showEliminarConfirmar, setShowEliminarConfirmar] = useState(false);
-  const [productToDelete, setProductToDelete] = useState(null);
+  const [productoSeleccionado, setProductoSeleccionado] = useState(null);
+  
+
+  const mostrarAlerta = (message, variant) => {
+    setAlertVariant(variant);
+    setAlertMessage(message);
+    setShowAlert(true);
+
+    setTimeout(() => {
+      setShowAlert(false);
+    }, 2400);
+  };
 
   const [products, setProducts] = useState([]);
   useEffect(() => {
-    fetch('http://localhost:3000/productos')
+    fetch('https://importasiahn.netlify.app/productos')
       .then(response => response.json())
       .then(data => setProducts(data))
       .catch(error => console.error('Error:', error));
   }, []);
+
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertVariant, setAlertVariant] = useState("white");
 
   const nuestrosProductosRef = useRef(null);
   const editarProductosDestacadosRef = useRef(null);
@@ -30,6 +46,8 @@ const GestionPW = () => {
     setModalState({ showModal: true, productToEdit: product });
   };
 
+  const userType = localStorage.getItem("userType");
+
   // Maneja el cierre del modal de ModificarP
   const handleCloseModalModificarP = () => {
     setModalState({ showModal: false, productToEdit: null });
@@ -38,13 +56,13 @@ const GestionPW = () => {
   const toggleModal = () => {
     setShowModalModificarP(!showModalModificarP);
   };
-  
+
   const handleModelSubmit = (Modelo) => {
     localStorage.setItem("Modelo", Modelo);
   }
 
-  const handleShowEliminarConfirmar = (productId) => {
-    setProductToDelete(productId);
+  const handleShowEliminarConfirmar = (Modelo) => {
+    setProductoSeleccionado(Modelo);
     setShowEliminarConfirmar(true);
   };
 
@@ -52,9 +70,39 @@ const GestionPW = () => {
     setShowEliminarConfirmar(false);
   };
 
-  const handleEliminar = () => {
-    console.log('Deleting product with id:', productToDelete);
+  const handleEliminar = async () => {
+    if (!productoSeleccionado) {
+      mostrarAlerta("No se ha seleccionado ningun producto", "danger");
+      return;
+    }
+    const datoEliminar = {
+      userDeletingType: userType,
+    };
+    alert(userType);
+    try {
+      const response = await fetch('https://importasiahn.netlify.app/eliminarProducto?Modelo=' + productoSeleccionado,
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(datoEliminar),
+        }
+      );
+      console.log(response);
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Error: ${errorData.message || response.status}`);
+      }
+      mostrarAlerta("Producto eliminado exitosamente", "info");
+      setProducts(products.filter((product) => product.Modelo !== productoSeleccionado));
+    } catch (error) {
+      mostrarAlerta("Error al eliminar el Producto", "danger");
+    }
+
     setShowEliminarConfirmar(false);
+    setProductoSeleccionado(null);
   };
 
   const scrollToSection = (ref) => {
@@ -80,7 +128,7 @@ const GestionPW = () => {
         <div className="gestion-container">
           <div className="top-bar">
             <Link to="/agregarp">
-            <button className="add-product-btn">Crear Nuevo Producto</button>
+              <button className="add-product-btn">Crear Nuevo Producto</button>
             </Link>
             <div className="search-container2">
               <input type="text" placeholder="Buscar..." className="search-bar2" />
@@ -103,14 +151,14 @@ const GestionPW = () => {
                 <span className="product-description">{product.Descripcion}</span>
                 <img src={product.ImagenID[0]} alt="Product" className="product-image" />
                 <div className="product-actions">
-                <Link to="/modificarp">
-                  <button
-                    className="edit-btn"
-                    aria-label="Edit"
-                    onClick={() => handleModelSubmit(product.Modelo)}
-                  >
-                    <img src={iconEdit} alt="Edit" />
-                  </button>
+                  <Link to="/modificarp">
+                    <button
+                      className="edit-btn"
+                      aria-label="Edit"
+                      onClick={() => handleModelSubmit(product.Modelo)}
+                    >
+                      <img src={iconEdit} alt="Edit" />
+                    </button>
                   </Link>
                   <button
                     className="delete-btn"

@@ -43,7 +43,7 @@ function ModificarP() {
         };
 
         try {
-            const response = await fetch('http://localhost:3000/modificarProducto?Modelo=' + modelo, {
+            const response = await fetch('https://importasiahn.netlify.app/modificarProducto?Modelo=' + modelo, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

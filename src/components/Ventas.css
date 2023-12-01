@@ -1,0 +1,39 @@
+.ventas-container {
+  font-family: 'Arial', sans-serif;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #bee5eb;
+}
+
+.ventas-container h1 {
+  font-size: 50px;
+  font-weight: bold;
+  font-style: italic;
+  color: #FDB254;
+  ;
+  margin: 0 auto;
+
+  text-align: center;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #f3f6f7;
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  color: rgb(0, 0, 0);
+}
+
+th,
+td {
+  border: 1px solid #cccccc;
+  text-align: left;
+  padding: 8px;
+}
+
+th {
+  background-color: #eeeeee;
+}

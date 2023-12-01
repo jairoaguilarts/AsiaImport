@@ -1,0 +1,332 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
+
+:root {
+  --main-bg-color: white;
+  --active-color: orange;
+  --link-color: #01A6FF;
+  --text-color: gray;
+  --button-bg-color: #01A6FF;
+  --button-text-color: white;
+  --border-radius: 10px;
+  --font-family-y2k: 'Roboto Mono', monospace;
+  --font-family-serif: 'Times New Roman', serif;
+}
+
+body {
+  font-family: var(--font-family-y2k);
+}
+.iniciar-sesion, .registrarse {
+  flex-grow: 0;
+  cursor: pointer;
+  background: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 1rem;
+  font-weight: bold;
+  position: relative;
+  border-bottom: 3px solid transparent;
+  transition: background-color 0.3s ease-in-out, border-bottom-color 0.3s ease-in-out; /* Smooth transition for background and border */
+}
+
+#formIniciarSesion, #formRegistrar {
+  animation: fadeIn 1s ease-in-out;
+}
+
+.iniciar-sesion:hover, .registrarse:hover {
+  background-color: red;
+  border-bottom-color: orange;
+}
+.iniciar-sesion.selected, .registrarse.selected {
+  animation: pulse 1s infinite;
+  border-bottom: 3px solid orange;
+  background-color: white;
+}
+
+
+.selected {
+  border-bottom: 3px solid var(--active-color);
+}
+
+:active {
+  color: var(--text-color);
+}
+
+p {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.forms {
+  margin: 20px;
+  animation: fadeIn 1s ease-in-out;
+  display: flex;
+  flex-direction: column;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.inicio-registro {
+  margin-top: 0px !important;
+  padding-top: 0% !important;
+  padding-bottom: 0% !important;
+}
+
+.button-container {
+  margin: 10px !important;
+  padding: 0% !important;
+}
+
+.footer-cont {
+  padding-top: 10px !important;
+  margin: 0% 20px !important;
+}
+
+.iniciar-sesion.selected,
+.registrarse.selected {
+  border-bottom: 3px solid orange;
+  background-color: white;
+}
+
+.iniciar-sesion.selected p,
+.registrarse.selected p {
+  color: orange;
+}
+
+.iniciar-sesion:not(.selected),
+.registrarse:not(.selected) {
+  border-bottom: 3px solid transparent;
+  background-color: white;
+}
+
+.iniciar-sesion,
+.registrarse {
+  background-color: white;
+}
+
+.iniciar-sesion:active,
+.registrarse:active {
+  background-color: white;
+  color: black;
+}
+
+
+.iniciar-sesion p,
+.registrarse p {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.forms {
+  margin: 0px !important;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-control {
+  border-radius: 10px;
+  border: 1px solid #ced4da;
+}
+
+.form-label {
+  text-align: left; 
+  margin-bottom: 0.5rem; 
+  margin-left: 12px;
+}
+
+.forgot {
+  display: block;
+  text-align: center;
+  color: #01A6FF;
+  padding: .375rem .75rem;
+  margin-top: .5rem;
+  cursor: pointer;
+}
+
+.login {
+  width: 100%;
+  background-color: #01A6FF !important;
+  border-color: #01A6FF !important;
+  padding: 10px 0;
+  font-size: 1rem;
+  color: white;
+  border-radius: 10px;
+  margin-top: 1rem;
+}
+
+.forgot_titulo {
+  font-size: 18px;
+  flex: 1;
+  font-weight: bold;
+}
+
+.forgot_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2px;
+}
+.forgot, .login, .recuperar {
+  cursor: pointer;
+  text-decoration: underline; /* Makes links more distinguishable */
+}
+
+.body_text {
+  color: gray;
+}
+
+.forgot_icon {
+  width: 25px;
+  height: 25px;
+  margin: 0px 5px 5px 10px;
+}
+
+.recuperar {
+  background-color: orange !important;
+  border-color: orange !important;
+  margin: 20px 15px 25px 30px;
+  padding: 10px 20px;
+  font-size: 18px;
+  color: white;
+}
+
+.user-menu {
+  position: relative;
+}
+
+.menu-content {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  border: 1px solid #ccc;
+  z-index: 100;
+}
+
+.menu-content button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: none;
+  text-align: left;
+}
+
+.menu-content button:hover {
+  background-color: #f6f6f6;
+}
+
+.menu-options {
+  display: none; /* Escondido por defecto */
+  position: absolute;
+  background-color: #ffffff;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Cuando menuOpen es verdadero, se muestra el menú */
+.menu-open .menu-options {
+  display: block;
+}
+
+/* Estilos base para el menú desplegable */
+.menu-options {
+  display: none; /* Oculto por defecto */
+  position: absolute;
+  top: 100%; /* Ajusta esto para que el menú se muestre debajo del botón */
+  right: 0;
+  background-color: #ffffff;
+  border: 1px solid #ddd; /* Añade un borde ligero para definir el menú */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Sombra suave para darle profundidad */
+  border-radius: 4px; /* Bordes redondeados para suavizar el aspecto */
+  z-index: 1000; /* Asegúrate de que se muestre por encima de otros elementos */
+  min-width: 150px; /* Ancho mínimo para el menú */
+}
+
+/* Mostrar el menú cuando `menuOpen` es true */
+.menu-open {
+  display: block;
+}
+
+/* Estilos para los botones dentro del menú */
+.menu-options button {
+  display: block;
+  width: 100%;
+  padding: 10px 15px; /* Espaciado interno para hacer los botones más accesibles */
+  border: none; /* Remueve bordes innecesarios */
+  background: none; /* Fondo transparente */
+  text-align: left; /* Alinea el texto a la izquierda */
+  color: #333; /* Color del texto más oscuro para mejor contraste */
+  font-size: 1rem; /* Tamaño de la fuente legible */
+  cursor: pointer; /* Indica que los elementos son clicables */
+  border-bottom: 1px solid #ddd; /* Borde inferior para separar los elementos */
+}
+
+/* Remueve el borde del último botón */
+.menu-options button:last-child {
+  border-bottom: none;
+}
+
+/* Estilos para el botón al pasar el mouse */
+.menu-options button:hover {
+  background-color: #f7f7f7; /* Color de fondo al pasar el mouse */
+}
+
+/* Media queries para diseño responsivo */
+
+/* Pantallas grandes */
+@media (min-width: 992px) {
+  .form-container {
+    padding: 1rem 2rem; /* Aumenta el padding en pantallas grandes */
+  }
+}
+
+/* Pantallas medianas, tabletas */
+@media (min-width: 768px) and (max-width: 991px) {
+  .form-container {
+    padding: 1rem 1.5rem; /* Ajusta el padding */
+  }
+}
+
+/* Pantallas pequeñas, teléfonos */
+@media (max-width: 767px) {
+  .button {
+    padding: 8px 12px; /* Padding más pequeño para botones */
+    font-size: .9rem; /* Tamaño de fuente más pequeño */
+  }
+
+  .form-control {
+    padding: .375rem .5rem; /* Padding más pequeño para controles de formulario */
+  }
+
+  .login,
+  .recuperar {
+    padding: 10px; /* Padding uniforme */
+    margin: 1rem .5rem; /* Ajusta los márgenes */
+    font-size: .9rem; /* Tamaño de fuente más pequeño */
+  }
+
+  .form-container {
+    padding: 1rem; /* Padding más pequeño para el contenedor del formulario */
+  }
+
+  .forgot {
+    margin-top: .25rem; /* Margen superior más pequeño para el enlace olvidé mi contraseña */
+  }
+}
+
+/* Esto asegura que el formulario tome todo el ancho en pantallas extra pequeñas */
+@media (max-width: 576px) {
+  .form-container {
+    width: 100%;
+    max-width: none; /* Elimina el ancho máximo para permitir que el formulario se expanda */
+  }
+}
