@@ -10,35 +10,33 @@ function AgregarP() {
         setAlertVariant(variant);
         setAlertMessage(message);
         setShowAlert(true);
-    
+
         setTimeout(() => {
-          setShowAlert(false);
+            setShowAlert(false);
         }, 2400);
-      };
+    };
 
     const navigate = useNavigate();
     const [cantidad, setCantidad] = useState("");
-
     const [precio, setPrecio] = useState("");
-
-    const [imagenes, setImagenes] = useState([]);
-
+    const [imagenes, setImagenes] = useState({ previews: [], files: [] });
     const [userType, setUserType] = useState("");
-
     const [nombre, setNombre] = useState("");
-
     const [modelo, setModelo] = useState("");
-
     const [categoria, setCategoria] = useState("");
-
     const [descripcion, setDescripcion] = useState("");
-
     const [caracteristicas, setCaracteristicas] = useState("");
-
     const [showAlert, setShowAlert] = useState(false);
-
     const [alertMessage, setAlertMessage] = useState("");
     const [alertVariant, setAlertVariant] = useState("white");
+
+    const onFileChange = (e) => {
+        const files = Array.from(e.target.files);
+        const filesArray = files.map(file => URL.createObjectURL(file));
+
+        imagenes.previews.forEach(imagen => URL.revokeObjectURL(imagen));
+        setImagenes({ previews: filesArray, files: files });
+    };
 
     const handleCancel = () => {
         navigate("/gestionpw");
@@ -46,52 +44,55 @@ function AgregarP() {
 
     const handleSave = async () => {
         setUserType(localStorage.getItem("userType"));
-        const cambios = {
-            Nombre: nombre,
-            Modelo: modelo,
-            Categoria: categoria,
-            Descripcion: descripcion,
-            Caracteristicas: caracteristicas,
-            Cantidad: cantidad,
-            Precio: precio,
-            Imagenes: imagenes,
-            userCreatingType: "*",
-        };
-        try {
-            if (
-                nombre === "" ||
-                modelo === "" ||
-                precio === "" ||
-                categoria === "" ||
-                cantidad === ""
-            ) {
-                mostrarAlerta("Todos los campos son obligatorios", "danger");
-                return;
-            }
-            const response = await fetch("http://localhost:3000/agregarProducto", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(cambios),
-            });
+        const formData = new FormData();
+        formData.append('Nombre', nombre);
+        formData.append('Modelo', modelo);
+        formData.append('Categoria', categoria);
+        formData.append('Descripcion', descripcion);
+        formData.append('Caracteristicas', caracteristicas);
+        formData.append('Cantidad', cantidad);
+        formData.append('Precio', precio);
+        formData.append('userCreatingType', "*");
 
-            const errorData = await response.json();
-            if (!response.ok) {
-                throw new Error(`Error: ${errorData.message || response.status}`);
-            } else {
-                mostrarAlerta("Producto agregado correctamente", "success");
-            }
+        imagenes.files.forEach(file => {
+            formData.append('uploadedFile', file);
+        });
+
+        if (
+            nombre === "" ||
+            modelo === "" ||
+            precio === "" ||
+            categoria === "" ||
+            cantidad === ""
+        ) {
+            mostrarAlerta("Todos los campos son obligatorios", "danger");
             return;
-        } catch (error) {
-            mostrarAlerta("Error al agregar producto ", "danger");
         }
 
-        console.log(cambios);
+        try {
+            const response = await fetch("http://localhost:3000/agregarProducto", {
+                method: "POST",
+                body: formData,
+            });
+
+            if (!response.ok) {
+                const contentType = response.headers.get("Content-Type");
+                if (contentType.includes("application/json")) {
+                    const errorData = await response.json();
+                    throw new Error(`Error: ${errorData.message || response.status}`);
+                } else {
+                    const errorText = await response.text();
+                    throw new Error(`Error: ${errorText}`);
+                }
+            }
+
+            mostrarAlerta("Producto agregado correctamente", "success");
+            navigate("/gestionpw");
+        } catch (error) {
+            mostrarAlerta(`Error al agregar producto: ${error.message}`, "danger");
+            console.error("Error al guardar el producto:", error);
+        }
     };
-
-
-
 
     return (
         <div className="modificar-producto">
@@ -153,11 +154,11 @@ function AgregarP() {
                     type="file"
                     accept="image/*"
                     multiple
-                    onChange={handleImagenesChange}
                     id="imagenesProducto"
+                    onChange={onFileChange}
                 />
                 <div className="imagenes-preview">
-                    {imagenes.map((imagen, index) => (
+                    {imagenes.previews.map((imagen, index) => (
                         <img key={index} src={imagen} alt={`Imagen ${index}`} />
                     ))}
                 </div>

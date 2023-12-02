@@ -27,7 +27,7 @@ const GestionPW = () => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
     if (!searched) {
-      fetch("http://localhost:3000/productos")
+      fetch("https://importasia-api.onrender.com/productos")
         .then((response) => response.json())
         .then((data) => setProducts(data))
         .catch((error) => console.error("Error:", error));
@@ -76,66 +76,6 @@ const GestionPW = () => {
     setShowEliminarConfirmar(false);
   };
 
-  //Relacionado con la subida de imagenes
-  /* const uploadImage = (file) => {
-    const storageRef = firebase.storage().ref();
-    const fileRef = storageRef.child(`images/${file.name}`);
-
-    return fileRef.put(file).then(() => {
-      console.log("Imagen subida correctamente");
-      return fileRef.getDownloadURL();
-    });
-  };*/
-
-  /*const uploadImage = async () => {
-    const fileInput = document.getElementById('fileInput');
-    const file = fileInput.files[0];
-
-    if (!file) {
-      alert('Por favor, selecciona un archivo.');
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append('file', file);
-
-    try {
-      const response = await fetch("https://us-central-importasiaauth.cloudfunctions.net/uploadImage", {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status} - ${response.statusText}`);
-      }
-
-      const data = await response.json();
-      console.log(data.message);
-      alert('Imagen subida correctamente');
-    } catch (error) {
-      console.error('Error al subir la imagen:', error);
-      alert('Error al subir la imagen');
-    }
-  };*/
-
-  /* const getImageUrl = (fileName) => {
-    const storageRef = firebase.storage().ref();
-    const fileRef = storageRef.child(`images/${fileName}`);
-
-    return fileRef.getDownloadURL();
-  };
-
-  getImageUrl('nombre-de-tu-imagen.jpg').then(url => {
-    console.log('URL de la imagen:', url);
-  });
-
-
-  const file = document.querySelector("#tu-input-file").files[0];
-  uploadImage(file).then((url) => {
-    console.log("URL de la imagen:", url);
-  }); */
-  // <Aqui termina lo de subir imagenes :P>
-
   const handleEliminar = async () => {
     if (!productoSeleccionado) {
       mostrarAlerta("No se ha seleccionado ningun producto", "danger");
@@ -144,10 +84,9 @@ const GestionPW = () => {
     const datoEliminar = {
       userDeletingType: userType,
     };
-    alert(userType);
     try {
       const response = await fetch(
-        "https://importasiahn.netlify.app/eliminarProducto?Modelo=" +
+        "https://importasia-api.onrender.com/eliminarProducto?Modelo=" +
         productoSeleccionado,
         {
           method: "DELETE",
@@ -157,7 +96,6 @@ const GestionPW = () => {
           body: JSON.stringify(datoEliminar),
         }
       );
-      console.log(response);
 
       if (!response.ok) {
         const errorData = await response.json();
