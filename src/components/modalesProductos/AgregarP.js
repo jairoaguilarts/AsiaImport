@@ -1,46 +1,97 @@
 import React, { useState } from 'react';
+import CustomAlert from "../Informative_screens/CustomAlert";
 import { useNavigate } from 'react-router-dom';
 
 import './ModificarP.css';
 
-const AgregarP = ({ product, onSave }) => {
-    // Estado para las características
-    const [caracteristicas, setCaracteristicas] = useState(product?.caracteristicas || '');
+function AgregarP() {
+
+    const mostrarAlerta = (message, variant) => {
+        setAlertVariant(variant);
+        setAlertMessage(message);
+        setShowAlert(true);
+    
+        setTimeout(() => {
+          setShowAlert(false);
+        }, 2400);
+      };
+
     const navigate = useNavigate();
+    const [cantidad, setCantidad] = useState("");
 
-    // Estado para las imágenes
+    const [precio, setPrecio] = useState("");
+
     const [imagenes, setImagenes] = useState([]);
+
+    const [userType, setUserType] = useState("");
+
+    const [nombre, setNombre] = useState("");
+
+    const [modelo, setModelo] = useState("");
+
+    const [categoria, setCategoria] = useState("");
+
+    const [descripcion, setDescripcion] = useState("");
+
+    const [caracteristicas, setCaracteristicas] = useState("");
+
+    const [showAlert, setShowAlert] = useState(false);
+
+    const [alertMessage, setAlertMessage] = useState("");
+    const [alertVariant, setAlertVariant] = useState("white");
+
     const handleCancel = () => {
-        // Redireccionar al usuario al componente deseado al cancelar
-        navigate('/gestionpw'); // Reemplaza '/ruta-deseada' con tu ruta específica
+        navigate("/gestionpw");
     };
-    const handleSave = () => {
-        // Lógica para guardar los cambios
+
+    const handleSave = async () => {
+        setUserType(localStorage.getItem("userType"));
         const cambios = {
-            nombre: '', // Obtén el valor del campo de nombre
-            modelo: '', // Obtén el valor del campo de modelo
-            descripcion: '', // Obtén el valor del campo de descripción
-            caracteristicas: caracteristicas, // Usa el estado para las características
-            precio: '', // Obtén el valor del campo de precio
-            imagenes: imagenes, // Usa el estado para las imágenes
+            Nombre: nombre,
+            Modelo: modelo,
+            Categoria: categoria,
+            Descripcion: descripcion,
+            Caracteristicas: caracteristicas,
+            Cantidad: cantidad,
+            Precio: precio,
+            Imagenes: imagenes,
+            userCreatingType: "*",
         };
+        try {
+            if (
+                nombre === "" ||
+                modelo === "" ||
+                precio === "" ||
+                categoria === "" ||
+                cantidad === ""
+            ) {
+                mostrarAlerta("Todos los campos son obligatorios", "danger");
+                return;
+            }
+            const response = await fetch("http://localhost:3000/agregarProducto", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(cambios),
+            });
 
-        // Llama a la función 'onSave' y pasa los cambios
-        onSave(cambios);
-    };
-
-    const handleImagenesChange = (e) => {
-        // Manejo de cambios en la carga de imágenes
-        const files = e.target.files;
-        const nuevasImagenes = [];
-
-        for (let i = 0; i < files.length; i++) {
-            const file = files[i];
-            nuevasImagenes.push(URL.createObjectURL(file));
+            const errorData = await response.json();
+            if (!response.ok) {
+                throw new Error(`Error: ${errorData.message || response.status}`);
+            } else {
+                mostrarAlerta("Producto agregado correctamente", "success");
+            }
+            return;
+        } catch (error) {
+            mostrarAlerta("Error al agregar producto ", "danger");
         }
 
-        setImagenes(nuevasImagenes);
+        console.log(cambios);
     };
+
+
+
 
     return (
         <div className="modificar-producto">
@@ -50,27 +101,61 @@ const AgregarP = ({ product, onSave }) => {
             <h2>Agregar Producto</h2>
             <div className="form-group">
                 <label>Nombre de Producto</label>
-                <input type="text" placeholder="" />
+                <input
+                    type="text"
+                    placeholder=""
+                    id="nombreProducto"
+                    value={nombre}
+                    onChange={(e) => setNombre(e.target.value)}
+                />
             </div>
             <div className="form-group">
                 <label>Modelo</label>
-                <input type="text" placeholder="" />
+                <input
+                    type="text"
+                    placeholder=""
+                    id="modeloProducto"
+                    value={modelo}
+                    onChange={(e) => setModelo(e.target.value)}
+                />
+            </div>
+            <div className="form-group">
+                <label>Categoria</label>
+                <input
+                    type="text"
+                    placeholder=""
+                    id="categoriaProducto"
+                    value={categoria}
+                    onChange={(e) => setCategoria(e.target.value)}
+                />
             </div>
             <div className="form-group">
                 <label>Descripción</label>
-                <textarea placeholder=""></textarea>
+                <textarea
+                    placeholder=""
+                    id="descripcionProducto"
+                    value={descripcion}
+                    onChange={(e) => setDescripcion(e.target.value)}
+                ></textarea>
             </div>
             <div className="form-group">
                 <label>Características</label>
                 <textarea
-                    //value={caracteristicas}
-                    // onChange={(e) => setCaracteristicas(e.target.value)}
                     placeholder=""
+                    id="caracteristicasProducto"
+                    value={caracteristicas}
+                    onChange={(e) => setCaracteristicas(e.target.value)}
                 ></textarea>
             </div>
             <div className="form-group">
                 <label>Imágenes</label>
-                <input type="file" accept="image/*" multiple onChange={handleImagenesChange} />
+                <input
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    onChange={handleImagenesChange}
+                    id="imagenesProducto"
+                />
                 <div className="imagenes-preview">
                     {imagenes.map((imagen, index) => (
                         <img key={index} src={imagen} alt={`Imagen ${index}`} />
@@ -78,9 +163,33 @@ const AgregarP = ({ product, onSave }) => {
                 </div>
             </div>
             <div className="form-group">
-                <label>Precio</label>
-                <input type="text" placeholder="" />
+                <label>Cantidad</label>
+                <input
+                    type="text"
+                    placeholder=""
+                    id="cantidadProducto"
+                    value={cantidad}
+                    onChange={(e) => setCantidad(e.target.value)}
+                />
             </div>
+            <div className="form-group">
+                <label>Precio</label>
+                <input
+                    type="text"
+                    placeholder=""
+                    id="precioProducto"
+                    value={precio}
+                    onChange={(e) => setPrecio(e.target.value)}
+                />
+            </div>
+            {showAlert && (
+                <CustomAlert
+                    className="alerta"
+                    message={alertMessage}
+                    variant={alertVariant}
+                    onClose={() => setShowAlert(false)}
+                />
+            )}
             <div className="buttons">
                 <button className="btn-cancelar" onClick={handleCancel}>
                     Cancelar
@@ -89,7 +198,6 @@ const AgregarP = ({ product, onSave }) => {
                     Agregar Producto
                 </button>
             </div>
-
         </div>
     );
 };
