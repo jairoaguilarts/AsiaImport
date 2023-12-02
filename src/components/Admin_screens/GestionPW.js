@@ -1,13 +1,13 @@
-import React, { useState, useRef, useEffect } from 'react';
-import './GestionPW.css';
-import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
+import React, { useState, useRef, useEffect } from "react";
+import "./GestionPW.css";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 import iconEdit from "../../assets/edit .png";
 import iconDelete from "../../assets/delete.png";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import CustomAlert from '../Informative_screens/CustomAlert';
-import ModificarP from '../modalesProductos/ModificarP';
+import CustomAlert from "../Informative_screens/CustomAlert";
+import ModificarP from "../modalesProductos/ModificarP";
 
 const GestionPW = () => {
   const [showEliminarConfirmar, setShowEliminarConfirmar] = useState(false);
@@ -43,9 +43,12 @@ const GestionPW = () => {
   const editarImagenesCarrouselRef = useRef(null);
   const editarInformacionRef = useRef(null);
   const [showModalModificarP, setShowModalModificarP] = useState(false);
-  const [modalState, setModalState] = useState({ showModal: false, productToEdit: null });
+  const [modalState, setModalState] = useState({
+    showModal: false,
+    productToEdit: null,
+  });
   const [busqueda, setBusqueda] = useState("");
-  
+
   const handleShowModalModificarP = (product) => {
     setModalState({ showModal: true, productToEdit: product });
   };
@@ -63,7 +66,7 @@ const GestionPW = () => {
 
   const handleModelSubmit = (Modelo) => {
     localStorage.setItem("Modelo", Modelo);
-  }
+  };
 
   const handleShowEliminarConfirmar = (Modelo) => {
     setProductoSeleccionado(Modelo);
@@ -84,11 +87,13 @@ const GestionPW = () => {
     };
     alert(userType);
     try {
-      const response = await fetch('https://importasiahn.netlify.app/eliminarProducto?Modelo=' + productoSeleccionado,
+      const response = await fetch(
+        "https://importasiahn.netlify.app/eliminarProducto?Modelo=" +
+          productoSeleccionado,
         {
-          method: 'DELETE',
+          method: "DELETE",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify(datoEliminar),
         }
@@ -100,7 +105,9 @@ const GestionPW = () => {
         throw new Error(`Error: ${errorData.message || response.status}`);
       }
       mostrarAlerta("Producto eliminado exitosamente", "info");
-      setProducts(products.filter((product) => product.Modelo !== productoSeleccionado));
+      setProducts(
+        products.filter((product) => product.Modelo !== productoSeleccionado)
+      );
     } catch (error) {
       mostrarAlerta("Error al eliminar el Producto", "danger");
     }
@@ -110,7 +117,7 @@ const GestionPW = () => {
   };
 
   const scrollToSection = (ref) => {
-    window.scrollTo({ top: ref.current.offsetTop, behavior: 'smooth' });
+    window.scrollTo({ top: ref.current.offsetTop, behavior: "smooth" });
   };
   const handleActualizar = () => {
     // Lógica de actualización irá aquí
@@ -118,12 +125,12 @@ const GestionPW = () => {
   const handleUploadImage = (event) => {
     // Aquí manejarías la imagen subida
     const file = event.target.files[0];
-    console.log('Imagen para subir:', file);
+    console.log("Imagen para subir:", file);
     // Aquí luego implementarás la lógica para subir la imagen
   };
   const handleSearch = async () => {
     const buscar = {
-      nombre: busqueda,
+      Nombre: busqueda,
     };
 
     try {
@@ -133,7 +140,7 @@ const GestionPW = () => {
       }
       console.log("Busqueda ANTES:" + busqueda);
       const response = await fetch(
-        `https://importasia-api.onrender.com/buscarProducto?nombre=${busqueda}`,
+        `http://localhost:3000/buscarProducto?Nombre=${busqueda}`,
         {
           method: "GET",
           headers: {
@@ -142,13 +149,11 @@ const GestionPW = () => {
         }
       );
       const responseData = await response.json();
-      console.log("antes " + responseData);
 
       if (!response.ok) {
         throw new Error(`Error: ${responseData.message || response.status}`);
       } else {
         mostrarAlerta("Producto encontrado", "success");
-        console.log(responseData);
         setProducts(responseData);
         setSearched(true);
       }
@@ -160,10 +165,18 @@ const GestionPW = () => {
     <div className="gestion-wrapper">
       {/* Barra de navegación */}
       <div className="navbar2">
-        <button onClick={() => scrollToSection(nuestrosProductosRef)}>Nuestros Productos</button>
-        <button onClick={() => scrollToSection(editarProductosDestacadosRef)}>Editar Productos Destacados</button>
-        <button onClick={() => scrollToSection(editarImagenesCarrouselRef)}>Editar Imágenes Carrousel</button>
-        <button onClick={() => scrollToSection(editarInformacionRef)}>Editar Información</button>
+        <button onClick={() => scrollToSection(nuestrosProductosRef)}>
+          Nuestros Productos
+        </button>
+        <button onClick={() => scrollToSection(editarProductosDestacadosRef)}>
+          Editar Productos Destacados
+        </button>
+        <button onClick={() => scrollToSection(editarImagenesCarrouselRef)}>
+          Editar Imágenes Carrousel
+        </button>
+        <button onClick={() => scrollToSection(editarInformacionRef)}>
+          Editar Información
+        </button>
       </div>
 
       {/* Sección Nuestros Productos */}
@@ -177,10 +190,10 @@ const GestionPW = () => {
         <div className="gestion-container">
           <div className="top-bar">
             <Link to="/agregarp">
-                <button className="add-product-btn">Crear Nuevo Producto</button>
+              <button className="add-product-btn">Crear Nuevo Producto</button>
             </Link>
             <div className="search-container2">
-            <input
+              <input
                 type="text"
                 placeholder="Buscar..."
                 className="search-bar2"
@@ -188,7 +201,7 @@ const GestionPW = () => {
                 value={busqueda}
                 onChange={(e) => setBusqueda(e.target.value)}
               />
-              <button className="add-product-btn">
+              <button className="add-product-btn" onClick={handleSearch}>
                 Buscar
               </button>
             </div>
@@ -210,22 +223,28 @@ const GestionPW = () => {
               <span>Imagen</span>
               <span>Editar</span>
             </div>
-            {products.map(product => (
+            {products.map((product) => (
               <div className="product-row" key={product.Modelo}>
                 <span className="product-model">{product.Modelo}</span>
                 <span className="product-category">{product.Categoria}</span>
                 <span className="product-name">{product.Nombre}</span>
-                <span className="product-description">{product.Descripcion}</span>
-                <img src={product.ImagenID[0]} alt="Product" className="product-image" />
+                <span className="product-description">
+                  {product.Descripcion}
+                </span>
+                <img
+                  src={product.ImagenID[0]}
+                  alt="Product"
+                  className="product-image"
+                />
                 <div className="product-actions">
-                <Link to="/modificarp">
-                  <button
-                    className="edit-btn"
-                    aria-label="Edit"
-                    onClick={() => handleModelSubmit(product.Modelo)}
-                  >
-                    <img src={iconEdit} alt="Edit" />
-                  </button>
+                  <Link to="/modificarp">
+                    <button
+                      className="edit-btn"
+                      aria-label="Edit"
+                      onClick={() => handleModelSubmit(product.Modelo)}
+                    >
+                      <img src={iconEdit} alt="Edit" />
+                    </button>
                   </Link>
                   <button
                     className="delete-btn"
@@ -237,7 +256,6 @@ const GestionPW = () => {
                 </div>
               </div>
             ))}
-
           </div>
         </div>
       </div>
@@ -265,11 +283,15 @@ const GestionPW = () => {
             <h2>Subir Nueva Imagen</h2>
             {/* Input modificado para aceptar múltiples archivos */}
             <input type="file" multiple onChange={handleUploadImage} />
-            <p>Selecciona una o varias imágenes y luego haz clic en 'Actualizar Imágenes' para subir.</p>
-            <button className="editar-informacion-btn">Actualizar Imágenes</button>
+            <p>
+              Selecciona una o varias imágenes y luego haz clic en 'Actualizar
+              Imágenes' para subir.
+            </p>
+            <button className="editar-informacion-btn">
+              Actualizar Imágenes
+            </button>
           </div>
         </div>
-
       </div>
 
       {/* Sección Editar Información */}
@@ -279,20 +301,33 @@ const GestionPW = () => {
         </div>
         {/* Contenido para Editar Información */}
         <div ref={editarInformacionRef} className="section editar-informacion">
-
           <div className="editar-informacion-container">
             <div className="editar-informacion-field">
               <label htmlFor="mision">Misión</label>
-              <textarea id="mision" placeholder="Aqui se carga la mision..."></textarea>
+              <textarea
+                id="mision"
+                placeholder="Aqui se carga la mision..."
+              ></textarea>
             </div>
             <div className="editar-informacion-field">
               <label htmlFor="vision">Visión</label>
-              <textarea id="vision" placeholder="Aqui se carga la vision..."></textarea>
+              <textarea
+                id="vision"
+                placeholder="Aqui se carga la vision..."
+              ></textarea>
             </div>
             <div className="editar-informacion-field">
               <label htmlFor="historia">Historia</label>
-              <textarea id="historia" placeholder="Aqui la historia..."></textarea>
-              <button className="editar-informacion-btn" onClick={handleActualizar}>Actualizar Información</button>
+              <textarea
+                id="historia"
+                placeholder="Aqui la historia..."
+              ></textarea>
+              <button
+                className="editar-informacion-btn"
+                onClick={handleActualizar}
+              >
+                Actualizar Información
+              </button>
             </div>
           </div>
         </div>
@@ -319,7 +354,6 @@ const GestionPW = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-
     </div>
   );
 };
