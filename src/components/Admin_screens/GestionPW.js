@@ -130,7 +130,7 @@ const GestionPW = () => {
   };
   const handleSearch = async () => {
     const buscar = {
-      Nombre: busqueda,
+      Nombre: busqueda.trim(),
     };
 
     try {
@@ -140,7 +140,7 @@ const GestionPW = () => {
       }
       console.log("Busqueda ANTES:" + busqueda);
       const response = await fetch(
-        `http://localhost:3000/buscarProducto?Nombre=${busqueda}`,
+        `http://localhost:3000/buscarProducto?Nombre=${busqueda.trim()}`,
         {
           method: "GET",
           headers: {
