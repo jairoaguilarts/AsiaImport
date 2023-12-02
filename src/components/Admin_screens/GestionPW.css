@@ -37,6 +37,20 @@
   /* Asegura que el texto esté sobre la barra azul */
 }
 
+.product-row.header{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+.product-row.header span{
+  align-items: center;
+  display:inline-block;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0 10px;
+}
 .gestion-container {
   background-color: #ef92064f;
   padding: 20px;
@@ -115,6 +129,7 @@
   /* Fondo blanco para las filas */
   border-radius: 8px;
   /* Bordes redondeados */
+  
 }
 
 
@@ -250,7 +265,13 @@
   border: 1px solid #ccc;
   border-radius: 8px;
 }
-
+.product-image {
+  max-width: 80px; /* Ajusta el ancho máximo de la imagen */
+  height: 80px; /* Mantiene la relación de aspecto de la imagen */
+  display: block; /* Asegura que la imagen no tenga espacio adicional a su alrededor */
+ margin: 0 40px; /* Centra la imagen en su contenedor */
+  border-radius: 5px; /* Opcional: bordes redondeados para un aspecto más suave */
+}
 
 @media (max-width: 1435px) {
   .gestion-container {
@@ -272,8 +293,10 @@
   .product-row {
     flex-direction: column;
     /* Cambiar las filas de productos a disposición vertical */
-    align-items: flex-start;
+    align-items: flex-center;
     /* Alinear elementos al inicio para un mejor flujo */
+    text-align: center;
+    width: 100%;
   }
 
   .product-actions {

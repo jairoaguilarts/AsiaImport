@@ -12,7 +12,7 @@ import ModificarP from '../modalesProductos/ModificarP';
 const GestionPW = () => {
   const [showEliminarConfirmar, setShowEliminarConfirmar] = useState(false);
   const [productoSeleccionado, setProductoSeleccionado] = useState(null);
-  
+  const [searched, setSearched] = useState(false);
 
   const mostrarAlerta = (message, variant) => {
     setAlertVariant(variant);
@@ -26,11 +26,13 @@ const GestionPW = () => {
 
   const [products, setProducts] = useState([]);
   useEffect(() => {
-    fetch('https://importasiahn.netlify.app/productos')
-      .then(response => response.json())
-      .then(data => setProducts(data))
-      .catch(error => console.error('Error:', error));
-  }, []);
+    if (!searched) {
+      fetch("http://localhost:3000/productos")
+        .then((response) => response.json())
+        .then((data) => setProducts(data))
+        .catch((error) => console.error("Error:", error));
+    }
+  }, [searched]);
 
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
@@ -42,6 +44,8 @@ const GestionPW = () => {
   const editarInformacionRef = useRef(null);
   const [showModalModificarP, setShowModalModificarP] = useState(false);
   const [modalState, setModalState] = useState({ showModal: false, productToEdit: null });
+  const [busqueda, setBusqueda] = useState("");
+  
   const handleShowModalModificarP = (product) => {
     setModalState({ showModal: true, productToEdit: product });
   };
@@ -117,7 +121,41 @@ const GestionPW = () => {
     console.log('Imagen para subir:', file);
     // Aquí luego implementarás la lógica para subir la imagen
   };
+  const handleSearch = async () => {
+    const buscar = {
+      nombre: busqueda,
+    };
 
+    try {
+      if (busqueda === "") {
+        mostrarAlerta("No se ingresó ningún parametro", "danger");
+        return;
+      }
+      console.log("Busqueda ANTES:" + busqueda);
+      const response = await fetch(
+        `https://importasia-api.onrender.com/buscarProducto?nombre=${busqueda}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const responseData = await response.json();
+      console.log("antes " + responseData);
+
+      if (!response.ok) {
+        throw new Error(`Error: ${responseData.message || response.status}`);
+      } else {
+        mostrarAlerta("Producto encontrado", "success");
+        console.log(responseData);
+        setProducts(responseData);
+        setSearched(true);
+      }
+    } catch (error) {
+      mostrarAlerta("Error en la busqueda", "danger");
+    }
+  };
   return (
     <div className="gestion-wrapper">
       {/* Barra de navegación */}
@@ -142,8 +180,26 @@ const GestionPW = () => {
                 <button className="add-product-btn">Crear Nuevo Producto</button>
             </Link>
             <div className="search-container2">
-              <input type="text" placeholder="Buscar..." className="search-bar2" />
+            <input
+                type="text"
+                placeholder="Buscar..."
+                className="search-bar2"
+                id="barraBuscar"
+                value={busqueda}
+                onChange={(e) => setBusqueda(e.target.value)}
+              />
+              <button className="add-product-btn">
+                Buscar
+              </button>
             </div>
+            {showAlert && (
+              <CustomAlert
+                className="alerta"
+                message={alertMessage}
+                variant={alertVariant}
+                onClose={() => setShowAlert(false)}
+              />
+            )}
           </div>
           <div className="product-table">
             <div className="product-row header">
