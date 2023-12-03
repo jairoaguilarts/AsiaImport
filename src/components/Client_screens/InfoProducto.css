@@ -10,7 +10,7 @@
   width: 40%;
   display: flex;
   justify-content: right;
-  overflow: hidden;
+  overflow: hidden; /* Importante para mantener el zoom dentro del contenedor */
 }
 
 .product-image-container img {
@@ -18,7 +18,13 @@
   width: 70%;
   max-width: 100%;
   object-fit: cover;
+  transition: transform 0.5s ease; /* Agrega una transición suave para el efecto de zoom */
 }
+
+.product-image-container img:hover {
+  transform: scale(1.2); /* Aumenta el tamaño de la imagen cuando se pasa el ratón por encima */
+}
+
 
 /* .product-image {
   object-fit: cover !important;
@@ -58,8 +64,15 @@
   gap: 10px;
 }
 
-.btn-cart,
-.btn-favorite {
+.btn-cart2{
+  padding: 10px 30px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 4px;
+  width: fit-content;
+}
+.btn-favorite2 {
   padding: 10px 15px;
   border: none;
   cursor: pointer;
@@ -68,12 +81,12 @@
   width: fit-content;
 }
 
-.btn-cart {
+.btn-cart2 {
   background-color: #ffa500;
   color: white;
 }
 
-.btn-favorite {
+.btn-favorite2 {
   background-color: #01a6ff;
   color: white;
   border: 2px solid #01a6ff;

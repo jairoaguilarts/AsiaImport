@@ -74,8 +74,8 @@ function InfoAudifonos() {
               <p>{producto.Descripcion}</p>
             </div>
             <div className="product-buttons">
-              <button className="btn-cart">AÑADIR AL CARRITO</button>
-              <button className="btn-favorite">AGREGAR A FAVORITOS</button>
+              <button className="btn-cart2">AÑADIR AL CARRITO</button>
+              <button className="btn-favorite2">AGREGAR A FAVORITOS</button>
             </div>
           </div>
         </div>
