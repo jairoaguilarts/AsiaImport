@@ -11,8 +11,15 @@ const AudifonoFiltro = () => {
   const [selectedSort, setSelectedSort] = useState("");
   const [selectedRating, setSelectedRating] = useState([]);
   const [selectedColors, setSelectedColors] = useState([]);
+
   const [products, setProducts] = useState([]);
-    const [sortedProducts, setSortedProducts] = useState([]);
+  const [sortedAndPaginatedProducts, setSortedAndPaginatedProducts] = useState([]);
+
+   //logica de paginacion
+   const [currentPage, setCurrentPage] = useState(1);
+   const [productsPerPage] = useState(10);
+   //productos para la pagina actual
+   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const location = useLocation();
   const categoria = location.state?.categoria;
@@ -36,14 +43,6 @@ const AudifonoFiltro = () => {
     "#0000FF",
   ];
 
-  //logica de paginacion
-  const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage] = useState(10);
-  //productos para la pagina actual
-  const indexOfLastProduct = currentPage * productsPerPage;
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -73,15 +72,21 @@ const AudifonoFiltro = () => {
     fetchProducts();
   }, [categoria]);
   useEffect(() => {
-    let sorted = [...products];
-    if (selectedSort === "Precio: Descendente a Ascendente") {
-        sorted.sort((a, b) => a.Precio - b.Precio);
-    } else if (selectedSort === "Precio: Ascendente a Descendente") {
-        sorted.sort((a, b) => b.Precio - a.Precio);
-    }
-    setSortedProducts(sorted);
-}, [selectedSort, products]);
+    let sortedProducts = [...products];
 
+    if (selectedSort === "Precio: Descendente a Ascendente") {
+        sortedProducts.sort((a, b) => a.Precio - b.Precio);
+    } else if (selectedSort === "Precio: Ascendente a Descendente") {
+        sortedProducts.sort((a, b) => b.Precio - a.Precio);
+    }
+
+    // Aquí aplicamos la paginación
+    const indexOfLastProduct = currentPage * productsPerPage;
+    const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+    const paginatedProducts = sortedProducts.slice(indexOfFirstProduct, indexOfLastProduct);
+
+   setSortedAndPaginatedProducts(paginatedProducts);
+}, [selectedSort, products, currentPage]); 
 
   const toggleSelection = (item, list, setList) => {
     const currentIndex = list.indexOf(item);
@@ -147,7 +152,7 @@ const AudifonoFiltro = () => {
           </div>
 
           <div className="product-list-container">
-            {sortedProducts.map((product, index) => (
+            {sortedAndPaginatedProducts.map((product, index) => (
               <div className="product-container" key={index}>
                 <button
                   className="product-image-btn"
