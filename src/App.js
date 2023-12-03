@@ -17,6 +17,8 @@ import AdminEmpleados from "./components/Admin_screens/AdminEmpleados";
 import GestionPW from "./components/Admin_screens/GestionPW";
 import ModificarP from "./components/modalesProductos/ModificarP";
 import AgregarP from "./components/modalesProductos/AgregarP";
+import AudifonosFiltro from "./components/Client_screens/audifonoFiltro";
+import InfoAudifonos from "./components/Client_screens/infoAudifonos"; 
 function App() {
   const userType = localStorage.getItem("IsAdmin");
 
@@ -39,6 +41,10 @@ function App() {
           <Route path="/gestionpw" element={userType === "true" ? <GestionPW/> : <Navigate to="/inicio" />} />    
           <Route path="/modificarp" element={<ModificarP />} />    
           <Route path="/agregarp" element={<AgregarP />} /> 
+          <Route path="/audifonos-filtro" element={<AudifonosFiltro />} />
+          <Route path="/info-audifonos" element={<InfoAudifonos />} />
+
+          
         </Routes>
         {userType !== "true" && <Footer />}
       </div>
