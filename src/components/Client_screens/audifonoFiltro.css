@@ -6,7 +6,7 @@
     border-radius: 8px;
     width: 250px; /* Adjust the width as necessary */
     margin-top: 0; /* Cambiado a 0 para que esté pegado arriba */
-    margin-bottom: 20px; /* Provides space at the bottom */
+    margin-bottom: 150px; /* Provides space at the bottom */
     box-sizing: border-box; /* Includes padding in the width */
     box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
     position: relative; /* Add this if you need to position your filter container within a specific parent element */
@@ -109,11 +109,14 @@
 /* Main layout styles */
 .main-container {
     display: flex;
+    margin-bottom: auto;
 }
 
 /* Style for the product list */
 .product-list-container {
     flex-grow: 1;
+    margin-left: 250px;
+    margin-top: -1400px;
     padding-left: 20px; /* Or adjust to your preference */
 }
 
@@ -126,15 +129,16 @@
 
 /* Button that will contain the product image */
 .product-image-btn {
-  width: 150px; /* Set the width of the button */
-  height: 150px; /* Set the height of the button */
+  width: 250px; /* Set the width of the button */
+  height: 255px; /* Set the height of the button */
   display: flex;
   align-items: center;
   justify-content: center;
   border: 1px solid #ccc; /* Optional border */
   overflow: hidden; /* Hide any overflow content */
   position: relative; /* Add this for positioning */
-  margin-right: 10px; /* Add some right margin for spacing */
+  margin-right: 20px; /* Add some right margin for spacing */
+  margin-bottom: 90px;
 }
 .product-image-btn img {
   width: 100%; /* Set the image width to 100% of the button */
@@ -158,6 +162,7 @@
 /* Product details styling */
 .product-details {
     flex-grow: 1;
+    margin-bottom: 90px;
 }
 
 .price {
@@ -166,7 +171,17 @@
 }
 
 /* Button styles */
-.btn-add-to-cart,
+.btn-add-to-cart{
+  display: block;
+    margin-top: 10px;
+    padding: 10px 33px;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    background-color: #ffa500; /* Adjust colors to match your design */
+    border: 1px solid #007bff;
+    cursor: pointer;
+}
 .btn-add-to-favorites {
     display: block;
     margin-top: 10px;
@@ -179,15 +194,6 @@
     cursor: pointer;
 }
 
-.btn-add-to-cart {
-    background-color: #ffa500; /* Green color for add to cart */
-}
-
-.btn-add-to-favorites {
-    background-color: transparent;
-    color: #007bff; /* Blue color for add to favorites */
-    border-color: #007bff;
-}
 
 /* Adjustments for spacing and responsive design */
 @media (max-width: 768px) {

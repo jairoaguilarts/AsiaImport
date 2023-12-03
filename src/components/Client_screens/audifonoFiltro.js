@@ -1,20 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './audifonoFiltro.css';
 import audifonosProduct1 from "../../assets/edifierPlus.png";
 import audifonosProduct2 from "../../assets/Srhythm.png";
-import { useNavigate } from 'react-router-dom'; // Importa useNavigate de react-router-dom
+import { useNavigate , useLocation } from 'react-router-dom'; // Importa useNavigate de react-router-dom
 
 const AudifonoFiltro = () => {
     const [selectedBrands, setSelectedBrands] = useState([]);
     const [selectedSort, setSelectedSort] = useState('');
     const [selectedRating, setSelectedRating] = useState([]);
     const [selectedColors, setSelectedColors] = useState([]);
-
+    const location = useLocation();
+    const categoria = location.state?.categoria;
+    
+    // Estados y constantes existentes
     const brands = ['Sony', 'Samsung', 'Srythm', 'Panasonic', 'Papas'];
     const sorts = ['Precio: Descendente a Ascendente', 'Precio: Ascendente a Descendente', 'Relevancia', 'El más nuevo'];
     const ratings = [5, 4, 3, 2, 1];
     const colors = ['#000000', '#808080', '#FFFFFF', '#A52A2A', '#FF0000', '#FFFF00', '#008000', '#0000FF'];
 
+    // Nuevo estado para almacenar los productos de la API
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const response = await fetch('https://importasia-api.onrender.com/productos');
+                let data = await response.json();
+                //alert(categoria)
+                if (categoria) {
+                    data = data.filter(product => product.Categoria === categoria);
+                }
+    
+                setProducts(data);
+            } catch (error) {
+                console.error('Error al cargar los productos:', error);
+            }
+        };
+    
+        fetchProducts();
+    }, [categoria]); 
+
+    // Funciones existentes
     const toggleSelection = (item, list, setList) => {
         const currentIndex = list.indexOf(item);
         const newSelected = [...list];
@@ -27,23 +53,6 @@ const AudifonoFiltro = () => {
 
         setList(newSelected);
     };
-    const products = [
-        {
-            name: 'Srythm NiceComfort',
-            model: 'IK92L',
-            price: 'L. 2199.00',
-            description: 'Los audífonos inalámbricos WH-CH520.',
-            imageUrl: audifonosProduct1
-        },
-        {
-            name: 'Edifier W820NB Plus',
-            model: 'IK92L',
-            price: 'L. 2199.00',
-            description: 'Los audífonos inalámbricos WH-CH520.',
-            imageUrl: audifonosProduct2
-        },
-        // ... add more products as needed
-    ];
 
     const clearAllFilters = () => {
         setSelectedBrands([]);
@@ -52,14 +61,13 @@ const AudifonoFiltro = () => {
         setSelectedColors([]);
     };
 
-    const navigate = useNavigate(); // Crea una instancia de useNavigate
+    const navigate = useNavigate();
 
     const handleProductClick = () => {
-        // Realiza la redirección a la página de infoAudifonos
         navigate('/info-audifonos');
     };
 
-    return (
+    return  (
         <div className="main-container">
             <div className="filter-container">
                 <div className="filter-header">
@@ -126,17 +134,14 @@ const AudifonoFiltro = () => {
             <div className="product-list-container">
                 {products.map((product, index) => (
                     <div className="product-container" key={index}>
-                        {/* Product Image as a button */}
                         <button className="product-image-btn" onClick={handleProductClick}>
-                            {/* Display the product image */}
-                            <img src={product.imageUrl} alt={product.name} />
+                            <img src={product.ImagenID[0]} alt={product.Nombre} />
                         </button>
-                        {/* Product Details */}
                         <div className="product-details">
-                            <h3>{product.name}</h3>
-                            <p>Modelo: {product.model}</p>
-                            <p>{product.description}</p>
-                            <p className="price">{product.price}</p>
+                            <h3>{product.Nombre}</h3>
+                            <p>Modelo: {product.Modelo}</p>
+                            <p>{product.Descripcion}</p>
+                            <p className="price">L.{product.Precio}</p>
                             <button className="btn-add-to-cart">AÑADIR AL CARRITO</button>
                             <button className="btn-add-to-favorites">AGREGAR A FAVORITOS</button>
                         </div>

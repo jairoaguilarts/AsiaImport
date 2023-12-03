@@ -76,8 +76,8 @@ const Carrusel = ({ productos }) => {
     productos.length < itemsVisibles
       ? productos
       : productos
-          .concat(productos)
-          .slice(currentIndex, currentIndex + itemsVisibles);
+        .concat(productos)
+        .slice(currentIndex, currentIndex + itemsVisibles);
 
   const moverCarrusel = (direccion) => {
     const totalItems = productos.length;
@@ -133,10 +133,9 @@ function Inicio() {
   const handleSelect = (selectedIndex) => {
     setIndex(selectedIndex);
   };
- const navigateToAudifonosFiltro = () => {
-  console.log("Intentando navegar a /audifonos-filtro");
-  navigate("/audifonos-filtro");
-};
+  const navigateToAudifonosFiltro = (categoria) => {
+    navigate("/audifonos-filtro", { state: { categoria } });
+  };
 
   return (
     <div className="Inicio">
@@ -160,31 +159,31 @@ function Inicio() {
       </Carousel>
       <div className="product-section">
         <div className="product-container">
-          <a href="/parlantes" className="product-item">
+          <div className="product-item" onClick={navigateToAudifonosFiltro}>
             <img src={parlantesImage} alt="Parlantes" />
             <p>Parlantes</p>
-          </a>
+          </div>
           {/* Actualización para el botón de Audífonos */}
-          <div className="product-item" onClick={navigateToAudifonosFiltro}>
+          <div className="product-item" onClick={() => navigateToAudifonosFiltro('AURICULARES')}>
             <img src={audifonosImage} alt="Audífonos" />
             <p>Audífonos</p>
           </div>
-          <a href="/botestermos" className="product-item">
+          <div className="product-item" onClick={() => navigateToAudifonosFiltro('BOTES')}>
             <img src={botestermosImage} alt="Botes y Termos" />
             <p>Botes y Termos</p>
-          </a>
-          <a href="/cargadores" className="product-item">
+          </div>
+          <div className="product-item" onClick={navigateToAudifonosFiltro}>
             <img src={cargadoresImage} alt="Cargadores para móvil" />
             <p>Cargadores para móvil</p>
-          </a>
-          <a href="/relojesinteligentes" className="product-item">
+          </div>
+          <div className="product-item" onClick={() => navigateToAudifonosFiltro('SMARTWATCH')}>
             <img src={relojesImage} alt="Relojes Inteligentes" />
             <p>Relojes Inteligentes</p>
-          </a>
-          <a href="/otros" className="product-item">
+          </div>
+          <div className="product-item" onClick={navigateToAudifonosFiltro}>
             <img src={otrosImage} alt="Otros" />
             <p>Otros</p>
-          </a>
+          </div>
         </div>
       </div>
       <div className="section-divider">
