@@ -12,9 +12,10 @@ import otrosImage from "../../assets/otros.png";
 import parlanteProduct from "../../assets/Parlante Bluetooth.png";
 import radio from "../../assets/Radio Recargable.png";
 import audifonosProduct from "../../assets/Audifonos UltraSound.png";
+import CobertoresImage from "../../assets/CobertoresCelular.png";
+import vidriosImage from "../../assets/VidriosCelular.png";
 import yeti from "../../assets/Yeti Fake.png";
 import "./Inicio.css";
-
 
 const productos = [
   {
@@ -35,9 +36,7 @@ const productos = [
   { imagen: yeti, nombre: "Vasos Termicos Yeti", precio: "L. 349" },
 ];
 
-
-
-//funcion de subir imagen a firebase 
+//funcion de subir imagen a firebase
 /*const uploadImage = (file) => {
   const storageRef = firebase.storage().ref();
   const fileRef = storageRef.child(`images/${file.name}`);
@@ -75,8 +74,8 @@ const Carrusel = ({ productos }) => {
     productos.length < itemsVisibles
       ? productos
       : productos
-        .concat(productos)
-        .slice(currentIndex, currentIndex + itemsVisibles);
+          .concat(productos)
+          .slice(currentIndex, currentIndex + itemsVisibles);
 
   const moverCarrusel = (direccion) => {
     const totalItems = productos.length;
@@ -163,28 +162,51 @@ function Inicio() {
             <p>Parlantes</p>
           </div>
           {/* Actualización para el botón de Audífonos */}
-          <div className="product-item" onClick={() => navigateToAudifonosFiltro('AURICULARES')}>
+          <div
+            className="product-item"
+            onClick={() => navigateToAudifonosFiltro("AURICULARES")}
+          >
             <img src={audifonosImage} alt="Audífonos" />
             <p>Audífonos</p>
           </div>
-          <div className="product-item" onClick={() => navigateToAudifonosFiltro('BOTES')}>
+          <div
+            className="product-item"
+            onClick={() => navigateToAudifonosFiltro("BOTES")}
+          >
             <img src={botestermosImage} alt="Botes y Termos" />
             <p>Botes y Termos</p>
           </div>
-          <div className="product-item" onClick={navigateToAudifonosFiltro}>
+          <div
+            className="product-item"
+            onClick={navigateToAudifonosFiltro("CARGADORES")}
+          >
             <img src={cargadoresImage} alt="Cargadores para móvil" />
             <p>Cargadores para móvil</p>
           </div>
-          <div className="product-item" onClick={() => navigateToAudifonosFiltro('SMARTWATCH')}>
+          <div
+            className="product-item"
+            onClick={() => navigateToAudifonosFiltro("SMARTWATCH")}
+          >
             <img src={relojesImage} alt="Relojes Inteligentes" />
-            <p>Relojes Inteligentes</p>
+            <p>Relojes </p>
           </div>
-          <div className="product-item" onClick={navigateToAudifonosFiltro}>
-            <img src={otrosImage} alt="Otros" />
-            <p>Otros</p>
+          <div
+            className="product-item"
+            onClick={navigateToAudifonosFiltro("VIDRIOS")}
+          >
+            <img src={vidriosImage} alt="Otros" />
+            <p>Vidrios</p>
+          </div>
+          <div
+            className="product-item"
+            onClick={() => navigateToAudifonosFiltro("COBERTORES")}
+          >
+            <img src={CobertoresImage} alt="Cobertores" />
+            <p>Cobertores </p>
           </div>
         </div>
       </div>
+
       <div className="section-divider">
         <p className="destacado-text"> Articulos Destacados </p>
         <hr className="linea-divisora-blue-large" />
