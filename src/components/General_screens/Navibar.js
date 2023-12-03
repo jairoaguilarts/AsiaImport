@@ -19,6 +19,7 @@ import CobertoresImage from "../../assets/CobertoresCelular .png";
 import vidriosImage from "../../assets/VidriosCelular.png";
 import yeti from "../../assets/Yeti Fake.png";
 import Login from "./Login";
+import CustomAlert from "../Informative_screens/CustomAlert";
 import Carrito from "../Client_screens/Carrito";
 
 const Navibar = () => {
@@ -55,39 +56,10 @@ const Navibar = () => {
   const [showCategories, setShowCategories] = useState(true);
 
   const handleSearch = async () => {
-    // e.preventDefault();
-    // Implementa la lógica de búsqueda aquí, como enviar el término de búsqueda a una API o filtrar datos
     const buscar = {
       Nombre: busqueda.trim(),
     };
-
-    try {
-      if (busqueda === "") {
-        mostrarAlerta("No se ingresó ningún parametro", "danger");
-        return;
-      }
-      console.log("Busqueda ANTES:" + busqueda);
-      const response = await fetch(
-        `http://localhost:3000/buscarProducto2?Nombre=${busqueda.trim()}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const responseData = await response.json();
-
-      if (!response.ok) {
-        throw new Error(`Error: ${responseData.message || response.status}`);
-      } else {
-        mostrarAlerta("Producto encontrado", "success");
-        setProducts(responseData);
-        setSearched(true);
-      }
-    } catch (error) {
-      mostrarAlerta("Error en la busqueda", "danger");
-    }
+    navigateToProductoFiltro(busqueda.trim());
   };
 
   const [dropdown, setDropdown] = useState(false);
@@ -117,6 +89,7 @@ const Navibar = () => {
       setActive(false);
     }
   });
+
   return (
     <div>
       <div className={`navbar ${searchOpen ? "search-active" : ""}`}>
@@ -137,14 +110,20 @@ const Navibar = () => {
         <div className="search-wrapper">
           <form
             className={`search-container ${searchOpen ? "search-open" : ""}`}
-            onSubmit={handleSearch}
+            onDoubleClick={handleSearch}
           >
             <input
               type="text"
               className="search-box"
               placeholder="Buscar..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              value={busqueda}
+              onChange={(e) => setBusqueda(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault(); // Prevenir comportamiento por defecto del form
+                  handleSearch();
+                }
+              }}
             />
           </form>
           <button
@@ -155,6 +134,14 @@ const Navibar = () => {
             <img src={searchIcon} alt="Buscar" />
           </button>
         </div>
+        {showAlert && (
+          <CustomAlert
+            className="alerta"
+            message={alertMessage}
+            variant={alertVariant}
+            onClose={() => setShowAlert(false)}
+          />
+        )}
 
         {/* Contenedor para los íconos de usuario y carrito */}
         <div className="icon-container">

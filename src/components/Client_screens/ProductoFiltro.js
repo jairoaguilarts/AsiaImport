@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./ProductoFiltro.css";
 import audifonosProduct1 from "../../assets/edifierPlus.png";
 import audifonosProduct2 from "../../assets/Srhythm.png";
+import originIcon from "../../assets/maneki-neko.png";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const AudifonoFiltro = () => {
@@ -39,15 +40,22 @@ const AudifonoFiltro = () => {
     const fetchProducts = async () => {
       console.log("categoria: " + categoria);
       try {
-        const response = await fetch("http://localhost:3000/productosUser");
-        let data = await response.json();
-        console.log("antes del filtro" + data);
-        if (categoria) {
-          data = data.filter((product) => product.Categoria === categoria);
-        }
-        console.log("despues del filtro" + data);
+        const response = await fetch(
+          `https://importasia-api.onrender.com/buscarProductoCategoria?Nombre=${categoria.trim()}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        const responseData = await response.json();
 
-        setProducts(data);
+        if (!response.ok) {
+          throw new Error(`Error: ${responseData.message || response.status}`);
+        } else {
+          setProducts(responseData);
+        }
       } catch (error) {
         console.error("Error al cargar los productos:", error);
       }
@@ -85,111 +93,66 @@ const AudifonoFiltro = () => {
 
   return (
     <div className="main-container">
-      <div className="filter-container">
-        <div className="filter-header">
-          <h2>Filtros</h2>
-          <button onClick={clearAllFilters}>Clear All</button>
+      {products.length === 0 ? (
+        <div className="noproduct-found">
+          <h1>No hay productos que coincidan con la búsqueda</h1>
+          <img src={originIcon} alt="gatito" />
         </div>
-
-        <div className="filter-section">
-          <h3>Marcas:</h3>
-          {brands.map((brand) => (
-            <div
-              key={brand}
-              className={`filter-option ${
-                selectedBrands.includes(brand) ? "selected" : ""
-              }`}
-              onClick={() =>
-                toggleSelection(brand, selectedBrands, setSelectedBrands)
-              }
-            >
-              <span
-                className={`checkbox ${
-                  selectedBrands.includes(brand) ? "checked" : ""
-                }`}
-              ></span>
-              {brand}
+      ) : (
+        <>
+          <div className="filter-container">
+            <div className="filter-header">
+              <h2>Filtros</h2>
+              <button onClick={clearAllFilters}>Clear All</button>
             </div>
-          ))}
-        </div>
 
-        <div className="filter-section">
-          <h3>Ordenar por:</h3>
-          {sorts.map((sort) => (
-            <div
-              key={sort}
-              className={`filter-option ${
-                selectedSort === sort ? "selected" : ""
-              }`}
-              onClick={() => setSelectedSort(sort)}
-            >
-              <span
-                className={`checkbox ${selectedSort === sort ? "checked" : ""}`}
-              ></span>
-              {sort}
+            <div className="filter-section">
+              <h3>Ordenar por:</h3>
+              {sorts.map((sort) => (
+                <div
+                  key={sort}
+                  className={`filter-option ${
+                    selectedSort === sort ? "selected" : ""
+                  }`}
+                  onClick={() => setSelectedSort(sort)}
+                >
+                  <span
+                    className={`checkbox ${
+                      selectedSort === sort ? "checked" : ""
+                    }`}
+                  ></span>
+                  {sort}
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
 
-        <div className="filter-section">
-          <h3>Colores:</h3>
-          <div className="color-section">
-            {colors.map((color) => (
-              <div
-                key={color}
-                className={`color-option ${
-                  selectedColors.includes(color) ? "selected" : ""
-                }`}
-                onClick={() =>
-                  toggleSelection(color, selectedColors, setSelectedColors)
-                }
-              >
-                <span
-                  className="color-circle"
-                  style={{ backgroundColor: color }}
-                ></span>
+            {/* Otros bloques de filtro que puedas necesitar */}
+          </div>
+
+          <div className="product-list-container">
+            {products.map((product, index) => (
+              <div className="product-container" key={index}>
+                <button
+                  className="product-image-btn"
+                  onClick={handleProductClick}
+                >
+                  <img src={product.ImagenID[0]} alt={product.Nombre} />
+                </button>
+                <div className="product-details">
+                  <h3>{product.Nombre}</h3>
+                  <p>Modelo: {product.Modelo}</p>
+                  <p>{product.Descripcion}</p>
+                  <p className="price">L.{product.Precio}</p>
+                  <button className="btn-add-to-cart">AÑADIR AL CARRITO</button>
+                  <button className="btn-add-to-favorites">
+                    AGREGAR A FAVORITOS
+                  </button>
+                </div>
               </div>
             ))}
           </div>
-        </div>
-
-        <div className="filter-section">
-          <h3>Clasificación:</h3>
-          {ratings.map((rating) => (
-            <div
-              key={rating}
-              className={`filter-option ${
-                selectedRating.includes(rating) ? "selected" : ""
-              }`}
-              onClick={() =>
-                toggleSelection(rating, selectedRating, setSelectedRating)
-              }
-            >
-              {"★".repeat(rating)}
-              {"☆".repeat(5 - rating)}
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className="product-list-container">
-        {products.map((product, index) => (
-          <div className="product-container" key={index}>
-            <button className="product-image-btn" onClick={handleProductClick}>
-              <img src={product.ImagenID[0]} alt={product.Nombre} />
-            </button>
-            <div className="product-details">
-              <h3>{product.Nombre}</h3>
-              <p>Modelo: {product.Modelo}</p>
-              <p>{product.Descripcion}</p>
-              <p className="price">L.{product.Precio}</p>
-              <button className="btn-add-to-cart">AÑADIR AL CARRITO</button>
-              <button className="btn-add-to-favorites">
-                AGREGAR A FAVORITOS
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
+        </>
+      )}
     </div>
   );
 };

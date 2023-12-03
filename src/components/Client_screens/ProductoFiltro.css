@@ -1,130 +1,137 @@
 /* audifonoFiltro.css */
 
 .filter-container {
-    padding: 20px;
-    background-color: #f5f5f5; /* Light grey background */
-    border-radius: 8px;
-    width: 250px; /* Adjust the width as necessary */
-    margin-top: 0; /* Cambiado a 0 para que esté pegado arriba */
-    margin-bottom: 150px; /* Provides space at the bottom */
-    box-sizing: border-box; /* Includes padding in the width */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
-    position: relative; /* Add this if you need to position your filter container within a specific parent element */
-    left: 20px; /* Adjust this value to move the filter container more to the right */
-  }
-  
-  .filter-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .filter-header h2 {
-    margin: 0;
-  }
-  
-  .filter-section {
-    margin-bottom: 20px;
-    border-bottom: 2px solid #a0a0a0; /* Dark grey border for divider */
-    padding-bottom: 20px; /* Add space between the content and the border */
-  }
-  
-  .filter-section:last-child {
-    border-bottom: none; /* Remove border from the last section */
-  }
-  
-  .filter-section h3 {
-    margin: 0 0 10px 0;
-    color: #333;
-  }
-  
-  .filter-option {
-    padding: 5px 10px;
-    cursor: pointer;
-    border: 1px solid transparent;
-    border-radius: 4px;
-    margin: 5px 0;
-    transition: background-color 0.3s ease;
-  }
-  
-  .filter-option:hover {
-    background-color: #ddd;
-  }
-  
-  .filter-option.selected {
-    background-color: #ffa500; /* Orange color when selected */
-    border-color: #d35400;
-    color: white;
-  }
-  
-  /* If you need to adjust the position or layout further, you can add more CSS here */
-  .checkbox {
-    height: 20px;
-    width: 20px;
-    border: 2px solid #d0d0d0;
-    display: inline-block;
-    margin-right: 10px;
-    cursor: pointer;
-    vertical-align: middle;
-    border-radius: 4px; /* Optional: if you want rounded corners */
-    background-color: transparent;
-  }
-  
-  .checkbox.checked {
-    background-color: #ffa500; /* Orange color for checked */
-    border-color: #ffa500;
-  }
-  
-  /* You can use the ::before or ::after pseudo-elements to add a checkmark if desired */
-  .checkbox.checked::after {
-    content: '';
-    display: block;
-    width: 6px;
-    height: 11px;
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    transform: rotate(45deg);
-    margin: 2px 0 0 6px;
-  }
+  padding: 20px;
+  background-color: #f5f5f5; /* Light grey background */
+  border-radius: 8px;
+  width: 250px; /* Adjust the width as necessary */
+  margin-top: 0; /* Cambiado a 0 para que esté pegado arriba */
+  margin-bottom: 150px; /* Provides space at the bottom */
+  box-sizing: border-box; /* Includes padding in the width */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative; /* Add this if you need to position your filter container within a specific parent element */
+  left: 20px; /* Adjust this value to move the filter container more to the right */
+}
 
-  .color-option {
-    display: inline-block; /* or flex if you prefer */
-    margin: 5px;
-    cursor: pointer;
-  }
-  
-  .color-circle {
-    height: 40px; /* Increased size for better visibility */
-    width: 40px; /* Increased size for better visibility */
-    border-radius: 50%;
-    display: inline-block;
-    margin: 10px; /* Adjust spacing around the circles */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Optional: adds a shadow for depth */
-  }
-  
-  /* Add to your audifonoFiltro.css */
-/* Add to your audifonoFiltro.css */
+.filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.filter-header h2 {
+  margin: 0;
+}
+
+.filter-section {
+  margin-bottom: 20px;
+  border-bottom: 2px solid #a0a0a0; /* Dark grey border for divider */
+  padding-bottom: 20px; /* Add space between the content and the border */
+}
+
+.noproduct-found {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centra horizontalmente */
+  height: 100vh; /* Usa el 100% de la altura de la ventana */
+  width: 100%; /* Usa el 100% del ancho disponible */
+  flex-direction: column;
+  overflow: visible;
+}
+
+.filter-section:last-child {
+  border-bottom: none; /* Remove border from the last section */
+}
+
+.filter-section h3 {
+  margin: 0 0 10px 0;
+  color: #333;
+}
+
+.filter-option {
+  padding: 5px 10px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  margin: 5px 0;
+  transition: background-color 0.3s ease;
+}
+
+.filter-option:hover {
+  background-color: #ddd;
+}
+
+.filter-option.selected {
+  background-color: #ffa500; /* Orange color when selected */
+  border-color: #d35400;
+  color: white;
+}
+
+/* If you need to adjust the position or layout further, you can add more CSS here */
+.checkbox {
+  height: 20px;
+  width: 20px;
+  border: 2px solid #d0d0d0;
+  display: inline-block;
+  margin-right: 10px;
+  cursor: pointer;
+  vertical-align: middle;
+  border-radius: 4px; /* Optional: if you want rounded corners */
+  background-color: transparent;
+}
+
+.checkbox.checked {
+  background-color: #ffa500; /* Orange color for checked */
+  border-color: #ffa500;
+}
+
+/* You can use the ::before or ::after pseudo-elements to add a checkmark if desired */
+.checkbox.checked::after {
+  content: "";
+  display: block;
+  width: 6px;
+  height: 11px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+  margin: 2px 0 0 6px;
+}
+
+.color-option {
+  display: inline-block; /* or flex if you prefer */
+  margin: 5px;
+  cursor: pointer;
+}
+
+.color-circle {
+  height: 40px; /* Increased size for better visibility */
+  width: 40px; /* Increased size for better visibility */
+  border-radius: 50%;
+  display: inline-block;
+  margin: 10px; /* Adjust spacing around the circles */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: adds a shadow for depth */
+}
 
 /* Main layout styles */
 .main-container {
-    display: flex;
-    margin-bottom: auto;
+  position: relative;
+  display: flex;
+  margin-bottom: auto;
 }
 
 /* Style for the product list */
 .product-list-container {
-    flex-grow: 1;
-    margin-left: 250px;
-    margin-top: -1400px;
-    padding-left: 20px; /* Or adjust to your preference */
+  margin-left: 250px;
+  margin-top: -550px !important;
+  padding-left: 20px; /* Or adjust to your preference */
 }
 
 /* Style for individual product containers */
 .product-container {
-    display: flex;
-    margin-bottom: 20px; /* Space between products */
-    align-items: center; /* Aligns items vertically */
+  display: flex;
+  margin-bottom: 20px; /* Space between products */
+  align-items: center; /* Aligns items vertically */
 }
 
 /* Button that will contain the product image */
@@ -161,46 +168,45 @@
 
 /* Product details styling */
 .product-details {
-    flex-grow: 1;
-    margin-bottom: 90px;
+  flex-grow: 1;
+  margin-bottom: 90px;
 }
 
 .price {
-    font-weight: bold;
-    margin-bottom: 10px;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
 /* Button styles */
-.btn-add-to-cart{
+.btn-add-to-cart {
   display: block;
-    margin-top: 10px;
-    padding: 10px 33px;
-    text-align: center;
-    text-decoration: none;
-    color: #fff;
-    background-color: #ffa500; /* Adjust colors to match your design */
-    border: 1px solid #007bff;
-    cursor: pointer;
+  margin-top: 10px;
+  padding: 10px 33px;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  background-color: #ffa500; /* Adjust colors to match your design */
+  border: 1px solid #007bff;
+  cursor: pointer;
 }
 .btn-add-to-favorites {
-    display: block;
-    margin-top: 10px;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    color: #fff;
-    background-color: #007bff; /* Adjust colors to match your design */
-    border: 1px solid #007bff;
-    cursor: pointer;
+  display: block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  background-color: #007bff; /* Adjust colors to match your design */
+  border: 1px solid #007bff;
+  cursor: pointer;
 }
-
 
 /* Adjustments for spacing and responsive design */
 @media (max-width: 768px) {
-    .main-container {
-        flex-direction: column;
-    }
-    .product-list-container {
-        padding-left: 0;
-    }
+  .main-container {
+    flex-direction: column;
+  }
+  .product-list-container {
+    padding-left: 0;
+  }
 }
