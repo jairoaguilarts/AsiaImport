@@ -87,7 +87,8 @@ const AudifonoFiltro = () => {
 
   const navigate = useNavigate();
 
-  const handleProductClick = () => {
+  const handleSubmit = (modelo) => {
+    localStorage.setItem("Modelo", modelo);
     navigate("/info-producto");
   };
 
@@ -134,7 +135,7 @@ const AudifonoFiltro = () => {
               <div className="product-container" key={index}>
                 <button
                   className="product-image-btn"
-                  onClick={handleProductClick}
+                  onClick={() => handleSubmit(product.Modelo)}
                 >
                   <img src={product.ImagenID[0]} alt={product.Nombre} />
                 </button>

@@ -1,73 +1,116 @@
-import React, { useState } from 'react';
-import './InfoProducto.css';
+import React, { useState, useEffect } from "react";
+import CustomAlert from "../Informative_screens/CustomAlert";
+import "./InfoProducto.css";
 import audifonosProduct1 from "../../assets/Srhythm.png";
 
 function InfoAudifonos() {
-  const [activeTab, setActiveTab] = useState('description');
-  const [nombre, setNombre] = useState(null);
-  const [descripcion, setDescripcion] = useState(null);
-  const [precio, setPrecio] = useState(null);
+  const mostrarAlerta = (message, variant) => {
+    setAlertVariant(variant);
+    setAlertMessage(message);
+    setShowAlert(true);
+
+    setTimeout(() => {
+      setShowAlert(false);
+    }, 2400);
+  };
 
   const modelo = localStorage.getItem("Modelo");
 
+  const [activeTab, setActiveTab] = useState("description");
+  const [producto, setProducto] = useState(null);
+
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertVariant, setAlertVariant] = useState("white");
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const response = await fetch(
+          `https://importasia-api.onrender.com/buscarProductoModelo?Modelo=${modelo}`
+        );
+        const data = await response.json();
+        if (!response.ok) {
+          mostrarAlerta("El producto no se ha encontrado", "danger");
+        }
+        console.log(data);
+        setProducto(data);
+      } catch (error) {
+        mostrarAlerta("Error al visualizar Producto", "danger");
+      }
+    };
+
+    fetchProduct();
+  }, []);
+
+  console.log(modelo);
+
   return (
     <div className="App">
-      <div className="product-section">
-        <div className="product-image-container">
-          <img src={audifonosProduct1} alt="Audífonos" className="product-image" />
-        </div>
-        <div className="product-info-container">
-          <div className="product-info">
-            <div className="product-title">Audífonos Sony WH1000XM4 Noise Cancelling Beige</div>
-            <div className="product-rating">★★★★☆ 4.8 (90 reseñas)</div>
-            <div className="product-price">L 3800.00 ISV incluido</div>
-            <p>Los intuitivos e inteligentes audífonos WH-1000XM4</p>
+      {showAlert && (
+        <CustomAlert
+          className="alerta"
+          message={alertMessage}
+          variant={alertVariant}
+          onClose={() => setShowAlert(false)}
+        />
+      )}
+      {producto && (
+        <div className="product-section">
+          <div className="product-image-container">
+            <img
+              src={producto.ImagenID}
+              alt="Audífonos"
+              className="product-image"
+            />
           </div>
-          <div className="product-buttons">
-            <button className="btn-cart">AÑADIR AL CARRITO</button>
-            <button className="btn-favorite">AGREGAR A FAVORITOS</button>
+          <div className="product-info-container">
+            <div className="product-info">
+              <div className="product-title">{producto.Nombre}</div>
+              <div className="product-rating">★★★★☆ 4.8 (90 reseñas)</div>
+              <div className="product-price">
+                L {producto.Precio} ISV incluido
+              </div>
+              <p>{producto.Descripcion}</p>
+            </div>
+            <div className="product-buttons">
+              <button className="btn-cart">AÑADIR AL CARRITO</button>
+              <button className="btn-favorite">AGREGAR A FAVORITOS</button>
+            </div>
           </div>
         </div>
-      </div>
+      )}
       <div className="tab-header">
-        <button 
-          onClick={() => setActiveTab('description')}
-          className={activeTab === 'description' ? 'active' : ''}
+        <button
+          onClick={() => setActiveTab("description")}
+          className={activeTab === "description" ? "active" : ""}
         >
           Descripción
         </button>
-        <button 
-          onClick={() => setActiveTab('features')}
-          className={activeTab === 'features' ? 'active' : ''}
+        <button
+          onClick={() => setActiveTab("features")}
+          className={activeTab === "features" ? "active" : ""}
         >
           Características
         </button>
       </div>
-      <div className="tab-content">
-        {activeTab === 'description' && (
-          <div className="description">
-            <h2>Descripción</h2>
-            <ul>
-              <li>La tecnología noise cancelling líder del sector con 2 procesadores de alto rendimiento y 8 micrófonos.</li>
-              <li>Calidad de sonido excepcional con una unidad de diafragma de 30 mm especialmente diseñada.</li>
-              <li>Llamadas sin ruido excelentes con 2x2 micrófonos multidireccionales y sistema de reducción de ruido (con IA).</li>
-            </ul>
-          </div>
-        )}
-        {activeTab === 'features' && (
-          <div className="features">
-            <table>
-              <tbody>
-                <tr><td>Audio</td><td>Color Negro, Cancelación de Sonido Sí, True Wireless Sí</td></tr>
-                <tr><td>Conectividad</td><td>Bluetooth Sí, Conexión inalámbrica Sí</td></tr>
-                <tr><td>Entradas de Audio</td><td>Micrófono Sí</td></tr>
-                <tr><td>Características Generales</td><td>Tipo de audífonos Over Ear Inalámbrico</td></tr>
-                <tr><td>Duración de batería</td><td>Hasta 24 Horas, Tiempo de carga 3.5 Horas</td></tr>
-              </tbody>
-            </table>
-          </div>
-        )}
-      </div>
+      {producto && (
+        <div className="tab-content">
+          {activeTab === "description" && (
+            <div className="description">
+              <h2>Descripción</h2>
+              <ul>{producto.Descripcion}</ul>
+            </div>
+          )}
+          {activeTab === "features" && (
+            <div className="features">
+              <table>
+                <tbody>{producto.Caracteristica}</tbody>
+              </table>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
