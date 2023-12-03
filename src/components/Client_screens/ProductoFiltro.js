@@ -26,7 +26,7 @@ const AudifonoFiltro = () => {
   const ratings = [5, 4, 3, 2, 1];
   const colors = [
     "#000000",
-    "#808080",
+    "#808080", 
     "#FFFFFF",
     "#A52A2A",
     "#FF0000",
