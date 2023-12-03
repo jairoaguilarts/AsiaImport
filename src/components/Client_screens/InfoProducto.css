@@ -6,15 +6,25 @@
 }
 
 .product-image-container {
-  width: 35%;
+  height: auto;
+  width: 40%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: right;
+  overflow: hidden;
 }
 
-.product-image {
-  max-width: none;
-  max-height: 500px;
+.product-image-container img {
+  height: 100%;
+  width: 70%;
+  max-width: 100%;
+  object-fit: cover;
 }
+
+/* .product-image {
+  object-fit: cover !important;
+  height: 100%;
+  width: 1000px !important;
+} */
 
 .product-info-container {
   width: 65%;
