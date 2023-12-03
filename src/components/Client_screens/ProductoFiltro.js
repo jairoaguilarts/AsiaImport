@@ -11,11 +11,12 @@ const AudifonoFiltro = () => {
   const [selectedSort, setSelectedSort] = useState("");
   const [selectedRating, setSelectedRating] = useState([]);
   const [selectedColors, setSelectedColors] = useState([]);
+  const [products, setProducts] = useState([]);
+    const [sortedProducts, setSortedProducts] = useState([]);
+
   const location = useLocation();
   const categoria = location.state?.categoria;
 
-
-  // Estados y constantes existentes
   const brands = ["Sony", "Samsung", "Srythm", "Panasonic", "Papas"];
   const sorts = [
     "Precio: Descendente a Ascendente",
@@ -34,9 +35,6 @@ const AudifonoFiltro = () => {
     "#008000",
     "#0000FF",
   ];
-
-  // Nuevo estado para almacenar los productos de la API
-  const [products, setProducts] = useState([]);
 
   //logica de paginacion
   const [currentPage, setCurrentPage] = useState(1);
@@ -74,8 +72,17 @@ const AudifonoFiltro = () => {
 
     fetchProducts();
   }, [categoria]);
+  useEffect(() => {
+    let sorted = [...products];
+    if (selectedSort === "Precio: Descendente a Ascendente") {
+        sorted.sort((a, b) => a.Precio - b.Precio);
+    } else if (selectedSort === "Precio: Ascendente a Descendente") {
+        sorted.sort((a, b) => b.Precio - a.Precio);
+    }
+    setSortedProducts(sorted);
+}, [selectedSort, products]);
 
-  // Funciones existentes
+
   const toggleSelection = (item, list, setList) => {
     const currentIndex = list.indexOf(item);
     const newSelected = [...list];
@@ -136,11 +143,11 @@ const AudifonoFiltro = () => {
               ))}
             </div>
 
-            {/* Otros bloques de filtro que puedas necesitar */}
+           
           </div>
 
           <div className="product-list-container">
-            {currentProducts.map((product, index) => (
+            {sortedProducts.map((product, index) => (
               <div className="product-container" key={index}>
                 <button
                   className="product-image-btn"
