@@ -135,9 +135,8 @@ const GestionPW = () => {
         mostrarAlerta("No se ingresó ningún parametro", "danger");
         return;
       }
-      console.log("Busqueda ANTES:" + busqueda);
       const response = await fetch(
-        `http://localhost:3000/buscarProducto?Nombre=${busqueda.trim()}`,
+        `https://importasia-api.onrender.com/buscarProductoCategoria?Nombre=${busqueda.trim()}`,
         {
           method: "GET",
           headers: {

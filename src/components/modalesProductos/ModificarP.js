@@ -22,6 +22,7 @@ function ModificarP() {
   const [alertVariant, setAlertVariant] = useState("white");
 
   const [imagenes, setImagenes] = useState([]);
+  const [selectedFile, setSelectedFile] = useState(null);
   const [cantidad, setCantidad] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [caracteristicas, setCaracteristicas] = useState("");
@@ -48,29 +49,28 @@ function ModificarP() {
   };
 
   const handleSave = async () => {
-    const cambios = {
-      Descripcion: descripcion,
-      Caracteristicas: caracteristicas,
-      Precio: precio,
-      Cantidad: cantidad,
-    };
-
     if (!validarDatos()) {
       return;
     }
+
+    const formData = new FormData();
+    formData.append('Descripcion', descripcion);
+    formData.append('Caracteristicas', caracteristicas);
+    formData.append('Precio', precio);
+    formData.append('Cantidad', cantidad);
+
+    if (selectedFile) {
+      formData.append('uploadedFile', selectedFile);
+    }
+
     try {
       const response = await fetch(
-        "http://localhost:3000/modificarProducto?Modelo=" + modelo,
+        "https://importasia-api.onrender.com/modificarProducto?Modelo=" + modelo,
         {
           method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(cambios),
+          body: formData,
         }
       );
-
-      console.log(response);
 
       const data = await response.json();
 
@@ -78,10 +78,11 @@ function ModificarP() {
         mostrarAlerta("Producto modificado con exito", "success");
         navigate("/gestionpw");
       } else {
-        mostrarAlerta("Error al modificar producto", "danger");
+        mostrarAlerta("Error al modificar producto: " + data.error, "danger");
       }
     } catch (error) {
       mostrarAlerta("Ocurrio un error", "danger");
+      console.log(error);
     }
   };
 
@@ -95,7 +96,12 @@ function ModificarP() {
     }
 
     setImagenes(nuevasImagenes);
+
+    if (files.length > 0) {
+      setSelectedFile(files[0]);
+    }
   };
+
 
   return (
     <div className="modificar-producto">

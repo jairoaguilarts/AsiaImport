@@ -26,7 +26,7 @@ const AudifonoFiltro = () => {
             try {
                 const response = await fetch('https://importasia-api.onrender.com/productos');
                 let data = await response.json();
-                //alert(categoria)
+                alert(categoria)
                 if (categoria) {
                     data = data.filter(product => product.Categoria === categoria);
                 }
