@@ -42,7 +42,6 @@ const AudifonoFiltro = () => {
           "https://importasia-api.onrender.com/productos"
         );
         let data = await response.json();
-        alert(categoria);
         if (categoria) {
           data = data.filter((product) => product.Categoria === categoria);
         }
@@ -77,14 +76,10 @@ const AudifonoFiltro = () => {
     setSelectedColors([]);
   };
 
-  const handleSubmit = (Modelo) => {
-    localStorage.setItem("Modelo", Modelo);
-  }
-
   const navigate = useNavigate();
 
   const handleProductClick = () => {
-    navigate("/info-audifonos");
+    navigate("/info-producto");
   };
 
   return (

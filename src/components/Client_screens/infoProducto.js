@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './infoProducto.css';
+import './InfoProducto.css';
 import audifonosProduct1 from "../../assets/Srhythm.png";
 
 function InfoAudifonos() {
@@ -7,6 +7,9 @@ function InfoAudifonos() {
   const [nombre, setNombre] = useState(null);
   const [descripcion, setDescripcion] = useState(null);
   const [precio, setPrecio] = useState(null);
+
+  const modelo = localStorage.getItem("Modelo");
+  console.log(modelo);
 
   return (
     <div className="App">

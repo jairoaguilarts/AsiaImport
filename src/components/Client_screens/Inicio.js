@@ -178,7 +178,7 @@ function Inicio() {
           </div>
           <div
             className="product-item"
-            onClick={navigateToAudifonosFiltro("CARGADORES")}
+            onClick={() => navigateToAudifonosFiltro("CARGADORES")}
           >
             <img src={cargadoresImage} alt="Cargadores para móvil" />
             <p>Cargadores para móvil</p>
@@ -192,7 +192,7 @@ function Inicio() {
           </div>
           <div
             className="product-item"
-            onClick={navigateToAudifonosFiltro("VIDRIOS")}
+            onClick={() => navigateToAudifonosFiltro("VIDRIOS")}
           >
             <img src={vidriosImage} alt="Otros" />
             <p>Vidrios</p>
