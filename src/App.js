@@ -23,7 +23,7 @@ import GestionPW from "./components/Admin_screens/GestionPW";
 import ModificarP from "./components/modalesProductos/ModificarP";
 import AgregarP from "./components/modalesProductos/AgregarP";
 import ProductoFiltro from "./components/Client_screens/ProductoFiltro";
-import InfoAudifonos from "./components/Client_screens/infoAudifonos";
+import infoProducto from "./components/Client_screens/infoProducto";
 function App() {
   const userType = localStorage.getItem("IsAdmin");
 
@@ -74,7 +74,7 @@ function App() {
           <Route path="/modificarp" element={<ModificarP />} />
           <Route path="/agregarp" element={<AgregarP />} />
           <Route path="/producto-filtro" element={<ProductoFiltro />} />
-          <Route path="/info-audifonos" element={<InfoAudifonos />} />
+          <Route path="/info-audifonos" element={<infoProducto />} />
         </Routes>
         {userType !== "true" && <Footer />}
       </div>

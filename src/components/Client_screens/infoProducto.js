@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import './infoAudifonos.css';
+import './infoProducto.css';
 import audifonosProduct1 from "../../assets/Srhythm.png";
 
 function InfoAudifonos() {
   const [activeTab, setActiveTab] = useState('description');
+  const [nombre, setNombre] = useState(null);
+  const [descripcion, setDescripcion] = useState(null);
+  const [precio, setPrecio] = useState(null);
 
   return (
     <div className="App">

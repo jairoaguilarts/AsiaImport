@@ -77,6 +77,10 @@ const AudifonoFiltro = () => {
     setSelectedColors([]);
   };
 
+  const handleSubmit = (Modelo) => {
+    localStorage.setItem("Modelo", Modelo);
+  }
+
   const navigate = useNavigate();
 
   const handleProductClick = () => {
