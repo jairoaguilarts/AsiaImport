@@ -136,25 +136,31 @@ function Inicio() {
   };
 
   return (
-    <div className="Inicio">
-      <Carousel activeIndex={index} onSelect={handleSelect}>
-        <Carousel.Item>
-          <img
-            style={{ width: "100%", height: "auto" }}
-            className="d-block w-100"
-            src={PromoAsia}
-            alt="First slide"
-          />
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            style={{ width: "100%", height: "auto" }}
-            className="d-block w-100"
-            src={PromocionAsia}
-            alt="Second slide"
-          />
-        </Carousel.Item>
-      </Carousel>
+    <div className="inicio-container">
+      <div className="banner-container">
+        <Carousel activeIndex={index} onSelect={handleSelect}>
+          <Carousel.Item>
+            <img
+              style={{ width: "100%", height: "auto" }}
+              className="d-block w-100"
+              src={PromoAsia}
+              alt="First slide"
+            />
+          </Carousel.Item>
+          <Carousel.Item>
+            <img
+              style={{ width: "100%", height: "auto" }}
+              className="d-block w-100"
+              src={PromocionAsia}
+              alt="Second slide"
+            />
+          </Carousel.Item>
+        </Carousel>
+      </div>
+      <div className="section-divider">
+        <p className="destacado-text"> Categorias </p>
+        <hr className="linea-divisora-blue-large" />
+      </div>
       <div className="product-section">
         <div className="product-container">
           <div
@@ -209,6 +215,7 @@ function Inicio() {
           </div>
         </div>
       </div>
+      <hr />
 
       <div className="section-divider">
         <p className="destacado-text"> Articulos Destacados </p>
