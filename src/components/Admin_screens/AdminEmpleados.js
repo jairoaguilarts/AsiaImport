@@ -289,8 +289,8 @@ const AdminEmpleados = () => {
 
   return (
     <div>
-      <h1 className="titulo-empleados">Empleados</h1>
-
+      <h1 className="titulo-empleados2">Empleados</h1>
+      <hr style={{ borderColor: '#01A6FF', borderWidth: '4px', borderStyle: 'solid' }} />
       <div className="admin-empleados-container">
         <button className="boton-anaranjado" onClick={handleShowAgregar}>
           Agregar Empleado

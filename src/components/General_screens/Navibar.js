@@ -24,6 +24,21 @@ const Navibar = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [active, setActive] = useState(false);
   const login=window.localStorage.getItem("logueado");
+  const [searched, setSearched] = useState(false);
+  const [products, setProducts] = useState([]);
+  const [busqueda, setBusqueda] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertVariant, setAlertVariant] = useState("white");
+  const mostrarAlerta = (message, variant) => {
+    setAlertVariant(variant);
+    setAlertMessage(message);
+    setShowAlert(true);
+
+    setTimeout(() => {
+      setShowAlert(false);
+    }, 2400);
+  };
   const handleLogoClick = () => {
     if (window.innerWidth < 768) {
       setMenuOpen(!menuOpen);
@@ -35,10 +50,40 @@ const Navibar = () => {
   };
   const [showCategories, setShowCategories] = useState(true);
 
-  const handleSearch = (e) => {
-    e.preventDefault();
+  const handleSearch = async () => {
+   // e.preventDefault();
     // Implementa la lógica de búsqueda aquí, como enviar el término de búsqueda a una API o filtrar datos
-    console.log("Searching for:", searchTerm);
+    const buscar = {
+      Nombre: busqueda.trim(),
+    };
+
+    try {
+      if (busqueda === "") {
+        mostrarAlerta("No se ingresó ningún parametro", "danger");
+        return;
+      }
+      console.log("Busqueda ANTES:" + busqueda);
+      const response = await fetch(
+        `http://localhost:3000/buscarProducto2?Nombre=${busqueda.trim()}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const responseData = await response.json();
+
+      if (!response.ok) {
+        throw new Error(`Error: ${responseData.message || response.status}`);
+      } else {
+        mostrarAlerta("Producto encontrado", "success");
+        setProducts(responseData);
+        setSearched(true);
+      }
+    } catch (error) {
+      mostrarAlerta("Error en la busqueda", "danger");
+    }
   };
 
   const [dropdown, setDropdown] = useState(false);
