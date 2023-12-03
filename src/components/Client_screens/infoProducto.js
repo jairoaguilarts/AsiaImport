@@ -9,7 +9,6 @@ function InfoAudifonos() {
   const [precio, setPrecio] = useState(null);
 
   const modelo = localStorage.getItem("Modelo");
-  console.log(modelo);
 
   return (
     <div className="App">
