@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './infoAudifonos.css';
-import audifonosProduct1 from "../../assets/Srhythm.png";;
+import audifonosProduct1 from "../../assets/Srhythm.png";
 
 function InfoAudifonos() {
   const [activeTab, setActiveTab] = useState('description');
@@ -13,11 +13,10 @@ function InfoAudifonos() {
         </div>
         <div className="product-info-container">
           <div className="product-info">
-            <div className="product-title">Audífonos Sony /WH1000XM4 /Noise Cancelling/Beige</div>
+            <div className="product-title">Audífonos Sony WH1000XM4 Noise Cancelling Beige</div>
             <div className="product-rating">★★★★☆ 4.8 (90 reseñas)</div>
             <div className="product-price">L 3800.00 ISV incluido</div>
-            <p>Los intuitivos e inteligentes audífonos WH-1000XM4 </p>
-
+            <p>Los intuitivos e inteligentes audífonos WH-1000XM4</p>
           </div>
           <div className="product-buttons">
             <button className="btn-cart">AÑADIR AL CARRITO</button>
@@ -26,13 +25,13 @@ function InfoAudifonos() {
         </div>
       </div>
       <div className="tab-header">
-        <button
+        <button 
           onClick={() => setActiveTab('description')}
           className={activeTab === 'description' ? 'active' : ''}
         >
           Descripción
         </button>
-        <button
+        <button 
           onClick={() => setActiveTab('features')}
           className={activeTab === 'features' ? 'active' : ''}
         >
@@ -41,22 +40,26 @@ function InfoAudifonos() {
       </div>
       <div className="tab-content">
         {activeTab === 'description' && (
-          <div className="description-content">
+          <div className="description">
             <h2>Descripción</h2>
-            <p>La tecnología noise cancelling líder del sector con 2 procesadores de alto rendimiento y 8 micrófonos.</p>
-            <p>Calidad de sonido excepcional con una unidad de diafragma de 30 mm especialmente diseñada.</p>
-            <p>Llamadas sin ruido excelentes con 2x2 micrófonos multidireccionales y sistema de reducción de ruido (con IA).</p>
-            <p>Los audífonos WH-1000XM5 redefinen la escucha sin distracciones y la claridad en las llamadas gracias a dos procesadores que controlan 8 micrófonos, un optimizador NC automático para optimizar de forma automática la función noise cancelling líder del sector según la colocación y el entorno, y una unidad de diafragma especial.</p>
+            <ul>
+              <li>La tecnología noise cancelling líder del sector con 2 procesadores de alto rendimiento y 8 micrófonos.</li>
+              <li>Calidad de sonido excepcional con una unidad de diafragma de 30 mm especialmente diseñada.</li>
+              <li>Llamadas sin ruido excelentes con 2x2 micrófonos multidireccionales y sistema de reducción de ruido (con IA).</li>
+            </ul>
           </div>
         )}
         {activeTab === 'features' && (
-          <div className="features-content">
-            <h2>Características</h2>
-            <p>Audio: Color Negro, Cancelación de Sonido Sí, True Wireless Sí</p>
-            <p>Conectividad: Bluetooth Sí, Conexión inalámbrica Sí</p>
-            <p>Entradas de Audio: Micrófono Sí</p>
-            <p>Características Generales: Tipo de audífonos Over Ear Inalámbrico</p>
-            <p>Duración de batería: Hasta 24 Horas, Tiempo de carga 3.5 Horas</p>
+          <div className="features">
+            <table>
+              <tbody>
+                <tr><td>Audio</td><td>Color Negro, Cancelación de Sonido Sí, True Wireless Sí</td></tr>
+                <tr><td>Conectividad</td><td>Bluetooth Sí, Conexión inalámbrica Sí</td></tr>
+                <tr><td>Entradas de Audio</td><td>Micrófono Sí</td></tr>
+                <tr><td>Características Generales</td><td>Tipo de audífonos Over Ear Inalámbrico</td></tr>
+                <tr><td>Duración de batería</td><td>Hasta 24 Horas, Tiempo de carga 3.5 Horas</td></tr>
+              </tbody>
+            </table>
           </div>
         )}
       </div>

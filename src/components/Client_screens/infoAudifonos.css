@@ -1,109 +1,144 @@
 /* infoAudifonos.css */
 
 .product-section {
-    display: flex;
-    align-items: center;
-    justify-content: space-between; /* Espaciar los elementos uniformemente */
-    margin-bottom: 20px;
-  }
-  
-  .product-image-container {
-    width: 35%; /* Ajustar el ancho del contenedor de la imagen */
-    display: flex;
-    justify-content: flex-end; /* Alinear la imagen a la derecha */
-  }
-  
-  .product-image {
-    max-width: none; /* Eliminar el ancho máximo si existe */
-    max-height: 500px; /* Aumentar el tamaño máximo de la imagen */
-  }
-  
-  .product-info-container {
-    width: 65%; /* Ajustar el ancho del contenedor de la información */
-    padding-left: 20px; /* Agregar algo de espacio entre la imagen y la información */
-  }
-  
-  .product-info {
-    margin-bottom: 20px;
-  }
-  
-  .product-title {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  .product-rating {
-    margin-bottom: 10px;
-  }
-  
-  .product-price {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 20px;
-  }
-  
-  .product-buttons {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-  
-  .btn-cart, .btn-favorite {
-    padding: 10px 15px; /* Reducir el padding para disminuir la longitud de los botones */
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 4px;
-    width: fit-content; /* Hacer que el ancho del botón se ajuste al contenido */
-  }
-  
-  .btn-cart {
-    background-color: #ffa500; /* Mantener el color amarillo */
-    color: white;
-  }
-  
-  .btn-favorite {
-    background-color: #01A6FF; /* Mantener el color azul */
-    color: white;
-    border: 2px solid #01A6FF;
-  }
-  
-  .tab-header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-  
-  .tab-header button {
-    background-color: #f2f2f2;
-    color: #000;
-    border: none;
-    outline: none;
-    padding: 10px 30px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    font-size: 16px;
-  }
-  
-  .tab-header button.active {
-    background-color: #ffa500;
-    color: white;
-  }
-  
-  .tab-content {
-    border: 1px solid #ccc;
-    padding: 20px;
-  }
-  
-  .tab-content h2 {
-    color: #333;
-    margin-bottom: 10px;
-  }
-  
-  .tab-content p {
-    margin-bottom: 10px;
-    line-height: 1.5;
-  }
-  
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.product-image-container {
+  width: 35%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.product-image {
+  max-width: none;
+  max-height: 500px;
+}
+
+.product-info-container {
+  width: 65%;
+  padding-left: 20px;
+}
+
+.product-info {
+  margin-bottom: 20px;
+}
+
+.product-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.product-rating {
+  margin-bottom: 10px;
+}
+
+.product-price {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.product-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.btn-cart, .btn-favorite {
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 4px;
+  width: fit-content;
+}
+
+.btn-cart {
+  background-color: #ffa500;
+  color: white;
+}
+
+.btn-favorite {
+  background-color: #01A6FF;
+  color: white;
+  border: 2px solid #01A6FF;
+}
+
+.tab-header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.tab-header button {
+  background-color: #f2f2f2;
+  color: #000;
+  border: none;
+  padding: 10px 30px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.tab-header button:last-child {
+  margin-right: 0;
+}
+
+.tab-header button.active {
+  background-color: #ffa500;
+  color: white;
+}
+
+.tab-content {
+  border: 1px solid #ccc;
+  padding: 30px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.tab-content h2 {
+  color: #333;
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.tab-content p {
+  font-size: 18px;
+  margin-bottom: 15px;
+  line-height: 1.7;
+  text-align: justify;
+  color: #555;
+}
+
+.description ul {
+  list-style-type: disc;
+  padding-left: 40px;
+}
+
+.description li {
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+.tab-content ul li:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  background-color: #ffa500;
+  border-radius: 50%;
+}
