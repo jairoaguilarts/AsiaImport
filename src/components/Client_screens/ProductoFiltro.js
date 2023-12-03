@@ -4,6 +4,7 @@ import audifonosProduct1 from "../../assets/edifierPlus.png";
 import audifonosProduct2 from "../../assets/Srhythm.png";
 import originIcon from "../../assets/maneki-neko.png";
 import { useNavigate, useLocation } from "react-router-dom";
+import Pagination from '../Client_screens/Pagination';
 
 const AudifonoFiltro = () => {
   const [selectedBrands, setSelectedBrands] = useState([]);
@@ -12,6 +13,7 @@ const AudifonoFiltro = () => {
   const [selectedColors, setSelectedColors] = useState([]);
   const location = useLocation();
   const categoria = location.state?.categoria;
+
 
   // Estados y constantes existentes
   const brands = ["Sony", "Samsung", "Srythm", "Panasonic", "Papas"];
@@ -35,6 +37,15 @@ const AudifonoFiltro = () => {
 
   // Nuevo estado para almacenar los productos de la API
   const [products, setProducts] = useState([]);
+
+  //logica de paginacion
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(10);
+  //productos para la pagina actual
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -112,15 +123,13 @@ const AudifonoFiltro = () => {
               {sorts.map((sort) => (
                 <div
                   key={sort}
-                  className={`filter-option ${
-                    selectedSort === sort ? "selected" : ""
-                  }`}
+                  className={`filter-option ${selectedSort === sort ? "selected" : ""
+                    }`}
                   onClick={() => setSelectedSort(sort)}
                 >
                   <span
-                    className={`checkbox ${
-                      selectedSort === sort ? "checked" : ""
-                    }`}
+                    className={`checkbox ${selectedSort === sort ? "checked" : ""
+                      }`}
                   ></span>
                   {sort}
                 </div>
@@ -131,7 +140,7 @@ const AudifonoFiltro = () => {
           </div>
 
           <div className="product-list-container">
-            {products.map((product, index) => (
+            {currentProducts.map((product, index) => (
               <div className="product-container" key={index}>
                 <button
                   className="product-image-btn"
@@ -152,6 +161,12 @@ const AudifonoFiltro = () => {
               </div>
             ))}
           </div>
+          <Pagination
+            productsPerPage={productsPerPage}
+            totalProducts={products.length}
+            paginate={paginate}
+            currentPage={currentPage}
+          />
         </>
       )}
     </div>

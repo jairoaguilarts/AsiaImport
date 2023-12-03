@@ -1,0 +1,47 @@
+/* Estilos generales para la paginación */
+.pagination {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin-top: 20px; /* Espacio sobre la paginación */
+  }
+  
+  .pagination li {
+    margin: 0 5px;
+  }
+  
+  /* Estilo de los elementos de la paginación */
+  .pagination .page-item {
+    border: none;
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 8px 12px;
+    color: #02a6fc;
+    background-color: #f8f9fa;
+    cursor: pointer;
+    transition: color 0.3s, background-color 0.3s, box-shadow 0.3s;
+  }
+  
+  /* Efecto al pasar el mouse */
+  .pagination .page-item:hover {
+    background-color: #e2e6ea; /* Color más oscuro al pasar el mouse */
+  }
+  
+  /* Estilo para el elemento activo de la paginación */
+  .pagination .page-item.active {
+    background-color:  orange;
+    color: white;
+    box-shadow: 0 2px 4px #02a6fc; /* Sombra para resaltar */
+  }
+  
+  /* Estilos para los botones 'Anterior' y 'Siguiente' */
+  .pagination .page-item.previous,
+  .pagination .page-item.next {
+    font-weight: bold;
+  }
+  
+  /* Desactivar la selección de texto */
+  .pagination .page-link {
+    user-select: none;
+  }
+  
