@@ -14,6 +14,7 @@ import radio from "../../assets/Radio Recargable.png";
 import audifonosProduct from "../../assets/Audifonos UltraSound.png";
 import yeti from "../../assets/Yeti Fake.png";
 import "./Inicio.css";
+
 //import "firebase/storage";
 
 const productos = [
@@ -34,6 +35,8 @@ const productos = [
   },
   { imagen: yeti, nombre: "Vasos Termicos Yeti", precio: "L. 349" },
 ];
+
+
 
 //funcion de subir imagen a firebase 
 /*const uploadImage = (file) => {
@@ -130,6 +133,10 @@ function Inicio() {
   const handleSelect = (selectedIndex) => {
     setIndex(selectedIndex);
   };
+ const navigateToAudifonosFiltro = () => {
+  console.log("Intentando navegar a /audifonos-filtro");
+  navigate("/audifonos-filtro");
+};
 
   return (
     <div className="Inicio">
@@ -147,7 +154,7 @@ function Inicio() {
             style={{ width: "100%", height: "auto" }}
             className="d-block w-100"
             src={PromocionAsia}
-            alt="First slide"
+            alt="Second slide"
           />
         </Carousel.Item>
       </Carousel>
@@ -157,10 +164,11 @@ function Inicio() {
             <img src={parlantesImage} alt="Parlantes" />
             <p>Parlantes</p>
           </a>
-          <a href="/audifonos" className="product-item">
+          {/* Actualización para el botón de Audífonos */}
+          <div className="product-item" onClick={navigateToAudifonosFiltro}>
             <img src={audifonosImage} alt="Audífonos" />
             <p>Audífonos</p>
-          </a>
+          </div>
           <a href="/botestermos" className="product-item">
             <img src={botestermosImage} alt="Botes y Termos" />
             <p>Botes y Termos</p>

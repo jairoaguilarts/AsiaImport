@@ -259,7 +259,9 @@ const GestionPW = () => {
 
       {/* Sección Editar Productos Destacados */}
       <div ref={editarProductosDestacadosRef} className="section">
-        <h2>Editar Productos Destacados</h2>
+        <div className="editar-informacion-title">
+          <h1 className="title">Editar Productos Destacados</h1>
+        </div>
         {/* Contenido para Editar Productos Destacados */}
       </div>
 

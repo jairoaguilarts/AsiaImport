@@ -94,7 +94,7 @@
   /* Ocupa el espacio disponible */
   margin-left: auto;
   /* Esto empujará la barra de búsqueda hacia la derecha */
-  margin-right: -250px;
+  margin-right: -200px;
 
 }
 
@@ -241,8 +241,9 @@
 .navbar2 {
   display: flex;
   justify-content: space-around;
-  background-color: #333;
+  background-color: #01A6FF;
   padding: 10px 0;
+  margin-left: 250px;
 }
 
 .navbar2 button {
@@ -252,13 +253,14 @@
   cursor: pointer;
   padding: 10px 20px;
   font-size: 1rem;
-  transition: background-color 0.3s;
+  transition: border-bottom-color 0.3s;
+  border-bottom: 2px solid #01A6FF; /* Borde inferior del botón */
 }
 
 .navbar2 button:hover {
-  background-color: #555;
+  color: #074D72;
+  border-bottom-color: #FDB254; /* Cambia el color del borde inferior al hacer hover */
 }
-
 .section {
   margin: 20px 0;
   padding: 20px;

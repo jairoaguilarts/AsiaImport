@@ -22,7 +22,7 @@ const AdminPage = () => {
   };
 
   const closeSidebar = () => {
-    setSidebarOpen(false);
+    setSidebarOpen(true);
   };
 
   const handleLogout = async () => {
@@ -50,7 +50,8 @@ const AdminPage = () => {
     <Container fluid>
       {/* Botón fijo para activar el sidebar */}
 
-      <div className="toggle-sidebar" onClick={toggleSidebar}>
+      <div className="toggle-sidebar">
+        {/*</div> <div className="toggle-sidebar" onClick={toggleSidebar}>*/}
         <img src={menu} alt="toggle_sidebar" className="icon-image" />
       </div>
 
@@ -71,8 +72,8 @@ const AdminPage = () => {
             <hr className="linea-divisora" />
             <div className="sidebar-item">
               < Link to="/gestionpw">
-              <img src={editar} alt="editar" className="icon-image" />
-              <span>Editar Página Web</span>
+                <img src={editar} alt="editar" className="icon-image" />
+                <span>Editar Página Web</span>
               </Link>
             </div>
             <hr className="linea-divisora" />
