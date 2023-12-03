@@ -73,7 +73,7 @@ function App() {
           />
           <Route path="/modificarp" element={<ModificarP />} />
           <Route path="/agregarp" element={<AgregarP />} />
-          <Route path="/audifonos-filtro" element={<ProductoFiltro />} />
+          <Route path="/producto-filtro" element={<ProductoFiltro />} />
           <Route path="/info-audifonos" element={<InfoAudifonos />} />
         </Routes>
         {userType !== "true" && <Footer />}

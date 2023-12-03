@@ -132,7 +132,7 @@ function Inicio() {
     setIndex(selectedIndex);
   };
   const navigateToAudifonosFiltro = (categoria) => {
-    navigate("/audifonos-filtro", { state: { categoria } });
+    navigate("/producto-filtro", { state: { categoria } });
   };
 
   return (
