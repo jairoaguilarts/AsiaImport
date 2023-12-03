@@ -12,7 +12,7 @@ import otrosImage from "../../assets/otros.png";
 import parlanteProduct from "../../assets/Parlante Bluetooth.png";
 import radio from "../../assets/Radio Recargable.png";
 import audifonosProduct from "../../assets/Audifonos UltraSound.png";
-import CobertoresImage from "../../assets/CobertoresCelular.png";
+import CobertoresImage from "../../assets/CobertoresCelular .png";
 import vidriosImage from "../../assets/VidriosCelular.png";
 import yeti from "../../assets/Yeti Fake.png";
 import "./Inicio.css";
@@ -157,7 +157,10 @@ function Inicio() {
       </Carousel>
       <div className="product-section">
         <div className="product-container">
-          <div className="product-item" onClick={navigateToAudifonosFiltro}>
+          <div
+            className="product-item"
+            onClick={() => navigateToAudifonosFiltro("PARLANTE")}
+          >
             <img src={parlantesImage} alt="Parlantes" />
             <p>Parlantes</p>
           </div>
@@ -192,7 +195,7 @@ function Inicio() {
           </div>
           <div
             className="product-item"
-            onClick={() => navigateToAudifonosFiltro("VIDRIOS")}
+            onClick={() => navigateToAudifonosFiltro("VIDRIO TEMPLADO")}
           >
             <img src={vidriosImage} alt="Otros" />
             <p>Vidrios</p>

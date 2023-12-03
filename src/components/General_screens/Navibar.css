@@ -1,12 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Gravitas+One&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Gravitas+One&display=swap");
 
 .navbar {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  background-color: #FDB254;
+  background-color: #fdb254;
   padding: 0px 0px;
 }
 
@@ -22,8 +22,12 @@
   max-width: 100%;
 }
 
+.drop-item img {
+  margin-left: 15px; /* Puedes ajustar este valor según sea necesario */
+}
+
 .brand-name {
-  font-family: 'Gravitas One', sans-serif;
+  font-family: "Gravitas One", sans-serif;
   font-size: 24px;
   text-transform: uppercase;
   font-weight: bold;
@@ -46,7 +50,7 @@
   margin-right: 10px;
   color: #000;
   cursor: pointer;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 16px;
   font-weight: bold;
   text-decoration: none;
@@ -54,7 +58,7 @@
 }
 
 .menu-item:hover {
-  color: #02A6FC;
+  color: #02a6fc;
   text-decoration: underline;
 }
 
@@ -70,7 +74,7 @@
 }
 
 .icon-button p {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 14px;
   text-transform: uppercase;
   margin-top: auto;
@@ -98,7 +102,7 @@
   padding: 8px 32px 8px 8px;
   padding-right: 40px;
   font-size: 16px;
-  border: 3px solid #02A6FC;
+  border: 3px solid #02a6fc;
   border-radius: 12px;
   width: 900px;
 }
@@ -128,7 +132,7 @@
 }
 
 .barraCategorias {
-  background-color: #01A6FF;
+  background-color: #01a6ff;
   color: white;
   display: flex;
   justify-content: space-between;
@@ -154,7 +158,7 @@
 .textoCategorias {
   margin-left: 10px;
   margin-right: 10px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: bold;
   color: white;
 }
@@ -169,7 +173,7 @@
   align-items: center;
   padding: 8px;
   font-style: normal;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   margin-right: 10px;
   text-decoration: none;
   font-weight: bold;
@@ -330,7 +334,7 @@
     position: relative;
   }
 
-  .menu-open+.icon-container {
+  .menu-open + .icon-container {
     right: 20px;
   }
 

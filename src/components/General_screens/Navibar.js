@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Navibar.css";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
@@ -15,6 +15,9 @@ import botestermosImage from "../../assets/botestermos.png";
 import cargadoresImage from "../../assets/cargadores.png";
 import relojesImage from "../../assets/relojes.png";
 import otrosImage from "../../assets/otros.png";
+import CobertoresImage from "../../assets/CobertoresCelular .png";
+import vidriosImage from "../../assets/VidriosCelular.png";
+import yeti from "../../assets/Yeti Fake.png";
 import Login from "./Login";
 import Carrito from "../Client_screens/Carrito";
 
@@ -23,7 +26,7 @@ const Navibar = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [active, setActive] = useState(false);
-  const login=window.localStorage.getItem("logueado");
+  const login = window.localStorage.getItem("logueado");
   const [searched, setSearched] = useState(false);
   const [products, setProducts] = useState([]);
   const [busqueda, setBusqueda] = useState("");
@@ -39,6 +42,7 @@ const Navibar = () => {
       setShowAlert(false);
     }, 2400);
   };
+  const navigate = useNavigate();
   const handleLogoClick = () => {
     if (window.innerWidth < 768) {
       setMenuOpen(!menuOpen);
@@ -51,7 +55,7 @@ const Navibar = () => {
   const [showCategories, setShowCategories] = useState(true);
 
   const handleSearch = async () => {
-   // e.preventDefault();
+    // e.preventDefault();
     // Implementa la lógica de búsqueda aquí, como enviar el término de búsqueda a una API o filtrar datos
     const buscar = {
       Nombre: busqueda.trim(),
@@ -103,7 +107,9 @@ const Navibar = () => {
     setCarritoVisible(false);
     setBackgroundVisible(false);
   };
-
+  const navigateToProductoFiltro = (categoria) => {
+    navigate("/producto-filtro", { state: { categoria } });
+  };
   window.addEventListener("scroll", () => {
     if (window.screenY > 70) {
       setActive(true);
@@ -185,7 +191,11 @@ const Navibar = () => {
                       </span>
                     }
                   >
-                    <NavDropdown.Item href="#accion">
+                    <NavDropdown.Item
+                      className="drop-item"
+                      onClick={() => navigateToProductoFiltro("PARLANTE")}
+                    >
+                      {" "}
                       Parlantes
                       <img
                         src={parlantesImage}
@@ -195,7 +205,10 @@ const Navibar = () => {
                       />
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item href="#accion">
+                    <NavDropdown.Item
+                      className="drop-item"
+                      onClick={() => navigateToProductoFiltro("AURICULARES")}
+                    >
                       Audífonos
                       <img
                         src={audifonosImage}
@@ -205,18 +218,24 @@ const Navibar = () => {
                       />
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item href="#accion">
+                    <NavDropdown.Item
+                      className="drop-item"
+                      onClick={() => navigateToProductoFiltro("BOTES")}
+                    >
                       Botes y Termos
                       <img
                         src={botestermosImage}
                         height="40px"
                         alt="Parlantes"
-                        style={{ border: "7px solid #fff" }}
+                        style={{ marginLeft: "10px", border: "7px solid #fff" }}
                       />
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item href="#accion">
-                      Cargadores para Móvil
+                    <NavDropdown.Item
+                      className="drop-item"
+                      onClick={() => navigateToProductoFiltro("CARGADORES")}
+                    >
+                      Cargadores
                       <img
                         src={cargadoresImage}
                         height="40px"
@@ -225,8 +244,11 @@ const Navibar = () => {
                       />
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item href="#accion">
-                      Relojes Inteligentes
+                    <NavDropdown.Item
+                      className="drop-item"
+                      onClick={() => navigateToProductoFiltro("SMARTWATCH")}
+                    >
+                      Relojes
                       <img
                         src={relojesImage}
                         height="40px"
@@ -235,10 +257,28 @@ const Navibar = () => {
                       />
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item href="#accion">
-                      Otros
+                    <NavDropdown.Item
+                      className="drop-item"
+                      onClick={() =>
+                        navigateToProductoFiltro("VIDRIO TEMPLADO")
+                      }
+                    >
+                      Vidrios
                       <img
-                        src={otrosImage}
+                        src={vidriosImage}
+                        height="40px"
+                        alt="Parlantes"
+                        style={{ border: "7px solid #fff" }}
+                      />
+                    </NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item
+                      className="drop-item"
+                      onClick={() => navigateToProductoFiltro("COBERTORES")}
+                    >
+                      Cobertores
+                      <img
+                        src={CobertoresImage}
                         height="40px"
                         alt="Parlantes"
                         style={{ border: "7px solid #fff" }}

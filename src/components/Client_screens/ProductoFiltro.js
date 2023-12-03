@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./ProductoFiltro.css";
 import audifonosProduct1 from "../../assets/edifierPlus.png";
 import audifonosProduct2 from "../../assets/Srhythm.png";
-import { useNavigate, useLocation } from "react-router-dom"; // Importa useNavigate de react-router-dom
+import { useNavigate, useLocation } from "react-router-dom";
 
 const AudifonoFiltro = () => {
   const [selectedBrands, setSelectedBrands] = useState([]);
@@ -37,14 +37,15 @@ const AudifonoFiltro = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
+      console.log("categoria: " + categoria);
       try {
-        const response = await fetch(
-          "https://importasia-api.onrender.com/productos"
-        );
+        const response = await fetch("http://localhost:3000/productosUser");
         let data = await response.json();
+        console.log("antes del filtro" + data);
         if (categoria) {
           data = data.filter((product) => product.Categoria === categoria);
         }
+        console.log("despues del filtro" + data);
 
         setProducts(data);
       } catch (error) {
