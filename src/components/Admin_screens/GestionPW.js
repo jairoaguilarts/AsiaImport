@@ -88,7 +88,7 @@ const GestionPW = () => {
     try {
       const response = await fetch(
         "https://importasia-api.onrender.com/eliminarProducto?Modelo=" +
-          productoSeleccionado,
+        productoSeleccionado,
         {
           method: "DELETE",
           headers: {
@@ -118,7 +118,7 @@ const GestionPW = () => {
     window.scrollTo({ top: ref.current.offsetTop, behavior: "smooth" });
   };
 
-  const handleActualizar = () => {};
+  const handleActualizar = () => { };
 
   const handleUploadImage = (event) => {
     const file = event.target.files[0];
@@ -299,30 +299,30 @@ const GestionPW = () => {
           </div>
         </div>
       </div>
+
       {/* Sección Editar Productos Destacados */}
-      <div ref={editarProductosDestacadosRef} className="section">
+      {/* <div ref={editarProductosDestacadosRef} className="section">
         <div className="editar-informacion-title">
           <h1 className="title">Editar Productos Destacados</h1>
         </div>
-        {/* Contenido para Editar Productos Destacados */}
-      </div>
+      </div> */}
 
       {/* Sección Editar Imágenes Carrousel */}
-      <div ref={editarImagenesCarrouselRef} className="section">
+      {/*<div ref={editarImagenesCarrouselRef} className="section">
         <div className="editar-informacion-title">
           <h1 className="title">Editar Imágenes del Carrusel</h1>
         </div>
         <div className="editar-imagenes-carrousel-container">
           <div className="current-images-container">
             <h2>Imágenes Actuales</h2>
-            {/* Componente o código para mostrar las imágenes actuales del carrusel */}
+            
             <div className="current-images-display">
-              {/* Aquí se mostrarían las imágenes actuales */}
+              
             </div>
           </div>
           <div className="image-upload-container">
             <h2>Subir Nueva Imagen</h2>
-            {/* Input modificado para aceptar múltiples archivos */}
+            
             <input type="file" multiple onChange={handleUploadImage} />
             <p>
               Selecciona una o varias imágenes y luego haz clic en 'Actualizar
@@ -333,35 +333,31 @@ const GestionPW = () => {
             </button>
           </div>
         </div>
-      </div>
+      </div>*/}
 
       {/* Sección Editar Información */}
-      <div ref={editarInformacionRef} className="section">
+      {/* <div ref={editarInformacionRef} className="section">
         <div className="editar-informacion-title">
           <h1 className="title">Editar Informacion</h1>
         </div>
-        {/* Contenido para Editar Información */}
         <div ref={editarInformacionRef} className="section editar-informacion">
           <div className="editar-informacion-container">
             <div className="editar-informacion-field">
               <label htmlFor="mision">Misión</label>
               <textarea
                 id="mision"
-                placeholder="Aqui se carga la mision..."
               ></textarea>
             </div>
             <div className="editar-informacion-field">
               <label htmlFor="vision">Visión</label>
               <textarea
                 id="vision"
-                placeholder="Aqui se carga la vision..."
               ></textarea>
             </div>
             <div className="editar-informacion-field">
               <label htmlFor="historia">Historia</label>
               <textarea
                 id="historia"
-                placeholder="Aqui la historia..."
               ></textarea>
               <button
                 className="editar-informacion-btn"
@@ -372,7 +368,7 @@ const GestionPW = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Modal para confirmación de eliminación */}
       <Modal
