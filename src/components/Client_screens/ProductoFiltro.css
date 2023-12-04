@@ -136,30 +136,29 @@
 
 /* Button that will contain the product image */
 .product-image-btn {
-  width: 250px; /* Set the width of the button */
-  height: 255px; /* Set the height of the button */
+  width: 250px;
+  height: 255px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #ccc; /* Optional border */
-  overflow: hidden; /* Hide any overflow content */
-  position: relative; /* Add this for positioning */
-  margin-right: 20px; /* Add some right margin for spacing */
+  border: 1px solid #ffff;
+  background-color: #ffff;
+  overflow: hidden; /* Agrega esta línea para recortar cualquier contenido que se desborde */
+  position: relative;
+  margin-right: 20px;
   margin-bottom: 90px;
 }
+
 .product-image-btn img {
-  width: 100%; /* Set the image width to 100% of the button */
-  height: auto; /* Automatically adjust the height to maintain aspect ratio */
-  max-width: 100%; /* Ensure the image doesn't exceed the button's width */
-  max-height: 100%; /* Ensure the image doesn't exceed the button's height */
-  display: block;
-  margin: 0 auto;
-  position: absolute; /* Position the image absolutely for full coverage */
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ajusta el tamaño de la imagen para cubrir completamente el contenedor */
+  transition: transform 0.3s ease; /* Agrega una transición de transformación para el efecto hover */
 }
+.product-image-btn:hover img {
+  transform: scale(1.1); /* Aumenta el tamaño de la imagen en un 10% al pasar el mouse */
+}
+
 
 /* Placeholder for where the image will go */
 .image-placeholder {

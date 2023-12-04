@@ -16,10 +16,18 @@ const Pagination = ({ productsPerPage, totalProducts, paginate, currentPage }) =
     for (let i = firstPageInRange; i <= lastPageInRange; i++) {
         pageNumbers.push(i);
     }
-  
+
     return (
         <nav>
             <ul className='pagination'>
+                <li className='page-item'>
+                    <button 
+                        onClick={() => paginate(1)} 
+                        className={`page-link ${currentPage === 1 ? 'disabled' : 'jump-button'}`}
+                        disabled={currentPage === 1}>
+                        {'<<'}
+                    </button>
+                </li>
                 <li className='page-item'>
                     <button 
                         onClick={() => paginate(currentPage - 1)} 
@@ -41,6 +49,14 @@ const Pagination = ({ productsPerPage, totalProducts, paginate, currentPage }) =
                         className='page-link'
                         disabled={currentPage === totalPages}>
                         {'>'}
+                    </button>
+                </li>
+                <li className='page-item'>
+                    <button 
+                          onClick={() => paginate(totalPages)} 
+                          className={`page-link ${currentPage === totalPages ? 'disabled' : 'jump-button'}`}
+                          disabled={currentPage === totalPages}>
+                          {'>>'}
                     </button>
                 </li>
             </ul>

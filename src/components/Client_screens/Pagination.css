@@ -1,47 +1,54 @@
 /* Estilos generales para la paginación */
 .pagination {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    padding: 0;
-    margin-top: 20px; 
-  }
-  
-  .pagination li {
-    margin: 0 5px;
-  }
-  
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  margin-top: 20px;
+}
 
-  .pagination .page-item {
-    border: none;
-    border-radius: 5px; 
-    padding: 8px 12px;
-    color: #02a6fc;
-    background-color: #f8f9fa;
-    cursor: pointer;
-    transition: color 0.3s, background-color 0.3s, box-shadow 0.3s;
-  }
-  
-  
-  .pagination .page-item:hover {
-    background-color: #e2e6ea; 
-  }
-  
-  
-  .pagination .page-item.active {
-    background-color:  orange;
-    color: white;
-    box-shadow: 0 2px 4px #02a6fc; 
-  }
-  
+.pagination li {
+  margin: 0 5px;
+}
 
-  .pagination .page-item.previous,
-  .pagination .page-item.next {
-    font-weight: bold;
-  }
-  
+.pagination .page-item {
+  border-radius: 5px;
+  padding: 4px 8px;
+  color: #01a6ff; /* Color azul para texto */
+  background-color: #ffffff; /* Fondo blanco para botones no seleccionados */
+  cursor: pointer;
+  transition: all 0.3s;
+  border: 1px solid #01a6ff; /* Borde azul */
+}
 
-  .pagination .page-link {
-    user-select: none;
-  }
-  
+.pagination .page-item:hover {
+  background-color: #01a6ff; /* Fondo azul al pasar el mouse */
+  color: white; /* Texto blanco al pasar el mouse */
+}
+
+.pagination .page-item.active {
+  background-color: #01a6ff; /* Fondo azul para el elemento activo */
+  color: white; /* Texto blanco para el elemento activo */
+}
+
+.pagination .page-item.disabled {
+  color: #c0c0c0; /* Color gris para elementos deshabilitados */
+  cursor: not-allowed;
+  background-color: #f8f9fa; /* Fondo para elementos deshabilitados */
+  border: 1px solid #f8f9fa; /* Borde para elementos deshabilitados */
+}
+
+.pagination .page-link {
+  user-select: none;
+  border: none; /* Elimina el borde del enlace si es necesario */
+  background: none; /* Elimina el fondo del enlace si es necesario */
+}
+.pagination .jump-button {
+  color: orange; /* Cambia el texto a color naranja */
+}
+
+/* Estilos adicionales para el hover de los botones de salto si no están deshabilitados */
+.pagination .jump-button:hover:not(.disabled) {
+  background-color: #ffa500; /* Un tono naranja de fondo para el hover */
+  color: white; /* Texto blanco para el hover */
+}
