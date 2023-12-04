@@ -4,7 +4,7 @@ import audifonosProduct1 from "../../assets/edifierPlus.png";
 import audifonosProduct2 from "../../assets/Srhythm.png";
 import originIcon from "../../assets/maneki-neko.png";
 import { useNavigate, useLocation } from "react-router-dom";
-import Pagination from '../Client_screens/Pagination';
+import Pagination from "../Client_screens/Pagination";
 
 const AudifonoFiltro = () => {
   const [selectedBrands, setSelectedBrands] = useState([]);
@@ -13,14 +13,17 @@ const AudifonoFiltro = () => {
   const [selectedColors, setSelectedColors] = useState([]);
 
   const [products, setProducts] = useState([]);
-  const [sortedAndPaginatedProducts, setSortedAndPaginatedProducts] = useState([]);
+  const [sortedAndPaginatedProducts, setSortedAndPaginatedProducts] = useState(
+    []
+  );
 
-   //logica de paginacion
-   const [currentPage, setCurrentPage] = useState(1);
-   const [productsPerPage] = useState(10);
-   //productos para la pagina actual
-   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  //logica de paginacion
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(10);
+  //productos para la pagina actual
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  const [loading, setLoading] = useState(true);
   const location = useLocation();
   const categoria = location.state?.categoria;
 
@@ -34,7 +37,7 @@ const AudifonoFiltro = () => {
   const ratings = [5, 4, 3, 2, 1];
   const colors = [
     "#000000",
-    "#808080", 
+    "#808080",
     "#FFFFFF",
     "#A52A2A",
     "#FF0000",
@@ -43,10 +46,9 @@ const AudifonoFiltro = () => {
     "#0000FF",
   ];
 
-
   useEffect(() => {
     const fetchProducts = async () => {
-      console.log("categoria: " + categoria);
+      setLoading(true);
       try {
         const response = await fetch(
           `https://importasia-api.onrender.com/buscarProductoCategoria?Nombre=${categoria.trim()}`,
@@ -62,7 +64,10 @@ const AudifonoFiltro = () => {
         if (!response.ok) {
           throw new Error(`Error: ${responseData.message || response.status}`);
         } else {
-          setProducts(responseData);
+          setTimeout(() => {
+            setProducts(responseData);
+            setLoading(false);
+          }, 1000);
         }
       } catch (error) {
         console.error("Error al cargar los productos:", error);
@@ -75,18 +80,21 @@ const AudifonoFiltro = () => {
     let sortedProducts = [...products];
 
     if (selectedSort === "Precio: Descendente a Ascendente") {
-        sortedProducts.sort((a, b) => a.Precio - b.Precio);
+      sortedProducts.sort((a, b) => a.Precio - b.Precio);
     } else if (selectedSort === "Precio: Ascendente a Descendente") {
-        sortedProducts.sort((a, b) => b.Precio - a.Precio);
+      sortedProducts.sort((a, b) => b.Precio - a.Precio);
     }
 
     // Aquí aplicamos la paginación
     const indexOfLastProduct = currentPage * productsPerPage;
     const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-    const paginatedProducts = sortedProducts.slice(indexOfFirstProduct, indexOfLastProduct);
+    const paginatedProducts = sortedProducts.slice(
+      indexOfFirstProduct,
+      indexOfLastProduct
+    );
 
-   setSortedAndPaginatedProducts(paginatedProducts);
-}, [selectedSort, products, currentPage]); 
+    setSortedAndPaginatedProducts(paginatedProducts);
+  }, [selectedSort, products, currentPage]);
 
   const toggleSelection = (item, list, setList) => {
     const currentIndex = list.indexOf(item);
@@ -117,7 +125,12 @@ const AudifonoFiltro = () => {
 
   return (
     <div className="main-container">
-      {products.length === 0 ? (
+      {loading ? (
+        <div className="noproduct-found">
+          <h1>Cargando productos...</h1>
+          <img src={originIcon} alt="gatito" />
+        </div>
+      ) : products.length === 0 ? (
         <div className="noproduct-found">
           <h1>No hay productos que coincidan con la búsqueda</h1>
           <img src={originIcon} alt="gatito" />
@@ -135,20 +148,20 @@ const AudifonoFiltro = () => {
               {sorts.map((sort) => (
                 <div
                   key={sort}
-                  className={`filter-option ${selectedSort === sort ? "selected" : ""
-                    }`}
+                  className={`filter-option ${
+                    selectedSort === sort ? "selected" : ""
+                  }`}
                   onClick={() => setSelectedSort(sort)}
                 >
                   <span
-                    className={`checkbox ${selectedSort === sort ? "checked" : ""
-                      }`}
+                    className={`checkbox ${
+                      selectedSort === sort ? "checked" : ""
+                    }`}
                   ></span>
                   {sort}
                 </div>
               ))}
             </div>
-
-           
           </div>
 
           <div className="product-list-container">

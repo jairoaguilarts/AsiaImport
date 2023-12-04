@@ -13,7 +13,7 @@
 }
 
 .title-bar::after {
-  content: '';
+  content: "";
   position: absolute;
   /* Posiciona la barra azul absolutamente respecto a su padre */
   bottom: -10px;
@@ -37,16 +37,16 @@
   /* Asegura que el texto esté sobre la barra azul */
 }
 
-.product-row.header{
+.product-row.header {
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   width: 100%;
 }
-.product-row.header span{
+.product-row.header span {
   align-items: center;
-  display:inline-block;
+  display: inline-block;
   justify-content: space-between;
   width: 100%;
   margin: 0 10px;
@@ -74,13 +74,14 @@
 
 .add-product-btn {
   background-color: #02a6fc;
-  /* Color azul para el botón, igual a la barra */
   color: white;
-  padding: 10px 15px;
   border-radius: 5px;
   border: none;
   cursor: pointer;
   font-weight: bold;
+  height: 50px;
+  align-items: center !important;
+
   /* Asegúrate de que no haya margen a la derecha del botón */
 }
 
@@ -95,7 +96,6 @@
   margin-left: auto;
   /* Esto empujará la barra de búsqueda hacia la derecha */
   margin-right: -200px;
-
 }
 
 .search-bar2 {
@@ -129,17 +129,13 @@
   /* Fondo blanco para las filas */
   border-radius: 8px;
   /* Bordes redondeados */
-  
 }
-
-
 
 .pagination {
   text-align: center;
   padding: 10px 0;
   /* Espaciado vertical para la paginación */
 }
-
 
 .product-row {
   display: flex;
@@ -150,7 +146,7 @@
   /* Línea divisoria para cada fila */
 }
 
-.product-row>span {
+.product-row > span {
   flex: 1;
   /* This will ensure that each category takes up equal space */
   margin: 0 10px;
@@ -241,9 +237,15 @@
 .navbar2 {
   display: flex;
   justify-content: space-around;
-  background-color: #01A6FF;
+  background-color: #01a6ff;
   padding: 10px 0;
   margin-left: 250px;
+}
+.icon {
+  align-items: center;
+  align-self: center;
+  height: 30px;
+  margin: 10px;
 }
 
 .navbar2 button {
@@ -254,12 +256,12 @@
   padding: 10px 20px;
   font-size: 1rem;
   transition: border-bottom-color 0.3s;
-  border-bottom: 2px solid #01A6FF; /* Borde inferior del botón */
+  border-bottom: 2px solid #01a6ff; /* Borde inferior del botón */
 }
 
 .navbar2 button:hover {
-  color: #074D72;
-  border-bottom-color: #FDB254; /* Cambia el color del borde inferior al hacer hover */
+  color: #074d72;
+  border-bottom-color: #fdb254; /* Cambia el color del borde inferior al hacer hover */
 }
 .section {
   margin: 20px 0;
@@ -271,7 +273,7 @@
   max-width: 80px; /* Ajusta el ancho máximo de la imagen */
   height: 80px; /* Mantiene la relación de aspecto de la imagen */
   display: block; /* Asegura que la imagen no tenga espacio adicional a su alrededor */
- margin: 0 40px; /* Centra la imagen en su contenedor */
+  margin: 0 40px; /* Centra la imagen en su contenedor */
   border-radius: 5px; /* Opcional: bordes redondeados para un aspecto más suave */
 }
 
@@ -285,7 +287,6 @@
     display: none;
     /* Esto ocultará la barra de búsqueda en pantallas pequeñas */
   }
-
 
   .search-bar2 {
     width: 60%;
@@ -308,10 +309,11 @@
 
   .add-product-btn {
     padding: 8px 12px;
+    align-items: center;
+
     /* Ajustar el padding para mantener la proporcionalidad */
   }
 }
-
 
 @media (max-width: 768px) {
   .title-bar {
@@ -343,7 +345,6 @@
     display: none;
     /* Esto ocultará la barra de búsqueda en pantallas pequeñas */
   }
-
 
   .search-bar2 {
     width: 100%;
@@ -388,13 +389,13 @@
 }
 
 .editar-informacion-title::after {
-  content: '';
+  content: "";
   display: block;
   width: 100%;
   /* Ancho completo del contenedor */
   height: 4px;
   /* Altura de la línea divisoria */
-  background-color: #01A6FF;
+  background-color: #01a6ff;
   /* Color azul para la línea divisoria */
   position: absolute;
   bottom: -10px;
@@ -417,7 +418,7 @@
 .editar-informacion-field label {
   display: block;
   margin-bottom: 5px;
-  color: #01A6FF;
+  color: #01a6ff;
   /* Color azul especificado */
   font-size: 1.2em;
   /* Hacer la etiqueta más grande */
@@ -437,7 +438,7 @@
 }
 
 .editar-informacion-btn {
-  background-color: #01A6FF;
+  background-color: #01a6ff;
   /* Color azul */
   color: white;
   padding: 10px 20px;
@@ -449,7 +450,7 @@
 }
 
 .editar-informacion-btn:hover {
-  background-color: #FDB254;
+  background-color: #fdb254;
   /* Color naranja al pasar el cursor */
 }
 
@@ -466,7 +467,9 @@
 }
 
 .editar-imagenes-carrousel-container > div {
-  flex-basis: calc(50% - 10px); /* Se ajusta al 50% del contenedor padre menos el gap */
+  flex-basis: calc(
+    50% - 10px
+  ); /* Se ajusta al 50% del contenedor padre menos el gap */
   border: 1px solid #ccc; /* Contorno suave */
   background-color: #fff; /* Fondo blanco para ambos contenedores */
   padding: 20px;
@@ -490,18 +493,18 @@
 }
 
 .image-upload-container h2 {
-  color: #01A6FF; /* Color del título de subida de imagen */
+  color: #01a6ff; /* Color del título de subida de imagen */
   font-size: 1.5em;
   margin-bottom: 10px;
 }
 .current-images-container h2 {
-  color: #01A6FF; /* Color del título de subida de imagen */
+  color: #01a6ff; /* Color del título de subida de imagen */
   font-size: 1.5em;
   margin-bottom: 10px;
 }
 
 .editar-informacion-btn {
-  background-color: #01A6FF; /* Color azul para el botón */
+  background-color: #01a6ff; /* Color azul para el botón */
   color: white;
   padding: 10px 20px;
   border: none;
@@ -514,7 +517,7 @@
 }
 
 .editar-informacion-btn:hover {
-  background-color: #FDB254; /* Color naranja al pasar el cursor */
+  background-color: #fdb254; /* Color naranja al pasar el cursor */
 }
 
 /* Media query para ajustar el diseño en pantallas más pequeñas */
@@ -524,7 +527,7 @@
     margin-left: 0;
     padding: 0;
   }
-  
+
   .editar-imagenes-carrousel-container > div {
     flex-basis: 100%;
     margin-bottom: 20px;

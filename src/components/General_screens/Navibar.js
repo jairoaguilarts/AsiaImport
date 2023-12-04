@@ -55,12 +55,58 @@ const Navibar = () => {
   };
   const [showCategories, setShowCategories] = useState(true);
 
-  const handleSearch = async () => {
-    const buscar = {
-      Nombre: busqueda.trim(),
-    };
-    navigateToProductoFiltro(busqueda.trim());
+  const sinonimos = {
+    audífonos: "AURICULARES",
+    audifonos: "AURICULARES",
+    audifono: "AURICULARES",
+    audífono: "AURICULARES",
+    cascos: "AURICULARES",
+    auricular: "AURICULARES",
+    termo: "BOTES",
+    termos: "BOTES",
+    bote: "BOTES",
+    botellas: "BOTES",
+    cargador: "CARGADORES",
+    protector: "COBERTORES",
+    protectores: "COBERTORES",
+    cobertor: "COBERTORES",
+    vidrio: "VIDRIO TEMPLADO",
+    vidrios: "VIDRIO TEMPLADO",
+    "vidrio templado": "VIDRIO TEMPLADO",
+    parlante: "PARLANTE",
+    altavoz: "PARLANTE",
+    altavoces: "PARLANTE",
+    bocina: "PARLANTE",
+    bocinas: "PARLANTE",
+    radio: "PARLANTE",
+    radios: "PARLANTE",
+    reloj: "SMARTWATCH",
+    relojes: "SMARTWATCH",
+    "relojes inteligentes": "SMARTWATCH",
+    smartwatches: "SMARTWATCH",
   };
+
+  const buscarConSinonimos = (termino) => {
+    const palabraSinonimo = sinonimos[termino.toLowerCase()];
+    return palabraSinonimo || termino;
+  };
+
+  const handleSearch = async () => {
+    const busquedaSinonimos = buscarConSinonimos(busqueda.trim());
+
+    const buscar = {
+      Nombre: busquedaSinonimos,
+    };
+
+    navigateToProductoFiltro(busquedaSinonimos);
+  };
+
+  // const handleSearch = async () => {
+  //   const buscar = {
+  //     Nombre: busqueda.trim(),
+  //   };
+  //   navigateToProductoFiltro(busqueda.trim());
+  // };
 
   const [dropdown, setDropdown] = useState(false);
 
@@ -110,7 +156,6 @@ const Navibar = () => {
         <div className="search-wrapper">
           <form
             className={`search-container ${searchOpen ? "search-open" : ""}`}
-            onDoubleClick={handleSearch}
           >
             <input
               type="text"
@@ -120,7 +165,7 @@ const Navibar = () => {
               onChange={(e) => setBusqueda(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
-                  e.preventDefault(); // Prevenir comportamiento por defecto del form
+                  e.preventDefault();
                   handleSearch();
                 }
               }}

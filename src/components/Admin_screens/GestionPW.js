@@ -6,6 +6,7 @@ import iconEdit from "../../assets/edit .png";
 import iconDelete from "../../assets/delete.png";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import searchIcon from "../../assets/lupa.png";
 import CustomAlert from "../Informative_screens/CustomAlert";
 import ModificarP from "../modalesProductos/ModificarP";
 
@@ -123,10 +124,45 @@ const GestionPW = () => {
     const file = event.target.files[0];
     console.log("Imagen para subir:", file);
   };
+  const sinonimos = {
+    audífonos: "AURICULARES",
+    audifonos: "AURICULARES",
+    audifono: "AURICULARES",
+    audífono: "AURICULARES",
+    cascos: "AURICULARES",
+    auricular: "AURICULARES",
+    termo: "BOTES",
+    termos: "BOTES",
+    bote: "BOTES",
+    botellas: "BOTES",
+    cargador: "CARGADORES",
+    protector: "COBERTORES",
+    protectores: "COBERTORES",
+    cobertor: "COBERTORES",
+    vidrio: "VIDRIO TEMPLADO",
+    vidrios: "VIDRIO TEMPLADO",
+    "vidrio templado": "VIDRIO TEMPLADO",
+    parlante: "PARLANTE",
+    altavoz: "PARLANTE",
+    altavoces: "PARLANTE",
+    bocina: "PARLANTE",
+    bocinas: "PARLANTE",
+    radio: "PARLANTE",
+    radios: "PARLANTE",
+    reloj: "SMARTWATCH",
+    relojes: "SMARTWATCH",
+    "relojes inteligentes": "SMARTWATCH",
+    smartwatches: "SMARTWATCH",
+  };
+
+  const buscarConSinonimos = (termino) => {
+    const palabraSinonimo = sinonimos[termino.toLowerCase()];
+    return palabraSinonimo || termino;
+  };
 
   const handleSearch = async () => {
     const buscar = {
-      Nombre: busqueda.trim(),
+      Nombre: buscarConSinonimos(busqueda.trim()),
     };
 
     try {
@@ -135,7 +171,7 @@ const GestionPW = () => {
         return;
       }
       const response = await fetch(
-        `https://importasia-api.onrender.com/buscarProductoCategoria?Nombre=${busqueda.trim()}`,
+        `https://importasia-api.onrender.com/buscarProductoCategoria?Nombre=${buscar.Nombre}`,
         {
           method: "GET",
           headers: {
@@ -147,6 +183,11 @@ const GestionPW = () => {
 
       if (!response.ok) {
         throw new Error(`Error: ${responseData.message || response.status}`);
+      } else if (responseData.length === 0) {
+        mostrarAlerta(
+          "No se encontraron productos para esa categoría",
+          "danger"
+        );
       } else {
         mostrarAlerta("Producto encontrado", "success");
         setProducts(responseData);
@@ -198,7 +239,7 @@ const GestionPW = () => {
                 onChange={(e) => setBusqueda(e.target.value)}
               />
               <button className="add-product-btn" onClick={handleSearch}>
-                Buscar
+                <img src={searchIcon} alt="Buscar" className="icon" />
               </button>
             </div>
             {showAlert && (
