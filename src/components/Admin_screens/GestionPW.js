@@ -215,88 +215,90 @@ const GestionPW = () => {
           Editar Información
         </button>
       </div>
-
-      {/* Sección Nuestros Productos */}
-      <div ref={nuestrosProductosRef} className="section">
-        <div className="title-bar">
-          {/* Empty title bar used as a fixed header */}
-        </div>
-        <div className="editar-informacion-title">
-          <h1 className="title">Nuestros Productos</h1>
-        </div>
-        <div className="gestion-container">
-          <div className="top-bar">
-            <Link to="/agregarp">
-              <button className="add-product-btn">Crear Nuevo Producto</button>
-            </Link>
-            <div className="search-container2">
-              <input
-                type="text"
-                placeholder="Buscar..."
-                className="search-bar2"
-                id="barraBuscar"
-                value={busqueda}
-                onChange={(e) => setBusqueda(e.target.value)}
-              />
-              <button className="add-product-btn" onClick={handleSearch}>
-                <img src={searchIcon} alt="Buscar" className="icon" />
-              </button>
-            </div>
-            {showAlert && (
-              <CustomAlert
-                className="alerta"
-                message={alertMessage}
-                variant={alertVariant}
-                onClose={() => setShowAlert(false)}
-              />
-            )}
+      <div className="tabla-productos">
+        {/* Sección Nuestros Productos */}
+        <div ref={nuestrosProductosRef} className="section">
+          <div className="title-bar"></div>
+          <div className="editar-informacion-title">
+            <h1 className="title">Nuestros Productos</h1>
           </div>
-          <div className="product-table">
-            <div className="product-row header">
-              <span>Modelo</span>
-              <span>Categoría</span>
-              <span>Nombre</span>
-              <span>Descripción</span>
-              <span>Imagen</span>
-              <span>Editar</span>
-            </div>
-            {products.map((product) => (
-              <div className="product-row" key={product.Modelo}>
-                <span className="product-model">{product.Modelo}</span>
-                <span className="product-category">{product.Categoria}</span>
-                <span className="product-name">{product.Nombre}</span>
-                <span className="product-description">
-                  {product.Descripcion}
-                </span>
-                <img
-                  src={product.ImagenID[0]}
-                  alt="Product"
-                  className="product-image"
+          <div className="gestion-container">
+            <div className="top-bar">
+              <Link to="/agregarp">
+                <button className="add-product-btn">
+                  Crear Nuevo Producto
+                </button>
+              </Link>
+              <div className="search-container2">
+                <input
+                  type="text"
+                  placeholder="Buscar..."
+                  className="search-bar2"
+                  id="barraBuscar"
+                  value={busqueda}
+                  onChange={(e) => setBusqueda(e.target.value)}
                 />
-                <div className="product-actions">
-                  <Link to="/modificarp">
-                    <button
-                      className="edit-btn"
-                      aria-label="Edit"
-                      onClick={() => handleModelSubmit(product.Modelo)}
-                    >
-                      <img src={iconEdit} alt="Edit" />
-                    </button>
-                  </Link>
-                  <button
-                    className="delete-btn"
-                    aria-label="Delete"
-                    onClick={() => handleShowEliminarConfirmar(product.Modelo)}
-                  >
-                    <img src={iconDelete} alt="Delete" />
-                  </button>
-                </div>
+                <button className="add-product-btn" onClick={handleSearch}>
+                  <img src={searchIcon} alt="Buscar" className="icon" />
+                </button>
               </div>
-            ))}
+              {showAlert && (
+                <CustomAlert
+                  className="alerta"
+                  message={alertMessage}
+                  variant={alertVariant}
+                  onClose={() => setShowAlert(false)}
+                />
+              )}
+            </div>
+            <div className="product-table">
+              <div className="product-row header">
+                <span>Modelo</span>
+                <span>Categoría</span>
+                <span>Nombre</span>
+                <span>Descripción</span>
+                <span>Imagen</span>
+                <span>Editar</span>
+              </div>
+              {products.map((product) => (
+                <div className="product-row" key={product.Modelo}>
+                  <span className="product-model">{product.Modelo}</span>
+                  <span className="product-category">{product.Categoria}</span>
+                  <span className="product-name">{product.Nombre}</span>
+                  <span className="product-description">
+                    {product.Descripcion}
+                  </span>
+                  <img
+                    src={product.ImagenID[0]}
+                    alt="Product"
+                    className="product-image"
+                  />
+                  <div className="product-actions">
+                    <Link to="/modificarp">
+                      <button
+                        className="edit-btn"
+                        aria-label="Edit"
+                        onClick={() => handleModelSubmit(product.Modelo)}
+                      >
+                        <img src={iconEdit} alt="Edit" />
+                      </button>
+                    </Link>
+                    <button
+                      className="delete-btn"
+                      aria-label="Delete"
+                      onClick={() =>
+                        handleShowEliminarConfirmar(product.Modelo)
+                      }
+                    >
+                      <img src={iconDelete} alt="Delete" />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
-
       {/* Sección Editar Productos Destacados */}
       <div ref={editarProductosDestacadosRef} className="section">
         <div className="editar-informacion-title">

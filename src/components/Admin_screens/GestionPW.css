@@ -51,6 +51,10 @@
   width: 100%;
   margin: 0 10px;
 }
+.tabla-productos {
+  margin-left: 180px;
+  margin-right: 350px;
+}
 .gestion-container {
   background-color: #ef92064f;
   padding: 20px;
