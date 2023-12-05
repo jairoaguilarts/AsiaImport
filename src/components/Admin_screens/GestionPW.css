@@ -52,8 +52,8 @@
   margin: 0 10px;
 }
 .tabla-productos {
-  margin-left: 180px;
-  margin-right: 350px;
+  margin-left:120px;
+  margin-right: auto;
 }
 .gestion-container {
   background-color: #ef92064f;
@@ -317,6 +317,7 @@
 
     /* Ajustar el padding para mantener la proporcionalidad */
   }
+
 }
 
 @media (max-width: 768px) {
@@ -368,6 +369,7 @@
     margin-top: 10px;
     /* Añadir margen superior para separar de la descripción del producto */
   }
+  
 }
 
 /* CSS para la sección de Editar Información con estilos actualizados */
