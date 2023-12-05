@@ -87,8 +87,7 @@ const GestionPW = () => {
     };
     try {
       const response = await fetch(
-        "https://importasia-api.onrender.com/eliminarProducto?Modelo=" +
-        productoSeleccionado,
+        `https://importasia-api.onrender.com/eliminarProducto?Modelo=${productoSeleccionado}`,
         {
           method: "DELETE",
           headers: {
@@ -118,7 +117,7 @@ const GestionPW = () => {
     window.scrollTo({ top: ref.current.offsetTop, behavior: "smooth" });
   };
 
-  const handleActualizar = () => { };
+  const handleActualizar = () => {};
 
   const handleUploadImage = (event) => {
     const file = event.target.files[0];
