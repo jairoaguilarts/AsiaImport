@@ -6,7 +6,7 @@ import Form from "react-bootstrap/Form";
 import CustomAlert from "../Informative_screens/CustomAlert.js";
 
 const AdminEmpleados = () => {
-  const UserType = localStorage.getItem("UserType");
+  const UserType = localStorage.getItem("userType");
   const [showAgregar, setShowAgregar] = useState(false);
   const [showEditar, setShowEditar] = useState(false);
   const [showConfirmar, setShowConfirmar] = useState(false);
@@ -31,10 +31,10 @@ const AdminEmpleados = () => {
   };
 
   useEffect(() => {
-    fetch('https://importasia-api.onrender.com/empleados')
-      .then(response => response.json())
-      .then(data => setEmpleados(data))
-      .catch(error => console.error('Error:', error));
+    fetch("https://importasia-api.onrender.com/empleados")
+      .then((response) => response.json())
+      .then((data) => setEmpleados(data))
+      .catch((error) => console.error("Error:", error));
   }, []);
 
   const [formDataAgregar, setFormDataAgregar] = useState({
@@ -79,9 +79,9 @@ const AdminEmpleados = () => {
 
   const handleSelectEmpleado = (firebaseUID, actionType) => {
     setSelectedFirebaseUID(firebaseUID);
-    if (actionType === 'editar') {
+    if (actionType === "editar") {
       handleShowEditar();
-    } else if (actionType === 'eliminar') {
+    } else if (actionType === "eliminar") {
       handleEliminarConfirmacion();
     } else if (actionType === "hacer-admin") {
       handleHacerAdminConfirmacion();
@@ -93,10 +93,14 @@ const AdminEmpleados = () => {
       //Agregar empleado
       const { formNombre, formID, formCorreo, formPass } = formDataAgregar;
       if (
-        !formNombre || !formNombre.trim() ||
-        !formID || !formID.trim() ||
-        !formCorreo || !formCorreo.trim() ||
-        !formPass || !formPass.trim()
+        !formNombre ||
+        !formNombre.trim() ||
+        !formID ||
+        !formID.trim() ||
+        !formCorreo ||
+        !formCorreo.trim() ||
+        !formPass ||
+        !formPass.trim()
       ) {
         mostrarAlerta("Todos los campos son necesarios", "danger");
         handleCloseConfirmar();
@@ -118,7 +122,10 @@ const AdminEmpleados = () => {
         handleCloseConfirmar();
         return;
       } else if (formPass.length < 6) {
-        mostrarAlerta("La contraseña debe tener al menos 6 caracteres", "danger");
+        mostrarAlerta(
+          "La contraseña debe tener al menos 6 caracteres",
+          "danger"
+        );
         handleCloseConfirmar();
         return;
       }
@@ -130,7 +137,7 @@ const AdminEmpleados = () => {
         numeroIdentidad: formDataAgregar.formID,
         correo: formDataAgregar.formCorreo,
         contrasenia: formDataAgregar.formPass,
-        userCreatingType: "*",
+        userCreatingType: UserType,
       };
 
       try {
@@ -157,9 +164,14 @@ const AdminEmpleados = () => {
     } else if (showEditar) {
       //Modificar empleado
       event.preventDefault();
-      const { nombreEditar, formIDEditar, formCorreoEditar } = formDataModificar;
+      const { nombreEditar, formIDEditar, formCorreoEditar } =
+        formDataModificar;
 
-      if (nombreEditar !== undefined || formIDEditar !== undefined || formCorreoEditar !== undefined) {
+      if (
+        nombreEditar !== undefined ||
+        formIDEditar !== undefined ||
+        formCorreoEditar !== undefined
+      ) {
         if (nombreEditar && !/^[a-zA-Z ]+$/.test(nombreEditar.trim())) {
           mostrarAlerta("El nombre solo debe contener letras", "danger");
           return;
@@ -169,7 +181,10 @@ const AdminEmpleados = () => {
         } else if (formIDEditar && formIDEditar.trim().length < 13) {
           mostrarAlerta("Ingrese un ID valido", "danger");
           return;
-        } else if (formCorreoEditar && !/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formCorreoEditar.trim())) {
+        } else if (
+          formCorreoEditar &&
+          !/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formCorreoEditar.trim())
+        ) {
           mostrarAlerta("Formato de correo electrónico no válido", "danger");
           return;
         }
@@ -239,7 +254,10 @@ const AdminEmpleados = () => {
       const data = await response.json();
 
       if (response.ok) {
-        mostrarAlerta("Empleado promovido a administrador exitosamente", "success");
+        mostrarAlerta(
+          "Empleado promovido a administrador exitosamente",
+          "success"
+        );
         window.location.reload();
       } else {
         throw new Error(data.error || "Error al hacer admin al empleado");
@@ -277,7 +295,11 @@ const AdminEmpleados = () => {
         throw new Error(`Error: ${errorData.message || response.status}`);
       }
       mostrarAlerta("Empleado eliminado exitosamente", "info");
-      setEmpleados(empleados.filter((empleado) => empleado.firebaseUID !== selectedFirebaseUID));
+      setEmpleados(
+        empleados.filter(
+          (empleado) => empleado.firebaseUID !== selectedFirebaseUID
+        )
+      );
     } catch (error) {
       mostrarAlerta("Error al eliminar empleado", "danger");
     }
@@ -286,11 +308,16 @@ const AdminEmpleados = () => {
     setSelectedFirebaseUID(null);
   };
 
-
   return (
     <div>
       <h1 className="titulo-empleados2">Empleados</h1>
-      <hr style={{ borderColor: '#01A6FF', borderWidth: '4px', borderStyle: 'solid' }} />
+      <hr
+        style={{
+          borderColor: "#01A6FF",
+          borderWidth: "4px",
+          borderStyle: "solid",
+        }}
+      />
       <div className="admin-empleados-container">
         <button className="boton-anaranjado" onClick={handleShowAgregar}>
           Agregar Empleado
@@ -305,30 +332,46 @@ const AdminEmpleados = () => {
             </tr>
           </thead>
           <tbody>
-            {
-              empleados.map((empleado) => {
-                const inicio = empleado.firebaseUID.slice(0, 2);
-                const fin = empleado.firebaseUID.slice(-3);
-                return (
-                  <tr key={empleado.firebaseUID}>
-                    <td>{inicio + "..." + fin}</td>
-                    <td>{empleado.nombre+" "+empleado.apellido}</td>
-                    <td>{empleado.correo}</td>
-                    <td>
-                      <button className="boton-anaranjado" onClick={() => handleSelectEmpleado(empleado.firebaseUID, 'hacer-admin')}>
-                        Hacer Admin
-                      </button>
-                      <button className="boton-verde" onClick={() => handleSelectEmpleado(empleado.firebaseUID, 'editar')}>
-                        Editar
-                      </button>
-                      <button className="boton-rojo" onClick={() => handleSelectEmpleado(empleado.firebaseUID, 'eliminar')}>
-                        Eliminar
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })
-            }
+            {empleados.map((empleado) => {
+              const inicio = empleado.firebaseUID.slice(0, 2);
+              const fin = empleado.firebaseUID.slice(-3);
+              return (
+                <tr key={empleado.firebaseUID}>
+                  <td>{inicio + "..." + fin}</td>
+                  <td>{empleado.nombre + " " + empleado.apellido}</td>
+                  <td>{empleado.correo}</td>
+                  <td>
+                    <button
+                      className="boton-anaranjado"
+                      onClick={() =>
+                        handleSelectEmpleado(
+                          empleado.firebaseUID,
+                          "hacer-admin"
+                        )
+                      }
+                    >
+                      Hacer Admin
+                    </button>
+                    <button
+                      className="boton-verde"
+                      onClick={() =>
+                        handleSelectEmpleado(empleado.firebaseUID, "editar")
+                      }
+                    >
+                      Editar
+                    </button>
+                    <button
+                      className="boton-rojo"
+                      onClick={() =>
+                        handleSelectEmpleado(empleado.firebaseUID, "eliminar")
+                      }
+                    >
+                      Eliminar
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
@@ -377,7 +420,8 @@ const AdminEmpleados = () => {
             AGREGAR EMPLEADO
           </button>
           {showAlert && (
-            <CustomAlert className="alerta"
+            <CustomAlert
+              className="alerta"
               message={alertMessage}
               variant={alertVariant}
               onClose={() => setShowAlert(false)}
@@ -424,7 +468,8 @@ const AdminEmpleados = () => {
           </Button>
         </Modal.Footer>
         {showAlert && (
-          <CustomAlert className="alerta"
+          <CustomAlert
+            className="alerta"
             message={alertMessage}
             variant={alertVariant}
             onClose={() => setShowAlert(false)}
