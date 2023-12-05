@@ -76,7 +76,7 @@ function AgregarP() {
     formData.append("Caracteristicas", caracteristicas);
     formData.append("Cantidad", cantidad);
     formData.append("Precio", precio);
-    formData.append("userCreatingType", "*");
+    formData.append("userCreatingType", userType);
 
     imagenes.files.forEach((file) => {
       formData.append("uploadedFile", file);
@@ -100,10 +100,13 @@ function AgregarP() {
     }
 
     try {
-      const response = await fetch("https://importasia-api.onrender.com/agregarProducto", {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        "https://importasia-api.onrender.com/agregarProducto",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       if (!response.ok) {
         const contentType = response.headers.get("Content-Type");

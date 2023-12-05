@@ -120,17 +120,17 @@ function Login() {
 
   const handleChangeRegistro = (e) => {
     const { name, value } = e.target;
-    setFormDataRegistro(prevState => ({
+    setFormDataRegistro((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleChangeLogIn = (e) => {
     const { name, value } = e.target;
-    setFormDataLogIn(prevState => ({
+    setFormDataLogIn((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -157,16 +157,23 @@ function Login() {
     } else if (!/^\d+$/.test(formDataRegistro.formBasicID)) {
       mostrarAlerta("El ID es incorrecto", "danger");
       return;
-    } else if (document.getElementById('formBasicID').value.length < 13) {
+    } else if (document.getElementById("formBasicID").value.length < 13) {
       mostrarAlerta("Ingrese un ID valido", "danger");
       return;
-    } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formDataRegistro.formBasicEmailRegistro)) {
+    } else if (
+      !/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(
+        formDataRegistro.formBasicEmailRegistro
+      )
+    ) {
       mostrarAlerta("Formato de correo electrónico no válido", "danger");
       return;
     } else if (formDataRegistro.formBasicPasswordRegistro.length < 6) {
       mostrarAlerta("La contraseña debe tener al menos 6 caracteres", "danger");
       return;
-    } else if (formDataRegistro.formBasicPasswordRegistro !== formDataRegistro.formBasicConfirmPassword) {
+    } else if (
+      formDataRegistro.formBasicPasswordRegistro !==
+      formDataRegistro.formBasicConfirmPassword
+    ) {
       mostrarAlerta("Las contraseñas no coinciden", "danger");
       return;
     }
@@ -248,6 +255,7 @@ function Login() {
 
       const FUID = userData.usuario.firebaseUID;
       const UserType = userData.usuario.userType;
+      localStorage.setItem("userType", UserType);
 
       if (UserType === "*") {
         localStorage.setItem("IsAdmin", true);
@@ -302,10 +310,16 @@ function Login() {
         return;
       }
 
-      mostrarAlerta("Se ha enviado un correo de recuperación a tu email", "info");
+      mostrarAlerta(
+        "Se ha enviado un correo de recuperación a tu email",
+        "info"
+      );
       setEmailRecovery("");
     } catch (error) {
-      mostrarAlerta("Error en la recuperación de contraseña. Por favor, verifica tu conexión a internet y intenta de nuevo.", "danger");
+      mostrarAlerta(
+        "Error en la recuperación de contraseña. Por favor, verifica tu conexión a internet y intenta de nuevo.",
+        "danger"
+      );
     }
   };
 
@@ -358,7 +372,7 @@ function Login() {
 
       const userData = await response.json();
       setNombre(userData.nombre);
-    } catch (error) { }
+    } catch (error) {}
   };
 
   return (
@@ -431,8 +445,9 @@ function Login() {
             <div className="button-container">
               <button
                 onClick={handleIniciarSesionClick}
-                className={`iniciar-sesion ${isLoginSelected ? "selected" : ""
-                  }`}
+                className={`iniciar-sesion ${
+                  isLoginSelected ? "selected" : ""
+                }`}
               >
                 <p>Iniciar Sesión</p>
               </button>
@@ -476,7 +491,8 @@ function Login() {
                   </Button>
                 </div>
                 {showAlert && (
-                  <CustomAlert className="alerta"
+                  <CustomAlert
+                    className="alerta"
                     message={alertMessage}
                     variant={alertVariant}
                     onClose={() => setShowAlert(false)}
@@ -515,7 +531,10 @@ function Login() {
                     value={formDataRegistro.formBasicID}
                   />
                 </Form.Group>
-                <Form.Group className="forms" controlId="formBasicEmailRegistro">
+                <Form.Group
+                  className="forms"
+                  controlId="formBasicEmailRegistro"
+                >
                   <Form.Label>Correo Electrónico</Form.Label>
                   <Form.Control
                     type="email"
@@ -525,7 +544,10 @@ function Login() {
                     value={formDataRegistro.formBasicEmailRegistro}
                   />
                 </Form.Group>
-                <Form.Group className="forms" controlId="formBasicPasswordRegistro">
+                <Form.Group
+                  className="forms"
+                  controlId="formBasicPasswordRegistro"
+                >
                   <Form.Label>Contraseña</Form.Label>
                   <Form.Control
                     type="password"
@@ -535,7 +557,10 @@ function Login() {
                     value={formDataRegistro.formBasicPasswordRegistro}
                   />
                 </Form.Group>
-                <Form.Group className="forms" controlId="formBasicConfirmPassword">
+                <Form.Group
+                  className="forms"
+                  controlId="formBasicConfirmPassword"
+                >
                   <Form.Label>Confirmar Contraseña</Form.Label>
                   <Form.Control
                     type="password"
@@ -546,7 +571,8 @@ function Login() {
                   />
                 </Form.Group>
                 {showAlert && (
-                  <CustomAlert className="alerta"
+                  <CustomAlert
+                    className="alerta"
                     message={alertMessage}
                     variant={alertVariant}
                     onClose={() => setShowAlert(false)}
@@ -620,7 +646,8 @@ function Login() {
               </Button>
             </div>
             {showAlert && (
-              <CustomAlert className="alerta"
+              <CustomAlert
+                className="alerta"
                 message={alertMessage}
                 variant={alertVariant}
                 onClose={() => setShowAlert(false)}
