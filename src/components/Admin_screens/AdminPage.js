@@ -40,6 +40,8 @@ const AdminPage = () => {
       if (response.ok) {
         localStorage.removeItem("logueado");
         localStorage.removeItem("IsAdmin");
+        localStorage.removeItem("FireBaseUID");
+        localStorage.removeItem("userType");
         navigate("/inicio");
         window.location.reload();
       }
@@ -71,7 +73,7 @@ const AdminPage = () => {
             </div>
             <hr className="linea-divisora" />
             <div className="sidebar-item">
-              < Link to="/gestionpw">
+              <Link to="/gestionpw">
                 <img src={editar} alt="editar" className="icon-image" />
                 <span>Gestionar Productos</span>
               </Link>
