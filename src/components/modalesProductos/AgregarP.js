@@ -19,7 +19,7 @@ function AgregarP() {
   const [cantidad, setCantidad] = useState("");
   const [precio, setPrecio] = useState("");
   const [imagenes, setImagenes] = useState({ previews: [], files: [] });
-  const [userType, setUserType] = useState("");
+  const userType = localStorage.getItem("userType");
   const [nombre, setNombre] = useState("");
   const [modelo, setModelo] = useState("");
   const [categoria, setCategoria] = useState("");
@@ -67,7 +67,6 @@ function AgregarP() {
   };
 
   const handleSave = async () => {
-    setUserType(localStorage.getItem("userType"));
     const formData = new FormData();
     formData.append("Nombre", nombre);
     formData.append("Modelo", modelo);
