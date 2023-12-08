@@ -51,9 +51,9 @@ const AudifonoFiltro = () => {
       setLoading(true);
       const terminoBusqueda = categoria.trim();
       const urls = [
-        `http://localhost:3000/buscarProductoCategoria?Nombre=${terminoBusqueda}`,
-        `http://localhost:3000/buscarProductoNombre?Nombre=${terminoBusqueda}`,
-        `http://localhost:3000/buscarProductoModelo?Modelo=${terminoBusqueda}`
+        `https://importasia-api.onrender.com/buscarProductoCategoria?Nombre=${terminoBusqueda}`,
+        `https://importasia-api.onrender.com/buscarProductoNombre?Nombre=${terminoBusqueda}`,
+        `https://importasia-api.onrender.com/buscarProductoModelo?Modelo=${terminoBusqueda}`
       ];
   
       try {
