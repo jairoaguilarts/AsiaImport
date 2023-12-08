@@ -160,43 +160,39 @@ const GestionPW = () => {
   };
 
   const handleSearch = async () => {
-    const buscar = {
-      Nombre: buscarConSinonimos(busqueda.trim()),
-    };
-
+    if (busqueda.trim() === "") {
+      mostrarAlerta("No se ingresó ningún término de búsqueda", "danger");
+      return;
+    }
+  
+    const terminoBusqueda = buscarConSinonimos(busqueda.trim());
+    const urls = [
+      `http://localhost:3000/buscarProductoCategoria?Nombre=${terminoBusqueda}`,
+      `http://localhost:3000/buscarProductoNombre?Nombre=${terminoBusqueda}`,
+      `http://localhost:3000/buscarProductoModelo?Modelo=${terminoBusqueda}`
+    ];
+  
     try {
-      if (busqueda === "") {
-        mostrarAlerta("No se ingresó ningún parametro", "danger");
-        return;
-      }
-      const response = await fetch(
-        `https://importasia-api.onrender.com/buscarProductoCategoria?Nombre=${buscar.Nombre}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const responseData = await response.json();
-
-      if (!response.ok) {
-        throw new Error(`Error: ${responseData.message || response.status}`);
-      } else if (responseData.length === 0) {
-        mostrarAlerta(
-          "No se encontraron productos para esa categoría",
-          "danger"
-        );
+      setProducts([]);  
+  
+      const responses = await Promise.all(urls.map(url => fetch(url)));
+      const resultados = await Promise.all(responses.map(res => res.json()));
+  
+      const productosEncontrados = resultados.filter(res => res.length > 0).flat();
+  
+      if (productosEncontrados.length === 0) {
+        mostrarAlerta("No se encontraron productos", "danger");
       } else {
-        mostrarAlerta("Producto encontrado", "success");
-        setProducts(responseData);
+        mostrarAlerta("Productos encontrados", "success");
+        setProducts(productosEncontrados);  
         setSearched(true);
       }
     } catch (error) {
-      mostrarAlerta("Error en la busqueda", "danger");
+      mostrarAlerta("Error en la búsqueda", "danger");
     }
   };
-
+  
+  
   return (
     <div className="gestion-wrapper">
       {/* Barra de navegación */}

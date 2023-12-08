@@ -49,33 +49,33 @@ const AudifonoFiltro = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
+      const terminoBusqueda = categoria.trim();
+      const urls = [
+        `http://localhost:3000/buscarProductoCategoria?Nombre=${terminoBusqueda}`,
+        `http://localhost:3000/buscarProductoNombre?Nombre=${terminoBusqueda}`,
+        `http://localhost:3000/buscarProductoModelo?Modelo=${terminoBusqueda}`
+      ];
+  
       try {
-        const response = await fetch(
-          `https://importasia-api.onrender.com/buscarProductoCategoria?Nombre=${categoria.trim()}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        const responseData = await response.json();
-
-        if (!response.ok) {
-          throw new Error(`Error: ${responseData.message || response.status}`);
-        } else {
-          setTimeout(() => {
-            setProducts(responseData);
-            setLoading(false);
-          }, 1000);
-        }
+        const responses = await Promise.all(urls.map(url => fetch(url)));
+        const resultados = await Promise.all(responses.map(res => res.json()));
+  
+        const productosEncontrados = resultados.filter(res => res.length > 0).flat();
+  
+        setTimeout(() => {
+          setProducts(productosEncontrados);
+          setLoading(false);
+        }, 1000);
       } catch (error) {
         console.error("Error al cargar los productos:", error);
+        setLoading(false);
       }
     };
-
+  
     fetchProducts();
   }, [categoria]);
+  
+  
   useEffect(() => {
     let sortedProducts = [...products];
 
