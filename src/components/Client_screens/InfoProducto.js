@@ -104,9 +104,8 @@ function InfoAudifonos() {
           )}
           {activeTab === "features" && (
             <div className="features">
-              <table>
-                <tbody>{producto.Caracteristica}</tbody>
-              </table>
+              <h2>Características</h2>
+              <ul>{producto.Caracteristicas}</ul>
             </div>
           )}
         </div>
