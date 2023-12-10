@@ -7,11 +7,11 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     border-radius: 4px;
     text-align: left;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Montserrat', sans-serif;
 }
 .btn-regresar {
-    background-color: #d3d3d3; /* Color gris claro para el botón regresar */
-    color: #005073; /* Usamos el mismo azul para el texto que en tus labels */
+    background-color: #007bff;
+    color: white;
     padding: 10px 20px;
     border: none;
     border-radius: 4px;
@@ -21,36 +21,48 @@
     align-self: flex-start; /* Alineación al borde izquierdo */
 }
 .btn-regresar:hover {
-    background-color: #b8b8b8; /* Color más oscuro cuando se hace hover */
-    color: #fff; /* Cambiar el color del texto a blanco para mejor contraste */
+    background-color: #0056b3;
 }
+.modificar-producto .header {
+    display: flex;
+    align-items: center;
+  }
 .modificar-producto h2 {
     color: #ff8c00;
     margin-bottom: 20px;
     text-align: left;
+    margin-right: 15px;
     font-weight: bold;
 }
-
+.modificar-producto .nombre-italico {
+    color: #01A6FF;
+    margin-bottom: 20px;
+    font-size: 30px;
+    font-style: italic;
+    font-weight: bold;
+}
 .form-group label {
     color: #005073;
+    font-size: 18px;
 }
 
 .form-group input[type="text"],
 .form-group textarea,
 .form-group input[type="file"] {
+    font-family: 'Montserrat', sans-serif !important;
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
     text-align: left;
-    font-family: 'Arial', sans-serif;
     background-color: #f0f8ff;
     color: #005073;
 }
 
 /* Ajuste de la altura de las áreas de texto para descripción y características */
 .form-group textarea {
+    font-family: 'Montserrat', sans-serif;
     height: 120px; /* Establece una altura menor para que sea un poco menos alta que la descripción */
     overflow-y: auto; /* Permite el desplazamiento vertical si hay mucho texto */
     resize: none; /* Evita que el usuario redimensione el campo */
