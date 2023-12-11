@@ -39,6 +39,7 @@ const GestionPW = () => {
   const [alertMessage, setAlertMessage] = useState("");
   const [alertVariant, setAlertVariant] = useState("white");
 
+  const [datosViejos, setdatosViejos] = useState("");
   const nuestrosProductosRef = useRef(null);
   const editarProductosDestacadosRef = useRef(null);
   const editarImagenesCarrouselRef = useRef(null);
@@ -117,7 +118,7 @@ const GestionPW = () => {
     window.scrollTo({ top: ref.current.offsetTop, behavior: "smooth" });
   };
 
-  const handleActualizar = () => { };
+  const handleActualizar = () => {};
 
   const handleUploadImage = (event) => {
     const file = event.target.files[0];
@@ -169,16 +170,18 @@ const GestionPW = () => {
     const urls = [
       `https://importasia-api.onrender.com/buscarProductoCategoria?Nombre=${terminoBusqueda}`,
       `https://importasia-api.onrender.com/buscarProductoNombre?Nombre=${terminoBusqueda}`,
-      `https://importasia-api.onrender.com/buscarProductoModelo?Modelo=${terminoBusqueda}`
+      `https://importasia-api.onrender.com/buscarProductoModelo?Modelo=${terminoBusqueda}`,
     ];
 
     try {
       setProducts([]);
 
-      const responses = await Promise.all(urls.map(url => fetch(url)));
-      const resultados = await Promise.all(responses.map(res => res.json()));
+      const responses = await Promise.all(urls.map((url) => fetch(url)));
+      const resultados = await Promise.all(responses.map((res) => res.json()));
 
-      const productosEncontrados = resultados.filter(res => res.length > 0).flat();
+      const productosEncontrados = resultados
+        .filter((res) => res.length > 0)
+        .flat();
 
       if (productosEncontrados.length === 0) {
         mostrarAlerta("No se encontraron productos", "danger");
@@ -192,59 +195,81 @@ const GestionPW = () => {
     }
   };
 
-  const [mision, setMision] = useState('');
-  const [vision, setVision] = useState('');
-  const [historia, setHistoria] = useState('');
+  const [mision, setMision] = useState("");
+  const [vision, setVision] = useState("");
+  const [historia, setHistoria] = useState("");
   const cargarInformacionEmpresa = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/obtenerInformacion?id=65768fb8175690a253ab6b95`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-  
+      const response = await fetch(
+        `http://localhost:3000/obtenerInformacion?id=65768fb8175690a253ab6b95`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(`Error: ${errorData.message || response.status}`);
       }
-  
+
       const data = await response.json();
-  
+
       // Actualizar los estados con la información obtenida
       if (data) {
         setMision(data.mision);
         setVision(data.vision);
         setHistoria(data.historia);
+        setdatosViejos(data);
       }
     } catch (error) {
       mostrarAlerta("Error al cargar la información", "danger");
     }
   };
+
   const handleActualizar2 = async () => {
+    if (
+      mision === datosViejos.mision &&
+      vision === datosViejos.vision &&
+      historia === datosViejos.historia
+    ) {
+      mostrarAlerta('"No se han realizado cambios para guardar"', "danger");
+      return;
+    }
+    if (mision === "" || vision === "" || historia === "") {
+      mostrarAlerta('"No se han completado todos los campos"', "danger");
+      return;
+    }
+
     try {
       const data = {
         mision: mision,
         vision: vision,
-        historia: historia
+        historia: historia,
       };
-  
-      const response = await fetch('http://localhost:3000/editarInformacionEmpresa?id=65768fb8175690a253ab6b95', { // Incluir el _id aquí
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      });
-  
+
+      const response = await fetch(
+        "http://localhost:3000/editarInformacionEmpresa?id=65768fb8175690a253ab6b95",
+        {
+          // Incluir el _id aquí
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(`Error: ${errorData.message || response.status}`);
       }
-  
-      mostrarAlerta('Información actualizada exitosamente', 'success');
+
+      mostrarAlerta("Información actualizada exitosamente", "success");
     } catch (error) {
-      mostrarAlerta('Error al actualizar la información', 'danger');
+      mostrarAlerta("Error al actualizar la información", "danger");
     }
     window.location.reload();
   };
@@ -252,7 +277,6 @@ const GestionPW = () => {
   useEffect(() => {
     cargarInformacionEmpresa();
   }, []);
-
 
   return (
     <div className="gestion-wrapper">
@@ -411,7 +435,7 @@ const GestionPW = () => {
                 value={vision}
                 onChange={(e) => setVision(e.target.value)}
               ></textarea>
-                <label htmlFor="mision">Historia</label>
+              <label htmlFor="mision">Historia</label>
               <textarea
                 id="historia"
                 value={historia}
