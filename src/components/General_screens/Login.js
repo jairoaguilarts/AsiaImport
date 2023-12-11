@@ -186,6 +186,8 @@ function Login() {
       numeroIdentidad: formDataRegistro.formBasicID,
     };
 
+    let errorMessage = "";
+
     try {
       const response = await fetch(
         "https://importasia-api.onrender.com/signUp",
@@ -200,15 +202,26 @@ function Login() {
 
       if (!response.ok) {
         const errorData = await response.json();
+        switch (response.status) {
+          case 400:
+            errorMessage = "Usuario con correo ya registrado."
+            break;
+          case 401:
+            errorMessage = "Usuario con ID ya registrado."
+            break;
+          default:
+            errorMessage = "Error desconocido";
+            break;
+        }
         throw new Error(`Error: ${errorData.message || response.status}`);
       }
 
       const data = await response.json();
       handleClose();
-      setShowConfirmation(true); // Mostrar la ventana de confirmación
+      setShowConfirmation(true);
       handleClose();
     } catch (error) {
-      mostrarAlerta("Error en el registro ", "danger");
+      mostrarAlerta(errorMessage, "danger");
     }
   };
 
@@ -372,7 +385,7 @@ function Login() {
 
       const userData = await response.json();
       setNombre(userData.nombre);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   return (
@@ -445,9 +458,8 @@ function Login() {
             <div className="button-container">
               <button
                 onClick={handleIniciarSesionClick}
-                className={`iniciar-sesion ${
-                  isLoginSelected ? "selected" : ""
-                }`}
+                className={`iniciar-sesion ${isLoginSelected ? "selected" : ""
+                  }`}
               >
                 <p>Iniciar Sesión</p>
               </button>
