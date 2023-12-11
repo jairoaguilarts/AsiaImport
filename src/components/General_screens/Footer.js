@@ -3,6 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Footer.css";
 
+
 import facebookIcon from "../../assets/facebook.png";
 import instagramIcon from "../../assets/instagram.png";
 import logoImage from "../../assets/LogoPng.png";
@@ -44,16 +45,16 @@ const Footer = () => {
           <img className="logo" src={logoImage} alt="Logo de la empresa" />
           <p>&copy; {currentYear} Tu Empresa. Todos los derechos reservados.</p>
         </div>
-        <div className="footer-link-with-icon">
+        <div className="footer-links">
           <a href="/servicio-al-cliente" className="footer-link">
             Servicio al Cliente
           </a>
           <a href="/quejas" className="footer-link">
             Quejas y Reclamos
           </a>
-          <a href="/privacidad" className="footer-link">
+          <Link to="/privacidad" className="footer-link">
             Política de Privacidad
-          </a>
+          </Link>
           <img className="icon2" src={metodosPagoImage} alt="Métodos de Pago" />
         </div>
       </div>

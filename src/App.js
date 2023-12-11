@@ -24,6 +24,10 @@ import ModificarP from "./components/modalesProductos/ModificarP";
 import AgregarP from "./components/modalesProductos/AgregarP";
 import ProductoFiltro from "./components/Client_screens/ProductoFiltro";
 import InfoProductos from "./components/Client_screens/InfoProducto";
+import Politicas from './components/General_screens/Politicas';
+import Quejas from './components/General_screens/quejas';
+
+
 
 function App() {
   const userType = localStorage.getItem("IsAdmin");
@@ -39,6 +43,8 @@ function App() {
             element={userType === "true" ? <PGAdmin /> : <Inicio />}
           />
           <Route path="/inicio" element={<Inicio />} />
+          <Route path="/privacidad" element={<Politicas />} />
+          <Route path="/quejas" element={<Quejas />} />
           <Route path="/acerca" element={<InfoG />} />
           <Route path="/editar" element={<EditarPerfil />} />{" "}
           <Route path="/preguntas" element={<Fa />} />
