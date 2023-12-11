@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './InfoG.css';
 
 import iconMission from '../../assets/mission.png';
@@ -18,28 +18,45 @@ const InfoG = () => {
       [index]: !prevState[index]
     }));
   };
+  const [empresaInfo, setEmpresaInfo] = useState({
+    mision: "",
+    vision: "",
+    historia: ""
+  });
+  const cargarInformacionEmpresa = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/obtenerInformacion?id=65768fb8175690a253ab6b95", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-  const cardsData = [
-    {
-      title: 'Misión',
-      description: 'Proveer a nuestros clientes una amplia gama de accesorios para teléfonos y artículos tecnológicos de alta calidad y vanguardia,',
-      descriptionC: ' importados directamente de los mejores fabricantes de Asia. Nos comprometemos a ofrecer los mejores precios del mercado, garantizando una experiencia de compra excepcional, con un servicio al cliente inigualable y una atención personalizada que entiende y satisface las necesidades tecnológicas de una sociedad en constante evolución.',
-      icon: iconMission, // This should be the path to your image
-    },
-    {
-      title: 'Vision',
-      description: 'Ser la empresa líder en importación y distribución de accesorios para teléfonos y artículos tecnológicos en Honduras....',
-      descriptionC: 'reconocida por su excelencia operativa y su capacidad para anticiparse y adaptarse a las tendencias del mercado. Aspiramos a ser el punto de referencia para los consumidores que buscan innovación, calidad y precios accesibles, expandiendo nuestra presencia a nivel nacional e internacional y fomentando la tecnología accesible como pilar de un futuro conectado y dinámico.',
-      icon: iconVision, // This should be the path to your image
-    },
-    {
-      title: 'Historia',
-      description: 'En 2022, noté una creciente demanda de accesorios para dispositivos electrónicos y una oportunidad de mercado debido....',
-      descriptionC: ' a los altos precios locales. Conversando con amigos, confirmé que los precios eran prohibitivos en comparación con opciones en línea o internacionales. Esto me motivó a contactar a un fabricante y negociar precios ventajosos, permitiéndome ofrecer productos asequibles en mi país y posibilitando que otros emprendieran en la reventa. Conseguí un crédito del fabricante, lo que me dio libertad financiera para enfocarme en la calidad y estrategia de comercialización. Tuve la suerte de encontrar un local comercial ideal para abrir mi tienda, en un espacio ofrecido por un comerciante jubilado. Este fue el comienzo de mi viaje empresarial, buscando no solo rentabilidad sino democratizar el acceso a la tecnología y fomentar el emprendimiento en mi comunidad. Con una filosofía de equidad y accesibilidad, mi empresa empezó a ganar la confianza de los clientes, sentando las bases para lo que espero sea una historia de éxito e innovación.',
-      icon: iconHistoria, // This should be the path to your image
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Error: ${errorData.message || response.status}`);
+      }
+
+      const data = await response.json();
+
+      // Actualizar el estado con la información obtenida
+      if (data) {
+        setEmpresaInfo({
+          mision: data.mision,
+          vision: data.vision,
+          historia: data.historia
+        });
+      }
+    } catch (error) {
+      // mostrarAlerta("Error al cargar la información", "danger");
     }
-    // ... other cards
-  ];
+  };
+  useEffect(() => {
+    cargarInformacionEmpresa();
+  }, []);
+
+const [showFullDescription, setShowFullDescription] = useState({});
+
 
   const valuesData = [
     {
@@ -63,42 +80,63 @@ const InfoG = () => {
   ];
 
   return (
-    <div className="information-container">
-      <div className="information-header">INFORMACION</div>
-      <hr className="linea-divisora-blue-large" />
-      <div className="cards-container">
-        {cardsData.map((card, index) => (
-          <div key={index} className="card">
-            <img src={card.icon} alt={card.title} className="card-icon" />
-            <div className="card-title">{card.title}</div>
-            <div className="card-description">
-              {card.description}
-              {expandedInfo[index] && (
-                <div className="additional-info">
-                  {/* Aquí puedes poner más información sobre la tarjeta */}
-                  {card.descriptionC}
-
-                </div>
-              )}
+    <div className="cards-container">
+      <div key="mision" className="card">
+        <img src={iconMission} alt="Misión" className="card-icon" />
+        <div className="card-title">Misión</div>
+        <div className="card-description">
+          {empresaInfo.mision}
+          {expandedInfo.mision && (
+            <div className="additional-info">
+              {empresaInfo.misionC}
             </div>
-            <a href="#!" className="card-link" onClick={(e) => {
-              e.preventDefault();
-              toggleExpansion(index);
-            }}>
-              {expandedInfo[index] ? 'Ver menos' : 'Ver más'}
-            </a>
-          </div>
-        ))}
+          )}
+        </div>
+        <a href="#!" className="card-link" onClick={(e) => {
+          e.preventDefault();
+          toggleExpansion("mision");
+        }}>
+          {expandedInfo.mision ? 'Ver menos' : 'Ver más'}
+        </a>
       </div>
-      <div className="values-container">
-        {valuesData.map((value, index) => (
-          <div key={index} className="value">
-            <img src={value.icon} alt="" className="value-icon" />
-            <div className="value-title">{value.title}</div>
-          </div>
-        ))}
+      <div key="vision" className="card">
+        <img src={iconVision} alt="Visión" className="card-icon" />
+        <div className="card-title">Visión</div>
+        <div className="card-description">
+          {empresaInfo.vision}
+          {expandedInfo.vision && (
+            <div className="additional-info">
+              {empresaInfo.visionC}
+            </div>
+          )}
+        </div>
+        <a href="#!" className="card-link" onClick={(e) => {
+          e.preventDefault();
+          toggleExpansion("vision");
+        }}>
+          {expandedInfo.vision ? 'Ver menos' : 'Ver más'}
+        </a>
+      </div>
+      <div key="historia" className="card">
+        <img src={iconHistoria} alt="Historia" className="card-icon" />
+        <div className="card-title">Historia</div>
+        <div className="card-description">
+          {empresaInfo.historia}
+          {expandedInfo.historia && (
+            <div className="additional-info">
+              {empresaInfo.historiaC}
+            </div>
+          )}
+        </div>
+        <a href="#!" className="card-link" onClick={(e) => {
+          e.preventDefault();
+          toggleExpansion("historia");
+        }}>
+          {expandedInfo.historia ? 'Ver menos' : 'Ver más'}
+        </a>
       </div>
     </div>
+
   );
 };
 

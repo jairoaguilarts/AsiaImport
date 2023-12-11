@@ -117,7 +117,7 @@ const GestionPW = () => {
     window.scrollTo({ top: ref.current.offsetTop, behavior: "smooth" });
   };
 
-  const handleActualizar = () => {};
+  const handleActualizar = () => { };
 
   const handleUploadImage = (event) => {
     const file = event.target.files[0];
@@ -164,35 +164,96 @@ const GestionPW = () => {
       mostrarAlerta("No se ingresó ningún término de búsqueda", "danger");
       return;
     }
-  
+
     const terminoBusqueda = buscarConSinonimos(busqueda.trim());
     const urls = [
       `https://importasia-api.onrender.com/buscarProductoCategoria?Nombre=${terminoBusqueda}`,
       `https://importasia-api.onrender.com/buscarProductoNombre?Nombre=${terminoBusqueda}`,
       `https://importasia-api.onrender.com/buscarProductoModelo?Modelo=${terminoBusqueda}`
     ];
-  
+
     try {
-      setProducts([]);  
-  
+      setProducts([]);
+
       const responses = await Promise.all(urls.map(url => fetch(url)));
       const resultados = await Promise.all(responses.map(res => res.json()));
-  
+
       const productosEncontrados = resultados.filter(res => res.length > 0).flat();
-  
+
       if (productosEncontrados.length === 0) {
         mostrarAlerta("No se encontraron productos", "danger");
       } else {
         mostrarAlerta("Productos encontrados", "success");
-        setProducts(productosEncontrados);  
+        setProducts(productosEncontrados);
         setSearched(true);
       }
     } catch (error) {
       mostrarAlerta("Error en la búsqueda", "danger");
     }
   };
+
+  const [mision, setMision] = useState('');
+  const [vision, setVision] = useState('');
+  const [historia, setHistoria] = useState('');
+  const cargarInformacionEmpresa = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/obtenerInformacion?id=65768fb8175690a253ab6b95`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
   
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Error: ${errorData.message || response.status}`);
+      }
   
+      const data = await response.json();
+  
+      // Actualizar los estados con la información obtenida
+      if (data) {
+        setMision(data.mision);
+        setVision(data.vision);
+        setHistoria(data.historia);
+      }
+    } catch (error) {
+      mostrarAlerta("Error al cargar la información", "danger");
+    }
+  };
+  const handleActualizar2 = async () => {
+    try {
+      const data = {
+        mision: mision,
+        vision: vision,
+        historia: historia
+      };
+  
+      const response = await fetch('http://localhost:3000/editarInformacionEmpresa?id=65768fb8175690a253ab6b95', { // Incluir el _id aquí
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Error: ${errorData.message || response.status}`);
+      }
+  
+      mostrarAlerta('Información actualizada exitosamente', 'success');
+    } catch (error) {
+      mostrarAlerta('Error al actualizar la información', 'danger');
+    }
+    window.location.reload();
+  };
+
+  useEffect(() => {
+    cargarInformacionEmpresa();
+  }, []);
+
+
   return (
     <div className="gestion-wrapper">
       {/* Barra de navegación */}
@@ -331,7 +392,7 @@ const GestionPW = () => {
       </div>*/}
 
       {/* Sección Editar Información */}
-      {/* <div ref={editarInformacionRef} className="section">
+      <div ref={editarInformacionRef} className="section">
         <div className="editar-informacion-title">
           <h1 className="title">Editar Informacion</h1>
         </div>
@@ -341,29 +402,31 @@ const GestionPW = () => {
               <label htmlFor="mision">Misión</label>
               <textarea
                 id="mision"
+                value={mision}
+                onChange={(e) => setMision(e.target.value)}
               ></textarea>
-            </div>
-            <div className="editar-informacion-field">
-              <label htmlFor="vision">Visión</label>
+              <label htmlFor="mision">Vision</label>
               <textarea
                 id="vision"
+                value={vision}
+                onChange={(e) => setVision(e.target.value)}
               ></textarea>
-            </div>
-            <div className="editar-informacion-field">
-              <label htmlFor="historia">Historia</label>
+                <label htmlFor="mision">Historia</label>
               <textarea
                 id="historia"
+                value={historia}
+                onChange={(e) => setHistoria(e.target.value)}
               ></textarea>
               <button
                 className="editar-informacion-btn"
-                onClick={handleActualizar}
+                onClick={handleActualizar2}
               >
                 Actualizar Información
               </button>
             </div>
           </div>
         </div>
-      </div> */}
+      </div>
 
       {/* Modal para confirmación de eliminación */}
       <Modal
