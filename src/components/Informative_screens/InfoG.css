@@ -18,6 +18,11 @@
   justify-content: space-around;
   width: 100%;
 }
+.card-link {
+  color: #02A6FC; 
+  text-decoration: none;
+}
+
 
 .card {
   background-color: #f9f9f9;
@@ -45,11 +50,16 @@
 }
 
 .card-link {
-  color: #02A6FC;
+  color: #02A6FC !important;
   text-decoration: none;
   font-size: 14px;
   margin-top: 15px;
   display: inline-block;
+}
+
+.link-container {
+  text-align: center; /* Centra el enlace */
+  margin-top: 10px; /* Agrega espacio arriba del enlace */
 }
 
 .card-icon {

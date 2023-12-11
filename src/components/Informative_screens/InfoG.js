@@ -1,28 +1,30 @@
-
 import React, { useState, useEffect } from 'react';
 import './InfoG.css';
 
 import iconMission from '../../assets/mission.png';
-import iconInnovation from '../../assets/innovation.png';
 import iconVision from '../../assets/visionary.png';
 import iconHistoria from '../../assets/history-book.png';
+import iconInnovation from '../../assets/innovation.png';
 import iconL from '../../assets/leadership.png';
 import iconR from '../../assets/hand-shake.png';
 import iconS from '../../assets/charity.png';
 import iconJ from '../../assets/balance.png';
+
 const InfoG = () => {
   const [expandedInfo, setExpandedInfo] = useState({});
-  const toggleExpansion = (index) => {
-    setExpandedInfo(prevState => ({
-      ...prevState,
-      [index]: !prevState[index]
-    }));
-  };
   const [empresaInfo, setEmpresaInfo] = useState({
     mision: "",
     vision: "",
     historia: ""
   });
+
+  const toggleExpansion = (key) => {
+    setExpandedInfo(prevState => ({
+      ...prevState,
+      [key]: !prevState[key]
+    }));
+  };
+
   const cargarInformacionEmpresa = async () => {
     try {
       const response = await fetch("http://localhost:3000/obtenerInformacion?id=65768fb8175690a253ab6b95", {
@@ -39,7 +41,6 @@ const InfoG = () => {
 
       const data = await response.json();
 
-      // Actualizar el estado con la información obtenida
       if (data) {
         setEmpresaInfo({
           mision: data.mision,
@@ -48,95 +49,74 @@ const InfoG = () => {
         });
       }
     } catch (error) {
-      // mostrarAlerta("Error al cargar la información", "danger");
+      console.error("Error al cargar la información", error);
     }
   };
+
   useEffect(() => {
     cargarInformacionEmpresa();
   }, []);
 
-const [showFullDescription, setShowFullDescription] = useState({});
-
+  const renderCard = (key, title, icon) => (
+    <div key={key} className="card">
+      <img src={icon} alt={title} className="card-icon" />
+      <div className="card-title">{title}</div>
+      <div className="card-description">
+        {expandedInfo[key] ? empresaInfo[key] : empresaInfo[key].substring(0, 250) + '...'}
+        <div className="link-container">
+          <a href="#!" className="card-link" onClick={(e) => {
+            e.preventDefault();
+            toggleExpansion(key);
+          }}>
+            {expandedInfo[key] ? 'Ver menos' : 'Ver más'}
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+  
 
   const valuesData = [
     {
       title: 'Innovación',
-      icon: iconInnovation, // This should be the path to your image
+      icon: iconInnovation
     },
     {
       title: 'Liderazgo',
-      icon: iconL, // This should be the path to your image
-    }, {
+      icon: iconL
+    },
+    {
       title: 'Responsabilidad',
-      icon: iconR, // This should be the path to your image
-    }, {
+      icon: iconR
+    },
+    {
       title: 'Solidaridad',
-      icon: iconS, // This should be the path to your image
-    }, {
+      icon: iconS
+    },
+    {
       title: 'Justicia',
-      icon: iconJ, // This should be the path to your image
+      icon: iconJ
     }
-    // ... other values
   ];
 
   return (
-    <div className="cards-container">
-      <div key="mision" className="card">
-        <img src={iconMission} alt="Misión" className="card-icon" />
-        <div className="card-title">Misión</div>
-        <div className="card-description">
-          {empresaInfo.mision}
-          {expandedInfo.mision && (
-            <div className="additional-info">
-              {empresaInfo.misionC}
-            </div>
-          )}
-        </div>
-        <a href="#!" className="card-link" onClick={(e) => {
-          e.preventDefault();
-          toggleExpansion("mision");
-        }}>
-          {expandedInfo.mision ? 'Ver menos' : 'Ver más'}
-        </a>
+    <div className="information-container">
+      <div className="information-header">INFORMACION</div>
+      <hr className="linea-divisora-blue-large" />
+      <div className="cards-container">
+        {renderCard('mision', 'Misión', iconMission)}
+        {renderCard('vision', 'Visión', iconVision)}
+        {renderCard('historia', 'Historia', iconHistoria)}
       </div>
-      <div key="vision" className="card">
-        <img src={iconVision} alt="Visión" className="card-icon" />
-        <div className="card-title">Visión</div>
-        <div className="card-description">
-          {empresaInfo.vision}
-          {expandedInfo.vision && (
-            <div className="additional-info">
-              {empresaInfo.visionC}
-            </div>
-          )}
-        </div>
-        <a href="#!" className="card-link" onClick={(e) => {
-          e.preventDefault();
-          toggleExpansion("vision");
-        }}>
-          {expandedInfo.vision ? 'Ver menos' : 'Ver más'}
-        </a>
-      </div>
-      <div key="historia" className="card">
-        <img src={iconHistoria} alt="Historia" className="card-icon" />
-        <div className="card-title">Historia</div>
-        <div className="card-description">
-          {empresaInfo.historia}
-          {expandedInfo.historia && (
-            <div className="additional-info">
-              {empresaInfo.historiaC}
-            </div>
-          )}
-        </div>
-        <a href="#!" className="card-link" onClick={(e) => {
-          e.preventDefault();
-          toggleExpansion("historia");
-        }}>
-          {expandedInfo.historia ? 'Ver menos' : 'Ver más'}
-        </a>
+      <div className="values-container">
+        {valuesData.map((value, index) => (
+          <div key={index} className="value">
+            <img src={value.icon} alt="" className="value-icon" />
+            <div className="value-title">{value.title}</div>
+          </div>
+        ))}
       </div>
     </div>
-
   );
 };
 
