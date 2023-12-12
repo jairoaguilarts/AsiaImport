@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import CustomAlert from "../Informative_screens/CustomAlert";
+import Select from "react-select";
 
 import "./ModificarP.css";
 
@@ -30,6 +31,20 @@ function ModificarP() {
   const [descripcion, setDescripcion] = useState("");
   const [caracteristicas, setCaracteristicas] = useState("");
   const [precio, setPrecio] = useState("");
+  const options = [
+    { value: "PARLANTE", label: "PARLANTE" },
+    { value: "AURICULARES", label: "AURICULARES" },
+    { value: "BOTES", label: "BOTES" },
+    { value: "CARGADORES", label: "CARGADORES" },
+    { value: "SMARTWATCH", label: "SMARTWATCH" },
+    { value: "VIDRIO TEMPLADO", label: "VIDRIO TEMPLADO" },
+    { value: "COBERTORES", label: "COBERTORES" },
+    { value: "OTROS", label: "OTROS" },
+  ];
+
+  const handleCategoriaChange = (selectedOption) => {
+    setCategoria(selectedOption.value);
+  };
 
   const modelo = localStorage.getItem("Modelo");
 
@@ -51,25 +66,23 @@ function ModificarP() {
         setDescripcion(data.Descripcion);
         setCaracteristicas(data.Caracteristicas);
         setPrecio(data.Precio);
-
       } catch (error) {
         mostrarAlerta("Error al extraer el producto", "danger");
       }
     };
 
     fetchProduct();
-
   }, []);
 
   const validarDatos = () => {
     const regexNumData = /^[\d.]+$/;
     const regexStrData = /^$/;
 
-    if(regexStrData.test(nombre)) {
+    if (regexStrData.test(nombre)) {
       mostrarAlerta("Ingrese un nombre para el producto.", "danger");
       return false;
     }
-    if(regexStrData.test(categoria)) {
+    if (regexStrData.test(categoria)) {
       mostrarAlerta("Seleccione una categoría para el producto.", "danger");
       return false;
     }
@@ -111,23 +124,23 @@ function ModificarP() {
     }
 
     const formData = new FormData();
-    formData.append('Nombre', nombre);
-    formData.append('Categoria', categoria);
-    formData.append('Descripcion', descripcion);
-    formData.append('Caracteristicas', caracteristicas);
-    formData.append('Precio', precio);
-    formData.append('Cantidad', cantidad);
+    formData.append("Nombre", nombre);
+    formData.append("Categoria", categoria);
+    formData.append("Descripcion", descripcion);
+    formData.append("Caracteristicas", caracteristicas);
+    formData.append("Precio", precio);
+    formData.append("Cantidad", cantidad);
 
     if (selectedFile) {
-      formData.append('fileSelected', "yes");
-      formData.append('uploadedFile', selectedFile);
+      formData.append("fileSelected", "yes");
+      formData.append("uploadedFile", selectedFile);
     } else {
-
     }
 
     try {
       const response = await fetch(
-        "https://importasia-api.onrender.com/modificarProducto?Modelo=" + modelo,
+        "https://importasia-api.onrender.com/modificarProducto?Modelo=" +
+          modelo,
         {
           method: "PUT",
           body: formData,
@@ -161,12 +174,10 @@ function ModificarP() {
 
       setImagenes(nuevasImagenes);
       setSelectedFile(files[0]);
-
     } else if (prodAModificar && prodAModificar.ImagenID) {
       setImagenes([prodAModificar.ImagenID]);
     }
   };
-
 
   return (
     <div className="modificar-producto">
@@ -200,12 +211,18 @@ function ModificarP() {
       )}
       {prodAModificar && (
         <div className="form-group">
-          <label>Categoria</label>
-          <input
-            type="text"
-            value={categoria}
-            onChange={(e) => setCategoria(e.target.value)}
-          />
+          <form>
+            <label>Categoria</label>
+            <Select
+              name="categoria"
+              value={options.find((opt) => opt.value === categoria)}
+              onChange={handleCategoriaChange}
+              options={options}
+              isSearchable
+              placeholder="Seleccione una opcion"
+              className="select-with-scroll"
+            />
+          </form>
         </div>
       )}
       {prodAModificar && (
