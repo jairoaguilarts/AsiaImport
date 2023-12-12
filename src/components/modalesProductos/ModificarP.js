@@ -25,6 +25,8 @@ function ModificarP() {
   const [imagenes, setImagenes] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
   const [cantidad, setCantidad] = useState("");
+  const [nombre, setNombre] = useState("");
+  const [categoria, setCategoria] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [caracteristicas, setCaracteristicas] = useState("");
   const [precio, setPrecio] = useState("");
@@ -43,6 +45,8 @@ function ModificarP() {
         }
 
         setProdAModificar(data);
+        setNombre(data.Nombre);
+        setCategoria(data.Categoria);
         setCantidad(data.Cantidad);
         setDescripcion(data.Descripcion);
         setCaracteristicas(data.Caracteristicas);
@@ -61,34 +65,35 @@ function ModificarP() {
     const regexNumData = /^[\d.]+$/;
     const regexStrData = /^$/;
 
-    if (regexStrData.test(precio) && regexStrData.test(cantidad)) {
-      mostrarAlerta("Los campos de Precio y Cantidad no deben de estar vacios",
-        "danger");
-      return false;
-
-    } else if (!regexNumData.test(precio) && !regexNumData.test(cantidad)) {
-      mostrarAlerta(
-        "Datos incorrectos en precio y cantidad. Solo se permiten números.",
-        "danger"
-      );
-      return false;
-    } else if (!regexNumData.test(precio)) {
-      mostrarAlerta("Datos incorrectos en Precio", "danger");
-      return false;
-    } else if (!regexNumData.test(cantidad)) {
-      mostrarAlerta("Datos incorrectos en Cantidad", "danger");
+    if(regexStrData.test(nombre)) {
+      mostrarAlerta("Ingrese un nombre para el producto.", "danger");
       return false;
     }
-
-    if (regexStrData.test(descripcion) && regexStrData.test(caracteristicas)) {
-      mostrarAlerta("Ambos campos de Descripcion y Caracteristicas deben de contener datos",
-        "danger");
+    if(regexStrData.test(categoria)) {
+      mostrarAlerta("Seleccione una categoría para el producto.", "danger");
       return false;
-    } else if (regexStrData.test(descripcion)) {
-      mostrarAlerta("El campo de Descripcion debe de tener datos", "danger");
+    }
+    if (regexStrData.test(precio)) {
+      mostrarAlerta("El precio no debe estar vacio.", "danger");
       return false;
-    } else if (regexStrData.test(caracteristicas)) {
-      mostrarAlerta("El campo de Caracteristicas deber de tener datos", "danger");
+    }
+    if (regexStrData.test(cantidad)) {
+      mostrarAlerta("La cantidad no debe estar vacia.", "danger");
+      return false;
+    }
+    if (!regexNumData.test(precio)) {
+      mostrarAlerta("Datos incorrectos en precio.", "danger");
+      return false;
+    } else if (!regexNumData.test(cantidad)) {
+      mostrarAlerta("Datos incorrectos en cantidad.", "danger");
+      return false;
+    }
+    if (regexStrData.test(descripcion)) {
+      mostrarAlerta("La descripcion no debe estar vacia.", "danger");
+      return false;
+    }
+    if (regexStrData.test(caracteristicas)) {
+      mostrarAlerta("Las caracteristicas deben tener datos.", "danger");
       return false;
     }
 
@@ -106,15 +111,18 @@ function ModificarP() {
     }
 
     const formData = new FormData();
+    formData.append('Nombre', nombre);
+    formData.append('Categoria', categoria);
     formData.append('Descripcion', descripcion);
     formData.append('Caracteristicas', caracteristicas);
     formData.append('Precio', precio);
     formData.append('Cantidad', cantidad);
 
     if (selectedFile) {
+      formData.append('fileSelected', "yes");
       formData.append('uploadedFile', selectedFile);
     } else {
-      formData.append('uploadedFile', prodAModificar.ImagenID);
+
     }
 
     try {
@@ -168,12 +176,41 @@ function ModificarP() {
       {prodAModificar && (
         <div className="header">
           <h2>Modificar Producto</h2>
-          <span className="nombre-italico">[{prodAModificar.Nombre}]</span>
         </div>
       )}
       {prodAModificar && (
         <div className="form-group">
-          <label>Descripción*</label>
+          <label>Nombre</label>
+          <input
+            type="text"
+            value={nombre}
+            onChange={(e) => setNombre(e.target.value)}
+          />
+        </div>
+      )}
+      {prodAModificar && (
+        <div className="form-group">
+          <label>Modelo</label>
+          <input
+            type="text"
+            contentEditable={false}
+            value={prodAModificar.Modelo}
+          />
+        </div>
+      )}
+      {prodAModificar && (
+        <div className="form-group">
+          <label>Categoria</label>
+          <input
+            type="text"
+            value={categoria}
+            onChange={(e) => setCategoria(e.target.value)}
+          />
+        </div>
+      )}
+      {prodAModificar && (
+        <div className="form-group">
+          <label>Descripción</label>
           <textarea
             value={descripcion}
             onChange={(e) => setDescripcion(e.target.value)}
@@ -182,7 +219,7 @@ function ModificarP() {
       )}
       {prodAModificar && (
         <div className="form-group">
-          <label>Características*</label>
+          <label>Características</label>
           <textarea
             value={caracteristicas}
             onChange={(e) => setCaracteristicas(e.target.value)}
@@ -215,7 +252,7 @@ function ModificarP() {
       )}
       {prodAModificar && (
         <div className="form-group">
-          <label>Precio*</label>
+          <label>Precio</label>
           <input
             type="text"
             value={precio}
@@ -225,7 +262,7 @@ function ModificarP() {
       )}
       {prodAModificar && (
         <div className="form-group">
-          <label>Cantidad*</label>
+          <label>Cantidad</label>
           <input
             type="text"
             id="cantidadProducto"
@@ -251,7 +288,6 @@ function ModificarP() {
         </button>
       </div>
     </div>
-
   );
 }
 
