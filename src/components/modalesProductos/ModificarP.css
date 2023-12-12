@@ -1,7 +1,7 @@
 .modificar-producto {
-    background-color:#F9F5EB;
-    margin: 5% auto;
-    padding: 20px;
+    background-color: #F9F5EB;
+    margin: 2% auto; /* Reducido */
+    padding: 10px; /* Reducido */
     border: 1px solid #888;
     width: 60%;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -9,41 +9,48 @@
     text-align: left;
     font-family: 'Montserrat', sans-serif;
 }
+
 .btn-regresar {
     background-color: #007bff;
     color: white;
-    padding: 10px 20px;
+    padding: 8px 15px; /* Reducido */
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-family: 'Arial', sans-serif;
-    margin-bottom: 20px; /* Separación entre el botón y el título del formulario */
-    align-self: flex-start; /* Alineación al borde izquierdo */
+    margin-bottom: 10px; /* Reducido */
+    align-self: flex-start;
 }
+
 .btn-regresar:hover {
     background-color: #0056b3;
 }
+
 .modificar-producto .header {
     display: flex;
     align-items: center;
-  }
+}
+
 .modificar-producto h2 {
     color: #ff8c00;
-    margin-bottom: 20px;
+    margin-bottom: 10px; /* Reducido */
     text-align: left;
-    margin-right: 15px;
+    margin-right: 10px; /* Reducido */
     font-weight: bold;
+    font-size: 20px; /* Reducido */
 }
+
 .modificar-producto .nombre-italico {
     color: #01A6FF;
-    margin-bottom: 20px;
-    font-size: 30px;
+    margin-bottom: 10px; /* Reducido */
+    font-size: 24px; /* Reducido */
     font-style: italic;
     font-weight: bold;
 }
+
 .form-group label {
     color: #005073;
-    font-size: 18px;
+    font-size: 16px; /* Reducido */
 }
 
 .form-group input[type="text"],
@@ -51,8 +58,8 @@
 .form-group input[type="file"] {
     font-family: 'Montserrat', sans-serif !important;
     width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
+    padding: 8px; /* Reducido */
+    margin-bottom: 8px; /* Reducido */
     border: 1px solid #ccc;
     border-radius: 4px;
     text-align: left;
@@ -60,17 +67,15 @@
     color: #005073;
 }
 
-/* Ajuste de la altura de las áreas de texto para descripción y características */
 .form-group textarea {
-    font-family: 'Montserrat', sans-serif;
-    height: 120px; /* Establece una altura menor para que sea un poco menos alta que la descripción */
-    overflow-y: auto; /* Permite el desplazamiento vertical si hay mucho texto */
-    resize: none; /* Evita que el usuario redimensione el campo */
+    height: 80px; /* Reducido */
+    overflow-y: auto;
+    resize: none;
 }
 
 .buttons {
     display: flex;
-    justify-content: center; /* Centra los botones */
+    justify-content: center;
     align-items: center;
     margin-top: 20px;
 }
@@ -78,15 +83,15 @@
 .buttons button {
     background-color: #007bff;
     color: white;
-    padding: 10px 20px;
+    padding: 8px 15px; /* Reducido */
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    margin-right: 10px; /* Espacio entre los botones */
+    margin-right: 10px; /* Reducido */
 }
 
 .buttons button:last-child {
-    margin-right: 0; /* Elimina el espacio del último botón con el borde */
+    margin-right: 0;
 }
 
 .buttons button:hover {
@@ -94,7 +99,7 @@
 }
 
 .imagenes-preview img {
-    max-width: 100px;
-    max-height: 100px;
-    margin: 5px;
+    max-width: 80px; /* Reducido */
+    max-height: 80px; /* Reducido */
+    margin: 4px; /* Reducido */
 }

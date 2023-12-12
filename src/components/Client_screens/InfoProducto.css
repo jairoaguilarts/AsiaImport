@@ -164,3 +164,57 @@
   background-color: #ffa500;
   border-radius: 50%;
 }
+
+@media (max-width: 768px) {
+  .product-section {
+    flex-direction: column;
+  }
+
+  .product-image-container,
+  .product-info-container {
+    width: 100%;
+  }
+
+  .product-image-container img {
+    width: 100%;
+  }
+}
+
+/* Pantallas Pequeñas: Móviles */
+@media (max-width: 480px) {
+  .product-title {
+    font-size: 20px;
+  }
+
+  .product-price {
+    font-size: 18px;
+  }
+
+  .product-buttons {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .btn-cart2,
+  .btn-favorite2 {
+    padding: 8px 15px;
+    font-size: 14px;
+  }
+
+  .tab-header button {
+    padding: 8px 20px;
+    font-size: 14px;
+  }
+
+  .tab-content h2 {
+    font-size: 24px;
+  }
+
+  .tab-content p {
+    font-size: 16px;
+  }
+
+  .description ul {
+    padding-left: 20px;
+  }
+}
