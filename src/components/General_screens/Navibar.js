@@ -21,6 +21,7 @@ import yeti from "../../assets/Yeti Fake.png";
 import Login from "./Login";
 import CustomAlert from "../Informative_screens/CustomAlert";
 import Carrito from "../Client_screens/Carrito";
+import otrosimg from "../../assets/otros.png";
 
 const Navibar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -311,6 +312,19 @@ const Navibar = () => {
                       Cobertores
                       <img
                         src={CobertoresImage}
+                        height="40px"
+                        alt="Parlantes"
+                        style={{ border: "7px solid #fff" }}
+                      />
+                    </NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item
+                      className="drop-item"
+                      onClick={() => navigateToProductoFiltro("OTROS")}
+                    >
+                      Otros
+                      <img
+                        src={otrosImage}
                         height="40px"
                         alt="Parlantes"
                         style={{ border: "7px solid #fff" }}
