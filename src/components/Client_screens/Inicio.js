@@ -216,7 +216,7 @@ function Inicio() {
           </div>
           <div
             className="product-item"
-            onClick={() => navigateToAudifonosFiltro("COBERTORES")}
+            onClick={() => navigateToAudifonosFiltro("OTROS")}
           >
             <img src={otrosimg} alt="Otros" />
             <p>Otros </p>
