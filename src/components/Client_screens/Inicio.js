@@ -13,6 +13,7 @@ import parlanteProduct from "../../assets/Parlante Bluetooth.png";
 import radio from "../../assets/Radio Recargable.png";
 import audifonosProduct from "../../assets/Audifonos UltraSound.png";
 import CobertoresImage from "../../assets/CobertoresCelular .png";
+import otrosimg from "../../assets/otros.png";
 import vidriosImage from "../../assets/VidriosCelular.png";
 import yeti from "../../assets/Yeti Fake.png";
 import "./Inicio.css";
@@ -212,6 +213,13 @@ function Inicio() {
           >
             <img src={CobertoresImage} alt="Cobertores" />
             <p>Cobertores </p>
+          </div>
+          <div
+            className="product-item"
+            onClick={() => navigateToAudifonosFiltro("COBERTORES")}
+          >
+            <img src={otrosimg} alt="Otros" />
+            <p>Otros </p>
           </div>
         </div>
       </div>
