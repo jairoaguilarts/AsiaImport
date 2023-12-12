@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import CustomAlert from "../Informative_screens/CustomAlert";
 import { useNavigate } from "react-router-dom";
-
+import Select from "react-select";
 import "./ModificarP.css";
 
 function AgregarP() {
@@ -28,6 +28,17 @@ function AgregarP() {
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [alertVariant, setAlertVariant] = useState("white");
+
+  const options = [
+    { value: "PARLANTE", label: "PARLANTE" },
+    { value: "AURICULARES", label: "AURICULARES" },
+    { value: "BOTES", label: "BOTES" },
+    { value: "CARGADORES", label: "CARGADORES" },
+    { value: "SMARTWATCH", label: "SMARTWATCH" },
+    { value: "VIDRIO TEMPLADO", label: "VIDRIO TEMPLADO" },
+    { value: "COBERTORES", label: "COBERTORES" },
+    { value: "OTROS", label: "OTROS" },
+  ];
 
   const validarDatos = () => {
     const regexNombreApellido = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$/;
@@ -65,7 +76,9 @@ function AgregarP() {
   const handleCancel = () => {
     navigate("/gestionpw");
   };
-
+  const handleCategoriaChange = (selectedOption) => {
+    setCategoria(selectedOption.value);
+  };
   const handleSave = async () => {
     const formData = new FormData();
     formData.append("Nombre", nombre);
@@ -153,14 +166,25 @@ function AgregarP() {
         />
       </div>
       <div className="form-group">
-        <label>Categoria</label>
-        <input
+        <form>
+          <label>Categoria</label>
+          <Select
+            name="categoria"
+            value={options.find((opt) => opt.value === categoria)}
+            onChange={handleCategoriaChange}
+            options={options}
+            isSearchable
+            placeholder="Seleccione una opcion"
+            className="select-with-scroll"
+          />
+        </form>
+        {/* <input
           type="text"
           placeholder=""
           id="categoriaProducto"
           value={categoria}
           onChange={(e) => setCategoria(e.target.value)}
-        />
+        /> */}
       </div>
       <div className="form-group">
         <label>Descripción</label>
