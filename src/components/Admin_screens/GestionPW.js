@@ -9,6 +9,9 @@ import { Link } from "react-router-dom";
 import searchIcon from "../../assets/lupa.png";
 import CustomAlert from "../Informative_screens/CustomAlert";
 import ModificarP from "../modalesProductos/ModificarP";
+import Pagination from "../Client_screens/Pagination";
+
+
 
 const GestionPW = () => {
   const [showEliminarConfirmar, setShowEliminarConfirmar] = useState(false);
@@ -25,15 +28,29 @@ const GestionPW = () => {
     }, 2400);
   };
 
+  //logica de paginacion
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(10);
+  //productos para la pagina actual
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+
+
+
   const [products, setProducts] = useState([]);
   useEffect(() => {
     if (!searched) {
-      fetch("https://importasia-api.onrender.com/productos")
+     fetch("https://importasia-api.onrender.com/productosP")
+       //fetch( `http://localhost:3000/productosP`)
         .then((response) => response.json())
         .then((data) => setProducts(data))
         .catch((error) => console.error("Error:", error));
     }
   }, [searched]);
+
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
 
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
@@ -165,36 +182,41 @@ const GestionPW = () => {
       mostrarAlerta("No se ingresó ningún término de búsqueda", "danger");
       return;
     }
-
+  
     const terminoBusqueda = buscarConSinonimos(busqueda.trim());
     const urls = [
       `https://importasia-api.onrender.com/buscarProductoCategoria?Nombre=${terminoBusqueda}`,
       `https://importasia-api.onrender.com/buscarProductoNombre?Nombre=${terminoBusqueda}`,
       `https://importasia-api.onrender.com/buscarProductoModelo?Modelo=${terminoBusqueda}`,
     ];
-
+  
     try {
-      setProducts([]);
-
+      setProducts([]); // Limpia la lista de productos
+  
       const responses = await Promise.all(urls.map((url) => fetch(url)));
       const resultados = await Promise.all(responses.map((res) => res.json()));
-
+  
       const productosEncontrados = resultados
         .filter((res) => res.length > 0)
         .flat();
-
+  
       if (productosEncontrados.length === 0) {
         mostrarAlerta("No se encontraron productos", "danger");
       } else {
         mostrarAlerta("Productos encontrados", "success");
-        setProducts(productosEncontrados);
         setSearched(true);
+  
+        // Restablecer currentPage a 1 para mostrar los resultados de búsqueda desde el principio
+        setCurrentPage(1);
+  
+        // Actualiza los productos con los resultados de búsqueda
+        setProducts(productosEncontrados);
       }
     } catch (error) {
       mostrarAlerta("Error en la búsqueda", "danger");
     }
   };
-
+  
   const [mision, setMision] = useState("");
   const [vision, setVision] = useState("");
   const [historia, setHistoria] = useState("");
@@ -340,7 +362,7 @@ const GestionPW = () => {
                 <span>Imagen</span>
                 <span>Editar</span>
               </div>
-              {products.map((product) => (
+              {currentProducts.map((product) => (
                 <div className="product-row" key={product.Modelo}>
                   <span className="product-model">{product.Modelo}</span>
                   <span className="product-category">{product.Categoria}</span>
@@ -379,6 +401,12 @@ const GestionPW = () => {
           </div>
         </div>
       </div>
+      <Pagination
+            productsPerPage={productsPerPage}
+            totalProducts={products.length}
+            paginate={paginate}
+            currentPage={currentPage}
+          />
 
       {/* Sección Editar Productos Destacados */}
       {/* <div ref={editarProductosDestacadosRef} className="section">
