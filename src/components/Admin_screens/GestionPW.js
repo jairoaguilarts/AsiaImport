@@ -11,8 +11,6 @@ import CustomAlert from "../Informative_screens/CustomAlert";
 import ModificarP from "../modalesProductos/ModificarP";
 import Pagination from "../Client_screens/Pagination";
 
-
-
 const GestionPW = () => {
   const [showEliminarConfirmar, setShowEliminarConfirmar] = useState(false);
   const [productoSeleccionado, setProductoSeleccionado] = useState(null);
@@ -34,14 +32,11 @@ const GestionPW = () => {
   //productos para la pagina actual
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-
-
-
   const [products, setProducts] = useState([]);
   useEffect(() => {
     if (!searched) {
-     fetch("https://importasia-api.onrender.com/productosP")
-       //fetch( `http://localhost:3000/productosP`)
+      fetch("https://importasia-api.onrender.com/productosP")
+        //fetch( `http://localhost:3000/productosP`)
         .then((response) => response.json())
         .then((data) => setProducts(data))
         .catch((error) => console.error("Error:", error));
@@ -50,7 +45,10 @@ const GestionPW = () => {
 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+  const currentProducts = products.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
 
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
@@ -182,33 +180,33 @@ const GestionPW = () => {
       mostrarAlerta("No se ingresó ningún término de búsqueda", "danger");
       return;
     }
-  
+
     const terminoBusqueda = buscarConSinonimos(busqueda.trim());
     const urls = [
       `https://importasia-api.onrender.com/buscarProductoCategoria?Nombre=${terminoBusqueda}`,
       `https://importasia-api.onrender.com/buscarProductoNombre?Nombre=${terminoBusqueda}`,
       `https://importasia-api.onrender.com/buscarProductoModelo?Modelo=${terminoBusqueda}`,
     ];
-  
+
     try {
       setProducts([]); // Limpia la lista de productos
-  
+
       const responses = await Promise.all(urls.map((url) => fetch(url)));
       const resultados = await Promise.all(responses.map((res) => res.json()));
-  
+
       const productosEncontrados = resultados
         .filter((res) => res.length > 0)
         .flat();
-  
+
       if (productosEncontrados.length === 0) {
         mostrarAlerta("No se encontraron productos", "danger");
       } else {
         mostrarAlerta("Productos encontrados", "success");
         setSearched(true);
-  
+
         // Restablecer currentPage a 1 para mostrar los resultados de búsqueda desde el principio
         setCurrentPage(1);
-  
+
         // Actualiza los productos con los resultados de búsqueda
         setProducts(productosEncontrados);
       }
@@ -216,14 +214,14 @@ const GestionPW = () => {
       mostrarAlerta("Error en la búsqueda", "danger");
     }
   };
-  
+
   const [mision, setMision] = useState("");
   const [vision, setVision] = useState("");
   const [historia, setHistoria] = useState("");
   const cargarInformacionEmpresa = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/obtenerInformacion?id=65768fb8175690a253ab6b95`,
+        `http://https://importasia-api.onrender.com/obtenerInformacion?id=65768fb8175690a253ab6b95`,
         {
           method: "GET",
           headers: {
@@ -273,7 +271,7 @@ const GestionPW = () => {
       };
 
       const response = await fetch(
-        "http://localhost:3000/editarInformacionEmpresa?id=65768fb8175690a253ab6b95",
+        "http://https://importasia-api.onrender.com/editarInformacionEmpresa?id=65768fb8175690a253ab6b95",
         {
           // Incluir el _id aquí
           method: "PUT",
@@ -402,11 +400,11 @@ const GestionPW = () => {
         </div>
       </div>
       <Pagination
-            productsPerPage={productsPerPage}
-            totalProducts={products.length}
-            paginate={paginate}
-            currentPage={currentPage}
-          />
+        productsPerPage={productsPerPage}
+        totalProducts={products.length}
+        paginate={paginate}
+        currentPage={currentPage}
+      />
 
       {/* Sección Editar Productos Destacados */}
       {/* <div ref={editarProductosDestacadosRef} className="section">
