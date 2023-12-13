@@ -17,6 +17,7 @@ const GestionPW = () => {
   const [showEliminarConfirmar, setShowEliminarConfirmar] = useState(false);
   const [productoSeleccionado, setProductoSeleccionado] = useState(null);
   const [searched, setSearched] = useState(false);
+  const [productosDestacados, setProductosDestacados] = useState([]);
 
   const mostrarAlerta = (message, variant) => {
     setAlertVariant(variant);
@@ -38,21 +39,28 @@ const GestionPW = () => {
   useEffect(() => {
     if (!searched) {
       fetch("https://importasia-api.onrender.com/productosP")
-        //fetch( `http://localhost:3000/productosP`)
         .then((response) => response.json())
         .then((data) => {
           setProducts(data);
-
-          // Inicializa el estado de los checkboxes
+  
+          // Inicializa el estado de los checkboxes y productos destacados
           const newSelectedProducts = {};
+          const initialProductosDestacados = [];
           data.forEach((product) => {
-            newSelectedProducts[product.Modelo] = false;
+            newSelectedProducts[product.Modelo] = product.Destacado;
+            
+            if (product.Destacado) {
+              initialProductosDestacados.push(product.Modelo);
+            }
           });
+  
           setSelectedProducts(newSelectedProducts);
+          setProductosDestacados(initialProductosDestacados);
         })
         .catch((error) => console.error("Error:", error));
     }
   }, [searched]);
+  
 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
@@ -261,12 +269,28 @@ const GestionPW = () => {
   };
   const [isChecked, setIsChecked] = useState(false);
 
-  const handleCheckboxChange = (modelo) => {
+  const handleCheckboxChange = async (modelo) => {
     setSelectedProducts((prevState) => ({
       ...prevState,
       [modelo]: !prevState[modelo],
     }));
+  
+    if (productosDestacados.includes(modelo)) {
+      await fetch('http://localhost:3000/destacarProducto?Modelo=' + modelo, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ Destacado: false }),
+      });
+  
+      setProductosDestacados(prev => prev.filter(prod => prod !== modelo));
+    } else {
+      setProductosDestacados(prev => [...prev, modelo].slice(0, 8));
+    }
   };
+  
+  
   const [selectedProducts, setSelectedProducts] = useState({});
   const handleActualizar2 = async () => {
     if (
@@ -313,6 +337,25 @@ const GestionPW = () => {
     window.location.reload();
   };
 
+  const handleDestacado = async () => {
+    try {
+      const requests = productosDestacados.map(Modelo => {
+        return fetch('http://localhost:3000/destacarProducto?Modelo=' + Modelo, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ Destacado: true }),
+        });
+      });
+  
+      await Promise.all(requests);
+      mostrarAlerta('Productos destacados actualizados', 'success');
+    } catch (error) {
+      mostrarAlerta('Error al actualizar productos destacados', 'danger');
+    }
+  };
+  
   useEffect(() => {
     cargarInformacionEmpresa();
   }, []);
@@ -348,6 +391,7 @@ const GestionPW = () => {
                   Crear Nuevo Producto
                 </button>
               </Link>
+              <button className="add-product-btn" onClick={handleDestacado}>Actualizar Productos Destacados</button>
               <div className="search-container2">
                 <input
                   type="text"

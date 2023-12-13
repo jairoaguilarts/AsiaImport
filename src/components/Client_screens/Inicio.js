@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Carousel from "react-bootstrap/Carousel";
 import PromoAsia from "../../imagenes/PromoAsia.jpeg";
@@ -75,11 +75,11 @@ const Carrusel = ({ productos }) => {
     productos.length < itemsVisibles
       ? productos
       : productos
-          .concat(productos)
-          .slice(currentIndex, currentIndex + itemsVisibles);
+        .concat(productos)
+        .slice(currentIndex, currentIndex + itemsVisibles);
 
   const moverCarrusel = (direccion) => {
-    const totalItems = productos.length;
+    const totalItems = productos.length * 2; // Duplicamos la longitud debido a la concatenación
     let newIndex = (currentIndex + direccion + totalItems) % totalItems;
 
     setCurrentIndex(newIndex);
@@ -128,6 +128,7 @@ function Inicio() {
   const navigate = useNavigate();
 
   const handleToggle = () => setOpen(!open);
+  const [productosDestacados, setProductosDestacados] = useState([]);
 
   const handleSelect = (selectedIndex) => {
     setIndex(selectedIndex);
@@ -135,6 +136,22 @@ function Inicio() {
   const navigateToAudifonosFiltro = (categoria) => {
     navigate("/producto-filtro", { state: { categoria } });
   };
+
+  useEffect(() => {
+    fetch("https://importasia-api.onrender.com/productosP")
+      .then((response) => response.json())
+      .then((data) => {
+        const productosDestacados = data.filter(product => product.Destacado)
+          .map(product => ({
+            imagen: product.ImagenID[0], // Asegúrate de que este campo corresponde a la URL de la imagen
+            nombre: product.Nombre,
+            precio: "L. " + product.Precio // Asume que existe un campo Precio
+          }));
+        setProductosDestacados(productosDestacados);
+      })
+      .catch((error) => console.error("Error:", error));
+  }, []);
+
 
   return (
     <div className="inicio-container">
@@ -226,9 +243,9 @@ function Inicio() {
       <hr />
 
       <div className="section-divider">
-        <p className="destacado-text"> Articulos Destacados </p>
+        <p className="destacado-text">Artículos Destacados</p>
         <hr className="linea-divisora-blue-large" />
-        <Carrusel productos={productos} />
+        <Carrusel productos={productosDestacados} />
         <hr className="linea-divisora-blue-med" />
       </div>
     </div>

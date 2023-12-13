@@ -58,6 +58,7 @@
 .gestion-container {
   background-color: #ef92064f;
   padding: 20px;
+  padding-right: 75px;
   border-radius: 10px;
   width: 80%;
   max-width: 1000px;
@@ -85,6 +86,8 @@
   font-weight: bold;
   height: 50px;
   align-items: center !important;
+  margin-left: 5px;
+  margin-right: 5px;
 
   /* Asegúrate de que no haya margen a la derecha del botón */
 }
@@ -112,6 +115,7 @@
 
 .product-table {
   width: 100%;
+  margin-left: 30px;
   /* La tabla ocupa todo el ancho del contenedor */
   border-collapse: collapse;
   /* Colapsa los bordes de la tabla */

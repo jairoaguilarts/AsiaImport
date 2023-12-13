@@ -174,29 +174,49 @@
   }
 
   .prev-btn,
-  .next-btn {
-    color: white;
-    border: none;
-    padding: 3px;
-    background: transparent;
-    font-size: 35px !important;
-    cursor: crosshair;
-    position: absolute;
-    opacity: 0.5 !important;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 1;
-  }
+.next-btn {
+  color: #0277bd; /* Cambiar a un color más oscuro para mejor visibilidad */
+  border: 2px solid #0277bd; /* Agregar borde para destacar las flechas */
+  background-color: rgba(255, 255, 255, 0.8); /* Fondo semi-transparente para mejorar visibilidad */
+  font-size: 42px; /* Mantener un tamaño grande para fácil clickeo */
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2; /* Asegurarse de que están por encima de otros elementos */
+  padding: 5px 10px; /* Añadir algo de padding */
+  border-radius: 50%; /* Estilo circular */
+}
+.prev-btn,
+.next-btn {
+  color: #0277bd; /* Cambiar a un color más oscuro para mejor visibilidad */
+  border: 2px solid #0277bd; /* Agregar borde para destacar las flechas */
+  background-color: rgba(255, 255, 255, 0.8); /* Fondo semi-transparente para mejorar visibilidad */
+  font-size: 42px; /* Mantener un tamaño grande para fácil clickeo */
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2; /* Asegurarse de que están por encima de otros elementos */
+  padding: 5px 10px; /* Añadir algo de padding */
+  border-radius: 50%; /* Estilo circular */
+}
+
 
   .prev-btn {
     left: 0 !important;
+    left: 20px; 
   }
 
   .next-btn {
     right: 0 !important;
+    right: 20px;
   }
 }
-
+.prev-btn:hover, .next-btn:hover {
+  background-color: orange; /* Fondo menos transparente al pasar el mouse */
+  color: #0277bd; /* Cambiar color al pasar el mouse */
+}
 .destacado-product-container {
   position: relative;
   overflow: hidden;
