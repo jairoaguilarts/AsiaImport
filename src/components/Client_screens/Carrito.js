@@ -30,7 +30,7 @@ const Carrito = ({ onClose }) => {
             const firebaseUID = localStorage.getItem("FireBaseUID");
 
             try {
-                const response = await fetch(`http://localhost:3000/obtenerCarrito/${firebaseUID}`, {
+                const response = await fetch(`https://importasia-api.onrender.com/obtenerCarrito/${firebaseUID}`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json"
@@ -52,7 +52,7 @@ const Carrito = ({ onClose }) => {
 
         fetchCarrito();
     }, []);
-    
+
     useEffect(() => {
         const nuevoSubtotal = productos.reduce((total, producto) => {
             const cantidad = Number(producto.cantidad) || 0;
