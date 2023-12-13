@@ -221,7 +221,7 @@ const GestionPW = () => {
   const cargarInformacionEmpresa = async () => {
     try {
       const response = await fetch(
-        `http://https://importasia-api.onrender.com/obtenerInformacion?id=65768fb8175690a253ab6b95`,
+        `https://importasia-api.onrender.com/obtenerInformacion?id=65768fb8175690a253ab6b95`,
         {
           method: "GET",
           headers: {
@@ -271,7 +271,7 @@ const GestionPW = () => {
       };
 
       const response = await fetch(
-        "http://https://importasia-api.onrender.com/editarInformacionEmpresa?id=65768fb8175690a253ab6b95",
+        "https://importasia-api.onrender.com/editarInformacionEmpresa?id=65768fb8175690a253ab6b95",
         {
           // Incluir el _id aquí
           method: "PUT",
