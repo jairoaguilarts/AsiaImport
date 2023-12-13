@@ -130,8 +130,10 @@ const AudifonoFiltro = () => {
         const errorData = await response.json();
         throw new Error(`Error: ${errorData.message || response.status}`);
       }
+      alert("Agregado");
     } catch (error) {
       console.log("Error: ", error);
+      alert("Error");
     }
   }
 

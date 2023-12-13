@@ -42,24 +42,28 @@ function InfoAudifonos() {
     fetchProduct();
   }, []);
 
-  const handleAgregar = async () =>  {
+  const handleAgregar = async () => {
     const firebaseUID = localStorage.getItem("FireBaseUID");
     const Modelo = modelo;
-  
-    const response = await fetch('https://importasia-api.onrender.com/agregarCarrito', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ firebaseUID, Modelo }),
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log('Item agregado:', data);
-    })
-    .catch((error) => {
-      console.error('Error al agregar item:', error);
-    });
+
+    try {
+      const response = await fetch('https://importasia-api.onrender.com/agregarCarrito', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ firebaseUID, Modelo }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Error: ${errorData.message || response.status}`);
+      }
+      alert("Agregado");
+    } catch (error) {
+      console.log("Error: ", error);
+      alert("Error");
+    }
   }
 
   return (
