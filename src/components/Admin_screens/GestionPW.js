@@ -7,6 +7,8 @@ import iconDelete from "../../assets/delete.png";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import searchIcon from "../../assets/lupa.png";
+import estrellaVacia from "../../assets/estrella.png";
+import estrellaLlena from "../../assets/estrella-llena.png";
 import CustomAlert from "../Informative_screens/CustomAlert";
 import ModificarP from "../modalesProductos/ModificarP";
 import Pagination from "../Client_screens/Pagination";
@@ -38,7 +40,16 @@ const GestionPW = () => {
       fetch("https://importasia-api.onrender.com/productosP")
         //fetch( `http://localhost:3000/productosP`)
         .then((response) => response.json())
-        .then((data) => setProducts(data))
+        .then((data) => {
+          setProducts(data);
+
+          // Inicializa el estado de los checkboxes
+          const newSelectedProducts = {};
+          data.forEach((product) => {
+            newSelectedProducts[product.Modelo] = false;
+          });
+          setSelectedProducts(newSelectedProducts);
+        })
         .catch((error) => console.error("Error:", error));
     }
   }, [searched]);
@@ -248,7 +259,15 @@ const GestionPW = () => {
       mostrarAlerta("Error al cargar la información", "danger");
     }
   };
+  const [isChecked, setIsChecked] = useState(false);
 
+  const handleCheckboxChange = (modelo) => {
+    setSelectedProducts((prevState) => ({
+      ...prevState,
+      [modelo]: !prevState[modelo],
+    }));
+  };
+  const [selectedProducts, setSelectedProducts] = useState({});
   const handleActualizar2 = async () => {
     if (
       mision === datosViejos.mision &&
@@ -392,6 +411,26 @@ const GestionPW = () => {
                     >
                       <img src={iconDelete} alt="Delete" />
                     </button>
+                    <label className="delete-btn">
+                      <input
+                        type="checkbox"
+                        checked={selectedProducts[product.Modelo]}
+                        onChange={() => handleCheckboxChange(product.Modelo)}
+                        style={{ display: "none" }}
+                      />
+                      <img
+                        src={
+                          selectedProducts[product.Modelo]
+                            ? estrellaLlena
+                            : estrellaVacia
+                        }
+                        alt={
+                          selectedProducts[product.Modelo]
+                            ? "Estrella llena"
+                            : "Estrella vacía"
+                        }
+                      />
+                    </label>
                   </div>
                 </div>
               ))}
