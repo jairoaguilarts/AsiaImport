@@ -140,7 +140,7 @@ const AudifonoFiltro = () => {
           <div className="filter-container">
             <div className="filter-header">
               <h2>Filtros</h2>
-              <button onClick={clearAllFilters}>Clear All</button>
+              <button onClick={clearAllFilters}>Limpiar Todo</button>
             </div>
 
             <div className="filter-section">
