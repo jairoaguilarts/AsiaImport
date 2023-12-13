@@ -33,7 +33,6 @@ function InfoAudifonos() {
         if (!response.ok) {
           mostrarAlerta("El producto no se ha encontrado", "danger");
         }
-        console.log(data);
         setProducto(data);
       } catch (error) {
         mostrarAlerta("Error al visualizar Producto", "danger");
@@ -43,7 +42,25 @@ function InfoAudifonos() {
     fetchProduct();
   }, []);
 
-  console.log(modelo);
+  const handleAgregar = async () =>  {
+    const firebaseUID = localStorage.getItem("FireBaseUID");
+    const Modelo = modelo;
+  
+    const response = await fetch('http://localhost:3000/agregarCarrito', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ firebaseUID, Modelo }),
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Item agregado:', data);
+    })
+    .catch((error) => {
+      console.error('Error al agregar item:', error);
+    });
+  }
 
   return (
     <div className="App">
@@ -74,7 +91,7 @@ function InfoAudifonos() {
               <p>{producto.Descripcion}</p>
             </div>
             <div className="product-buttons">
-              <button className="btn-cart2">AÑADIR AL CARRITO</button>
+              <button className="btn-cart2" onClick={() => handleAgregar()}>AÑADIR AL CARRITO</button>
               <button className="btn-favorite2">AGREGAR A FAVORITOS</button>
             </div>
           </div>

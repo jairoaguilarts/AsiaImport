@@ -27,23 +27,11 @@ const AudifonoFiltro = () => {
   const location = useLocation();
   const categoria = location.state?.categoria;
 
-  const brands = ["Sony", "Samsung", "Srythm", "Panasonic", "Papas"];
   const sorts = [
     "Precio: Descendente a Ascendente",
     "Precio: Ascendente a Descendente",
     "Relevancia",
     "El más nuevo",
-  ];
-  const ratings = [5, 4, 3, 2, 1];
-  const colors = [
-    "#000000",
-    "#808080",
-    "#FFFFFF",
-    "#A52A2A",
-    "#FF0000",
-    "#FFFF00",
-    "#008000",
-    "#0000FF",
   ];
 
   useEffect(() => {
@@ -55,13 +43,13 @@ const AudifonoFiltro = () => {
         `https://importasia-api.onrender.com/buscarProductoNombre?Nombre=${terminoBusqueda}`,
         `https://importasia-api.onrender.com/buscarProductoModelo?Modelo=${terminoBusqueda}`
       ];
-  
+
       try {
         const responses = await Promise.all(urls.map(url => fetch(url)));
         const resultados = await Promise.all(responses.map(res => res.json()));
-  
+
         const productosEncontrados = resultados.filter(res => res.length > 0).flat();
-  
+
         setTimeout(() => {
           setProducts(productosEncontrados);
           setLoading(false);
@@ -71,11 +59,11 @@ const AudifonoFiltro = () => {
         setLoading(false);
       }
     };
-  
+
     fetchProducts();
   }, [categoria]);
-  
-  
+
+
   useEffect(() => {
     let sortedProducts = [...products];
 
@@ -123,6 +111,30 @@ const AudifonoFiltro = () => {
     navigate("/info-producto");
   };
 
+  const handleAgregar = async (modeloAgregar) => {
+    const datos = {
+      firebaseUID: localStorage.getItem("FireBaseUID"),
+      Modelo: modeloAgregar
+    };
+
+    try {
+      const response = await fetch('http://localhost:3000/agregarCarrito', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(datos),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Error: ${errorData.message || response.status}`);
+      }
+    } catch (error) {
+      console.log("Error: ", error);
+    }
+  }
+
   return (
     <div className="main-container">
       {loading ? (
@@ -148,15 +160,13 @@ const AudifonoFiltro = () => {
               {sorts.map((sort) => (
                 <div
                   key={sort}
-                  className={`filter-option ${
-                    selectedSort === sort ? "selected" : ""
-                  }`}
+                  className={`filter-option ${selectedSort === sort ? "selected" : ""
+                    }`}
                   onClick={() => setSelectedSort(sort)}
                 >
                   <span
-                    className={`checkbox ${
-                      selectedSort === sort ? "checked" : ""
-                    }`}
+                    className={`checkbox ${selectedSort === sort ? "checked" : ""
+                      }`}
                   ></span>
                   {sort}
                 </div>
@@ -178,7 +188,7 @@ const AudifonoFiltro = () => {
                   <p>Modelo: {product.Modelo}</p>
                   <p>{product.Descripcion}</p>
                   <p className="price">L.{product.Precio}</p>
-                  <button className="btn-add-to-cart">AÑADIR AL CARRITO</button>
+                  <button className="btn-add-to-cart" onClick={() => handleAgregar(product.Modelo)}>AÑADIR AL CARRITO</button>
                   <button className="btn-add-to-favorites">
                     AGREGAR A FAVORITOS
                   </button>
