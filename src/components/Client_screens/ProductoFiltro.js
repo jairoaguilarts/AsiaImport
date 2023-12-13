@@ -118,7 +118,7 @@ const AudifonoFiltro = () => {
     };
 
     try {
-      const response = await fetch('http://localhost:3000/agregarCarrito', {
+      const response = await fetch('https://importasia-api.onrender.com/agregarCarrito', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
