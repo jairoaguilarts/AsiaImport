@@ -79,9 +79,29 @@ const Carrito = ({ onClose }) => {
     const handleCloseCarrito = () => {
         onClose();
     };
-    const handleRemoveProducto = (modelo) => {
-        const nuevosProductos = productos.filter(producto => producto.Modelo !== modelo);
-        setProductos(nuevosProductos);
+    const handleRemoveProducto = async (modelo) => {
+        const firebaseUID = localStorage.getItem("FireBaseUID");
+
+        try {
+            const response = await fetch(`https://importasia-api.onrender.com/eliminarDelCarrito`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ firebaseUID, Modelo: modelo }),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(`Error: ${errorData.message || response.status}`);
+            }
+
+            const nuevosProductos = productos.filter(producto => producto.Modelo !== modelo);
+            setProductos(nuevosProductos);
+        } catch (error) {
+            console.log('Error al eliminar el producto del carrito: ', error);
+            alert("Error al eliminar el producto");
+        }
     };
 
     const handlePagarPedido = () => {
