@@ -1,69 +1,106 @@
-/* politicas.css */
-@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+/* Politicas.css */
 
-/* Reseteo de estilos básicos para consistencia entre navegadores */
-* {
-    box-sizing: border-box;
+/* General styles */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: 'Arial', sans-serif;
+  background: #f2f2f2; /* Adjust the background color as needed */
+}
+
+/* Full-width container */
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header styles */
+.header {
+  background-color: #003366; /* Replace with your actual header color */
+  color: rgb(10, 5, 5);
+  padding: 10px 0;
+}
+
+/* Main content area */
+.content {
+  flex: 1; /* Takes up the remaining space */
+  padding: 20px;
+  background: #fff; /* White background for content area */
+}
+
+/* Title styles, based on your screenshot */
+.politica-privacidad-title {
+  font-size: 48px; /* Large font size for the title */
+  font-weight: bold; /* Bold font weight */
+  text-align: center; /* Center align the title */
+  color: #333; /* Dark grey color */
+  margin-top: 20px; /* Space above the title */
+  margin-bottom: 20px; /* Space below the title */
+}
+
+/* Section titles */
+h2 {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #333; /* Adjust the color to match your style */
+  margin-bottom: 0.5em;
+}
+
+/* Paragraph styles */
+p {
+  margin-bottom: 1em;
+  line-height: 1.6; /* Improved readability for text */
+}
+
+/* List styles */
+ul {
+  list-style-type: none;
+  padding-left: 20px;
+}
+
+li {
+  margin-bottom: 0.5em;
+}
+
+/* Link styles */
+a {
+  color: #003366; /* Match this color to your brand's color scheme */
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Button styles */
+button {
+  background-color: #ff9900; /* Adjust to match your brand's color */
+  color: rgb(6, 3, 3);
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.content {
+  overflow: auto; /* Adds scrollbars if content overflows */
+}
+
+
+button:hover {
+  background-color: darken(#ff9900, 10%);
+}
+
+/* Responsive design adjustments */
+@media (max-width: 768px) {
+  .header, .content {
+    padding: 10px;
   }
-  
-  body, html {
-    margin: 0;
-    padding: 0;
-    font-family: 'Open Sans', Arial, sans-serif; /* Open Sans es una fuente legible y moderna */
-    background-color: #ffffff; /* Fondo blanco para todo el documento */
-    color: #333333; /* Color de texto oscuro para mejorar la legibilidad */
-    line-height: 1.6;
+
+  .politica-privacidad-title {
+    font-size: 32px; /* Smaller font size for mobile */
   }
-  
-  .container {
-    width: 90%;
-    max-width: 1000px; /* Ajusta el ancho máximo para evitar el desbordamiento */
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #f9f9f9; /* Fondo claro para distinguir el contenedor */
-    border: 1px solid #e1e1e1; /* Borde sutil */
-    overflow-x: auto; /* Permite desplazamiento horizontal si es necesario */
-  }
-  
-  .header {
-    padding: 20px;
-    text-align: center;
-    background-color: #f1f1f1; /* Fondo claro para el encabezado */
-  }
-  
-  .header h1 {
-    color: #333333; /* Texto oscuro para el encabezado */
-    font-size: 24px; /* Tamaño de la fuente del encabezado */
-    margin: 0;
-  }
-  
-  .section {
-    margin-bottom: 1em;
-  }
-  
-  .section h2 {
-    font-size: 20px; /* Tamaño de la fuente para los títulos de sección */
-    color: #333333; /* Texto oscuro para los títulos de sección */
-    margin-bottom: 0.5em;
-  }
-  
-  .section p {
-    margin-bottom: 0.5em;
-  }
-  
-  /* Estilos responsivos para móviles y tabletas */
-  @media (max-width: 768px) {
-    .container {
-      width: 95%;
-      padding: 15px;
-    }
-  
-    .header h1 {
-      font-size: 20px; /* Tamaño más pequeño para el encabezado en dispositivos móviles */
-    }
-  
-    .section h2 {
-      font-size: 18px; /* Tamaño más pequeño para los títulos de sección en dispositivos móviles */
-    }
-  }
-  
+}

@@ -18,6 +18,8 @@ const GestionPW = () => {
   const [productoSeleccionado, setProductoSeleccionado] = useState(null);
   const [searched, setSearched] = useState(false);
   const [productosDestacados, setProductosDestacados] = useState([]);
+  const [contenido, setContenido] = useState("");
+  const [id, setId] = useState("");
 
   const mostrarAlerta = (message, variant) => {
     setAlertVariant(variant);
@@ -60,7 +62,10 @@ const GestionPW = () => {
         .catch((error) => console.error("Error:", error));
     }
   }, [searched]);
+<<<<<<< HEAD
+=======
 
+>>>>>>> 518bb096387c6883b73b8f0013462890307a219d
 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
@@ -276,21 +281,28 @@ const GestionPW = () => {
     }));
 
     if (productosDestacados.includes(modelo)) {
-      await fetch('http://localhost:3000/destacarProducto?Modelo=' + modelo, {
-        method: 'PUT',
+      await fetch("http://localhost:3000/destacarProducto?Modelo=" + modelo, {
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ Destacado: false }),
       });
 
+<<<<<<< HEAD
+      setProductosDestacados((prev) => prev.filter((prod) => prod !== modelo));
+=======
       setProductosDestacados(prev => prev.filter(prod => prod !== modelo));
+>>>>>>> 518bb096387c6883b73b8f0013462890307a219d
     } else {
-      setProductosDestacados(prev => [...prev, modelo].slice(0, 8));
+      setProductosDestacados((prev) => [...prev, modelo].slice(0, 8));
     }
   };
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> 518bb096387c6883b73b8f0013462890307a219d
   const [selectedProducts, setSelectedProducts] = useState({});
   const handleActualizar2 = async () => {
     if (
@@ -339,23 +351,28 @@ const GestionPW = () => {
 
   const handleDestacado = async () => {
     try {
-      const requests = productosDestacados.map(Modelo => {
-        return fetch('http://localhost:3000/destacarProducto?Modelo=' + Modelo, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ Destacado: true }),
-        });
+      const requests = productosDestacados.map((Modelo) => {
+        return fetch(
+          "http://localhost:3000/destacarProducto?Modelo=" + Modelo,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ Destacado: true }),
+          }
+        );
       });
 
       await Promise.all(requests);
-      mostrarAlerta('Productos destacados actualizados', 'success');
+      mostrarAlerta("Productos destacados actualizados", "success");
     } catch (error) {
-      mostrarAlerta('Error al actualizar productos destacados', 'danger');
+      mostrarAlerta("Error al actualizar productos destacados", "danger");
     }
   };
 
+<<<<<<< HEAD
+=======
   const [imagenes, setImagenes] = useState([]);
   const [imagenSeleccionada, setImagenSeleccionada] = useState(null);
   const inputFileRef = useRef(null);
@@ -432,10 +449,53 @@ const GestionPW = () => {
   }
 
 
+>>>>>>> 518bb096387c6883b73b8f0013462890307a219d
   useEffect(() => {
     cargarInformacionEmpresa();
     obtenerCarrusel();
   }, []);
+
+  const editarContenido = async () => {
+    if (contenido.trim() === "") {
+      mostrarAlerta("El contenido no puede estar vacío.", "danger");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `http://localhost:3000/editarPoliticaPrivacidad`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ contenido }),
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        mostrarAlerta(
+          `Error: ${errorData.message || response.status}`,
+          "danger"
+        );
+        return;
+      }
+
+      const data = await response.json();
+      mostrarAlerta(
+        "Política de privacidad actualizada correctamente.",
+        "success"
+      );
+      console.log(data);
+
+      // Aquí es donde estableces el estado 'contenido' a una cadena vacía para borrar el área de texto
+      setContenido("");
+    } catch (error) {
+      mostrarAlerta("Error al actualizar la política de privacidad.", "danger");
+      console.error("Error al actualizar el contenido:", error);
+    }
+  };
 
   return (
     <div className="gestion-wrapper">
@@ -468,7 +528,9 @@ const GestionPW = () => {
                   Crear Nuevo Producto
                 </button>
               </Link>
-              <button className="add-product-btn" onClick={handleDestacado}>Actualizar Productos Destacados</button>
+              <button className="add-product-btn" onClick={handleDestacado}>
+                Actualizar Productos Destacados
+              </button>
               <div className="search-container2">
                 <input
                   type="text"
@@ -649,6 +711,34 @@ const GestionPW = () => {
                 onClick={handleActualizar2}
               >
                 Actualizar Información
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* SECCION EDITAR POLITICAS */}
+      <div ref={editarInformacionRef} className="section">
+        <div className="editar-informacion-title">
+          <h1 className="title">Editar Política de Privacidad</h1>
+        </div>
+        <div ref={editarInformacionRef} className="section editar-informacion">
+          <div className="editar-informacion-container">
+            <div className="editar-informacion-field">
+              <label htmlFor="politica-contenido">
+                Contenido de la política
+              </label>
+              <textarea
+                id="politica-contenido"
+                className="textarea-field"
+                value={contenido}
+                onChange={(e) => setContenido(e.target.value)}
+              ></textarea>
+              <button
+                className="editar-informacion-btn"
+                onClick={editarContenido}
+              >
+                Actualizar Politicas
               </button>
             </div>
           </div>
