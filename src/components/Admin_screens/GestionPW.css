@@ -413,9 +413,6 @@
   left: 0;
 }
 
-.editar-informacion-container {
-  /* Ajustes adicionales pueden ser necesarios aquí */
-}
 .current-images-display img.selected {
   border: 3px solid orange;
 }

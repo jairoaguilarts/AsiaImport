@@ -20,6 +20,8 @@ const GestionPW = () => {
   const [productosDestacados, setProductosDestacados] = useState([]);
   const [contenido, setContenido] = useState("");
   const [id, setId] = useState("");
+  const [politicas, setPoliticas] = useState('');
+
 
   const mostrarAlerta = (message, variant) => {
     setAlertVariant(variant);
@@ -473,11 +475,24 @@ const GestionPW = () => {
   /* Aqui termina todo lo que tiene que ver con el carrusel <( _ _ )> */
 
 
-  useEffect(() => {
-    cargarInformacionEmpresa();
-    obtenerCarrusel();
-  }, []);
-
+/* Seccion de politicas */
+  const cargarPoliticas = async () => {
+    try {
+      const response = await fetch("https://importasia-api.onrender.com/politicas");
+      if (!response.ok) {
+        throw new Error('Error al cargar las políticas');
+      }
+      const data = await response.json();
+      if (data && data.length > 0) {
+        setPoliticas(data[0].contenido);
+        setContenido(data[0].contenido); // Inicializa el contenido para edición
+      }
+    } catch (error) {
+      console.error("Error al cargar las políticas:", error);
+      // Manejo de errores
+    }
+  };
+  
   const editarContenido = async () => {
     if (contenido.trim() === "") {
       mostrarAlerta("El contenido no puede estar vacío.", "danger");
@@ -486,7 +501,7 @@ const GestionPW = () => {
 
     try {
       const response = await fetch(
-        `https://importasia-api.onrender.com/editarPoliticaPrivacidad`,
+        `http://localhost:3000/editarPoliticaPrivacidad`,
         {
           method: "PUT",
           headers: {
@@ -512,13 +527,19 @@ const GestionPW = () => {
       );
       console.log(data);
 
-      // Aquí es donde estableces el estado 'contenido' a una cadena vacía para borrar el área de texto
-      setContenido("");
     } catch (error) {
       mostrarAlerta("Error al actualizar la política de privacidad.", "danger");
       console.error("Error al actualizar el contenido:", error);
     }
   };
+
+
+  useEffect(() => {
+    cargarInformacionEmpresa();
+    obtenerCarrusel();
+    cargarPoliticas();
+  }, []);
+  
 
   return (
     <div className="gestion-wrapper">
@@ -745,12 +766,10 @@ const GestionPW = () => {
         <div className="editar-informacion-title">
           <h1 className="title">Editar Política de Privacidad</h1>
         </div>
-        <div ref={editarInformacionRef} className="section editar-informacion">
+        <div className="section editar-informacion">
           <div className="editar-informacion-container">
             <div className="editar-informacion-field">
-              <label htmlFor="politica-contenido">
-                Contenido de la política
-              </label>
+              <label htmlFor="politica-contenido">Contenido de la política</label>
               <textarea
                 id="politica-contenido"
                 className="textarea-field"
@@ -761,7 +780,7 @@ const GestionPW = () => {
                 className="editar-informacion-btn"
                 onClick={editarContenido}
               >
-                Actualizar Politicas
+                Actualizar Políticas
               </button>
             </div>
           </div>
