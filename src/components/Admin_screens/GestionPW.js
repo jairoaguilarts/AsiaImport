@@ -341,7 +341,7 @@ const GestionPW = () => {
     try {
       const requests = productosDestacados.map((Modelo) => {
         return fetch(
-          "http://localhost:3000/destacarProducto?Modelo=" + Modelo,
+          "https://importasia-api.onrender.com/destacarProducto?Modelo=" + Modelo,
           {
             method: "PUT",
             headers: {
@@ -375,7 +375,7 @@ const GestionPW = () => {
         formData.append(`uploadedFile`, imagen);
       });
 
-      const response = await fetch("http://localhost:3000/agregarImgCarruselInicio", {
+      const response = await fetch("https://importasia-api.onrender.com/agregarImgCarruselInicio", {
         method: 'POST',
         body: formData,
       });
@@ -402,7 +402,7 @@ const GestionPW = () => {
   const obtenerCarrusel = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/obtenerCarruselInicio`,
+        `https://importasia-api.onrender.com/obtenerCarruselInicio`,
         {
           method: "GET",
           headers: {
@@ -433,7 +433,7 @@ const GestionPW = () => {
         return;
       }
 
-      const response = await fetch("http://localhost:3000/eliminarImgCarruselInicio", {
+      const response = await fetch("https://importasia-api.onrender.com/eliminarImgCarruselInicio", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -486,7 +486,7 @@ const GestionPW = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:3000/editarPoliticaPrivacidad`,
+        `https://importasia-api.onrender.com/editarPoliticaPrivacidad`,
         {
           method: "PUT",
           headers: {

@@ -102,7 +102,7 @@ function Inicio() {
     const obtenerCarrusel = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/obtenerCarruselInicio`,
+          `https://importasia-api.onrender.com/obtenerCarruselInicio`,
           {
             method: "GET",
             headers: {
