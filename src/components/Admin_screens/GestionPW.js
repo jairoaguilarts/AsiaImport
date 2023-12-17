@@ -359,6 +359,7 @@ const GestionPW = () => {
     }
   };
 
+  /* Chiva que a partir de acá se maneja todo lo que tiene que ver con el carrusel O.O*/
   const [imagenes, setImagenes] = useState([]);
   const [imagenSeleccionada, setImagenSeleccionada] = useState(null);
   const inputFileRef = useRef(null);
@@ -425,6 +426,41 @@ const GestionPW = () => {
     }
   };
 
+  const eliminarImagenCarrusel = async () => {
+    try {
+      if (!imagenSeleccionada) {
+        mostrarAlerta("No se ha seleccionado ninguna imagen para eliminar", "danger");
+        return;
+      }
+
+      const response = await fetch("http://localhost:3000/eliminarImgCarruselInicio", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ imageUrl: imagenSeleccionada }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Error: ${errorData.message || response.status}`);
+      }
+      console.log(response);
+
+      const data = await response.json();
+      console.log(data);
+      if (data.success) {
+        mostrarAlerta("Imagen del carrusel eliminada correctamente", "success");
+        obtenerCarrusel();
+        setImagenSeleccionada(null);
+      } else {
+        mostrarAlerta("Error al cargar las imagen en formato JSON", "danger");
+      }
+    } catch (error) {
+      mostrarAlerta("Error al eliminar la imagen del carrusel", "danger");
+    }
+  };
+
   const handleImagenSeleccionada = (imagen) => {
     setImagenSeleccionada(imagen);
   };
@@ -433,6 +469,8 @@ const GestionPW = () => {
     const archivo = Array.from(e.target.files);
     setImagenes((imagenesPrevias) => [...imagenesPrevias, ...archivo]);
   }
+
+  /* Aqui termina todo lo que tiene que ver con el carrusel <( _ _ )> */
 
 
   useEffect(() => {
@@ -658,7 +696,7 @@ const GestionPW = () => {
             <button className="editar-informacion-btn" onClick={handleActualizarImagenesCarrusel}>
               Actualizar Carrusel
             </button>
-            <button className="eliminar-img-btn">
+            <button className="eliminar-img-btn" onClick={eliminarImagenCarrusel}>
               Eliminar Imagen
             </button>
           </div>

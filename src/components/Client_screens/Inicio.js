@@ -1,43 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Carousel from "react-bootstrap/Carousel";
-import PromoAsia from "../../imagenes/PromoAsia.jpeg";
-import PromocionAsia from "../../imagenes/PromocionAsia.jpg";
 import parlantesImage from "../../assets/parlantes.png";
 import audifonosImage from "../../assets/audifonos.png";
 import botestermosImage from "../../assets/botestermos.png";
 import cargadoresImage from "../../assets/cargadores.png";
 import relojesImage from "../../assets/relojes.png";
-import otrosImage from "../../assets/otros.png";
-import parlanteProduct from "../../assets/Parlante Bluetooth.png";
-import radio from "../../assets/Radio Recargable.png";
-import audifonosProduct from "../../assets/Audifonos UltraSound.png";
 import CobertoresImage from "../../assets/CobertoresCelular .png";
 import otrosimg from "../../assets/otros.png";
 import vidriosImage from "../../assets/VidriosCelular.png";
-import yeti from "../../assets/Yeti Fake.png";
 import "./Inicio.css";
 
-const productos = [
-  {
-    imagen: parlanteProduct,
-    nombre: "Parlante Bluetooth con Luz Led",
-    precio: "L. 849",
-  },
-  {
-    imagen: radio,
-    nombre: "Radio Recargable con Panel Solar",
-    precio: "L. 499",
-  },
-  {
-    imagen: audifonosProduct,
-    nombre: "Audifonos UltraSound inalambricos",
-    precio: "L. 2,449",
-  },
-  { imagen: yeti, nombre: "Vasos Termicos Yeti", precio: "L. 349" },
-];
-
-//Funcion para el control de la lista de productos destacados
 const Carrusel = ({ productos }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -57,13 +30,11 @@ const Carrusel = ({ productos }) => {
     setCurrentIndex(newIndex);
   };
 
-  //Indice anterior en la lista de Productos Destacados
   const handlePrevClick = (e) => {
     e.preventDefault();
     moverCarrusel(-1);
   };
 
-  //Indice siguiente en la lista de Productos Destacados
   const handleNextClick = (e) => {
     e.preventDefault();
     moverCarrusel(1);
@@ -84,7 +55,7 @@ const Carrusel = ({ productos }) => {
               <p>Precio: {producto.precio}</p>
               <button>Agregar al carrito</button>
             </div>
-            
+
           ))}
         </div>
         <button className="next-btn" onClick={handleNextClick}>
@@ -118,9 +89,9 @@ function Inicio() {
       .then((data) => {
         const productosDestacados = data.filter(product => product.Destacado)
           .map(product => ({
-            imagen: product.ImagenID[0], // Asegúrate de que este campo corresponde a la URL de la imagen
+            imagen: product.ImagenID[0],
             nombre: product.Nombre,
-            precio: "L. " + product.Precio // Asume que existe un campo Precio
+            precio: "L. " + product.Precio
           }));
         setProductosDestacados(productosDestacados);
       })
@@ -128,38 +99,56 @@ function Inicio() {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:3001/obtenerCarruselInicio?id=657a63fdfcfd83c4fdfb4183")
-    .then((response) => response.json())
-    .then((data) => {
-      if(data.ImagenID && data.ImagenID.length > 0) {
-        setImagenesCarrusel(data.ImagenID);
+    const obtenerCarrusel = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:3000/obtenerCarruselInicio`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          console.error("Aqui hay un error", errorData);
+          throw new Error(`Error: ${errorData.message || response.status}`);
+        }
+
+        const data = await response.json();
+        console.log(data);
+        setImagenesCarrusel(data[0].imagenID);
+        console.log(imagenesCarrusel);
+
+      } catch (error) {
+        console.log("Adentro del catch " + error.message);
+        alert("Problema al mostrar las imagenes");
       }
-    })
-    .catch((error) => console.error("Error:", error));
+    };
+
+    obtenerCarrusel();
   }, []);
 
 
   return (
     <div className="inicio-container">
       <div className="banner-container">
-        <Carousel activeIndex={index} onSelect={handleSelect}>
-          <Carousel.Item>
-            <img
-              style={{ width: "100%", height: "auto" }}
-              className="d-block w-100"
-              src={PromoAsia}
-              alt="First slide"
-            />
-          </Carousel.Item>
-          <Carousel.Item>
-            <img
-              style={{ width: "100%", height: "auto" }}
-              className="d-block w-100"
-              src={PromocionAsia}
-              alt="Second slide"
-            />
-          </Carousel.Item>
-        </Carousel>
+        {imagenesCarrusel && (
+          <Carousel activeIndex={index} onSelect={handleSelect}>
+            {imagenesCarrusel.map((imagen, idx) => (
+              <Carousel.Item key={idx}>
+                <img
+                  style={{ width: "100%", height: "610px" }}
+                  className="d-block w-100"
+                  src={imagen}
+                  alt={`Slide ${idx + 1}`}
+                />
+              </Carousel.Item>
+            ))}
+          </Carousel>
+        )}
       </div>
       <div className="section-divider">
         <p className="destacado-text"> Categorias </p>
