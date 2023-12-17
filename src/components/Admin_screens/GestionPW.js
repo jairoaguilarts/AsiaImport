@@ -62,6 +62,10 @@ const GestionPW = () => {
         .catch((error) => console.error("Error:", error));
     }
   }, [searched]);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 518bb096387c6883b73b8f0013462890307a219d
 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
@@ -153,7 +157,7 @@ const GestionPW = () => {
     window.scrollTo({ top: ref.current.offsetTop, behavior: "smooth" });
   };
 
-  const handleActualizar = () => {};
+  const handleActualizar = () => { };
 
   const handleUploadImage = (event) => {
     const file = event.target.files[0];
@@ -256,6 +260,7 @@ const GestionPW = () => {
       }
 
       const data = await response.json();
+      console.log(data);
 
       // Actualizar los estados con la información obtenida
       if (data) {
@@ -285,12 +290,20 @@ const GestionPW = () => {
         body: JSON.stringify({ Destacado: false }),
       });
 
+<<<<<<< HEAD
       setProductosDestacados((prev) => prev.filter((prod) => prod !== modelo));
+=======
+      setProductosDestacados(prev => prev.filter(prod => prod !== modelo));
+>>>>>>> 518bb096387c6883b73b8f0013462890307a219d
     } else {
       setProductosDestacados((prev) => [...prev, modelo].slice(0, 8));
     }
   };
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 518bb096387c6883b73b8f0013462890307a219d
   const [selectedProducts, setSelectedProducts] = useState({});
   const handleActualizar2 = async () => {
     if (
@@ -359,8 +372,75 @@ const GestionPW = () => {
     }
   };
 
+<<<<<<< HEAD
+=======
+  const [imagenes, setImagenes] = useState([]);
+  const handleActualizarImagenesCarrusel = async () => {
+    try {
+      if (imagenes.length === 0) {
+        mostrarAlerta("No se han seleccionado imágenes para subir", "danger");
+        return;
+      }
+
+      const formData = new FormData();
+      imagenes.forEach(imagen => {
+        formData.append(`uploadFile`, imagen);
+      });
+
+      const response = await fetch("http://localhost:3001/agregarImgCarruselInicio", {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        const Data = await response.json();
+        if (Data.success) {
+          mostrarAlerta("Imágenes del carrusel actualizadas correctamente", "success");
+        } else {
+          mostrarAlerta("Error al actualizar imágenes del carrusel", "danger");
+        }
+      } else {
+        mostrarAlerta("Error al Obtener respuesta del servidor", "danger");
+      }
+    } catch (error) {
+      mostrarAlerta("No se pudieron agregar las imagenes", "danger");
+    }
+  };
+
+  const obtenerCarrusel = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3001/obtenerCarruselInicio`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response);
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("Aqui hay un error", errorData);
+        throw new Error(`Error: ${errorData.message || response.status}`);
+      }
+
+      const data = await response.text();
+      console.log("Adentro del try 4");
+      console.log("Elementos detro de data: ", data);
+
+    } catch (error) {
+      console.log("Adentro del catch " + error.message);
+      mostrarAlerta("Problema al mostrar las imagenes", "danger");
+    }
+  };
+
+
+>>>>>>> 518bb096387c6883b73b8f0013462890307a219d
   useEffect(() => {
     cargarInformacionEmpresa();
+    obtenerCarrusel();
   }, []);
 
   const editarContenido = async () => {
@@ -544,32 +624,40 @@ const GestionPW = () => {
       </div> */}
 
       {/* Sección Editar Imágenes Carrousel */}
-      {/*<div ref={editarImagenesCarrouselRef} className="section">
+      <div ref={editarImagenesCarrouselRef} className="section">
         <div className="editar-informacion-title">
           <h1 className="title">Editar Imágenes del Carrusel</h1>
         </div>
         <div className="editar-imagenes-carrousel-container">
           <div className="current-images-container">
             <h2>Imágenes Actuales</h2>
-            
-            <div className="current-images-display">
-              
-            </div>
+            {imagenes && (
+              <div className="current-images-display">
+                {
+                  imagenes.map((imagen, index) => (
+                    <img key={index} src={imagen} alt={`Imagen ${index}`} />
+                  ))
+                }
+              </div>
+            )}
           </div>
           <div className="image-upload-container">
             <h2>Subir Nueva Imagen</h2>
-            
-            <input type="file" multiple onChange={handleUploadImage} />
+
+            <input type="file"
+              multiple
+              onChange={(e) => setImagenes(Array.from(e.target.files))}
+            />
             <p>
               Selecciona una o varias imágenes y luego haz clic en 'Actualizar
               Imágenes' para subir.
             </p>
-            <button className="editar-informacion-btn">
+            <button className="editar-informacion-btn" onClick={handleActualizarImagenesCarrusel}>
               Actualizar Imágenes
             </button>
           </div>
         </div>
-      </div>*/}
+      </div>
 
       {/* Sección Editar Información */}
       <div ref={editarInformacionRef} className="section">

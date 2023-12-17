@@ -190,7 +190,7 @@ const AudifonoFiltro = () => {
                   <p>Modelo: {product.Modelo}</p>
                   <p>{product.Descripcion}</p>
                   <p className="price">L.{product.Precio}</p>
-                  <button className="btn-add-to-cart" onClick={() => handleAgregar(product.Modelo)}>AÑADIR AL CARRITO</button>
+                  <button className="btn-add-to-cart" onClick={() => handleAgregar(product.Modelo)}>AÑADIR AL CARRITO  </button>
                   <button className="btn-add-to-favorites">
                     AGREGAR A FAVORITOS
                   </button>
