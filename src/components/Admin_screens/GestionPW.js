@@ -62,10 +62,6 @@ const GestionPW = () => {
         .catch((error) => console.error("Error:", error));
     }
   }, [searched]);
-<<<<<<< HEAD
-=======
-
->>>>>>> 518bb096387c6883b73b8f0013462890307a219d
 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
@@ -289,20 +285,12 @@ const GestionPW = () => {
         body: JSON.stringify({ Destacado: false }),
       });
 
-<<<<<<< HEAD
-      setProductosDestacados((prev) => prev.filter((prod) => prod !== modelo));
-=======
       setProductosDestacados(prev => prev.filter(prod => prod !== modelo));
->>>>>>> 518bb096387c6883b73b8f0013462890307a219d
     } else {
       setProductosDestacados((prev) => [...prev, modelo].slice(0, 8));
     }
   };
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 518bb096387c6883b73b8f0013462890307a219d
   const [selectedProducts, setSelectedProducts] = useState({});
   const handleActualizar2 = async () => {
     if (
@@ -371,8 +359,6 @@ const GestionPW = () => {
     }
   };
 
-<<<<<<< HEAD
-=======
   const [imagenes, setImagenes] = useState([]);
   const [imagenSeleccionada, setImagenSeleccionada] = useState(null);
   const inputFileRef = useRef(null);
@@ -449,7 +435,6 @@ const GestionPW = () => {
   }
 
 
->>>>>>> 518bb096387c6883b73b8f0013462890307a219d
   useEffect(() => {
     cargarInformacionEmpresa();
     obtenerCarrusel();
