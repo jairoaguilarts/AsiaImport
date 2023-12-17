@@ -37,34 +37,6 @@ const productos = [
   { imagen: yeti, nombre: "Vasos Termicos Yeti", precio: "L. 349" },
 ];
 
-//funcion de subir imagen a firebase
-/*const uploadImage = (file) => {
-  const storageRef = firebase.storage().ref();
-  const fileRef = storageRef.child(`images/${file.name}`);
-
-  return fileRef.put(file).then(() => {
-    console.log("Imagen subida correctamente");
-    return fileRef.getDownloadURL(); 
-  });
-};*/
-
-//funcion de cargar imagen
-/*const getImageUrl = (fileName) => {
-  const storageRef = firebase.storage().ref();
-  const fileRef = storageRef.child(`images/${fileName}`);
-
-  return fileRef.getDownloadURL();
-};
-getImageUrl('nombre-de-tu-imagen.jpg').then(url => {
-  console.log('URL de la imagen:', url);
-});
-
-
-const file = document.querySelector("#tu-input-file").files[0];
-uploadImage(file).then((url) => {
-  console.log("URL de la imagen:", url);
-});*/
-
 //Funcion para el control de la lista de productos destacados
 const Carrusel = ({ productos }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -79,7 +51,7 @@ const Carrusel = ({ productos }) => {
         .slice(currentIndex, currentIndex + itemsVisibles);
 
   const moverCarrusel = (direccion) => {
-    const totalItems = productos.length * 2; // Duplicamos la longitud debido a la concatenación
+    const totalItems = productos.length;
     let newIndex = (currentIndex + direccion + totalItems) % totalItems;
 
     setCurrentIndex(newIndex);
@@ -105,12 +77,14 @@ const Carrusel = ({ productos }) => {
         </button>
         <div className="destacado-lista">
           {mostrarProductos.map((producto, index) => (
+
             <div key={index} className="elemento">
               <img src={producto.imagen} alt={producto.nombre} />
               <h3>{producto.nombre}</h3>
               <p>Precio: {producto.precio}</p>
               <button>Agregar al carrito</button>
             </div>
+            
           ))}
         </div>
         <button className="next-btn" onClick={handleNextClick}>
@@ -129,6 +103,7 @@ function Inicio() {
 
   const handleToggle = () => setOpen(!open);
   const [productosDestacados, setProductosDestacados] = useState([]);
+  const [imagenesCarrusel, setImagenesCarrusel] = useState([]);
 
   const handleSelect = (selectedIndex) => {
     setIndex(selectedIndex);
@@ -150,6 +125,17 @@ function Inicio() {
         setProductosDestacados(productosDestacados);
       })
       .catch((error) => console.error("Error:", error));
+  }, []);
+
+  useEffect(() => {
+    fetch("http://localhost:3001/obtenerCarruselInicio?id=657a63fdfcfd83c4fdfb4183")
+    .then((response) => response.json())
+    .then((data) => {
+      if(data.ImagenID && data.ImagenID.length > 0) {
+        setImagenesCarrusel(data.ImagenID);
+      }
+    })
+    .catch((error) => console.error("Error:", error));
   }, []);
 
 

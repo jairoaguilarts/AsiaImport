@@ -168,7 +168,18 @@
   margin-bottom: 10px;
 }
 
-.btn-add-to-cart,
+.btn-add-to-cart {
+  display: block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  background-color: orange;
+  border: 1px solid orange;
+  cursor: pointer;
+  width: 240px;
+}
 .btn-add-to-favorites {
   display: block;
   margin-top: 10px;
@@ -179,6 +190,7 @@
   background-color: #007bff;
   border: 1px solid #007bff;
   cursor: pointer;
+  width: 240px;
 }
 
 /* Ajustes para Pantallas Medianas */
