@@ -416,6 +416,9 @@
 .editar-informacion-container {
   /* Ajustes adicionales pueden ser necesarios aquí */
 }
+.current-images-display img.selected {
+  border: 3px solid orange;
+}
 
 .editar-informacion-field {
   margin-bottom: 20px;
@@ -458,9 +461,26 @@
   width: 200px;
   /* Ancho fijo para todos los botones */
 }
+.eliminar-img-btn {
+  background-color: orange;
+  /* Color azul */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  margin-left: 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 200px;
+  /* Ancho fijo para todos los botones */
+}
 
 .editar-informacion-btn:hover {
   background-color: #fdb254;
+  /* Color naranja al pasar el cursor */
+}
+
+.eliminar-img-btn:hover {
+  background-color: #01a6ff8e;
   /* Color naranja al pasar el cursor */
 }
 

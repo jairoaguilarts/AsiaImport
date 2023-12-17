@@ -255,7 +255,6 @@ const GestionPW = () => {
       }
 
       const data = await response.json();
-      console.log(data);
 
       // Actualizar los estados con la información obtenida
       if (data) {
@@ -358,6 +357,8 @@ const GestionPW = () => {
   };
 
   const [imagenes, setImagenes] = useState([]);
+  const [imagenSeleccionada, setImagenSeleccionada] = useState(null);
+  const inputFileRef = useRef(null);
   const handleActualizarImagenesCarrusel = async () => {
     try {
       if (imagenes.length === 0) {
@@ -367,10 +368,10 @@ const GestionPW = () => {
 
       const formData = new FormData();
       imagenes.forEach(imagen => {
-        formData.append(`uploadFile`, imagen);
+        formData.append(`uploadedFile`, imagen);
       });
 
-      const response = await fetch("http://localhost:3001/agregarImgCarruselInicio", {
+      const response = await fetch("http://localhost:3000/agregarImgCarruselInicio", {
         method: 'POST',
         body: formData,
       });
@@ -378,6 +379,10 @@ const GestionPW = () => {
       if (response.ok) {
         const Data = await response.json();
         if (Data.success) {
+          obtenerCarrusel();
+          if (inputFileRef.current) {
+            inputFileRef.current.value = '';
+          }
           mostrarAlerta("Imágenes del carrusel actualizadas correctamente", "success");
         } else {
           mostrarAlerta("Error al actualizar imágenes del carrusel", "danger");
@@ -393,7 +398,7 @@ const GestionPW = () => {
   const obtenerCarrusel = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3001/obtenerCarruselInicio`,
+        `http://localhost:3000/obtenerCarruselInicio`,
         {
           method: "GET",
           headers: {
@@ -401,7 +406,6 @@ const GestionPW = () => {
           },
         }
       );
-      console.log(response);
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -409,15 +413,23 @@ const GestionPW = () => {
         throw new Error(`Error: ${errorData.message || response.status}`);
       }
 
-      const data = await response.text();
-      console.log("Adentro del try 4");
-      console.log("Elementos detro de data: ", data);
+      const data = await response.json();
+      setImagenes(data[0].imagenID);
 
     } catch (error) {
       console.log("Adentro del catch " + error.message);
-      mostrarAlerta("Problema al mostrar las imagenes", "danger");
+      alert("Problema al mostrar las imagenes");
     }
   };
+
+  const handleImagenSeleccionada = (imagen) => {
+    setImagenSeleccionada(imagen);
+  };
+
+  const hanldeSeleccionArchivos = (e) => {
+    const archivo = Array.from(e.target.files);
+    setImagenes((imagenesPrevias) => [...imagenesPrevias, ...archivo]);
+  }
 
 
   useEffect(() => {
@@ -573,25 +585,34 @@ const GestionPW = () => {
               <div className="current-images-display">
                 {
                   imagenes.map((imagen, index) => (
-                    <img key={index} src={imagen} alt={`Imagen ${index}`} />
+                    <img
+                      key={index}
+                      src={imagen}
+                      alt={`Imagen ${index}`}
+                      onClick={() => handleImagenSeleccionada(imagen)}
+                      className={imagen === imagenSeleccionada ? 'selected' : ''} />
                   ))
                 }
               </div>
             )}
           </div>
           <div className="image-upload-container">
-            <h2>Subir Nueva Imagen</h2>
+            <h2>Gestionar Imagenes</h2>
 
             <input type="file"
+              ref={inputFileRef}
               multiple
-              onChange={(e) => setImagenes(Array.from(e.target.files))}
+              onChange={hanldeSeleccionArchivos}
             />
             <p>
               Selecciona una o varias imágenes y luego haz clic en 'Actualizar
               Imágenes' para subir.
             </p>
             <button className="editar-informacion-btn" onClick={handleActualizarImagenesCarrusel}>
-              Actualizar Imágenes
+              Actualizar Carrusel
+            </button>
+            <button className="eliminar-img-btn">
+              Eliminar Imagen
             </button>
           </div>
         </div>
