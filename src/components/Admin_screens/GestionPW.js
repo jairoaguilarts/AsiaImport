@@ -501,7 +501,7 @@ const GestionPW = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:3000/editarPoliticaPrivacidad`,
+        `https://importasia-api.onrender.com/editarPoliticaPrivacidad`,
         {
           method: "PUT",
           headers: {

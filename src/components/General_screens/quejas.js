@@ -57,7 +57,7 @@ function QuejasComponent() {
       body: JSON.stringify(formData),
     };
 
-    fetch('http://localhost:3000/send-complaint', requestOptions)
+    fetch('https://importasia-api.onrender.com/send-complaint', requestOptions)
       .then(response => {
         if (!response.ok) {
           return response.text().then(text => { throw new Error(text) });
