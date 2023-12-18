@@ -548,9 +548,6 @@ const GestionPW = () => {
         <button onClick={() => scrollToSection(nuestrosProductosRef)}>
           Nuestros Productos
         </button>
-        <button onClick={() => scrollToSection(editarProductosDestacadosRef)}>
-          Editar Productos Destacados
-        </button>
         <button onClick={() => scrollToSection(editarImagenesCarrouselRef)}>
           Editar Imágenes Carrousel
         </button>
@@ -756,6 +753,14 @@ const GestionPW = () => {
               >
                 Actualizar Información
               </button>
+              {showAlert && (
+                <CustomAlert
+                  className="alerta"
+                  message={alertMessage}
+                  variant={alertVariant}
+                  onClose={() => setShowAlert(false)}
+                />
+              )}
             </div>
           </div>
         </div>
