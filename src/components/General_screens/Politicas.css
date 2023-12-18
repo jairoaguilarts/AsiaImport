@@ -1,106 +1,52 @@
 /* Politicas.css */
 
-/* General styles */
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  font-family: 'Arial', sans-serif;
-  background: #f2f2f2; /* Adjust the background color as needed */
-}
-
-/* Full-width container */
-.container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-/* Header styles */
-.header {
-  background-color: #003366; /* Replace with your actual header color */
-  color: rgb(10, 5, 5);
-  padding: 10px 0;
-}
-
-/* Main content area */
-.content {
-  flex: 1; /* Takes up the remaining space */
+.politicas-container {
+  border: 2px solid #4a4a4a;
+  border-radius: 8px;
   padding: 20px;
-  background: #fff; /* White background for content area */
+  margin: 20px auto;
+  max-width: 800px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Title styles, based on your screenshot */
-.politica-privacidad-title {
-  font-size: 48px; /* Large font size for the title */
-  font-weight: bold; /* Bold font weight */
-  text-align: center; /* Center align the title */
-  color: #333; /* Dark grey color */
-  margin-top: 20px; /* Space above the title */
-  margin-bottom: 20px; /* Space below the title */
-}
-
-/* Section titles */
-h2 {
-  font-size: 1.5em;
+.politicas-title {
   font-weight: bold;
-  color: #333; /* Adjust the color to match your style */
-  margin-bottom: 0.5em;
+  margin-bottom: 15px;
+  text-align: center;
+  font-size: 24px;
+  color: #FFA500;
+  padding-top: 20px;
 }
 
-/* Paragraph styles */
-p {
-  margin-bottom: 1em;
-  line-height: 1.6; /* Improved readability for text */
+.politicas-content {
+  font-size: 16px;
+  color: #333;
+  line-height: 1.8;
+  overflow-y: auto;
+  max-height: 400px;
+  max-width: 700px;
+  margin: auto;
+  text-align: justify;
+  padding: 20px;
 }
 
-/* List styles */
-ul {
-  list-style-type: none;
-  padding-left: 20px;
+.politicas-content div {
+  margin-bottom: 10px;
 }
 
-li {
-  margin-bottom: 0.5em;
+.politicas-content h2 {
+  font-size: 20px;
+  color: #333;
+  margin-top: 20px;
 }
 
-/* Link styles */
-a {
-  color: #003366; /* Match this color to your brand's color scheme */
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-/* Button styles */
-button {
-  background-color: #ff9900; /* Adjust to match your brand's color */
-  color: rgb(6, 3, 3);
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-.content {
-  overflow: auto; /* Adds scrollbars if content overflows */
+.politicas-content p {
+  margin-bottom: 10px;
+  word-wrap: break-word;
+  white-space: normal;
 }
 
 
-button:hover {
-  background-color: darken(#ff9900, 10%);
-}
-
-/* Responsive design adjustments */
-@media (max-width: 768px) {
-  .header, .content {
-    padding: 10px;
-  }
-
-  .politica-privacidad-title {
-    font-size: 32px; /* Smaller font size for mobile */
-  }
-}
