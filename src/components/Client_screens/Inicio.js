@@ -30,6 +30,30 @@ const Carrusel = ({ productos }) => {
     setCurrentIndex(newIndex);
   };
 
+  const handleAgregar = async (modeloAgregar) => {
+    const datos = {
+      firebaseUID: localStorage.getItem("FireBaseUID"),
+      Modelo: modeloAgregar
+    };
+
+    try {
+      const response = await fetch('https://importasia-api.onrender.com/agregarCarrito', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(datos),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Error: ${errorData.message || response.status}`);
+      }
+    } catch (error) {
+      console.log("Error: ", error);
+    }
+  }
+
   const handlePrevClick = (e) => {
     e.preventDefault();
     moverCarrusel(-1);
@@ -53,7 +77,7 @@ const Carrusel = ({ productos }) => {
               <img src={producto.imagen} alt={producto.nombre} />
               <h3>{producto.nombre}</h3>
               <p>Precio: {producto.precio}</p>
-              <button>Agregar al carrito</button>
+              <button onClick={() => handleAgregar(producto.modelo)}>Agregar al carrito</button>
             </div>
 
           ))}
@@ -91,7 +115,8 @@ function Inicio() {
           .map(product => ({
             imagen: product.ImagenID[0],
             nombre: product.Nombre,
-            precio: "L. " + product.Precio
+            precio: "L. " + product.Precio, 
+            modelo: product.Modelo
           }));
         setProductosDestacados(productosDestacados);
       })
