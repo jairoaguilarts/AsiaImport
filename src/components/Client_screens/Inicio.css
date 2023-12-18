@@ -8,6 +8,18 @@
   margin-left: 80px;
   margin-right: 80px;
 }
+@media screen and (max-width: 768px) {
+  .inicio-container {
+    margin-left: 40px;
+    margin-right: 40px;
+  }
+}
+@media screen and (max-width: 576px) {
+  .inicio-container {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
 .section-divider {
   align-items: center;
   text-align: center;
@@ -47,7 +59,8 @@
   margin: 0 auto;
 }
 
-.prev-btn:hover, .next-btn:hover {
+.prev-btn:hover,
+.next-btn:hover {
   background-color: orange; /* Fondo menos transparente al pasar el mouse */
   color: #0277bd; /* Cambiar color al pasar el mouse */
 }
@@ -149,6 +162,29 @@
 
 .next-btn {
   right: 10px;
+}
+@media screen and (max-width: 576px) {
+  .elemento img {
+    width: 100%;
+    max-width: 100%; /* Ajusta el ancho máximo según tu diseño */
+    height: auto; /* Mantén la proporción original de la imagen */
+    object-fit: contain; /* Ajusta la forma en que la imagen se ajusta dentro del contenedor */
+  }
+}
+/* Estilo para pantallas pequeñas */
+@media screen and (max-width: 576px) {
+  .elemento {
+    width: 90%; /* Establece el ancho que desees */
+    height: auto; /* Ajusta la altura automáticamente según el contenido */
+    margin: 10px auto; /* Margen para separar los elementos */
+  }
+}
+@media screen and (max-width: 576px) {
+  .prev-btn,
+  .next-btn {
+    font-size: 12px; /* Establece el tamaño de fuente que desees para los botones en pantallas pequeñas */
+    padding: 2px 5px; /* Establece el relleno que desees para los botones en pantallas pequeñas */
+  }
 }
 
 /* </Productos Destacados> */
@@ -327,38 +363,47 @@
   }
 
   .prev-btn,
-.next-btn {
-  color: #0277bd; /* Cambiar a un color más oscuro para mejor visibilidad */
-  border: 2px solid #0277bd; /* Agregar borde para destacar las flechas */
-  background-color: rgba(255, 255, 255, 0.8); /* Fondo semi-transparente para mejorar visibilidad */
-  font-size: 42px; /* Mantener un tamaño grande para fácil clickeo */
-  cursor: pointer;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 2; /* Asegurarse de que están por encima de otros elementos */
-  padding: 5px 10px; /* Añadir algo de padding */
-  border-radius: 50%; /* Estilo circular */
-}
-.prev-btn,
-.next-btn {
-  color: #0277bd; /* Cambiar a un color más oscuro para mejor visibilidad */
-  border: 2px solid #0277bd; /* Agregar borde para destacar las flechas */
-  background-color: rgba(255, 255, 255, 0.8); /* Fondo semi-transparente para mejorar visibilidad */
-  font-size: 42px; /* Mantener un tamaño grande para fácil clickeo */
-  cursor: pointer;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 2; /* Asegurarse de que están por encima de otros elementos */
-  padding: 5px 10px; /* Añadir algo de padding */
-  border-radius: 50%; /* Estilo circular */
-}
-
+  .next-btn {
+    color: #0277bd; /* Cambiar a un color más oscuro para mejor visibilidad */
+    border: 2px solid #0277bd; /* Agregar borde para destacar las flechas */
+    background-color: rgba(
+      255,
+      255,
+      255,
+      0.8
+    ); /* Fondo semi-transparente para mejorar visibilidad */
+    font-size: 42px; /* Mantener un tamaño grande para fácil clickeo */
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2; /* Asegurarse de que están por encima de otros elementos */
+    padding: 5px 10px; /* Añadir algo de padding */
+    border-radius: 50%; /* Estilo circular */
+  }
+  .prev-btn,
+  .next-btn {
+    color: #0277bd; /* Cambiar a un color más oscuro para mejor visibilidad */
+    border: 2px solid #0277bd; /* Agregar borde para destacar las flechas */
+    background-color: rgba(
+      255,
+      255,
+      255,
+      0.8
+    ); /* Fondo semi-transparente para mejorar visibilidad */
+    font-size: 42px; /* Mantener un tamaño grande para fácil clickeo */
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2; /* Asegurarse de que están por encima de otros elementos */
+    padding: 5px 10px; /* Añadir algo de padding */
+    border-radius: 50%; /* Estilo circular */
+  }
 
   .prev-btn {
     left: 0 !important;
-    left: 20px; 
+    left: 20px;
   }
 
   .next-btn {

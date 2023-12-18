@@ -20,8 +20,8 @@ const Carrusel = ({ productos }) => {
     productos.length < itemsVisibles
       ? productos
       : productos
-        .concat(productos)
-        .slice(currentIndex, currentIndex + itemsVisibles);
+          .concat(productos)
+          .slice(currentIndex, currentIndex + itemsVisibles);
 
   const moverCarrusel = (direccion) => {
     const totalItems = productos.length;
@@ -48,14 +48,12 @@ const Carrusel = ({ productos }) => {
         </button>
         <div className="destacado-lista">
           {mostrarProductos.map((producto, index) => (
-
             <div key={index} className="elemento">
               <img src={producto.imagen} alt={producto.nombre} />
               <h3>{producto.nombre}</h3>
               <p>Precio: {producto.precio}</p>
               <button>Agregar al carrito</button>
             </div>
-
           ))}
         </div>
         <button className="next-btn" onClick={handleNextClick}>
@@ -87,11 +85,12 @@ function Inicio() {
     fetch("https://importasia-api.onrender.com/productosP")
       .then((response) => response.json())
       .then((data) => {
-        const productosDestacados = data.filter(product => product.Destacado)
-          .map(product => ({
+        const productosDestacados = data
+          .filter((product) => product.Destacado)
+          .map((product) => ({
             imagen: product.ImagenID[0],
             nombre: product.Nombre,
-            precio: "L. " + product.Precio
+            precio: "L. " + product.Precio,
           }));
         setProductosDestacados(productosDestacados);
       })
@@ -121,7 +120,6 @@ function Inicio() {
         console.log(data);
         setImagenesCarrusel(data[0].imagenID);
         console.log(imagenesCarrusel);
-
       } catch (error) {
         console.log("Adentro del catch " + error.message);
         alert("Problema al mostrar las imagenes");
@@ -131,7 +129,6 @@ function Inicio() {
     obtenerCarrusel();
   }, []);
 
-
   return (
     <div className="inicio-container">
       <div className="banner-container">
@@ -140,7 +137,7 @@ function Inicio() {
             {imagenesCarrusel.map((imagen, idx) => (
               <Carousel.Item key={idx}>
                 <img
-                  style={{ width: "100%", height: "610px" }}
+                  style={{ width: "100%", height: "auto" }}
                   className="d-block w-100"
                   src={imagen}
                   alt={`Slide ${idx + 1}`}
