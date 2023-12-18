@@ -20,8 +20,7 @@ const GestionPW = () => {
   const [productosDestacados, setProductosDestacados] = useState([]);
   const [contenido, setContenido] = useState("");
   const [id, setId] = useState("");
-  const [politicas, setPoliticas] = useState('');
-
+  const [politicas, setPoliticas] = useState("");
 
   const mostrarAlerta = (message, variant) => {
     setAlertVariant(variant);
@@ -155,7 +154,7 @@ const GestionPW = () => {
     window.scrollTo({ top: ref.current.offsetTop, behavior: "smooth" });
   };
 
-  const handleActualizar = () => { };
+  const handleActualizar = () => {};
 
   const handleUploadImage = (event) => {
     const file = event.target.files[0];
@@ -287,7 +286,7 @@ const GestionPW = () => {
         body: JSON.stringify({ Destacado: false }),
       });
 
-      setProductosDestacados(prev => prev.filter(prod => prod !== modelo));
+      setProductosDestacados((prev) => prev.filter((prod) => prod !== modelo));
     } else {
       setProductosDestacados((prev) => [...prev, modelo].slice(0, 8));
     }
@@ -343,7 +342,8 @@ const GestionPW = () => {
     try {
       const requests = productosDestacados.map((Modelo) => {
         return fetch(
-          "https://importasia-api.onrender.com/destacarProducto?Modelo=" + Modelo,
+          "https://importasia-api.onrender.com/destacarProducto?Modelo=" +
+            Modelo,
           {
             method: "PUT",
             headers: {
@@ -373,23 +373,29 @@ const GestionPW = () => {
       }
 
       const formData = new FormData();
-      imagenes.forEach(imagen => {
+      imagenes.forEach((imagen) => {
         formData.append(`uploadedFile`, imagen);
       });
 
-      const response = await fetch("https://importasia-api.onrender.com/agregarImgCarruselInicio", {
-        method: 'POST',
-        body: formData,
-      });
+      const response = await fetch(
+        "https://importasia-api.onrender.com/agregarImgCarruselInicio",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       if (response.ok) {
         const Data = await response.json();
         if (Data.success) {
           obtenerCarrusel();
           if (inputFileRef.current) {
-            inputFileRef.current.value = '';
+            inputFileRef.current.value = "";
           }
-          mostrarAlerta("Imágenes del carrusel actualizadas correctamente", "success");
+          mostrarAlerta(
+            "Imágenes del carrusel actualizadas correctamente",
+            "success"
+          );
         } else {
           mostrarAlerta("Error al actualizar imágenes del carrusel", "danger");
         }
@@ -421,7 +427,6 @@ const GestionPW = () => {
 
       const data = await response.json();
       setImagenes(data[0].imagenID);
-
     } catch (error) {
       console.log("Adentro del catch " + error.message);
       alert("Problema al mostrar las imagenes");
@@ -431,17 +436,23 @@ const GestionPW = () => {
   const eliminarImagenCarrusel = async () => {
     try {
       if (!imagenSeleccionada) {
-        mostrarAlerta("No se ha seleccionado ninguna imagen para eliminar", "danger");
+        mostrarAlerta(
+          "No se ha seleccionado ninguna imagen para eliminar",
+          "danger"
+        );
         return;
       }
 
-      const response = await fetch("https://importasia-api.onrender.com/eliminarImgCarruselInicio", {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ imageUrl: imagenSeleccionada }),
-      });
+      const response = await fetch(
+        "https://importasia-api.onrender.com/eliminarImgCarruselInicio",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ imageUrl: imagenSeleccionada }),
+        }
+      );
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -470,17 +481,18 @@ const GestionPW = () => {
   const hanldeSeleccionArchivos = (e) => {
     const archivo = Array.from(e.target.files);
     setImagenes((imagenesPrevias) => [...imagenesPrevias, ...archivo]);
-  }
+  };
 
   /* Aqui termina todo lo que tiene que ver con el carrusel <( _ _ )> */
 
-
-/* Seccion de politicas */
+  /* Seccion de politicas */
   const cargarPoliticas = async () => {
     try {
-      const response = await fetch("https://importasia-api.onrender.com/politicas");
+      const response = await fetch(
+        "https://importasia-api.onrender.com/politicas"
+      );
       if (!response.ok) {
-        throw new Error('Error al cargar las políticas');
+        throw new Error("Error al cargar las políticas");
       }
       const data = await response.json();
       if (data && data.length > 0) {
@@ -492,10 +504,15 @@ const GestionPW = () => {
       // Manejo de errores
     }
   };
-  
+
   const editarContenido = async () => {
     if (contenido.trim() === "") {
       mostrarAlerta("El contenido no puede estar vacío.", "danger");
+      return;
+    }
+
+    if (contenido === politicas) {
+      mostrarAlerta("No hay cambios en el contenido para actualizar.", "info");
       return;
     }
 
@@ -525,21 +542,21 @@ const GestionPW = () => {
         "Política de privacidad actualizada correctamente.",
         "success"
       );
-      console.log(data);
 
+      setPoliticas(contenido);
+
+      console.log(data);
     } catch (error) {
       mostrarAlerta("Error al actualizar la política de privacidad.", "danger");
       console.error("Error al actualizar el contenido:", error);
     }
   };
 
-
   useEffect(() => {
     cargarInformacionEmpresa();
     obtenerCarrusel();
     cargarPoliticas();
   }, []);
-  
 
   return (
     <div className="gestion-wrapper">
@@ -686,23 +703,23 @@ const GestionPW = () => {
             <h2>Imágenes Actuales</h2>
             {imagenes && (
               <div className="current-images-display">
-                {
-                  imagenes.map((imagen, index) => (
-                    <img
-                      key={index}
-                      src={imagen}
-                      alt={`Imagen ${index}`}
-                      onClick={() => handleImagenSeleccionada(imagen)}
-                      className={imagen === imagenSeleccionada ? 'selected' : ''} />
-                  ))
-                }
+                {imagenes.map((imagen, index) => (
+                  <img
+                    key={index}
+                    src={imagen}
+                    alt={`Imagen ${index}`}
+                    onClick={() => handleImagenSeleccionada(imagen)}
+                    className={imagen === imagenSeleccionada ? "selected" : ""}
+                  />
+                ))}
               </div>
             )}
           </div>
           <div className="image-upload-container">
             <h2>Gestionar Imagenes</h2>
 
-            <input type="file"
+            <input
+              type="file"
               ref={inputFileRef}
               multiple
               onChange={hanldeSeleccionArchivos}
@@ -711,10 +728,16 @@ const GestionPW = () => {
               Selecciona una o varias imágenes y luego haz clic en 'Actualizar
               Imágenes' para subir.
             </p>
-            <button className="editar-informacion-btn" onClick={handleActualizarImagenesCarrusel}>
+            <button
+              className="editar-informacion-btn"
+              onClick={handleActualizarImagenesCarrusel}
+            >
               Actualizar Carrusel
             </button>
-            <button className="eliminar-img-btn" onClick={eliminarImagenCarrusel}>
+            <button
+              className="eliminar-img-btn"
+              onClick={eliminarImagenCarrusel}
+            >
               Eliminar Imagen
             </button>
           </div>
@@ -774,7 +797,9 @@ const GestionPW = () => {
         <div className="section editar-informacion">
           <div className="editar-informacion-container">
             <div className="editar-informacion-field">
-              <label htmlFor="politica-contenido">Contenido de la política</label>
+              <label htmlFor="politica-contenido">
+                Contenido de la política
+              </label>
               <textarea
                 id="politica-contenido"
                 className="textarea-field"

@@ -25,6 +25,8 @@
 
 .form-field input[type="text"],
 .form-field input[type="number"],
+.form-field input[type="email"], 
+
 .form-field textarea {
   width: 100%; 
   padding: 10px;
