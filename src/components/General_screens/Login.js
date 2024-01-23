@@ -79,6 +79,9 @@ function Login() {
   const handleEditProfile = () => {
     navigate("/editar");
   };
+  const handleFav = () => {
+    navigate("/favoritos");
+  };
 
   const handleClose = () => {
     setShow(false);
@@ -407,6 +410,7 @@ function Login() {
           </button>
           <div className={menuOpen ? "menu-options menu-open" : "menu-options"}>
             <button onClick={handleEditProfile}>Editar perfil</button>
+            <button onClick={handleFav}>Mis Favoritos</button>
             <button onClick={handleLogout}>Cerrar sesión</button>
           </div>
         </div>

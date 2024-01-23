@@ -116,7 +116,7 @@ const AudifonoFiltro = () => {
       firebaseUID: localStorage.getItem("FireBaseUID"),
       Modelo: modeloAgregar
     };
-
+    
     try {
       const response = await fetch('https://importasia-api.onrender.com/agregarCarrito', {
         method: 'POST',
@@ -130,6 +130,30 @@ const AudifonoFiltro = () => {
         const errorData = await response.json();
         throw new Error(`Error: ${errorData.message || response.status}`);
       }
+    } catch (error) {
+      console.log("Error: ", error);
+    }
+  }
+  const handleAgregarFavoritos = async (modeloAgregar) => {
+    const datos = {
+      firebaseUID: localStorage.getItem("FireBaseUID"),
+      Modelo: modeloAgregar
+    };
+  
+    try {
+      const response = await fetch('https://importasia-api.onrender.com/agregarFavoritos', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(datos),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Error: ${errorData.message || response.status}`);
+      }
+      alert("Producto agregado a favoritos");
     } catch (error) {
       console.log("Error: ", error);
     }
@@ -189,9 +213,8 @@ const AudifonoFiltro = () => {
                   <p>{product.Descripcion}</p>
                   <p className="price">L.{product.Precio}</p>
                   <button className="btn-add-to-cart" onClick={() => handleAgregar(product.Modelo)}>AÑADIR AL CARRITO  </button>
-                  <button className="btn-add-to-favorites">
-                    AGREGAR A FAVORITOS
-                  </button>
+                  <button className="btn-add-to-favorites" onClick={() => handleAgregarFavoritos(product.Modelo)}>AGREGAR A FAVORITOS</button>
+                 
                 </div>
               </div>
             ))}

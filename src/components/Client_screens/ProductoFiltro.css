@@ -116,6 +116,11 @@
   display: flex;
   margin-bottom: auto;
 }
+.main-container2 {
+  margin-top: 600px;
+ margin-left: -200px;
+  margin-bottom: auto;
+}
 
 .product-list-container {
   margin-left: 250px;
