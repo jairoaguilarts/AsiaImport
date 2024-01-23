@@ -24,10 +24,8 @@ import ModificarP from "./components/modalesProductos/ModificarP";
 import AgregarP from "./components/modalesProductos/AgregarP";
 import ProductoFiltro from "./components/Client_screens/ProductoFiltro";
 import InfoProductos from "./components/Client_screens/InfoProducto";
-import Politicas from './components/General_screens/Politicas';
-import Quejas from './components/General_screens/quejas';
-
-
+import Politicas from "./components/General_screens/Politicas";
+import Quejas from "./components/General_screens/quejas";
 
 function App() {
   const userType = localStorage.getItem("IsAdmin");
@@ -82,6 +80,7 @@ function App() {
           <Route path="/agregarp" element={<AgregarP />} />
           <Route path="/producto-filtro" element={<ProductoFiltro />} />
           <Route path="/info-producto" element={<InfoProductos />} />
+          <Route path="/procederCompra" element={<ProcederCompra />} />
         </Routes>
         {userType !== "true" && <Footer />}
       </div>

@@ -4,14 +4,15 @@
   flex-direction: column;
   align-items: center;
   padding-top: 50px;
-  border: 2px solid #FDB254;
+  border: 2px solid #fdb254;
 }
 
 .button-container {
   display: flex;
   margin-top: 10px;
   padding: 20px;
-  width: 80%;
+  width: 70%;
+  font-weight: bold;
 }
 
 .botones {
@@ -20,10 +21,17 @@
   border: none;
   cursor: pointer;
   color: black;
-  background-color: #E7E4DD;
+  font-weight: bold;
+  background-color: #e7e4dd;
   border-radius: 88px;
   font-size: 18px;
   width: 50%;
+  text-align: center;
+  text-align: center;
+}
+.botones p {
+  margin: 0 0 auto;
+  font-weight: bold;
 }
 
 .boton-siguiente {
@@ -31,23 +39,26 @@
   padding: 10px;
   border: none;
   cursor: pointer;
-  color: black;
-  background-color: #FDB254;
+  color: white;
+  font-weight: bold;
+  background-color: #fdb254;
   border-radius: 88px;
   font-size: 18px;
   width: 100%;
 }
-
+.boton-siguiente p {
+  margin: 0 0 auto;
+}
 .delivery {
-  background-color: #E7E4DD;
+  background-color: #e7e4dd;
 }
 
 .pick-up {
-  background-color: #E7E4DD;
+  background-color: #e7e4dd;
 }
 
 .selected {
-  background-color: #FDB254;
+  background-color: #fdb254;
 }
 
 .forms-container {
@@ -58,7 +69,7 @@
 }
 
 .contenedores {
-  margin-Bottom: 10px;
+  margin-bottom: 10px;
   font-size: 18px;
   width: 100%;
 }

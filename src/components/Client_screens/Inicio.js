@@ -13,7 +13,11 @@ import "./Inicio.css";
 
 const Carrusel = ({ productos }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const navegarProcederCompra = () => {
+    navigate("/procederCompra");
+  };
 
+  const navigate = useNavigate();
   const itemsVisibles = 4;
 
   const mostrarProductos =
@@ -52,7 +56,9 @@ const Carrusel = ({ productos }) => {
               <img src={producto.imagen} alt={producto.nombre} />
               <h3>{producto.nombre}</h3>
               <p>Precio: {producto.precio}</p>
-              <button>Agregar al carrito</button>
+              <button onClick={navegarProcederCompra}>
+                Agregar al carrito
+              </button>
             </div>
           ))}
         </div>
