@@ -34,6 +34,33 @@ const Carrusel = ({ productos }) => {
     setCurrentIndex(newIndex);
   };
 
+  const handleAgregar = async (modeloAgregar) => {
+    const datos = {
+      firebaseUID: localStorage.getItem("FireBaseUID"),
+      Modelo: modeloAgregar,
+    };
+
+    try {
+      const response = await fetch(
+        "https://importasia-api.onrender.com/agregarCarrito",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(datos),
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Error: ${errorData.message || response.status}`);
+      }
+    } catch (error) {
+      console.log("Error: ", error);
+    }
+  };
+
   const handlePrevClick = (e) => {
     e.preventDefault();
     moverCarrusel(-1);
@@ -56,7 +83,7 @@ const Carrusel = ({ productos }) => {
               <img src={producto.imagen} alt={producto.nombre} />
               <h3>{producto.nombre}</h3>
               <p>Precio: {producto.precio}</p>
-              <button onClick={navegarProcederCompra}>
+              <button onClick={() => handleAgregar(producto.modelo)}>
                 Agregar al carrito
               </button>
             </div>
@@ -97,6 +124,7 @@ function Inicio() {
             imagen: product.ImagenID[0],
             nombre: product.Nombre,
             precio: "L. " + product.Precio,
+            modelo: product.Modelo,
           }));
         setProductosDestacados(productosDestacados);
       })
@@ -143,7 +171,7 @@ function Inicio() {
             {imagenesCarrusel.map((imagen, idx) => (
               <Carousel.Item key={idx}>
                 <img
-                  style={{ width: "100%", height: "auto" }}
+                  style={{ width: "100%", height: "610px" }}
                   className="d-block w-100"
                   src={imagen}
                   alt={`Slide ${idx + 1}`}

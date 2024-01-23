@@ -80,7 +80,6 @@ function App() {
           <Route path="/agregarp" element={<AgregarP />} />
           <Route path="/producto-filtro" element={<ProductoFiltro />} />
           <Route path="/info-producto" element={<InfoProductos />} />
-          <Route path="/procederCompra" element={<ProcederCompra />} />
         </Routes>
         {userType !== "true" && <Footer />}
       </div>
