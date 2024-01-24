@@ -47,6 +47,7 @@ const AdminEmpleados = () => {
   const [formDataModificar, setFormDataModificar] = useState({
     nombre: "",
     numeroIdentidad: "",
+    correo: "",
   });
 
   const handleShowAgregar = () => setShowAgregar(true);
@@ -85,6 +86,20 @@ const AdminEmpleados = () => {
       handleEliminarConfirmacion();
     } else if (actionType === "hacer-admin") {
       handleHacerAdminConfirmacion();
+    }
+  };
+
+  const obtenerDatosDelEmpleado = async (firebaseUID) => {
+    try {
+      const response = await fetch(`https://importasia-api.onrender.com/soloEmpleado?firebaseUID=${firebaseUID}`);
+      if (!response.ok) {
+        throw new Error('Error al obtener datos del empleado');
+      }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error al obtener información del empleado:', error);
+      throw error;
     }
   };
 
@@ -163,10 +178,13 @@ const AdminEmpleados = () => {
       }
     } else if (showEditar) {
       //Modificar empleado
+      if (!selectedFirebaseUID) {
+        mostrarAlerta("No se ha seleccionado ningún empleado", "danger");
+        return;
+      }
       event.preventDefault();
       const { nombreEditar, formIDEditar, formCorreoEditar } =
         formDataModificar;
-
       if (
         nombreEditar !== undefined ||
         formIDEditar !== undefined ||
@@ -188,15 +206,14 @@ const AdminEmpleados = () => {
           mostrarAlerta("Formato de correo electrónico no válido", "danger");
           return;
         }
-
         const datosEditar = {
           ...(nombreEditar && { nombre: nombreEditar.trim().split(" ")[0] }),
           ...(nombreEditar && { apellido: nombreEditar.trim().split(" ")[1] }),
           ...(formIDEditar && { numeroIdentidad: formIDEditar.trim() }),
           ...(formCorreoEditar && { correo: formCorreoEditar.trim() }),
-          userModifyingType: "*",
+          userType: UserType,
         };
-
+        console.log(datosEditar);
         try {
           const response = await fetch(
             `https://importasia-api.onrender.com/modificarEmpleado?firebaseUID=${selectedFirebaseUID}`,
@@ -208,12 +225,14 @@ const AdminEmpleados = () => {
               body: JSON.stringify(datosEditar),
             }
           );
-
+          console.log(response);
           if (!response.ok) {
             const errorData = await response.json();
+            console.log(errorData);
             throw new Error(`Error: ${errorData.message || response.status}`);
           }
           mostrarAlerta("Empleado modificado exitosamente", "info");
+          setSelectedFirebaseUID("");
           window.location.reload();
         } catch (error) {
           mostrarAlerta("Error al modificar empleado", "danger");
@@ -223,7 +242,6 @@ const AdminEmpleados = () => {
       }
     }
     setShowConfirmar(false);
-    setSelectedFirebaseUID("");
   };
 
   const handleShowEliminarConfirmar = () => setShowEliminarConfirmar(true);
@@ -307,6 +325,25 @@ const AdminEmpleados = () => {
     handleCloseEliminarConfirmar();
     setSelectedFirebaseUID(null);
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const empleadoData = await obtenerDatosDelEmpleado(selectedFirebaseUID);
+
+        setFormDataModificar({
+          nombre: empleadoData.nombre + " " + empleadoData.apellido || '',
+          numeroIdentidad: empleadoData.numeroIdentidad || '',
+          correo: empleadoData.correo || '',
+        });
+      } catch (error) {
+      }
+    };
+
+    if (selectedFirebaseUID) {
+      fetchData();
+    }
+  }, [selectedFirebaseUID]);
 
   return (
     <div>
@@ -442,6 +479,7 @@ const AdminEmpleados = () => {
               type="input"
               placeholder="Nombre de Empleado"
               onChange={handleChangeModificar}
+              value={formDataModificar.nombre}
               autoFocus
             />
           </Form.Group>
@@ -451,6 +489,7 @@ const AdminEmpleados = () => {
               type="email"
               placeholder="Correo Electrónico"
               onChange={handleChangeModificar}
+              value={formDataModificar.correo}
             />
           </Form.Group>
           <Form.Group className="forms" controlId="formIDEditar">
@@ -459,6 +498,7 @@ const AdminEmpleados = () => {
               type="input"
               placeholder="Numero de Identidad"
               onChange={handleChangeModificar}
+              value={formDataModificar.numeroIdentidad}
             />
           </Form.Group>
         </Modal.Body>
