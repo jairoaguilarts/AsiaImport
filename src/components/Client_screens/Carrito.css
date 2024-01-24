@@ -1,3 +1,4 @@
+/* Main cart styling */
 .carrito {
     position: fixed;
     right: 0;
@@ -12,18 +13,15 @@
     flex-direction: column;
     z-index: 1000;
     overflow-y: auto;
-    transition: right 20s ease-in-out;
 }
-.carrito.visible {
-    right: 40;
-  }
-  
+
+/* Close button styling */
 .close-btn {
     align-self: flex-end;
-    margin: 10px;
     background: none;
     border: none;
     cursor: pointer;
+    margin-right: -10px;
     width: 30px;
     height: 30px;
     padding: 0;
@@ -34,60 +32,96 @@
     height: auto;
 }
 
-.carrito h2 {
-    margin-bottom: 10px;
-    color: rgb(13, 155, 207);
-    font-weight: bold;
-    text-align: center;
+/* Header styling */
+.carrito-header {
+    display: flex;
+    align-items: center; /* This will vertically align the flex children in the center */
+    justify-content: flex-start; /* Aligns children at the start of the container */
+    margin-top: -40px;
+    margin-left: -10px;
+    margin-bottom: -10px;
+    padding-left: 20px; /* Adjust as needed for your design */
 }
 
-.carrito hr {
-    border: none;
-    height: 2px;
-    background-color: blue;
-    margin-top: 10px;
-    margin-bottom: 10px;
+.carrito-header h2 {
+    font-size: 24px; /* Adjust this value as needed */
+    color: #01A6FF; /* The color you wanted */
+    margin-left: 10px; /* Adds some space between the icon and the text */
 }
 
+.card-icon {
+    height: auto; /* Adjust the size of your icon here if necessary */
+    width: 30px; /* Adjust the size of your icon here if necessary */
+}
+/* Product item styling */
 .producto {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    margin-bottom: 10px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-    padding-bottom: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #E0E0E0; /* Optional: adds a divider between items */
 }
 
-.producto-info {
+.producto-img {
+    width: 120px; /* Adjust as needed */
+    height: auto;
+    margin-right: 15px; /* Adds space between image and details */
+    margin-top: -20px;
+}
+
+.producto-detalle {
     display: flex;
-    align-items: center;
+    flex-direction: column;
 }
 
 .producto-nombre {
-    margin-left: 10px;
-    font-size: 12px;
+    font-size: 16px;
+    margin-bottom: 10px;
 }
 
+/* Adjusting the buttons within the product quantity */
 .producto-cantidad {
     display: flex;
     align-items: center;
+
+    margin-left: -12px;
 }
+.producto-cantidad button {
+    padding: 10px; /* Padding makes the button larger */
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+/* Styling for the plus and minus images */
+.producto-cantidad button img {
+    width: 22px;
+    height: 22px;
+}
+
 
 .producto-precio {
-    margin-right: 10px;
+    font-size: 18px;
     font-weight: bold;
+    margin-bottom: -1px;
+    margin-top: 5px;
+    margin-right: ;
 }
 
-.producto button img {
-    height: 20px;
+
+/* Remover label styling */
+.remover-label {
+    cursor: pointer;
+    color: #007BFF; /* Optional: makes it look like a clickable link */
+    margin-bottom: 10px;
+    text-decoration: underline; 
 }
 
+/* Subtotal and total styling */
 .totales {
     margin-top: 20px;
 }
 
 .subtotal,
-.entrega,
 .total {
     display: flex;
     justify-content: space-between;
@@ -95,31 +129,31 @@
     margin-bottom: 10px;
 }
 
+/* Divider styling */
+.divisor {
+    border-top: 2px solid #FDB254;
+    margin: 10px 0;
+}
+
+/* Checkout button styling */
 .pagar-btn {
     width: 100%;
     padding: 10px;
-    height: px;
     background-color: #FDB254;
-    color: #f9f9f8;
-    text-align: center;
-
+    color: white;
     border-radius: 5px;
     font-size: 1.1em;
     cursor: pointer;
-    margin-top: 1px;
+    margin-top: 20px; /* More space above the button */
     font-weight: bold;
+    text-align: center;
 }
 
 .pagar-btn:hover {
     background-color: #0080cc;
 }
 
-.carrito button {
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-
+/* Input styling for quantity */
 .carrito input[type="number"] {
     width: 50px;
     padding: 5px;
@@ -127,79 +161,11 @@
     border-radius: 5px;
     text-align: center;
     font-size: 1em;
+    -moz-appearance: textfield; /* Removes the spin button */
 }
 
-.producto img {
-    width: 50px;
-    height: auto;
-}
-
-.carrito .producto-cantidad button img {
-    width: 20px;
-    height: auto;
-    margin-left: 10px;
-}
-
-.carrito .producto-cantidad button {
-    width: 25px;
-    height: 40px;
-    padding: 5px;
-}
-
-.carrito .producto-cantidad input[type="number"] {
-    -webkit-appearance: none;
-    -moz-appearance: textfield;
-    appearance: none;
-    margin-left: 15px;
-}
-
-.carrito .producto-cantidad input[type="number"]::-ms-clear,
-.carrito .producto-cantidad input[type="number"]::-ms-reveal {
-    display: none;
-}
-
-.carrito .producto-cantidad input[type="number"]::-webkit-inner-spin-button,
-.carrito .producto-cantidad input[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
+.carrito input[type="number"]::-webkit-inner-spin-button,
+.carrito input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none; /* Removes the spin button */
     margin: 0;
-}
-
-.carrito .producto-cantidad input[type="number"] {
-    pointer-events: none;
-}
-
-.carrito .producto button img {
-    width: 16px;
-    height: 16px;
-
-
-}
-
-.producto-precio {
-    margin-right: 10px;
-    margin-left: 25px;
-    font-weight: bold;
-    width: 200px;
-    font-size: 14px;
-}
-
-
-.divisor {
-    border-top: 2px solid rgba(2, 166, 252, 0.5);
-    margin: 10px 0;
-}
-
-.card-icon {
-    margin-right: 10px;
-    width: 30px;
-    height: auto;
-}
-
-.carrito-header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 5px;
-    margin-top: -10px;
-
 }

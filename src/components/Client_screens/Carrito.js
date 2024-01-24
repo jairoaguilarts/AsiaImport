@@ -134,44 +134,41 @@ const Carrito = ({ onClose }) => {
                     </button>
                     <div className="carrito-header">
                         <img src={cartIcon2} className="card-icon" alt="Icono del carrito" />
-                        <h2>CARRITO</h2>
+                        <h2>CARRITO DE COMPRAS</h2>
                     </div>
                     <div className="divisor"></div>
                     {showAlert ? (
-                        <>
-                            <CustomAlert
-                                className="alerta"
-                                message={alertMessage}
-                                variant={alertVariant}
-                                onClose={() => setShowAlert(false)}
-                            />
-                        </>
+                        <CustomAlert
+                            className="alerta"
+                            message={alertMessage}
+                            variant={alertVariant}
+                            onClose={() => setShowAlert(false)}
+                        />
                     ) : (
                         <>
                             {productos.map(producto => (
                                 <div className="producto" key={producto.id}>
-                                    <div className="producto-info">
-                                        <img src={producto.ImagenID} alt={producto.Nombre} />
+                                    <img src={producto.ImagenID} alt={producto.Nombre} className="producto-img" />
+                                    <div className="producto-detalle">
                                         <span className="producto-nombre">{producto.Nombre}</span>
+                                        <div className="producto-cantidad">
+                                            <button onClick={() => handleChangeCantidad(producto.Modelo, -1)}>
+                                                <img src={minus} alt="Menos" />
+                                            </button>
+                                            <input
+                                                type="number"
+                                                readOnly
+                                                value={producto.cantidad}
+                                            />
+                                            <button onClick={() => handleChangeCantidad(producto.Modelo, 1)}>
+                                                <img src={plus} alt="Más" />
+                                            </button>
+                                        </div>
+                                        <div className="producto-precio">L {producto.Precio}</div>
+                                        <div className="remover-label" onClick={() => handleRemoveProducto(producto.Modelo)}>
+                                            Remover
+                                        </div>
                                     </div>
-                                    <div className="producto-cantidad">
-                                        <button onClick={() => handleChangeCantidad(producto.Modelo, -1)}>
-                                            <img src={minus} alt="Menos" />
-                                        </button>
-                                        <input
-                                            type="number"
-                                            readOnly
-                                            value={producto.cantidad}
-                                            onChange={(e) => handleChange(producto.Modelo, e)}
-                                        />
-                                        <button onClick={() => handleChangeCantidad(producto.Modelo, 1)}>
-                                            <img src={plus} alt="Más" />
-                                        </button>
-                                    </div>
-                                    <div className="producto-precio">L {producto.Precio}</div>
-                                    <button onClick={() => handleRemoveProducto(producto.Modelo)}>
-                                        <img src={deleteIcon} alt="Eliminar" />
-                                    </button>
                                 </div>
                             ))}
                             <div className="totales">
@@ -187,7 +184,7 @@ const Carrito = ({ onClose }) => {
                             </div>
                             <div className="pagar-btn">
                                 <Link to="/compra">
-                                    <button className="pagar-btn" onClick={handlePagarPedido}>
+                                    <button onClick={handlePagarPedido}>
                                         PAGAR PEDIDO
                                     </button>
                                 </Link>
@@ -198,6 +195,7 @@ const Carrito = ({ onClose }) => {
             )}
         </>
     );
+
 };
 
 export default Carrito;
