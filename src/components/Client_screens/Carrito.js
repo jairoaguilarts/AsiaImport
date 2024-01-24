@@ -182,9 +182,9 @@ const Carrito = ({ onClose }) => {
                                     <span>L{totalCarrito.toFixed(2)}</span>
                                 </div>
                             </div>
-                            <div className="pagar-btn">
+                            <div >
                                 <Link to="/compra">
-                                    <button onClick={handlePagarPedido}>
+                                    <button  className="pagar-btn" onClick={handlePagarPedido}>
                                         PAGAR PEDIDO
                                     </button>
                                 </Link>

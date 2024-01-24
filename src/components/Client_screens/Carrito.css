@@ -139,7 +139,8 @@
 .pagar-btn {
     width: 100%;
     padding: 10px;
-    background-color: #FDB254;
+    background-color: #0080cc;
+    
     color: white;
     border-radius: 5px;
     font-size: 1.1em;
@@ -150,7 +151,7 @@
 }
 
 .pagar-btn:hover {
-    background-color: #0080cc;
+    background-color: #FDB254;
 }
 
 /* Input styling for quantity */
