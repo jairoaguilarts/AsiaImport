@@ -44,16 +44,16 @@ function AgregarP() {
     const regexNombreApellido = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$/;
     const regexId = /^\d+$/;
 
-    if (
-      !regexNombreApellido.test(nombre) ||
-      !regexNombreApellido.test(categoria)
-    ) {
-      mostrarAlerta(
-        "Datos incorrectos en nombre o categoria. Solo se permiten letras.",
-        "danger"
-      );
-      return false;
-    }
+    // if (
+    //   !regexNombreApellido.test(nombre) ||
+    //   !regexNombreApellido.test(categoria)
+    // ) {
+    //   mostrarAlerta(
+    //     "Datos incorrectos en nombre o categoria. Solo se permiten letras.",
+    //     "danger"
+    //   );
+    //   return false;
+    // }
 
     if (!regexId.test(precio) || !regexId.test(cantidad)) {
       mostrarAlerta(
