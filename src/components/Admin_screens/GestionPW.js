@@ -616,7 +616,6 @@ const GestionPW = () => {
                 <span>Modelo</span>
                 <span>Categoría</span>
                 <span>Nombre</span>
-                <span>Descripción</span>
                 <span>Imagen</span>
                 <span>Editar</span>
               </div>
@@ -625,9 +624,6 @@ const GestionPW = () => {
                   <span className="product-model">{product.Modelo}</span>
                   <span className="product-category">{product.Categoria}</span>
                   <span className="product-name">{product.Nombre}</span>
-                  <span className="product-description">
-                    {product.Descripcion}
-                  </span>
                   <img
                     src={product.ImagenID[0]}
                     alt="Product"
