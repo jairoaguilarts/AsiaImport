@@ -88,7 +88,7 @@ function ProcederCompra() {
     };
 
     try {
-      const response = await fetch('http://localhost:3000/crearEntrega', {
+      const response = await fetch('https://importasiahn.netlify.app/crearEntrega', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
