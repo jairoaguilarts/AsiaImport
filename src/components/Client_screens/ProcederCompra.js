@@ -6,6 +6,14 @@ import Select from 'react-select';
 function ProcederCompra() {
   const [isDeliverySelected, setIsDeliverySelected] = useState(true);
   const [departamento, setDepartamento] = useState('');
+  const [municipio, setMunicipio] = useState('');
+  const [direccion, setDireccion] = useState('');
+  const [puntoreferencia, setPuntoReferencia] = useState('');
+  const [numerotelefono, setNumeroTelefono] = useState('');
+  const firebaseUID = localStorage.getItem("FireBaseUID");
+  
+  // Suponiendo que tienes alguna forma de obtener el ID del usuario actual
+  const id_usuario = firebaseUID;
 
   const handleDeliveryClick = () => {
     setIsDeliverySelected(true);
@@ -20,7 +28,76 @@ function ProcederCompra() {
     setDepartamento(selectedOption.value);
   };
 
+  // Función para manejar la creación de la entrega
+  const handleSubmit = async () => {
+    const esNumeroValido = (numero) => /^\d{8}$/.test(numero);
 
+    if (!esNumeroValido(numerotelefono)) {
+      alert('Por favor, ingrese un número de teléfono válido de 8 dígitos');
+      return;
+    }
+  
+    const datosEntrega = {
+      departamento,
+      municipio,
+      direccion,
+      puntoreferencia,
+      id_usuario,
+      estadoOrden: 'Ingresada',
+      fecha_ingreso: new Date().toISOString(),
+      numerotelefono
+    };
+
+    try {
+      const response = await fetch('https://importasiahn.netlify.app/crearEntrega', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(datosEntrega)
+      });
+
+      if (response.ok) {
+        console.log('Entrega creada');
+        alert('Orden creada con éxito');
+      } else {
+        console.error('Error al crear entrega');
+        alert('Hubo un error al crear la orden'); 
+      }
+    } catch (error) {
+      console.error('Error al conectar con el servidor', error);
+    }
+  };
+  const handleSubmit2 = async () => {
+    const datosEntrega = {
+      departamento,
+      municipio,
+      direccion,
+      puntoreferencia,
+      id_usuario,
+      estadoOrden: 'Pendiente',
+      fecha_ingreso: new Date().toISOString(),
+      numerotelefono
+    };
+
+    try {
+      const response = await fetch('http://localhost:3000/crearEntrega', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(datosEntrega)
+      });
+
+      if (response.ok) {
+        console.log('Entrega creada');
+      } else {
+        console.error('Error al crear entrega');
+      }
+    } catch (error) {
+      console.error('Error al conectar con el servidor', error);
+    }
+  };
   const options = [
     { value: 'Atlantida', label: 'Atlántida' },
     { value: 'Colon', label: 'Colón' },
@@ -79,19 +156,40 @@ function ProcederCompra() {
 
             {/* Contenido de los Municipios */}
             <p>Municipio</p>
-            <Form.Control className='contenedores' type="text" placeholder="Ingrese un Municipio" />
-            <p>Direccion de Envio 1</p>
-            <Form.Control className='contenedores' type="text" placeholder="Ingrese una Direccion" />
-            <p>Direccion de Envio 2</p>
-            <Form.Control className='contenedores' type="text" placeholder="Ingrese una Direccion" />
-            <p>Numero de Telefono</p>
-            <Form.Control className='contenedores' type="text" placeholder="Ingrese un Numero" />
-
-            <button className='boton-siguiente' >
+            <Form.Control
+              className='contenedores'
+              type="text"
+              placeholder="Ingrese un Municipio"
+              value={municipio}
+              onChange={(e) => setMunicipio(e.target.value)}
+            />
+            <p>Direccion</p>
+            <Form.Control
+              className='contenedores'
+              type="text"
+              placeholder="Ingrese una Dirección"
+              value={direccion}
+              onChange={(e) => setDireccion(e.target.value)}
+            />
+            <p>Punto de Referencia</p>
+            <Form.Control
+              className='contenedores'
+              type="text"
+              placeholder="Ingrese un Punto de Referencia"
+              value={puntoreferencia}
+              onChange={(e) => setPuntoReferencia(e.target.value)}
+            />
+            <p>Numero de telefono</p>
+            <Form.Control
+              className='contenedores'
+              type="text"
+              placeholder="Ingrese un Número de Teléfono"
+              value={numerotelefono}
+              onChange={(e) => setNumeroTelefono(e.target.value)}
+            />
+            <button className='boton-siguiente' onClick={handleSubmit}>
               <p>Siguiente</p>
             </button>
-
-
           </div>
         </>
       ) : (
@@ -106,7 +204,7 @@ function ProcederCompra() {
             <p>Numero de Telefono</p>
             <Form.Control className='contenedores' type="text" placeholder="Ingrese un Numero" />
 
-            <button className='boton-siguiente' >
+            <button className='boton-siguiente' onClick={handleSubmit2}>
               <p>Siguiente</p>
             </button>
 
