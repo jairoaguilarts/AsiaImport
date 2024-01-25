@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './ProcederCompra.css';
 import Form from 'react-bootstrap/Form';
 import Select from 'react-select';
-
+const opcionInicialDepartamento = { value: '', label: 'Seleccione un departamento' };
 function ProcederCompra() {
   const [isDeliverySelected, setIsDeliverySelected] = useState(true);
   const [departamento, setDepartamento] = useState('');
@@ -11,7 +11,7 @@ function ProcederCompra() {
   const [puntoreferencia, setPuntoReferencia] = useState('');
   const [numerotelefono, setNumeroTelefono] = useState('');
   const firebaseUID = localStorage.getItem("FireBaseUID");
-  
+  const [departamentoSeleccionado, setDepartamentoSeleccionado] = useState(opcionInicialDepartamento);
   // Suponiendo que tienes alguna forma de obtener el ID del usuario actual
   const id_usuario = firebaseUID;
 
@@ -25,6 +25,7 @@ function ProcederCompra() {
 
 
   const handleDepartamentoChange = (selectedOption) => {
+    setDepartamentoSeleccionado(selectedOption);
     setDepartamento(selectedOption.value);
   };
 
@@ -36,7 +37,7 @@ function ProcederCompra() {
       alert('Por favor, ingrese un número de teléfono válido de 8 dígitos');
       return;
     }
-  
+
     const datosEntrega = {
       departamento,
       municipio,
@@ -49,7 +50,7 @@ function ProcederCompra() {
     };
 
     try {
-      const response = await fetch('https://importasiahn.netlify.app/crearEntrega', {
+      const response = await fetch('http://localhost:3000/crearEntrega', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -60,9 +61,15 @@ function ProcederCompra() {
       if (response.ok) {
         console.log('Entrega creada');
         alert('Orden creada con éxito');
+        setDepartamento('');
+        setMunicipio('');
+        setDireccion('');
+        setPuntoReferencia('');
+        setNumeroTelefono('');
+        setDepartamentoSeleccionado(opcionInicialDepartamento);
       } else {
         console.error('Error al crear entrega');
-        alert('Hubo un error al crear la orden'); 
+        alert('Hubo un error al crear la orden');
       }
     } catch (error) {
       console.error('Error al conectar con el servidor', error);
@@ -144,11 +151,11 @@ function ProcederCompra() {
               <p>Departamento</p>
               <Select
                 name="departamento"
-                value={options.find((opt) => opt.value === departamento)}
+                value={departamentoSeleccionado}
                 onChange={handleDepartamentoChange}
-                options={options}
+                options={[opcionInicialDepartamento, ...options]}
                 isSearchable
-                placeholder="Seleccione una opcion"
+                placeholder="Seleccione una opción"
                 className="select-with-scroll"
               />
 
