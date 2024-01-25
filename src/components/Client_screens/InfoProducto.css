@@ -22,9 +22,10 @@
 }
 
 .product-image-container img:hover {
-  transform: scale(1.2); /* Aumenta el tamaño de la imagen cuando se pasa el ratón por encima */
+  transform: scale(
+    1.2
+  ); /* Aumenta el tamaño de la imagen cuando se pasa el ratón por encima */
 }
-
 
 /* .product-image {
   object-fit: cover !important;
@@ -64,7 +65,7 @@
   gap: 10px;
 }
 
-.btn-cart2{
+.btn-cart2 {
   padding: 10px 30px;
   border: none;
   cursor: pointer;

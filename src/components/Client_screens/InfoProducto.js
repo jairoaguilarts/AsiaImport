@@ -47,13 +47,16 @@ function InfoAudifonos() {
     const Modelo = modelo;
 
     try {
-      const response = await fetch('https://importasia-api.onrender.com/agregarCarrito', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ firebaseUID, Modelo }),
-      });
+      const response = await fetch(
+        "https://importasia-api.onrender.com/agregarCarrito",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ firebaseUID, Modelo }),
+        }
+      );
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -64,7 +67,7 @@ function InfoAudifonos() {
       console.log("Error: ", error);
       alert("Error");
     }
-  }
+  };
 
   return (
     <div className="App">
@@ -90,12 +93,13 @@ function InfoAudifonos() {
               <div className="product-title">{producto.Nombre}</div>
               <div className="product-rating">★★★★☆ 4.8 (90 reseñas)</div>
               <div className="product-price">
-                L {producto.Precio} ISV incluido
+                L {producto.Precio}.00 ISV incluido
               </div>
-              <p>{producto.Descripcion}</p>
             </div>
             <div className="product-buttons">
-              <button className="btn-cart2" onClick={() => handleAgregar()}>AÑADIR AL CARRITO</button>
+              <button className="btn-cart2" onClick={() => handleAgregar()}>
+                AÑADIR AL CARRITO
+              </button>
               <button className="btn-favorite2">AGREGAR A FAVORITOS</button>
             </div>
           </div>
