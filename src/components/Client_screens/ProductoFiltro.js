@@ -41,14 +41,18 @@ const AudifonoFiltro = () => {
       const urls = [
         `https://importasia-api.onrender.com/buscarProductoCategoria?Nombre=${terminoBusqueda}`,
         `https://importasia-api.onrender.com/buscarProductoNombre?Nombre=${terminoBusqueda}`,
-        `https://importasia-api.onrender.com/buscarProductoModelo?Modelo=${terminoBusqueda}`
+        `https://importasia-api.onrender.com/buscarProductoModelo?Modelo=${terminoBusqueda}`,
       ];
 
       try {
-        const responses = await Promise.all(urls.map(url => fetch(url)));
-        const resultados = await Promise.all(responses.map(res => res.json()));
+        const responses = await Promise.all(urls.map((url) => fetch(url)));
+        const resultados = await Promise.all(
+          responses.map((res) => res.json())
+        );
 
-        const productosEncontrados = resultados.filter(res => res.length > 0).flat();
+        const productosEncontrados = resultados
+          .filter((res) => res.length > 0)
+          .flat();
 
         setTimeout(() => {
           setProducts(productosEncontrados);
@@ -62,7 +66,6 @@ const AudifonoFiltro = () => {
 
     fetchProducts();
   }, [categoria]);
-
 
   useEffect(() => {
     let sortedProducts = [...products];
@@ -114,17 +117,20 @@ const AudifonoFiltro = () => {
   const handleAgregar = async (modeloAgregar) => {
     const datos = {
       firebaseUID: localStorage.getItem("FireBaseUID"),
-      Modelo: modeloAgregar
+      Modelo: modeloAgregar,
     };
-    
+
     try {
-      const response = await fetch('https://importasia-api.onrender.com/agregarCarrito', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(datos),
-      });
+      const response = await fetch(
+        "https://importasia-api.onrender.com/agregarCarrito",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(datos),
+        }
+      );
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -133,21 +139,24 @@ const AudifonoFiltro = () => {
     } catch (error) {
       console.log("Error: ", error);
     }
-  }
+  };
   const handleAgregarFavoritos = async (modeloAgregar) => {
     const datos = {
       firebaseUID: localStorage.getItem("FireBaseUID"),
-      Modelo: modeloAgregar
+      Modelo: modeloAgregar,
     };
-  
+
     try {
-      const response = await fetch('https://importasia-api.onrender.com/agregarFavoritos', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(datos),
-      });
+      const response = await fetch(
+        "https://importasia-api.onrender.com/agregarFavoritos",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(datos),
+        }
+      );
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -157,7 +166,7 @@ const AudifonoFiltro = () => {
     } catch (error) {
       console.log("Error: ", error);
     }
-  }
+  };
 
   return (
     <div className="main-container">
@@ -184,13 +193,15 @@ const AudifonoFiltro = () => {
               {sorts.map((sort) => (
                 <div
                   key={sort}
-                  className={`filter-option ${selectedSort === sort ? "selected" : ""
-                    }`}
+                  className={`filter-option ${
+                    selectedSort === sort ? "selected" : ""
+                  }`}
                   onClick={() => setSelectedSort(sort)}
                 >
                   <span
-                    className={`checkbox ${selectedSort === sort ? "checked" : ""
-                      }`}
+                    className={`checkbox ${
+                      selectedSort === sort ? "checked" : ""
+                    }`}
                   ></span>
                   {sort}
                 </div>
@@ -210,11 +221,20 @@ const AudifonoFiltro = () => {
                 <div className="product-details">
                   <h3>{product.Nombre}</h3>
                   <p>Modelo: {product.Modelo}</p>
-                  <p>{product.Descripcion}</p>
-                  <p className="price">L.{product.Precio}</p>
-                  <button className="btn-add-to-cart" onClick={() => handleAgregar(product.Modelo)}>AÑADIR AL CARRITO  </button>
-                  <button className="btn-add-to-favorites" onClick={() => handleAgregarFavoritos(product.Modelo)}>AGREGAR A FAVORITOS</button>
-                 
+
+                  <p className="price">L {product.Precio}.00</p>
+                  <button
+                    className="btn-add-to-cart"
+                    onClick={() => handleAgregar(product.Modelo)}
+                  >
+                    AÑADIR AL CARRITO{" "}
+                  </button>
+                  <button
+                    className="btn-add-to-favorites"
+                    onClick={() => handleAgregarFavoritos(product.Modelo)}
+                  >
+                    AGREGAR A FAVORITOS
+                  </button>
                 </div>
               </div>
             ))}

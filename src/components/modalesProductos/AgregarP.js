@@ -30,7 +30,7 @@ function AgregarP() {
   const [alertVariant, setAlertVariant] = useState("white");
 
   const options = [
-    { value: "PARLANTE", label: "PARLANTE" },
+    { value: "USB", label: "USB" },
     { value: "AURICULARES", label: "AURICULARES" },
     { value: "BOTES", label: "BOTES" },
     { value: "CARGADORES", label: "CARGADORES" },

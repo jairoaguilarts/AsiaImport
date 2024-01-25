@@ -118,7 +118,7 @@
 }
 .main-container2 {
   margin-top: 600px;
- margin-left: -200px;
+  margin-left: -200px;
   margin-bottom: auto;
 }
 
@@ -130,6 +130,7 @@
 
 .product-container {
   display: flex;
+  flex-direction: row;
   margin-bottom: 20px;
   align-items: center;
 }
@@ -153,6 +154,7 @@
   height: 100%;
   object-fit: cover;
   transition: transform 0.3s ease;
+  align-items: center;
 }
 
 .product-image-btn:hover img {
@@ -166,6 +168,11 @@
 .product-details {
   flex-grow: 1;
   margin-bottom: 90px;
+}
+.product-details p {
+  width: 60%;
+  white-space: pre-wrap;
+  text-align: justify;
 }
 
 .price {
