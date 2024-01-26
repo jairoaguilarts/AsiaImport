@@ -8,6 +8,8 @@ function ProcederCompra() {
   const [departamento, setDepartamento] = useState('');
   const [municipio, setMunicipio] = useState('');
   const [direccion, setDireccion] = useState('');
+  const [nombreUser, setNombreUser] = useState('');
+  const [identidadUser, setIdentidadUser] = useState('');
   const [puntoreferencia, setPuntoReferencia] = useState('');
   const [numerotelefono, setNumeroTelefono] = useState('');
   const firebaseUID = localStorage.getItem("FireBaseUID");
@@ -50,7 +52,7 @@ function ProcederCompra() {
     };
 
     try {
-      const response = await fetch('http://localhost:3000/crearEntrega', {
+      const response = await fetch('https://importasia-api.onrender.com/crearEntrega', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -76,11 +78,22 @@ function ProcederCompra() {
     }
   };
   const handleSubmit2 = async () => {
+    const esNumeroValido = (numero) => /^\d{8}$/.test(numero);
+    const esIdValido = (id) => /^\d{13}$/.test(id);
+    
+    if (!esIdValido(identidadUser)) {
+      alert('Por favor, ingrese un número de identidad valido de 13 digitos');
+      return;
+    }
+
+    if (!esNumeroValido(numerotelefono)) {
+      alert('Por favor, ingrese un número de teléfono válido de 8 dígitos');
+      return;
+    }
+
     const datosEntrega = {
-      departamento,
-      municipio,
-      direccion,
-      puntoreferencia,
+      nombreUser,
+      identidadUser, 
       id_usuario,
       estadoOrden: 'Pendiente',
       fecha_ingreso: new Date().toISOString(),
@@ -88,7 +101,7 @@ function ProcederCompra() {
     };
 
     try {
-      const response = await fetch('https://importasiahn.netlify.app/crearEntrega', {
+      const response = await fetch('https://importasia-api.onrender.com/crearEntregaPickup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -98,6 +111,10 @@ function ProcederCompra() {
 
       if (response.ok) {
         console.log('Entrega creada');
+        alert('Orden Pickup creada con éxito');
+        setNumeroTelefono('');
+        setNombreUser('');
+        setIdentidadUser('');
       } else {
         console.error('Error al crear entrega');
       }
@@ -105,6 +122,7 @@ function ProcederCompra() {
       console.error('Error al conectar con el servidor', error);
     }
   };
+
   const options = [
     { value: 'Atlantida', label: 'Atlántida' },
     { value: 'Colon', label: 'Colón' },
@@ -205,11 +223,11 @@ function ProcederCompra() {
 
             {/* Contenido de PickUp */}
             <p>Nombre de la persona que Recoge</p>
-            <Form.Control className='contenedores' type="text" placeholder="Ingrese un Nombre" />
+            <Form.Control className='contenedores' type="text" placeholder="Ingrese un Nombre" value={nombreUser} onChange={(e) => setNombreUser(e.target.value)}/>
             <p>Numero de Identidad de la Persona que Recoge</p>
-            <Form.Control className='contenedores' type="text" placeholder="Ingrese un Numero de Identidad " />
+            <Form.Control className='contenedores' type="text" placeholder="Ingrese un Numero de Identidad " value={identidadUser} onChange={(e) => setIdentidadUser(e.target.value)}/>
             <p>Numero de Telefono</p>
-            <Form.Control className='contenedores' type="text" placeholder="Ingrese un Numero" />
+            <Form.Control className='contenedores' type="text" placeholder="Ingrese un Numero" value={numerotelefono} onChange={(e) => setNumeroTelefono(e.target.value)}/>
 
             <button className='boton-siguiente' onClick={handleSubmit2}>
               <p>Siguiente</p>
