@@ -6,7 +6,9 @@
   padding-top: 50px;
   border: 2px solid #fdb254;
 }
-
+.btn-Pagar{
+align-items: center;
+}
 .button-container {
   display: flex;
   margin-top: 10px;

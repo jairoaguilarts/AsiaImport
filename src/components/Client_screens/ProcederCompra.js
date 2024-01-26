@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './ProcederCompra.css';
 import Form from 'react-bootstrap/Form';
 import Select from 'react-select';
+import { useNavigate } from "react-router-dom";
 const opcionInicialDepartamento = { value: '', label: 'Seleccione un departamento' };
 function ProcederCompra() {
   const [isDeliverySelected, setIsDeliverySelected] = useState(true);
@@ -14,6 +15,7 @@ function ProcederCompra() {
   const [numerotelefono, setNumeroTelefono] = useState('');
   const firebaseUID = localStorage.getItem("FireBaseUID");
   const [departamentoSeleccionado, setDepartamentoSeleccionado] = useState(opcionInicialDepartamento);
+  const navigate = useNavigate();
   // Suponiendo que tienes alguna forma de obtener el ID del usuario actual
   const id_usuario = firebaseUID;
 
@@ -30,7 +32,9 @@ function ProcederCompra() {
     setDepartamentoSeleccionado(selectedOption);
     setDepartamento(selectedOption.value);
   };
-
+  const Procederpago = () => {
+    navigate("/pago");
+  };
   // Función para manejar la creación de la entrega
   const handleSubmit = async () => {
     const esNumeroValido = (numero) => /^\d{8}$/.test(numero);
@@ -212,7 +216,7 @@ function ProcederCompra() {
               value={numerotelefono}
               onChange={(e) => setNumeroTelefono(e.target.value)}
             />
-            <button className='boton-siguiente' onClick={handleSubmit}>
+            <button className='boton-siguiente' onClick={Procederpago}>
               <p>Siguiente</p>
             </button>
           </div>

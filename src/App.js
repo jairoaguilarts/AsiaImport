@@ -27,6 +27,7 @@ import InfoProductos from "./components/Client_screens/InfoProducto";
 import Politicas from "./components/General_screens/Politicas";
 import Quejas from "./components/General_screens/quejas";
 import Verfav from "./components/Client_screens/Verfav";
+import Pago from "./components/Client_screens/Pago";
 
 function App() {
   const userType = localStorage.getItem("IsAdmin");
@@ -50,6 +51,7 @@ function App() {
           <Route path="/compra" element={<ProcederCompra />} />{" "}
           <Route path="/carrito" element={<Carrito />} />{" "}
           <Route path="/favoritos" element={<Verfav />} />
+          <Route path="/pago" element={<Pago />} />
           <Route
             path="/adminGeneral"
             element={

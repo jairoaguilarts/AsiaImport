@@ -1,0 +1,78 @@
+/* Estilos para todo el componente */
+.pago-container {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f4f4;
+  }
+  
+  .pago-container h2 {
+    color: #333;
+    margin-bottom: 30px;
+  }
+  .botones-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Esto añade un espacio entre los botones */
+  }
+  /* Estilos para los botones */
+  .pago-container button {
+    min-width: 150px; /* O el ancho que prefieras */
+    width: 300px;
+    padding: 15px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .pago-container button:hover {
+    background-color: #fdb254;
+  }
+  .boton-contenedor {
+    width: 100%; /* Toma toda la anchura disponible */
+    display: flex; /* Usa flexbox */
+    justify-content: center; /* Centra el botón horizontalmente */
+    margin-top: 20px; /* Espacio antes del botón */
+  }
+  
+  /* Estilos para el formulario y la información de transferencia */
+  .formulario {
+    width: 100%;
+    max-width: 500px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+  }
+  
+  .formulario label {
+    display: block;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .formulario button {
+    max-width: 200px; 
+    align-items: center;
+  }
+  .formulario input, .formulario select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
