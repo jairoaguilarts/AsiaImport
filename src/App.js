@@ -28,7 +28,8 @@ import Politicas from "./components/General_screens/Politicas";
 import Quejas from "./components/General_screens/quejas";
 import Verfav from "./components/Client_screens/Verfav";
 import Pago from "./components/Client_screens/Pago";
-
+import GestionarInfo from "./components/Admin_screens/GestionarInfo"
+import GestionCarrusel from "./components/Admin_screens/GestionCarrusel";
 function App() {
   const userType = localStorage.getItem("IsAdmin");
 
@@ -52,6 +53,8 @@ function App() {
           <Route path="/carrito" element={<Carrito />} />{" "}
           <Route path="/favoritos" element={<Verfav />} />
           <Route path="/pago" element={<Pago />} />
+          <Route path="/GestionarInfo" element={<GestionarInfo />} />
+          <Route path="/gestion-carrusel" element={<GestionCarrusel/>}/>
           <Route
             path="/adminGeneral"
             element={

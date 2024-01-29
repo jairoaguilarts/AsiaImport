@@ -6,8 +6,10 @@ import menu from "../../assets/menu-sidebar.png";
 import general from "../../assets/pGeneral.png";
 import editar from "../../assets/pEdit.png";
 import empleados from "../../assets/pEmpleados.png";
+import iconI from"../../assets/infoI.png";
 import ventas from "../../assets/pVentas.png";
 import logOut from "../../assets/logout.png";
+import icoC from "../../assets/iCarr.png";
 import { useNavigate } from "react-router-dom";
 
 const AdminPage = () => {
@@ -81,14 +83,14 @@ const AdminPage = () => {
             <hr className="linea-divisora" />
             <div className="sidebar-item">
               <Link to="/GestionarInfo">
-                <img src={empleados} alt="emp" className="icon-image" />
+                <img src={iconI} alt="emp" className="icon-image" />
                 <span>Gestionar Informacion</span>
               </Link>
             </div>
             <hr className="linea-divisora" />
             <div className="sidebar-item">
-              <Link to="/adminempleados">
-                <img src={empleados} alt="emp" className="icon-image" />
+              <Link to="/gestion-carrusel">
+                <img src={icoC} alt="emp" className="icon-image" />
                 <span>Gestionar Carrousel</span>
               </Link>
             </div>

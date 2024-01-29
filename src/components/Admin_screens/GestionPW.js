@@ -561,17 +561,7 @@ const GestionPW = () => {
   return (
     <div className="gestion-wrapper">
       {/* Barra de navegación */}
-      <div className="navbar2">
-        <button onClick={() => scrollToSection(nuestrosProductosRef)}>
-          Nuestros Productos
-        </button>
-        <button onClick={() => scrollToSection(editarImagenesCarrouselRef)}>
-          Editar Imágenes Carrousel
-        </button>
-        <button onClick={() => scrollToSection(editarInformacionRef)}>
-          Editar Información
-        </button>
-      </div>
+      
       <div className="tabla-productos">
         {/* Sección Nuestros Productos */}
         <div ref={nuestrosProductosRef} className="section">
@@ -688,130 +678,6 @@ const GestionPW = () => {
           <h1 className="title">Editar Productos Destacados</h1>
         </div>
       </div> */}
-
-      {/* Sección Editar Imágenes Carrousel */}
-      <div ref={editarImagenesCarrouselRef} className="section">
-        <div className="editar-informacion-title">
-          <h1 className="title">Editar Imágenes del Carrusel</h1>
-        </div>
-        <div className="editar-imagenes-carrousel-container">
-          <div className="current-images-container">
-            <h2>Imágenes Actuales</h2>
-            {imagenes && (
-              <div className="current-images-display">
-                {imagenes.map((imagen, index) => (
-                  <img
-                    key={index}
-                    src={imagen}
-                    alt={`Imagen ${index}`}
-                    onClick={() => handleImagenSeleccionada(imagen)}
-                    className={imagen === imagenSeleccionada ? "selected" : ""}
-                  />
-                ))}
-              </div>
-            )}
-          </div>
-          <div className="image-upload-container">
-            <h2>Gestionar Imagenes</h2>
-
-            <input
-              type="file"
-              ref={inputFileRef}
-              multiple
-              onChange={hanldeSeleccionArchivos}
-            />
-            <p>
-              Selecciona una o varias imágenes y luego haz clic en 'Actualizar
-              Imágenes' para subir.
-            </p>
-            <button
-              className="editar-informacion-btn"
-              onClick={handleActualizarImagenesCarrusel}
-            >
-              Actualizar Carrusel
-            </button>
-            <button
-              className="eliminar-img-btn"
-              onClick={eliminarImagenCarrusel}
-            >
-              Eliminar Imagen
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Sección Editar Información */}
-      <div ref={editarInformacionRef} className="section">
-        <div className="editar-informacion-title">
-          <h1 className="title">Editar Informacion</h1>
-        </div>
-        <div ref={editarInformacionRef} className="section editar-informacion">
-          <div className="editar-informacion-container">
-            <div className="editar-informacion-field">
-              <label htmlFor="mision">Misión</label>
-              <textarea
-                id="mision"
-                value={mision}
-                onChange={(e) => setMision(e.target.value)}
-              ></textarea>
-              <label htmlFor="mision">Vision</label>
-              <textarea
-                id="vision"
-                value={vision}
-                onChange={(e) => setVision(e.target.value)}
-              ></textarea>
-              <label htmlFor="mision">Historia</label>
-              <textarea
-                id="historia"
-                value={historia}
-                onChange={(e) => setHistoria(e.target.value)}
-              ></textarea>
-              <button
-                className="editar-informacion-btn"
-                onClick={handleActualizar2}
-              >
-                Actualizar Información
-              </button>
-              {showAlert && (
-                <CustomAlert
-                  className="alerta"
-                  message={alertMessage}
-                  variant={alertVariant}
-                  onClose={() => setShowAlert(false)}
-                />
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* SECCION EDITAR POLITICAS */}
-      <div ref={editarInformacionRef} className="section">
-        <div className="editar-informacion-title">
-          <h1 className="title">Editar Política de Privacidad</h1>
-        </div>
-        <div className="section editar-informacion">
-          <div className="editar-informacion-container">
-            <div className="editar-informacion-field">
-              <label htmlFor="politica-contenido">
-                Contenido de la política
-              </label>
-              <textarea
-                id="politica-contenido"
-                className="textarea-field"
-                value={contenido}
-                onChange={(e) => setContenido(e.target.value)}
-              ></textarea>
-              <button
-                className="editar-informacion-btn"
-                onClick={editarContenido}
-              >
-                Actualizar Políticas
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
 
       {/* Modal para confirmación de eliminación */}
       <Modal
