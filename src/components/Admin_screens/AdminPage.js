@@ -80,6 +80,20 @@ const AdminPage = () => {
             </div>
             <hr className="linea-divisora" />
             <div className="sidebar-item">
+              <Link to="/GestionarInfo">
+                <img src={empleados} alt="emp" className="icon-image" />
+                <span>Gestionar Informacion</span>
+              </Link>
+            </div>
+            <hr className="linea-divisora" />
+            <div className="sidebar-item">
+              <Link to="/adminempleados">
+                <img src={empleados} alt="emp" className="icon-image" />
+                <span>Gestionar Carrousel</span>
+              </Link>
+            </div>
+            <hr className="linea-divisora" />
+            <div className="sidebar-item">
               <Link to="/adminempleados">
                 <img src={empleados} alt="emp" className="icon-image" />
                 <span>Empleados</span>
