@@ -118,6 +118,7 @@ const AudifonoFiltro = () => {
     const datos = {
       firebaseUID: localStorage.getItem("FireBaseUID"),
       Modelo: modeloAgregar,
+      cantidad: "1"
     };
 
     try {

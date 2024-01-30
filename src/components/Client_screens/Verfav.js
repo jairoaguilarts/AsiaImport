@@ -6,12 +6,14 @@ import originIcon from "../../assets/maneki-neko.png";
 const VerFav = () => {
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
+
   const handleAgregar = async (modeloAgregar) => {
     const datos = {
       firebaseUID: localStorage.getItem("FireBaseUID"),
-      Modelo: modeloAgregar
+      Modelo: modeloAgregar,
+      cantidad: "1",
     };
-    
+
     try {
       const response = await fetch('https://importasia-api.onrender.com/agregarCarrito', {
         method: 'POST',
@@ -34,27 +36,27 @@ const VerFav = () => {
     const firebaseUID = localStorage.getItem("FireBaseUID");
 
     try {
-        const response = await fetch(`https://importasia-api.onrender.com/eliminarDeFavoritos`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ firebaseUID, Modelo: modelo }),
-        });
+      const response = await fetch(`https://importasia-api.onrender.com/eliminarDeFavoritos`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ firebaseUID, Modelo: modelo }),
+      });
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(`Error: ${errorData.message || response.status}`);
-        }
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Error: ${errorData.message || response.status}`);
+      }
 
-        const nuevosProductos = productos.filter(producto => producto.Modelo !== modelo);
-        setProductos(nuevosProductos);
-        alert("Producto eliminado de Favoritos");
+      const nuevosProductos = productos.filter(producto => producto.Modelo !== modelo);
+      setProductos(nuevosProductos);
+      alert("Producto eliminado de Favoritos");
     } catch (error) {
-        console.log('Error al eliminar el producto del carrito: ', error);
-        alert("Error al eliminar el producto");
+      console.log('Error al eliminar el producto del carrito: ', error);
+      alert("Error al eliminar el producto");
     }
-};
+  };
 
 
   useEffect(() => {
@@ -112,7 +114,7 @@ const VerFav = () => {
               {/* Puedes ajustar el contenido según tus necesidades */}
               <button
                 className="product-image-btn"
-                onClick={() => {/* Acción al hacer clic en la imagen del producto */}}
+                onClick={() => {/* Acción al hacer clic en la imagen del producto */ }}
               >
                 <img src={producto.ImagenID[0]} alt={producto.Nombre} />
               </button>
@@ -123,7 +125,7 @@ const VerFav = () => {
                 <p className="price">L.{producto.Precio}</p>
                 <button className="btn-add-to-cart" onClick={() => handleAgregar(producto.Modelo)}>AÑADIR AL CARRITO  </button>
                 <button className="btn-add-to-favorites" onClick={() => handleEliminar(producto.Modelo)}>ELIMINAR DE FAVORITOS </button>
-            { /*  <button className="btn-add-to-cart" onClick={() => handleEliminar(product.Modelo)}>Eliminar de Favoritos </button>*/}
+                { /*  <button className="btn-add-to-cart" onClick={() => handleEliminar(product.Modelo)}>Eliminar de Favoritos </button>*/}
                 {/* Agrega botones u opciones adicionales según tus necesidades */}
               </div>
             </div>

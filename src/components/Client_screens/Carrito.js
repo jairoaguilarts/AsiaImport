@@ -20,6 +20,8 @@ const Carrito = ({ onClose }) => {
     const [alertMessage, setAlertMessage] = useState("");
     const [alertVariant, setAlertVariant] = useState("white");
 
+    const firebaseUID = localStorage.getItem("FireBaseUID");
+
     const mostrarAlerta = (message, variant) => {
         setAlertVariant(variant);
         setAlertMessage(message);
@@ -40,7 +42,6 @@ const Carrito = ({ onClose }) => {
 
     useEffect(() => {
         const fetchCarrito = async () => {
-            const firebaseUID = localStorage.getItem("FireBaseUID");
 
             if (firebaseUID !== null) {
                 try {
@@ -50,13 +51,29 @@ const Carrito = ({ onClose }) => {
                             "Content-Type": "application/json"
                         },
                     });
+                    const cantidadesResponse = await fetch(`https://importasia-api.onrender.com/obtenerCantidadesCarrito/${firebaseUID}`, {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                    });
 
+                    if (!cantidadesResponse.ok) {
+                        const errorData = await cantidadesResponse.json();
+                        throw new Error(`Error: ${errorData.message || cantidadesResponse.status}`);
+                    }
                     if (!response.ok) {
                         const errorData = await response.json();
                         throw new Error(`Error: ${errorData.message || response.status}`);
                     }
+
+                    const cantidades = await cantidadesResponse.json();
                     const data = await response.json();
-                    const productosConCantidad = data.map(producto => ({ ...producto, cantidad: 1 }));
+
+                    const productosConCantidad = data.map((producto, index) => ({ 
+                        ...producto, 
+                        cantidad: cantidades[index] || "1"
+                    }));
                     setProductos(productosConCantidad);
                 } catch (error) {
                     console.log('Error al obtener los productos del carrito: ', error);
@@ -80,27 +97,86 @@ const Carrito = ({ onClose }) => {
         setTotalCarrito(nuevoSubtotal + entrega);
     }, [productos, entrega]);
 
+    useEffect(() => {
+        actualizarTotalCarrito(totalCarrito);
+    }, [totalCarrito]);
+
     const handleChangeCantidad = (modelo, cambio) => {
-        setProductos(
-            productos.map(producto =>
-                producto.Modelo === modelo ? { ...producto, cantidad: Math.max(1, producto.cantidad + cambio) } : producto
-            )
+        /*const productosActualizados = productos.map(producto =>
+            producto.Modelo === modelo ? { ...producto, cantidad: Math.max(1, producto.cantidad + cambio) } : producto
         );
+        setProductos(productosActualizados);
+    
+        const productoActualizado = productosActualizados.find(producto => producto.Modelo === modelo);
+        const nuevaCantidad = productoActualizado ? productoActualizado.cantidad : '1';
+    
+        actualizarCantidadEnCarrito(modelo, nuevaCantidad.toString());*/
+        setProductos(prevProductos => {
+            return prevProductos.map(producto => {
+                if (producto.Modelo === modelo) {
+                    const nuevaCantidad = Math.max(1, producto.cantidad + cambio);
+                    actualizarCantidadEnCarrito(modelo, nuevaCantidad.toString());
+                    return { ...producto, cantidad: nuevaCantidad };
+                }
+                return producto;
+            });
+        });
     };
 
     const handleEntrega = e => {
         setEntrega(parseInt(e.target.value));
         setTotalCarrito(subtotal + parseInt(e.target.value));
     };
-
     const handleCloseCarrito = () => {
         onClose();
     };
+
+    const actualizarCantidadEnCarrito = async (modelo, cantidad) => {
+        try {
+            const response = await fetch(`http://localhost:3000/actualizarCantidadCarrito`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ firebaseUID, Modelo: modelo, cantidad }),
+            });
+            console.log(firebaseUID, " Modelo: " + modelo, cantidad);
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.log(errorData);
+                throw new Error(`Error: ${errorData.message || response.status}`);
+            }
+
+        } catch (error) {
+            console.log('Error al actualizar la cantidad: ', error);
+        }
+    };
+
+    const actualizarTotalCarrito = async (nuevoTotal) => {
+        try {
+            const response = await fetch(`http://localhost:3000/actualizarTotalCarrito`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ firebaseUID, totalCarrito: nuevoTotal }),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(`Error: ${errorData.message || response.status}`);
+            }
+
+        } catch (error) {
+            console.log('Error al actualizar el total del carrito: ', error);
+        }
+    };
+
     const handleRemoveProducto = async (modelo) => {
-        const firebaseUID = localStorage.getItem("FireBaseUID");
 
         try {
-            const response = await fetch(`https://importasia-api.onrender.com/eliminarDelCarrito`, {
+            const response = await fetch(`http://localhost:3000/eliminarDelCarrito`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json"
@@ -184,7 +260,7 @@ const Carrito = ({ onClose }) => {
                             </div>
                             <div >
                                 <Link to="/compra">
-                                    <button  className="pagar-btn" onClick={handlePagarPedido}>
+                                    <button className="pagar-btn" onClick={handlePagarPedido}>
                                         PAGAR PEDIDO
                                     </button>
                                 </Link>
