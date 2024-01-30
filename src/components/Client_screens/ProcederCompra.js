@@ -15,6 +15,10 @@ function ProcederCompra() {
   const [numerotelefono, setNumeroTelefono] = useState('');
   const firebaseUID = localStorage.getItem("FireBaseUID");
   const [departamentoSeleccionado, setDepartamentoSeleccionado] = useState(opcionInicialDepartamento);
+  const [tipoOrden, setTipoOrden] = useState("");
+  const [identidadUsuario, setIdentidadUsuario] = useState('');
+  const [nombreUsuario, setNombreUsuario] = useState('');
+  const esIdValido = (id) => /^\d{13}$/.test(id);
   const navigate = useNavigate();
   // Suponiendo que tienes alguna forma de obtener el ID del usuario actual
   const id_usuario = firebaseUID;
@@ -32,16 +36,94 @@ function ProcederCompra() {
     setDepartamentoSeleccionado(selectedOption);
     setDepartamento(selectedOption.value);
   };
-  const Procederpago = () => {
-    navigate("/pago");
+  const validarCamposCompletos = () => {
+    // Lista de campos a validar
+    const campos = [
+
+      { valor: numerotelefono, mensaje: 'El campo "Número de Teléfono" es obligatorio.' },
+    ];
+
+    if (isDeliverySelected) {
+      // Si es entrega a domicilio, también incluye el departamento
+
+      campos.push({ valor: departamento, mensaje: 'El campo "Departamento" es obligatorio.' }
+        , { valor: municipio, mensaje: 'El campo "Municipio" es obligatorio.' },
+        { valor: direccion, mensaje: 'El campo "Dirección" es obligatorio.' },
+        { valor: puntoreferencia, mensaje: 'El campo "Punto de Referencia" es obligatorio.' },);
+    } else {
+      // Si es recogida en tienda, incluye los campos específicos de esta opción
+      campos.push({ valor: nombreUser, mensaje: 'El campo "Nombre" es obligatorio.' });
+      campos.push({ valor: identidadUser, mensaje: 'El campo "Número de Identidad" es obligatorio.' });
+    }
+
+    // Recorre cada campo y verifica si está vacío
+    for (let campo of campos) {
+      if (!campo.valor || campo.valor.trim() === '') {
+        alert(campo.mensaje);
+        return false; // Retorna falso si alguno de los campos está vacío
+      }
+    }
+
+    return true; // Todos los campos están llenos
   };
-  // Función para manejar la creación de la entrega
-  const handleSubmit = async () => {
+
+  const Procederpago = () => {
     const esNumeroValido = (numero) => /^\d{8}$/.test(numero);
+    const esMunicipioValido = (municipio) => /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(municipio);
+    if (!validarCamposCompletos()) return;
+    if (!esMunicipioValido(municipio)) {
+      alert('Por favor, ingrese un municipio válido (solo letras)');
+      return;
+    }
 
     if (!esNumeroValido(numerotelefono)) {
       alert('Por favor, ingrese un número de teléfono válido de 8 dígitos');
       return;
+    }
+    handleSubmit();
+    setDepartamento('');
+    setMunicipio('');
+    setDireccion('');
+    setPuntoReferencia('');
+    setNumeroTelefono('');
+    setDepartamentoSeleccionado(opcionInicialDepartamento);
+    navigate("/pago");
+  };
+  const handleSubmit = async () => {
+
+    const esNumeroValido = (numero) => /^\d{8}$/.test(numero);
+    const esMunicipioValido = (municipio) => /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(municipio);
+    if (!validarCamposCompletos()) return;
+   
+    setDepartamento('');
+    setMunicipio('');
+    setDireccion('');
+    setPuntoReferencia('');
+    setNumeroTelefono('');
+    setDepartamentoSeleccionado(opcionInicialDepartamento);
+
+    
+    let tipoOrdenTemp;
+    if (isDeliverySelected) {
+
+      tipoOrdenTemp = "delivery";
+      setTipoOrden(tipoOrdenTemp);
+      setNombreUsuario("");
+      setIdentidadUsuario("");
+
+    } else {
+
+      if (!esIdValido(identidadUsuario)) {
+        alert('Por favor, ingrese un número de identidad valido de 13 digitos');
+        return;
+      }
+      tipoOrdenTemp = "pickup";
+      setTipoOrden(tipoOrdenTemp);
+      setDepartamento("");
+      setMunicipio("");
+      setDireccion("");
+      setPuntoReferencia("");
+
     }
 
     const datosEntrega = {
@@ -49,10 +131,13 @@ function ProcederCompra() {
       municipio,
       direccion,
       puntoreferencia,
-      id_usuario,
+      firebaseUID,
       estadoOrden: 'Ingresada',
       fecha_ingreso: new Date().toISOString(),
-      numerotelefono
+      numerotelefono,
+      nombreUsuario,
+      identidadUsuario,
+      tipoOrden: tipoOrdenTemp,
     };
 
     try {
@@ -73,6 +158,8 @@ function ProcederCompra() {
         setPuntoReferencia('');
         setNumeroTelefono('');
         setDepartamentoSeleccionado(opcionInicialDepartamento);
+        setNombreUsuario('');
+        setIdentidadUsuario('');
       } else {
         console.error('Error al crear entrega');
         alert('Hubo un error al crear la orden');
@@ -81,10 +168,12 @@ function ProcederCompra() {
       console.error('Error al conectar con el servidor', error);
     }
   };
+  // Función para manejar la creación de la entrega
+
   const handleSubmit2 = async () => {
     const esNumeroValido = (numero) => /^\d{8}$/.test(numero);
     const esIdValido = (id) => /^\d{13}$/.test(id);
-    
+
     if (!esIdValido(identidadUser)) {
       alert('Por favor, ingrese un número de identidad valido de 13 digitos');
       return;
@@ -97,7 +186,7 @@ function ProcederCompra() {
 
     const datosEntrega = {
       nombreUser,
-      identidadUser, 
+      identidadUser,
       id_usuario,
       estadoOrden: 'Pendiente',
       fecha_ingreso: new Date().toISOString(),
@@ -119,6 +208,7 @@ function ProcederCompra() {
         setNumeroTelefono('');
         setNombreUser('');
         setIdentidadUser('');
+        navigate("/pago");
       } else {
         console.error('Error al crear entrega');
       }
@@ -227,13 +317,13 @@ function ProcederCompra() {
 
             {/* Contenido de PickUp */}
             <p>Nombre de la persona que Recoge</p>
-            <Form.Control className='contenedores' type="text" placeholder="Ingrese un Nombre" value={nombreUser} onChange={(e) => setNombreUser(e.target.value)}/>
+            <Form.Control className='contenedores' type="text" placeholder="Ingrese un Nombre" value={nombreUser} onChange={(e) => setNombreUser(e.target.value)} />
             <p>Numero de Identidad de la Persona que Recoge</p>
-            <Form.Control className='contenedores' type="text" placeholder="Ingrese un Numero de Identidad " value={identidadUser} onChange={(e) => setIdentidadUser(e.target.value)}/>
+            <Form.Control className='contenedores' type="text" placeholder="Ingrese un Numero de Identidad " value={identidadUser} onChange={(e) => setIdentidadUser(e.target.value)} />
             <p>Numero de Telefono</p>
-            <Form.Control className='contenedores' type="text" placeholder="Ingrese un Numero" value={numerotelefono} onChange={(e) => setNumeroTelefono(e.target.value)}/>
+            <Form.Control className='contenedores' type="text" placeholder="Ingrese un Numero" value={numerotelefono} onChange={(e) => setNumeroTelefono(e.target.value)} />
 
-            <button className='boton-siguiente' onClick={handleSubmit2}>
+            <button className='boton-siguiente' onClick={Procederpago}>
               <p>Siguiente</p>
             </button>
 
