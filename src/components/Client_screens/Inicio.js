@@ -156,7 +156,6 @@ function Inicio() {
         console.log(imagenesCarrusel);
       } catch (error) {
         console.log("Adentro del catch " + error.message);
-        alert("Problema al mostrar las imagenes");
       }
     };
 
