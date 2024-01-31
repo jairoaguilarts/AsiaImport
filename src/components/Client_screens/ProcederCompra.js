@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ProcederCompra.css';
 import Form from 'react-bootstrap/Form';
 import Select from 'react-select';
@@ -18,10 +18,38 @@ function ProcederCompra() {
   const [tipoOrden, setTipoOrden] = useState("");
   const [identidadUsuario, setIdentidadUsuario] = useState('');
   const [nombreUsuario, setNombreUsuario] = useState('');
+  const [direcciones, setDirecciones] = useState([]);
   const esIdValido = (id) => /^\d{13}$/.test(id);
   const navigate = useNavigate();
   // Suponiendo que tienes alguna forma de obtener el ID del usuario actual
   const id_usuario = firebaseUID;
+
+  useEffect(() => {
+    fetch(`https://importasia-api.onrender.com/cargarDirecciones?userFirebaseUID=${firebaseUID}`)
+      .then((response) => response.json())
+      .then((data) => setDirecciones(data.direcciones))
+      .catch((error) => console.error("Error:", error));
+  }, []);
+
+  const handleSeleccionarDireccion = async (_id) => {
+    fetch(`https://importasia-api.onrender.com/cargarDireccion?_id=${_id}`)
+      .then(response => response.json())
+      .then(data => {
+        if (data && data.direccion) {
+          const direccion = data.direccion;
+          console.log('Dirección seleccionada:', direccion);
+          document.getElementById('municipio').value = direccion[0].municipio;
+          document.getElementById('direccion').value = direccion[0].direccion;
+          document.getElementById('puntoreferencia').value = direccion[0].puntoReferencia;
+          document.getElementById('numerotelefono').value = direccion[0].numeroTelefono;
+        } else {
+          console.error('Error en los datos del servidor');
+        }
+      })
+      .catch(error => {
+        console.error('Error al conectar con el servidor', error);
+      });
+  };
 
   const handleDeliveryClick = () => {
     setIsDeliverySelected(true);
@@ -94,7 +122,7 @@ function ProcederCompra() {
     const esNumeroValido = (numero) => /^\d{8}$/.test(numero);
     const esMunicipioValido = (municipio) => /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(municipio);
     if (!validarCamposCompletos()) return;
-   
+
     setDepartamento('');
     setMunicipio('');
     setDireccion('');
@@ -102,7 +130,7 @@ function ProcederCompra() {
     setNumeroTelefono('');
     setDepartamentoSeleccionado(opcionInicialDepartamento);
 
-    
+
     let tipoOrdenTemp;
     if (isDeliverySelected) {
 
@@ -257,11 +285,30 @@ function ProcederCompra() {
       </div>
       {isDeliverySelected ? (
         <>
+          <div className="card-container">
+            {direcciones.map((direccion) => {
+              return (
+                <div key={direccion._id} className="card">
+                  <p className="heading">{direccion.departamento}</p>
+                  <p className="para">{direccion.direccion}</p>
+                  <div className="overlay"></div>
+                  <button className="card-btn" onClick={() => handleSeleccionarDireccion(direccion._id)}>Seleccionar</button>
+                </div>
+              );
+            })}
+            <div key={direccion._id} className="card">
+              <p className="heading">Agregar Direccion</p>
+              <p className="para">+</p>
+              <div className="overlay"></div>
+              <button className="card-btn" onClick={() => handleSeleccionarDireccion(direccion._id)}>Seleccionar</button>
+            </div>
+          </div>
           {/* Contenido de los departamentos */}
           <div className="forms-container">
             <form className='contenedores' >
               <p>Departamento</p>
               <Select
+                id='departamento'
                 name="departamento"
                 value={departamentoSeleccionado}
                 onChange={handleDepartamentoChange}
@@ -270,12 +317,12 @@ function ProcederCompra() {
                 placeholder="Seleccione una opción"
                 className="select-with-scroll"
               />
-
             </form>
 
             {/* Contenido de los Municipios */}
             <p>Municipio</p>
             <Form.Control
+              id='municipio'
               className='contenedores'
               type="text"
               placeholder="Ingrese un Municipio"
@@ -284,6 +331,7 @@ function ProcederCompra() {
             />
             <p>Direccion</p>
             <Form.Control
+              id='direccion'
               className='contenedores'
               type="text"
               placeholder="Ingrese una Dirección"
@@ -292,6 +340,7 @@ function ProcederCompra() {
             />
             <p>Punto de Referencia</p>
             <Form.Control
+              id='puntoReferencia'
               className='contenedores'
               type="text"
               placeholder="Ingrese un Punto de Referencia"
@@ -300,6 +349,7 @@ function ProcederCompra() {
             />
             <p>Numero de telefono</p>
             <Form.Control
+              id='numeroTelefono'
               className='contenedores'
               type="text"
               placeholder="Ingrese un Número de Teléfono"
