@@ -3,6 +3,22 @@ import './Pago.css'; // Asegúrate de importar el CSS
 
 function Pago() {
   const [metodoPago, setMetodoPago] = useState('');
+  const [numeroTarjeta, setNumeroTarjeta] = useState('');
+  const [exp, setExp] = useState('');
+  const [cvv, setCVV]= useState('');
+
+  const handlePago = async () => {
+    const response = await fetch(`https://pixel-pay.com/api/v2/transaction/sale`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-auth-key": "1234567890",
+        "x-auth-hash": "36cdf8271723276cb6f94904f8bde4b6",
+        "Accept": "application/json",
+      },
+      
+    });
+  };
 
   const mostrarFormularioTarjeta = () => (
     <div className="formulario">
@@ -19,7 +35,7 @@ function Pago() {
         <input type="text" placeholder="CVV" />
       </label>
       <div className="boton-contenedor">
-      <button  type="submit">Pagar</button>
+      <button  type="submit" onClick={handlePago}>Pagar</button>
       </div>
     </div>
   );

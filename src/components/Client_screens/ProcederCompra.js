@@ -50,7 +50,7 @@ function ProcederCompra() {
       .catch(error => {
         console.error('Error al conectar con el servidor', error);
       });
-  };  
+  };
 
   const handleDeliveryClick = () => {
     setIsDeliverySelected(true);
@@ -66,34 +66,29 @@ function ProcederCompra() {
     setDepartamento(selectedOption.value);
   };
   const validarCamposCompletos = () => {
-    // Lista de campos a validar
     const campos = [
 
       { valor: numerotelefono, mensaje: 'El campo "Número de Teléfono" es obligatorio.' },
     ];
 
     if (isDeliverySelected) {
-      // Si es entrega a domicilio, también incluye el departamento
-
       campos.push({ valor: departamento, mensaje: 'El campo "Departamento" es obligatorio.' }
         , { valor: municipio, mensaje: 'El campo "Municipio" es obligatorio.' },
         { valor: direccion, mensaje: 'El campo "Dirección" es obligatorio.' },
         { valor: puntoreferencia, mensaje: 'El campo "Punto de Referencia" es obligatorio.' },);
     } else {
-      // Si es recogida en tienda, incluye los campos específicos de esta opción
       campos.push({ valor: nombreUser, mensaje: 'El campo "Nombre" es obligatorio.' });
       campos.push({ valor: identidadUser, mensaje: 'El campo "Número de Identidad" es obligatorio.' });
     }
 
-    // Recorre cada campo y verifica si está vacío
     for (let campo of campos) {
       if (!campo.valor || campo.valor.trim() === '') {
         alert(campo.mensaje);
-        return false; // Retorna falso si alguno de los campos está vacío
+        return false;
       }
     }
 
-    return true; // Todos los campos están llenos
+    return true;
   };
 
   const Procederpago = () => {
@@ -118,6 +113,7 @@ function ProcederCompra() {
     setDepartamentoSeleccionado(opcionInicialDepartamento);
     navigate("/pago");
   };
+
   const handleSubmit = async () => {
 
     const esNumeroValido = (numero) => /^\d{8}$/.test(numero);
@@ -130,7 +126,6 @@ function ProcederCompra() {
     setPuntoReferencia('');
     setNumeroTelefono('');
     setDepartamentoSeleccionado(opcionInicialDepartamento);
-
 
     let tipoOrdenTemp;
     if (isDeliverySelected) {
@@ -197,7 +192,6 @@ function ProcederCompra() {
       console.error('Error al conectar con el servidor', error);
     }
   };
-  // Función para manejar la creación de la entrega
 
   const handleSubmit2 = async () => {
     const esNumeroValido = (numero) => /^\d{8}$/.test(numero);
