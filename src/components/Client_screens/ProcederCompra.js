@@ -37,7 +37,7 @@ function ProcederCompra() {
       .then(data => {
         if (data && data.direccion) {
           const direccion = data.direccion;
-          console.log('Dirección seleccionada:', direccion);
+          document.getElementById('departamento').value = direccion[0].departamento;
           document.getElementById('municipio').value = direccion[0].municipio;
           document.getElementById('direccion').value = direccion[0].direccion;
           document.getElementById('puntoReferencia').value = direccion[0].puntoReferencia;
