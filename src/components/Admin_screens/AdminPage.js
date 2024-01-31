@@ -10,6 +10,7 @@ import iconI from"../../assets/infoI.png";
 import ventas from "../../assets/pVentas.png";
 import logOut from "../../assets/logout.png";
 import icoC from "../../assets/iCarr.png";
+import orden from "../../assets/ordenes.png";
 import { useNavigate } from "react-router-dom";
 
 const AdminPage = () => {
@@ -63,9 +64,6 @@ const AdminPage = () => {
       <Collapse in={isSidebarOpen}>
         <div className="sidebar">
           <div className="row">
-            <div className="sidebar-top-item" onClick={closeSidebar}>
-              <img src={menu} alt="toggle_sidebar" className="icon-image" />
-            </div>
             <hr className="linea-divisora" />
             <div className="sidebar-item">
               <Link to="/adminGeneral">
@@ -109,6 +107,12 @@ const AdminPage = () => {
               </Link>
             </div>
             <hr className="linea-divisora" />
+            <div className="sidebar-item">
+              <Link to="/gestionordenes">
+                <img src={orden} alt="ventas" className="icon-image" />
+                <span>Gestion Ordenes</span>
+              </Link>
+            </div>
 
             <div className="sidebar-item" onClick={handleLogout}>
               <img src={logOut} alt="logout" className="icon-image" />

@@ -30,18 +30,20 @@ import Verfav from "./components/Client_screens/Verfav";
 import Pago from "./components/Client_screens/Pago";
 import GestionarInfo from "./components/Admin_screens/GestionarInfo"
 import GestionCarrusel from "./components/Admin_screens/GestionCarrusel";
+import GestionOrden from "./components/Admin_screens/GestionOrdenes";
 function App() {
-  const userType = localStorage.getItem("IsAdmin");
+  const verifAdmin = localStorage.getItem("IsAdmin");
+  const tipoUser = localStorage.getItem("userType");
 
   return (
     <Router>
       <div className="App">
-        {userType === "true" ? <Admin /> : <Navibar />}
+        {verifAdmin === "true" ? <Admin /> : <Navibar />}
 
         <Routes>
           <Route
             path="/"
-            element={userType === "true" ? <PGAdmin /> : <Inicio />}
+            element={verifAdmin === "true" ? <PGAdmin /> : <Inicio />}
           />
           <Route path="/inicio" element={<Inicio />} />
           <Route path="/privacidad" element={<Politicas />} />
@@ -54,23 +56,23 @@ function App() {
           <Route path="/favoritos" element={<Verfav />} />
           <Route path="/pago" element={<Pago />} />
           <Route path="/GestionarInfo" element={<GestionarInfo />} />
-          <Route path="/gestion-carrusel" element={<GestionCarrusel/>}/>
+          <Route path="/gestion-carrusel" element={<GestionCarrusel />} />
           <Route
             path="/adminGeneral"
             element={
-              userType === "true" ? <PGAdmin /> : <Navigate to="/inicio" />
+              verifAdmin === "true" ? <PGAdmin /> : <Navigate to="/inicio" />
             }
           />{" "}
           <Route
             path="/ventas"
             element={
-              userType === "true" ? <Ventas /> : <Navigate to="/inicio" />
+              verifAdmin === "true" ? <Ventas /> : <Navigate to="/inicio" />
             }
           />{" "}
           <Route
             path="/adminempleados"
             element={
-              userType === "true" ? (
+              verifAdmin === "true" ? (
                 <AdminEmpleados />
               ) : (
                 <Navigate to="/inicio" />
@@ -80,15 +82,22 @@ function App() {
           <Route
             path="/gestionpw"
             element={
-              userType === "true" ? <GestionPW /> : <Navigate to="/inicio" />
+              verifAdmin === "true" ? <GestionPW /> : <Navigate to="/inicio" />
             }
+          />
+          <Route
+            path="/gestionordenes"
+            element={<GestionOrden/>}
+            /*element={
+              tipoUser === "+" ? <GestionOrden /> : <Navigate to={"/gestionpw"} />
+            }*/
           />
           <Route path="/modificarp" element={<ModificarP />} />
           <Route path="/agregarp" element={<AgregarP />} />
           <Route path="/producto-filtro" element={<ProductoFiltro />} />
           <Route path="/info-producto" element={<InfoProductos />} />
         </Routes>
-        {userType !== "true" && <Footer />}
+        {verifAdmin !== "true" && <Footer />}
       </div>
     </Router>
   );
