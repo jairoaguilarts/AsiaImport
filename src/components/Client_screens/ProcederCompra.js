@@ -292,7 +292,7 @@ function ProcederCompra() {
                   <p className="heading-direcciones">{direccion.departamento}</p>
                   <p className="para-direcciones">{direccion.direccion}</p>
                   <div className="overlay-direcciones"></div>
-                  <button className="card-btn" onClick={() => handleSeleccionarDireccion(direccion._id)}>Seleccionar</button>
+                  <button className="card-btn-direcciones" onClick={() => handleSeleccionarDireccion(direccion._id)}>Seleccionar</button>
                 </div>
               );
             })}
@@ -300,7 +300,7 @@ function ProcederCompra() {
               <p className="heading-direcciones">Agregar Direccion</p>
               <p className="para-direcciones">+</p>
               <div className="overlay-direcciones"></div>
-              <button className="card-btn" onClick={() => handleSeleccionarDireccion(direccion._id)}>Seleccionar</button>
+              <button className="card-btn-direcciones" onClick={() => handleSeleccionarDireccion(direccion._id)}>Seleccionar</button>
             </div>
           </div>
           {/* Contenido de los departamentos */}
