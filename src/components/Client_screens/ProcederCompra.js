@@ -288,18 +288,18 @@ function ProcederCompra() {
           <div className="card-container">
             {direcciones.map((direccion) => {
               return (
-                <div key={direccion._id} className="card">
-                  <p className="heading">{direccion.departamento}</p>
-                  <p className="para">{direccion.direccion}</p>
-                  <div className="overlay"></div>
+                <div key={direccion._id} className="card-direcciones">
+                  <p className="heading-direcciones">{direccion.departamento}</p>
+                  <p className="para-direcciones">{direccion.direccion}</p>
+                  <div className="overlay-direcciones"></div>
                   <button className="card-btn" onClick={() => handleSeleccionarDireccion(direccion._id)}>Seleccionar</button>
                 </div>
               );
             })}
-            <div key={direccion._id} className="card">
-              <p className="heading">Agregar Direccion</p>
-              <p className="para">+</p>
-              <div className="overlay"></div>
+            <div key={direccion._id} className="card-direcciones">
+              <p className="heading-direcciones">Agregar Direccion</p>
+              <p className="para-direcciones">+</p>
+              <div className="overlay-direcciones"></div>
               <button className="card-btn" onClick={() => handleSeleccionarDireccion(direccion._id)}>Seleccionar</button>
             </div>
           </div>

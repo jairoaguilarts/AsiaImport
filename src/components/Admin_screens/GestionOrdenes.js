@@ -6,7 +6,7 @@ const GestionOrdenes = () => {
     const [ordenes, setOrdenes] = useState([]);
 
     useEffect(() => {
-        fetch(`http://localhost:3000/ordenes`)
+        fetch(`https://importasia-api.onrender.com/ordenes`)
             .then(response => {
                 if (response.ok) {
                     return response.json();
@@ -51,8 +51,8 @@ const GestionOrdenes = () => {
                     borderStyle: "solid",
                 }}
             />
-            <div className="contenedor-ordenes">
-                <table className="tabla-ordenes">
+            <div className="contenedor-ordenes-gestion">
+                <table className="tabla-ordenes-gestion">
                     <thead>
                         <tr>
                             <th>ID Orden</th>
@@ -72,8 +72,8 @@ const GestionOrdenes = () => {
                                 <td>{orden.estadoOrden}</td>
                                 <td>{orden.Fecha}</td>
                                 <td>
-                                    <button className="mod-estado-orden">Estado de Orden</button>
-                                    <button className="mod-ver-mas">Ampliar Orden</button>
+                                    <button className="button-gestion mod-estado-orden">Estado de Orden</button>
+                                    <button className="button-gestion mod-ver-mas">Ampliar Orden</button>
                                 </td>
                             </tr>
                         ))}
