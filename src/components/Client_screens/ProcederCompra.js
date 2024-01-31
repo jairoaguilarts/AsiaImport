@@ -40,8 +40,8 @@ function ProcederCompra() {
           console.log('Dirección seleccionada:', direccion);
           document.getElementById('municipio').value = direccion[0].municipio;
           document.getElementById('direccion').value = direccion[0].direccion;
-          document.getElementById('puntoreferencia').value = direccion[0].puntoReferencia;
-          document.getElementById('numerotelefono').value = direccion[0].numeroTelefono;
+          document.getElementById('puntoReferencia').value = direccion[0].puntoReferencia;
+          document.getElementById('numeroTelefono').value = direccion[0].numeroTelefono;
         } else {
           console.error('Error en los datos del servidor');
         }
