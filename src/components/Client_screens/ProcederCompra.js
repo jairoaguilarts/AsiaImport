@@ -36,12 +36,13 @@ function ProcederCompra() {
       .then(response => response.json())
       .then(data => {
         if (data && data.direccion) {
-          const direccion = data.direccion;
-          document.getElementById('departamento').value = direccion[0].departamento;
-          document.getElementById('municipio').value = direccion[0].municipio;
-          document.getElementById('direccion').value = direccion[0].direccion;
-          document.getElementById('puntoReferencia').value = direccion[0].puntoReferencia;
-          document.getElementById('numeroTelefono').value = direccion[0].numeroTelefono;
+          const direccion = data.direccion[0];
+          setDepartamentoSeleccionado({ value: direccion.departamento, label: direccion.departamento });
+          setDepartamento(direccion.departamento);
+          setMunicipio(direccion.municipio);
+          setDireccion(direccion.direccion);
+          setPuntoReferencia(direccion.puntoReferencia);
+          setNumeroTelefono(direccion.numeroTelefono);
         } else {
           console.error('Error en los datos del servidor');
         }
@@ -49,7 +50,7 @@ function ProcederCompra() {
       .catch(error => {
         console.error('Error al conectar con el servidor', error);
       });
-  };
+  };  
 
   const handleDeliveryClick = () => {
     setIsDeliverySelected(true);
