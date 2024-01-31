@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import "./GestionOrdenes.css";
 
 const GestionOrdenes = () => {
-
+    const [isPopupVisible, setIsPopupVisible] = useState(false);
+    const [ordenActual, setOrdenActual] = useState(null);
+    const [estadoSeleccionado, setEstadoSeleccionado] = useState('');
     const [ordenes, setOrdenes] = useState([]);
 
     useEffect(() => {
@@ -19,7 +21,69 @@ const GestionOrdenes = () => {
                 console.error("Error al recuperar las órdenes:", error);
             });
     }, []);
-
+    const mostrarPopup = (orden) => {
+        setOrdenActual(orden);
+        setIsPopupVisible(true);
+    };
+    const PopupEstadoOrden = () => {
+        return isPopupVisible ? (
+            <div className="popup">
+                <div className="popup-inner">
+                    <h3>Actualizar Estado de la Orden</h3>
+                    <hr></hr>
+                    <form>
+                        <label>
+                            <input type="radio" name="estado" value="Ingresada" onChange={(e) => setEstadoSeleccionado(e.target.value)} checked={estadoSeleccionado === 'Ingresada'} /> Ingresada
+                        </label>
+                        <label>
+                            <input type="radio" name="estado" value="En Proceso" onChange={(e) => setEstadoSeleccionado(e.target.value)} checked={estadoSeleccionado === 'En Proceso'} /> En proceso
+                        </label>
+                        <label>
+                            <input type="radio" name="estado" value="Verificada" onChange={(e) => setEstadoSeleccionado(e.target.value)} checked={estadoSeleccionado === 'Verificada'} /> Verificada
+                        </label>
+                        <label>
+                            <input type="radio" name="estado" value="Completada" onChange={(e) => setEstadoSeleccionado(e.target.value)} checked={estadoSeleccionado === 'Completada'} /> Completado
+                        </label>
+                        <button type="button" onClick={actualizarEstado}>Actualizar Estado</button>
+                        <button type="button" onClick={() => setIsPopupVisible(false)}>Cerrar</button>
+                    </form>
+                </div>
+            </div>
+        ) : null;
+    };
+    const actualizarEstado = () => {
+        // Asegúrate de obtener el ID correcto de la ordenActual. Asumimos que es order_id.
+        const url = `https://importasia-api.onrender.com/actualizarEstado`;
+        const data = { 
+            estadoNuevo: estadoSeleccionado, // Asegúrate de que el campo coincida con lo que espera el backend.
+            _orderId: ordenActual.order_id // Aquí se envía el ID de la orden.
+        };
+    
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Estado actualizado:', data);
+            alert('Estado actualizado con exito');
+            setIsPopupVisible(false);
+            // Actualizar la lista de ordenes. Asegúrate de que usas la propiedad correcta para el ID.
+            setOrdenes(ordenes.map(orden => orden.order_id === ordenActual.order_id ? { ...orden, estadoOrden: estadoSeleccionado } : orden));
+        })
+        .catch((error) => {
+            console.error('Error al actualizar estado:', error);
+        });
+    };
+    
     const obtenerDetalles = (orden) => {
         if (orden.tipoOrden === 'pickup') {
             return (
@@ -72,7 +136,7 @@ const GestionOrdenes = () => {
                                 <td>{orden.estadoOrden}</td>
                                 <td>{orden.Fecha}</td>
                                 <td>
-                                    <button className="button-gestion mod-estado-orden">Estado de Orden</button>
+                                <button className="button-gestion mod-estado-orden" onClick={() => mostrarPopup(orden)}>Estado de Orden</button>
                                     <button className="button-gestion mod-ver-mas">Ampliar Orden</button>
                                 </td>
                             </tr>
@@ -80,6 +144,7 @@ const GestionOrdenes = () => {
                     </tbody>
                 </table>
             </div>
+            <PopupEstadoOrden />
         </div>
     );
 };

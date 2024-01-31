@@ -54,3 +54,75 @@
 .mod-ver-mas {
     background-color: orange;
 }
+/* Estilos generales para el popup */
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; 
+}
+
+/* Diseño interno del popup */
+.popup-inner {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 15px; 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3); 
+    width: 80%; 
+    max-width: 600px; 
+    text-align: center; 
+}
+
+/* Estilizar el título del popup */
+.popup-inner h3 {
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: 600;
+}
+
+/* Estilizar los botones dentro del popup */
+.popup-inner button {
+    background-color: #01A6FF; 
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+    transition: background-color 0.3s ease; 
+}
+
+.popup-inner button:hover {
+    background-color: #0194D8; /* Color un poco más oscuro al pasar el mouse */
+}
+
+/* Estilo para el botón de cerrar para diferenciarlo */
+.popup-inner button:last-child {
+    background-color: orange; 
+}
+
+.popup-inner button:last-child:hover {
+    background-color: #bbb; 
+}
+
+/* Estilizar labels e inputs */
+.popup-inner label {
+    margin-right: 15px;
+    color: #666; 
+    font-weight: normal; 
+}
+
+.popup-inner input[type="radio"] {
+    margin-right: 5px;
+}
+
+/* Estilizar el formulario */
+.popup-inner form {
+    margin-top: 20px;
+}
