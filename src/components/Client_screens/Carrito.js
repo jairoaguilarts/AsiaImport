@@ -133,7 +133,7 @@ const Carrito = ({ onClose }) => {
 
     const actualizarCantidadEnCarrito = async (modelo, cantidad) => {
         try {
-            const response = await fetch(`http://localhost:3000/actualizarCantidadCarrito`, {
+            const response = await fetch(`https://importasia-api.onrender.com/actualizarCantidadCarrito`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -176,7 +176,7 @@ const Carrito = ({ onClose }) => {
     const handleRemoveProducto = async (modelo) => {
 
         try {
-            const response = await fetch(`http://localhost:3000/eliminarDelCarrito`, {
+            const response = await fetch(`https://importasia-api.onrender.com/eliminarDelCarrito`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json"
