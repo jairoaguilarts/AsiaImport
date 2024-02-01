@@ -3,7 +3,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Footer.css";
 
-
 import facebookIcon from "../../assets/facebook.png";
 import instagramIcon from "../../assets/instagram.png";
 import logoImage from "../../assets/LogoPng.png";
@@ -43,7 +42,7 @@ const Footer = () => {
         </div>
         <div className="logo-container">
           <img className="logo" src={logoImage} alt="Logo de la empresa" />
-          <p>&copy; {currentYear} Tu Empresa. Todos los derechos reservados.</p>
+          <p>&copy; {currentYear} ImportAsia. Todos los derechos reservados.</p>
         </div>
         <div className="footer-links">
           <a href="/servicio-al-cliente" className="footer-link">
