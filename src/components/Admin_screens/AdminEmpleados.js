@@ -72,17 +72,28 @@ const AdminEmpleados = () => {
   };
 
   const handleChangeModificar = (e) => {
-    const { id, value } = e.target;
-    console.log("Console log de Handle Change Modificar: " + id, value);
+    const { name, value } = e.target;
     setFormDataModificar((prevState) => ({
       ...prevState,
-      [id]: value
+      [name]: value,
     }));
   };
 
-  const handleSelectEmpleado = (firebaseUID, actionType) => {
+
+  const handleSelectEmpleado = async (firebaseUID, actionType) => {
     setSelectedFirebaseUID(firebaseUID);
     if (actionType === "editar") {
+      const empleadoData = await obtenerDatosDelEmpleado(firebaseUID);
+      setdatosViejos({
+        nombre: empleadoData.nombre + " " + empleadoData.apellido,
+        numeroIdentidad: empleadoData.numeroIdentidad,
+        correo: empleadoData.correo,
+      });
+      setFormDataModificar({
+        nombre: empleadoData.nombre + " " + empleadoData.apellido,
+        numeroIdentidad: empleadoData.numeroIdentidad,
+        correo: empleadoData.correo,
+      });
       handleShowEditar();
     } else if (actionType === "eliminar") {
       handleEliminarConfirmacion();
@@ -90,6 +101,7 @@ const AdminEmpleados = () => {
       handleHacerAdminConfirmacion();
     }
   };
+
 
   const obtenerDatosDelEmpleado = async (firebaseUID) => {
     try {
@@ -105,55 +117,51 @@ const AdminEmpleados = () => {
     }
   };
 
-  const handleConfirmar = async (event) => {
+  const handleConfirmar = async () => {
     if (showAgregar) {
-      //Agregar empleado
-      const { formNombre, formID, formCorreo, formPass } = formDataAgregar;
+      // Agregar empleado
+      const { nombre, numeroIdentidad, correo, contrasenia } = formDataAgregar;
       if (
-        !formNombre ||
-        !formNombre.trim() ||
-        !formID ||
-        !formID.trim() ||
-        !formCorreo ||
-        !formCorreo.trim() ||
-        !formPass ||
-        !formPass.trim()
+        !nombre ||
+        !nombre.trim() ||
+        !numeroIdentidad ||
+        !numeroIdentidad.trim() ||
+        !correo ||
+        !correo.trim() ||
+        !contrasenia ||
+        !contrasenia.trim()
       ) {
         mostrarAlerta("Todos los campos son necesarios", "danger");
         handleCloseConfirmar();
         return false;
-      } else if (!/^[a-zA-Z ]+$/.test(formNombre)) {
+      } else if (!/^[a-zA-Z ]+$/.test(nombre)) {
         mostrarAlerta("El nombre solo debe contener letras", "danger");
         handleCloseConfirmar();
         return;
-      } else if (!/^\d+$/.test(formID)) {
+      } else if (!/^\d+$/.test(numeroIdentidad)) {
         mostrarAlerta("El ID es incorrecto", "danger");
         handleCloseConfirmar();
         return;
-      } else if (formID.length < 13) {
+      } else if (numeroIdentidad.length < 13) {
         mostrarAlerta("Ingrese un ID valido", "danger");
         handleCloseConfirmar();
         return;
-      } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formCorreo)) {
+      } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(correo)) {
         mostrarAlerta("Formato de correo electrónico no válido", "danger");
         handleCloseConfirmar();
         return;
-      } else if (formPass.length < 6) {
-        mostrarAlerta(
-          "La contraseña debe tener al menos 6 caracteres",
-          "danger"
-        );
+      } else if (contrasenia.length < 6) {
+        mostrarAlerta("La contraseña debe tener al menos 6 caracteres", "danger");
         handleCloseConfirmar();
         return;
       }
-
-      const nombreApellido = formDataAgregar.formNombre.split(" ");
+  
       const datosAgregar = {
-        nombre: nombreApellido[0],
-        apellido: nombreApellido[1],
-        numeroIdentidad: formDataAgregar.formID,
-        correo: formDataAgregar.formCorreo,
-        contrasenia: formDataAgregar.formPass,
+        nombre: nombre.split(" ")[0],
+        apellido: nombre.split(" ")[1] || '', // Asegura que haya un apellido aunque el nombre sea un solo nombre
+        numeroIdentidad,
+        correo,
+        contrasenia,
         userCreatingType: UserType,
       };
 
@@ -168,7 +176,6 @@ const AdminEmpleados = () => {
             body: JSON.stringify(datosAgregar),
           }
         );
-
         if (!response.ok) {
           const errorData = await response.json();
           throw new Error(`Error: ${errorData.message || response.status}`);
@@ -179,72 +186,55 @@ const AdminEmpleados = () => {
         mostrarAlerta("Error al agregar empleado", "danger");
       }
     } else if (showEditar) {
-      //Modificar empleado
-      if (!selectedFirebaseUID) {
-        mostrarAlerta("No se ha seleccionado ningún empleado", "danger");
+      // Editar empleado
+      const { nombre, numeroIdentidad, correo } = formDataModificar;
+      if (!nombre.trim() || !numeroIdentidad.trim() || !correo.trim()) {
+        mostrarAlerta("Nombre, número de identidad y correo son necesarios", "danger");
         return;
       }
-      //event.preventDefault();
-      const { nombreEditar, formIDEditar, formCorreoEditar } =
-        formDataModificar;
-      if (
-        nombreEditar !== undefined ||
-        formIDEditar !== undefined ||
-        formCorreoEditar !== undefined
-      ) {
-        if (nombreEditar && !/^[a-zA-Z ]+$/.test(nombreEditar.trim())) {
-          mostrarAlerta("El nombre solo debe contener letras", "danger");
-          return;
-        } else if (formIDEditar && !/^\d+$/.test(formIDEditar.trim())) {
-          mostrarAlerta("El ID es incorrecto", "danger");
-          return;
-        } else if (formIDEditar && formIDEditar.trim().length < 13) {
-          mostrarAlerta("Ingrese un ID valido", "danger");
-          return;
-        } else if (
-          formCorreoEditar &&
-          !/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formCorreoEditar.trim())
-        ) {
-          mostrarAlerta("Formato de correo electrónico no válido", "danger");
-          return;
+      // Verificar si se han realizado cambios
+      const cambios = nombre !== datosViejos.nombre ||
+                      numeroIdentidad !== datosViejos.numeroIdentidad ||
+                      correo !== datosViejos.correo;
+  
+      if (!cambios) {
+        mostrarAlerta("No se han registrado cambios", "danger");
+        return;
+      }
+  
+      try {
+        // Lógica para enviar los datos modificados del empleado al servidor
+        const response = await fetch(`https://importasia-api.onrender.com/modificarEmpleado?firebaseUID=${selectedFirebaseUID}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            nombre: nombre.split(" ")[0],
+            apellido: nombre.split(" ")[1] || '',
+            numeroIdentidad,
+            correo,
+            userType: UserType,
+          }),
+        });
+  
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(`Error: ${errorData.message || response.status}`);
         }
-        const datosEditar = {
-          ...(nombreEditar && { nombre: nombreEditar.trim().split(" ")[0] }),
-          ...(nombreEditar && { apellido: nombreEditar.trim().split(" ")[1] }),
-          ...(formIDEditar && { numeroIdentidad: formIDEditar.trim() }),
-          ...(formCorreoEditar && { correo: formCorreoEditar.trim() }),
-          userType: UserType,
-        };
-        console.log("Si si si " + datosEditar);
-        try {
-          const response = await fetch(
-            `https://importasia-api.onrender.com/modificarEmpleado?firebaseUID=${selectedFirebaseUID}`,
-            {
-              method: "PUT",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(datosEditar),
-            }
-          );
-          console.log(response);
-          if (!response.ok) {
-            const errorData = await response.json();
-            console.log(errorData);
-            throw new Error(`Error: ${errorData.message || response.status}`);
-          }
-          mostrarAlerta("Empleado modificado exitosamente", "info");
-          setSelectedFirebaseUID("");
-          window.location.reload();
-        } catch (error) {
-          mostrarAlerta("Error al modificar empleado", "danger");
-        }
-      } else {
-        mostrarAlerta("No se han resgistrado cambios", "danger");
+  
+        mostrarAlerta("Empleado modificado exitosamente", "success");
+        handleCloseEditar(); // Cierra el modal de editar
+        window.location.reload(); // Recarga los datos
+      } catch (error) {
+        mostrarAlerta(error.message, "danger");
       }
     }
+  
+    // Cierra el modal de confirmación en cualquier caso
     setShowConfirmar(false);
   };
+  
 
   const handleShowEliminarConfirmar = () => setShowEliminarConfirmar(true);
   const handleCloseEliminarConfirmar = () => setShowEliminarConfirmar(false);
@@ -417,43 +407,52 @@ const AdminEmpleados = () => {
 
       {/* Modal para agregar empleado */}
       <Modal show={showAgregar} onHide={handleCloseAgregar}>
-        <Modal.Header className="encabezados" closeButton>
-          <Modal.Title className="titulos">Agregar Empleado</Modal.Title>
-        </Modal.Header>
-        <Modal.Body className="cuerpo">
-          <Form.Group className="forms" controlId="formNombre">
-            <Form.Label>Nombre de Empleado</Form.Label>
-            <Form.Control
-              type="input"
-              placeholder="Nombre de Empleado"
-              onChange={handleChangeAgregar}
-              autoFocus
-            />
-          </Form.Group>
-          <Form.Group className="forms" controlId="formID">
-            <Form.Label>Numero de Identidad</Form.Label>
-            <Form.Control
-              type="input"
-              placeholder="Numero de Identidad"
-              onChange={handleChangeAgregar}
-            />
-          </Form.Group>
-          <Form.Group className="forms" controlId="formCorreo">
-            <Form.Label>Correo Electrónico</Form.Label>
-            <Form.Control
-              type="email"
-              placeholder="Correo Electrónico"
-              onChange={handleChangeAgregar}
-            />
-          </Form.Group>
-          <Form.Group className="forms" controlId="formPass">
-            <Form.Label>Contraseña</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Contraseña"
-              onChange={handleChangeAgregar}
-            />
-          </Form.Group>
+  <Modal.Header className="encabezados" closeButton>
+    <Modal.Title className="titulos">Agregar Empleado</Modal.Title>
+  </Modal.Header>
+  <Modal.Body className="cuerpo">
+    <Form.Group className="forms" controlId="formNombre">
+      <Form.Label>Nombre de Empleado</Form.Label>
+      <Form.Control
+        id="nombre" // Asegúrate de que este id coincida con la clave en formDataAgregar
+        type="input"
+        placeholder="Nombre de Empleado"
+        value={formDataAgregar.nombre}
+        onChange={handleChangeAgregar}
+        autoFocus
+      />
+    </Form.Group>
+    <Form.Group className="forms" controlId="formNumeroIdentidad">
+      <Form.Label>Numero de Identidad</Form.Label>
+      <Form.Control
+        id="numeroIdentidad" // Asegúrate de que este id coincida con la clave en formDataAgregar
+        type="input"
+        placeholder="Numero de Identidad"
+        value={formDataAgregar.numeroIdentidad}
+        onChange={handleChangeAgregar}
+      />
+    </Form.Group>
+    <Form.Group className="forms" controlId="formCorreo">
+      <Form.Label>Correo Electrónico</Form.Label>
+      <Form.Control
+        id="correo" // Asegúrate de que este id coincida con la clave en formDataAgregar
+        type="email"
+        placeholder="Correo Electrónico"
+        value={formDataAgregar.correo}
+        onChange={handleChangeAgregar}
+      />
+    </Form.Group>
+    <Form.Group className="forms" controlId="formContrasenia">
+      <Form.Label>Contraseña</Form.Label>
+      <Form.Control
+        id="contrasenia" // Asegúrate de que este id coincida con la clave en formDataAgregar
+        type="password"
+        placeholder="Contraseña"
+        value={formDataAgregar.contrasenia}
+        onChange={handleChangeAgregar}
+      />
+    </Form.Group>
+
 
           <button className="botones" onClick={handleConfirmacion}>
             AGREGAR EMPLEADO
@@ -480,8 +479,8 @@ const AdminEmpleados = () => {
             <Form.Control
               type="input"
               placeholder="Nombre de usuario"
+              name="nombre" // Cambiado de id a name
               onChange={handleChangeModificar}
-              autoFocus
               value={formDataModificar.nombre}
             />
           </Form.Group>
@@ -490,19 +489,22 @@ const AdminEmpleados = () => {
             <Form.Control
               type="email"
               placeholder="Correo Electrónico"
+              name="correo" // Cambiado de id a name
               onChange={handleChangeModificar}
               value={formDataModificar.correo}
             />
           </Form.Group>
           <Form.Group className="forms" controlId="formIDEditar">
-            <Form.Label>Numero de Identidad</Form.Label>
+            <Form.Label>Número de Identidad</Form.Label>
             <Form.Control
               type="input"
-              placeholder="Numero de Identidad"
+              placeholder="Número de Identidad"
+              name="numeroIdentidad" // Cambiado de id a name
               onChange={handleChangeModificar}
               value={formDataModificar.numeroIdentidad}
             />
           </Form.Group>
+
         </Modal.Body>
         <Modal.Footer>
           <Button className="botones" onClick={handleConfirmar}>
