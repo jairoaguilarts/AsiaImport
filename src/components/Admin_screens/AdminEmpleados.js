@@ -72,10 +72,12 @@ const AdminEmpleados = () => {
   };
 
   const handleChangeModificar = (e) => {
-    setFormDataModificar({
-      ...formDataModificar,
-      [e.target.id]: e.target.value,
-    });
+    const { id, value } = e.target;
+    console.log("Console log de Handle Change Modificar: " + id, value);
+    setFormDataModificar((prevState) => ({
+      ...prevState,
+      [id]: value
+    }));
   };
 
   const handleSelectEmpleado = (firebaseUID, actionType) => {
@@ -182,7 +184,7 @@ const AdminEmpleados = () => {
         mostrarAlerta("No se ha seleccionado ningún empleado", "danger");
         return;
       }
-      event.preventDefault();
+      //event.preventDefault();
       const { nombreEditar, formIDEditar, formCorreoEditar } =
         formDataModificar;
       if (
@@ -213,7 +215,7 @@ const AdminEmpleados = () => {
           ...(formCorreoEditar && { correo: formCorreoEditar.trim() }),
           userType: UserType,
         };
-        console.log(datosEditar);
+        console.log("Si si si " + datosEditar);
         try {
           const response = await fetch(
             `https://importasia-api.onrender.com/modificarEmpleado?firebaseUID=${selectedFirebaseUID}`,
@@ -356,8 +358,8 @@ const AdminEmpleados = () => {
         }}
       />
       <div className="admin-empleados-container">
-        <button className="boton-anaranjado" onClick={handleShowAgregar}>
-          Agregar Empleado
+        <button className="boton-anaranjado2" onClick={handleShowAgregar}>
+          + Agregar Empleado
         </button>
         <table className="tabla-empleados">
           <thead>
@@ -477,10 +479,10 @@ const AdminEmpleados = () => {
             <Form.Label>Nombre de Empleado</Form.Label>
             <Form.Control
               type="input"
-              placeholder="Nombre de Empleado"
+              placeholder="Nombre de usuario"
               onChange={handleChangeModificar}
-              value={formDataModificar.nombre}
               autoFocus
+              value={formDataModificar.nombre}
             />
           </Form.Group>
           <Form.Group className="forms" controlId="formCorreoEditar">

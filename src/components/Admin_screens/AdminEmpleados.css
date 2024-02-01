@@ -22,6 +22,23 @@ h1,
   margin-top: 2rem;
 }
 
+.boton-anaranjado2 {
+  background-color: #FFA500;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 0.5rem;
+  font-size: 1.2rem;
+  width: 250px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
 .boton-anaranjado,
 .boton-verde,
 .boton-rojo {
@@ -33,6 +50,12 @@ h1,
   cursor: pointer;
   margin: 0.5rem;
   font-size: 1.2rem;
+  width: 180px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 .boton-verde {
@@ -209,18 +232,18 @@ h1,
   .tabla-empleados,
   .tabla-empleados th,
   .tabla-empleados td {
-    font-size: 0.8rem; 
-    padding: 8px; 
+    font-size: 0.8rem;
+    padding: 8px;
   }
 
   .acciones {
-    flex-direction: column; 
-    align-items: center; 
+    flex-direction: column;
+    align-items: center;
     padding: 4px;
   }
 
   .acciones .boton-accion {
-    margin-bottom: 2px; 
+    margin-bottom: 2px;
   }
 
   .tabla-empleados .columna-ocultar {
