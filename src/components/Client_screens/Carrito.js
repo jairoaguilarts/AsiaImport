@@ -41,8 +41,9 @@ const Carrito = ({ onClose }) => {
     };
 
     useEffect(() => {
-        const fetchCarrito = async () => {
 
+        const fetchCarrito = async () => {
+            
             if (firebaseUID !== null) {
                 try {
                     const response = await fetch(`https://importasia-api.onrender.com/obtenerCarrito/${firebaseUID}`, {
@@ -82,11 +83,13 @@ const Carrito = ({ onClose }) => {
             } else {
                 mostrarAlerta("No se ha iniciado sesion.", "danger");
             }
+
         };
 
         fetchCarrito();
     }, []);
 
+     
     useEffect(() => {
         const nuevoSubtotal = productos.reduce((total, producto) => {
             const cantidad = Number(producto.cantidad) || 0;
@@ -155,7 +158,7 @@ const Carrito = ({ onClose }) => {
 
     const actualizarTotalCarrito = async (nuevoTotal) => {
         try {
-            const response = await fetch(`http://localhost:3000/actualizarTotalCarrito`, {
+            const response = await fetch(`https://importasia-api.onrender.com/actualizarTotalCarrito`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
