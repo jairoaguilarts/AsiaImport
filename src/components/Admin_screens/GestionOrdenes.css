@@ -182,3 +182,19 @@
 }
 
 
+.estado-en-proceso {
+    color: #D8750D;
+    font-weight: bold;
+}
+
+.estado-verificada {
+    color: #D8A20D;
+    font-weight: bold;
+}
+
+.estado-completado {
+    color: green;
+    font-weight: bold;
+}
+
+

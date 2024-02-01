@@ -12,7 +12,19 @@ const GestionOrdenes = () => {
         setOrdenDetalle(orden);
         setIsDetallePopupVisible(true);
     };
-
+    const getEstadoClass = (estado) => {
+        switch (estado) {
+            case 'En Proceso':
+                return 'estado-en-proceso';
+            case 'Verificada':
+                return 'estado-verificada';
+            case 'Completada':
+                return 'estado-completado';
+            default:
+                return ''; // Devuelve una cadena vacía si no es ninguno de los estados anteriores
+        }
+    };
+    
     const PopupDetalleOrden = () => {
         if (!isDetallePopupVisible || !ordenDetalle) return null;
     
@@ -38,8 +50,7 @@ const GestionOrdenes = () => {
                             <li>Identidad de Usuario: {ordenDetalle.detalles.identidadUsuario}</li>
                         )}
                         <li>Fecha: {new Date(ordenDetalle.detalles.fecha_ingreso).toLocaleDateString()}</li>
-                        <li>Estado: {ordenDetalle.estadoOrden}</li>
-                    
+                        <li> Estado: <span className={getEstadoClass(ordenDetalle.estadoOrden)}>{ordenDetalle.estadoOrden}</span></li>
                     </ul>
                     <div><strong>Articulos en la Orden:</strong></div>
                     <table>
@@ -91,13 +102,13 @@ const GestionOrdenes = () => {
                     <h3>Actualizar Estado de la Orden</h3>
                     <hr></hr>
                     <form>
-                        <label>
+                    <label style={{ color: estadoSeleccionado === 'En Proceso' ? '#D8750D' : 'inherit' }}>
                             <input type="radio" name="estado" value="En Proceso" onChange={(e) => setEstadoSeleccionado(e.target.value)} checked={estadoSeleccionado === 'En Proceso'} /> En proceso
                         </label>
-                        <label>
+                        <label style={{ color: estadoSeleccionado === 'Verificada' ? '#D8A20D' : 'inherit' }}>
                             <input type="radio" name="estado" value="Verificada" onChange={(e) => setEstadoSeleccionado(e.target.value)} checked={estadoSeleccionado === 'Verificada'} /> Verificada
                         </label>
-                        <label>
+                        <label style={{ color: estadoSeleccionado === 'Completada' ? 'green' : 'inherit' }}>
                             <input type="radio" name="estado" value="Completada" onChange={(e) => setEstadoSeleccionado(e.target.value)} checked={estadoSeleccionado === 'Completada'} /> Completado
                         </label>
                         <button type="button" onClick={actualizarEstado}>Actualizar Estado</button>
@@ -189,7 +200,7 @@ const GestionOrdenes = () => {
                                 <td>{orden.order_id}</td>
                                 <td>{orden.tipoOrden}</td>
                                 <td>{orden.detalles ? obtenerDetalles(orden) : 'N/A'}</td>
-                                <td>{orden.estadoOrden}</td>
+                                <td className={getEstadoClass(orden.estadoOrden)}>{orden.estadoOrden}</td>
                                 <td>{orden.Fecha}</td>
                                 <td>
                                     <button className="button-gestion mod-estado-orden" onClick={() => mostrarPopup(orden)}>Estado de Orden</button>
