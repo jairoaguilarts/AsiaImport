@@ -70,6 +70,10 @@ const Carrusel = ({ productos }) => {
     e.preventDefault();
     moverCarrusel(1);
   };
+  const handleDetalles = (modelo) => {
+    localStorage.setItem("Modelo", modelo);
+    navigate("/info-producto");
+  };
 
   return (
     <div className="destacado-container">
@@ -80,10 +84,18 @@ const Carrusel = ({ productos }) => {
         <div className="destacado-lista">
           {mostrarProductos.map((producto, index) => (
             <div key={index} className="elemento">
-              <img src={producto.imagen} alt={producto.nombre} />
+              <button
+                className="boton-detalles"
+                onClick={() => handleDetalles(producto.modelo)}
+              >
+                <img src={producto.imagen} alt={producto.Nombre} />
+              </button>
               <h3>{producto.nombre}</h3>
               <p>Precio: {producto.precio}</p>
-              <button onClick={() => handleAgregar(producto.modelo)}>
+              <button
+                className="boton-Agrega"
+                onClick={() => handleAgregar(producto.modelo)}
+              >
                 Agregar al carrito
               </button>
             </div>
@@ -123,7 +135,7 @@ function Inicio() {
           .map((product) => ({
             imagen: product.ImagenID[0],
             nombre: product.Nombre,
-            precio: "L. " + product.Precio,
+            precio: "L " + product.Precio + ".00",
             modelo: product.Modelo,
           }));
         setProductosDestacados(productosDestacados);

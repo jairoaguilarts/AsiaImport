@@ -95,7 +95,12 @@
   transition: transform 0.3s ease-in-out;
   backface-visibility: hidden;
 }
-
+.boton-detalles {
+  height: 280px;
+  width: 250px;
+  border: none;
+  background-color: transparent;
+}
 .elemento img {
   width: 250px;
   height: 280px;
@@ -112,6 +117,7 @@
 
 .elemento h3 {
   width: 200px;
+  padding-top: 25px;
   margin: 0 auto;
   height: 50px;
   font-size: 15px;
@@ -126,7 +132,7 @@
   font-weight: bold;
 }
 
-.elemento button {
+.boton-Agrega {
   height: 60px;
   width: 250px;
   margin: 0 auto;
@@ -136,10 +142,6 @@
   padding: 8px;
   font-size: 14px;
   cursor: pointer;
-}
-
-.elemento button:hover {
-  background-color: #0277bd;
 }
 
 .prev-btn,
@@ -261,10 +263,65 @@
     overflow: hidden;
     display: flex;
     flex: 1;
-    height: 200px;
+    height: auto;
     width: 150px;
     margin: 0 auto;
     justify-content: center;
+  }
+  .elemento {
+    text-align: center;
+    margin: 10px !important;
+    width: 50% !important;
+    height: 650px !important;
+    transition: transform 0.3s ease-in-out;
+  }
+  .boton-detalles {
+    width: 80% !important;
+    height: 50% !important;
+    border: none;
+    background-color: transparent;
+  }
+  .elemento img {
+    width: 80% !important;
+    height: auto !important;
+    object-fit: cover; /* Cambiado a 'cover' para adaptarse a diferentes proporciones de imagen */
+    transition: transform 0.3s ease;
+  }
+  .elemento img:hover {
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+    transform: scale(
+      1.1
+    ); /* Cambiado a una sola propiedad 'scale' para evitar conflictos */
+    transition: transform 0.3s ease;
+  }
+
+  .elemento h3 {
+    width: 70% !important;
+    margin: 0 auto;
+    height: 50px;
+    font-size: 18px; /* Aumentado el tamaño de la fuente */
+    font-weight: bold;
+  }
+
+  .elemento p {
+    padding-top: 16px;
+    height: 40px !important;
+    width: 80% !important;
+    margin: 10px auto !important;
+    font-size: 16px; /* Aumentado el tamaño de la fuente */
+    font-weight: bold;
+  }
+
+  .boton-Agrega {
+    height: 60px;
+    width: 60% !important;
+    margin: 0 auto;
+    background-color: orange;
+    color: white;
+    border: none;
+    padding: 8px;
+    font-size: 14px;
+    cursor: pointer;
   }
 }
 
@@ -314,10 +371,15 @@
     height: 350px !important;
     transition: transform 0.3s ease-in-out;
   }
-
-  .elemento img {
+  .boton-detalles {
     width: 80% !important;
     height: 50% !important;
+    border: none;
+    background-color: transparent;
+  }
+  .elemento img {
+    width: 80% !important;
+    height: auto !important;
     object-fit: cover; /* Cambiado a 'cover' para adaptarse a diferentes proporciones de imagen */
     transition: transform 0.3s ease;
   }
@@ -334,7 +396,7 @@
     width: 70% !important;
     margin: 0 auto;
     height: 50px;
-    font-size: 16px; /* Aumentado el tamaño de la fuente */
+    font-size: 13px; /* Aumentado el tamaño de la fuente */
     font-weight: bold;
   }
 
@@ -346,7 +408,7 @@
     font-weight: bold;
   }
 
-  .elemento button {
+  .boton-Agrega {
     height: 60px;
     width: 60% !important;
     margin: 0 auto;
