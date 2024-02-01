@@ -50,8 +50,7 @@ const GestionOrdenes = () => {
                             <li>Identidad de Usuario: {ordenDetalle.detalles.identidadUsuario}</li>
                         )}
                         <li>Fecha: {new Date(ordenDetalle.detalles.fecha_ingreso).toLocaleDateString()}</li>
-                        <li>Estado: {ordenDetalle.estadoOrden}</li>
-                    
+                        <li> Estado: <span className={getEstadoClass(ordenDetalle.estadoOrden)}>{ordenDetalle.estadoOrden}</span></li>
                     </ul>
                     <div><strong>Articulos en la Orden:</strong></div>
                     <table>
