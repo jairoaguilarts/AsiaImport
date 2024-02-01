@@ -103,13 +103,13 @@ const GestionOrdenes = () => {
                     <h3>Actualizar Estado de la Orden</h3>
                     <hr></hr>
                     <form>
-                        <label>
+                    <label style={{ color: estadoSeleccionado === 'En Proceso' ? '#D8750D' : 'inherit' }}>
                             <input type="radio" name="estado" value="En Proceso" onChange={(e) => setEstadoSeleccionado(e.target.value)} checked={estadoSeleccionado === 'En Proceso'} /> En proceso
                         </label>
-                        <label>
+                        <label style={{ color: estadoSeleccionado === 'Verificada' ? '#D8A20D' : 'inherit' }}>
                             <input type="radio" name="estado" value="Verificada" onChange={(e) => setEstadoSeleccionado(e.target.value)} checked={estadoSeleccionado === 'Verificada'} /> Verificada
                         </label>
-                        <label>
+                        <label style={{ color: estadoSeleccionado === 'Completada' ? 'green' : 'inherit' }}>
                             <input type="radio" name="estado" value="Completada" onChange={(e) => setEstadoSeleccionado(e.target.value)} checked={estadoSeleccionado === 'Completada'} /> Completado
                         </label>
                         <button type="button" onClick={actualizarEstado}>Actualizar Estado</button>
