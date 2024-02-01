@@ -126,3 +126,59 @@
 .popup-inner form {
     margin-top: 20px;
 }
+
+/* Estilos para el fondo oscurecido (overlay) */
+.popup-overlay {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: 1000; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+}
+
+/* Estilos para el popup */
+.popup-detalle {
+    background-color: #fff !important; 
+    padding: 20px !important;
+    border-radius: 10px !important; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important; 
+    z-index: 1001 !important; 
+    max-width: 500px !important; 
+    width: 90% !important; 
+    position: fixed !important; 
+    top: 50% !important; 
+    left: 50% !important; 
+    transform: translate(-50%, -50%) !important; 
+    justify-content: center;
+}
+/* Estilos para el botón de cerrar */
+
+.button-detalle3 {
+    display: block; 
+    margin: 20px auto; 
+    padding: 10px 20px; 
+    border: none; 
+    background-color: #007bff; 
+    color: white; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-size: 1rem; 
+    text-align: center; 
+    width: 100%;
+}
+.popup-detalle h3 {
+    text-align: center; 
+    margin: 0 auto;
+    padding: 10px 0; 
+    
+}
+.button-detalle3:hover {
+    background-color: #bbb; 
+}
+
+
