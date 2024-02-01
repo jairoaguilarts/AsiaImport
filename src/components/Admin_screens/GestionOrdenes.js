@@ -12,7 +12,19 @@ const GestionOrdenes = () => {
         setOrdenDetalle(orden);
         setIsDetallePopupVisible(true);
     };
-
+    const getEstadoClass = (estado) => {
+        switch (estado) {
+            case 'En Proceso':
+                return 'estado-en-proceso';
+            case 'Verificada':
+                return 'estado-verificada';
+            case 'Completada':
+                return 'estado-completado';
+            default:
+                return ''; // Devuelve una cadena vacía si no es ninguno de los estados anteriores
+        }
+    };
+    
     const PopupDetalleOrden = () => {
         if (!isDetallePopupVisible || !ordenDetalle) return null;
     
@@ -189,7 +201,7 @@ const GestionOrdenes = () => {
                                 <td>{orden.order_id}</td>
                                 <td>{orden.tipoOrden}</td>
                                 <td>{orden.detalles ? obtenerDetalles(orden) : 'N/A'}</td>
-                                <td>{orden.estadoOrden}</td>
+                                <td className={getEstadoClass(orden.estadoOrden)}>{orden.estadoOrden}</td>
                                 <td>{orden.Fecha}</td>
                                 <td>
                                     <button className="button-gestion mod-estado-orden" onClick={() => mostrarPopup(orden)}>Estado de Orden</button>
