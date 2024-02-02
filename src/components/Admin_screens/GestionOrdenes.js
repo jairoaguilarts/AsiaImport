@@ -34,7 +34,7 @@ const GestionOrdenes = () => {
                     <h3>Detalles de la Orden</h3>
                     <hr></hr>
                     <ul>
-                        <li>ID_Orden: {ordenDetalle.order_id}</li>
+                        <li>ID_Orden: {ordenDetalle._id}</li>
                         <li>Tipo: {ordenDetalle.tipoOrden}</li>
                         {ordenDetalle.tipoOrden === "delivery" && (
                             <>
@@ -123,7 +123,7 @@ const GestionOrdenes = () => {
         const url = `https://importasia-api.onrender.com/actualizarEstado`;
         const data = {
             estadoNuevo: estadoSeleccionado, // Asegúrate de que el campo coincida con lo que espera el backend.
-            _orderId: ordenActual.order_id // Aquí se envía el ID de la orden.
+            _orderId: ordenActual._id // Aquí se envía el ID de la orden.
         };
 
         fetch(url, {
@@ -144,7 +144,7 @@ const GestionOrdenes = () => {
                 alert('Estado actualizado con exito');
                 setIsPopupVisible(false);
                 // Actualizar la lista de ordenes. Asegúrate de que usas la propiedad correcta para el ID.
-                setOrdenes(ordenes.map(orden => orden.order_id === ordenActual.order_id ? { ...orden, estadoOrden: estadoSeleccionado } : orden));
+                setOrdenes(ordenes.map(orden => orden._id === ordenActual._id ? { ...orden, estadoOrden: estadoSeleccionado } : orden));
             })
             .catch((error) => {
                 console.error('Error al actualizar estado:', error);
@@ -197,7 +197,7 @@ const GestionOrdenes = () => {
                     <tbody>
                         {ordenes.map(orden => (
                             <tr key={orden.order_id}>
-                                <td>{orden.order_id}</td>
+                                <td>{orden._id}</td>
                                 <td>{orden.tipoOrden}</td>
                                 <td>{orden.detalles ? obtenerDetalles(orden) : 'N/A'}</td>
                                 <td className={getEstadoClass(orden.estadoOrden)}>{orden.estadoOrden}</td>
