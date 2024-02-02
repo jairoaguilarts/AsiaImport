@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import './Pago.css';
 
 
@@ -10,6 +12,10 @@ function Pago() {
   const [exp, setExp] = useState('');
   const [cvv, setCVV] = useState('');
   const firebaseUID = localStorage.getItem("FireBaseUID");
+  const [mostrarPopup, setMostrarPopup] = useState(false);
+const [mostrarPopupGracias, setMostrarPopupGracias] = useState(false); // Para el segundo pop-up de agradecimiento
+const navigate = useNavigate();
+
 
   const handlePago = async () => {
     if (!validarDatos()) {
@@ -27,7 +33,48 @@ function Pago() {
     });
   };
 
-
+  const handlePagoEfectivo = () => {
+    setMostrarPopup(true); // Muestra el pop-up
+  };
+   // Función para manejar la confirmación del pop-up
+   const confirmarPagoEfectivo = () => {
+    // Lógica para manejar la confirmación del pago en efectivo
+    setMostrarPopup(false); // Oculta el primer pop-up
+    setMostrarPopupGracias(true); // Muestra el segundo pop-up
+  };
+  
+  const mostrarPopupGraciasComponente = () => (
+    mostrarPopupGracias && (
+      <div className="popup-gracias">
+        <div className="popup-gracias-contenido">
+          <h3>Gracias por tu compra</h3>
+          <hr />
+          <p>Detalles de la orden...</p>
+          <button onClick={() => {
+            setMostrarPopupGracias(false); // Primero oculta el pop-up
+            navigate('/inicio'); // Luego navega a la página de inicio
+          }}>Aceptar</button>
+        </div>
+      </div>
+    )
+  );
+  
+  
+  // Función para manejar la cancelación del pop-up
+  const cancelarPagoEfectivo = () => {
+    // Lógica para manejar la cancelación
+    setMostrarPopup(false); // Oculta el pop-up
+  };
+  const PopupPagoEfectivo = () => (
+    <div className="popup">
+      <div className="popup-inner">
+        <h3>Desea pagar en efectivo al momento de recibir o recoger sus productos</h3>
+        <hr></hr>
+        <button onClick={confirmarPagoEfectivo}>Aceptar</button>
+        <button onClick={cancelarPagoEfectivo}>Cancelar</button>
+      </div>
+    </div>
+  );
   const validarDatos = () => {
     const regexNombreApellido = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$/;
     const numeroTarjetaRegex = /^\d{13,18}$/;
@@ -160,8 +207,9 @@ function Pago() {
         {productos.map(producto => (
           <div className="productos-orden" >
             <div className='productos-imagen'>
-              <img src={producto.ImagenID} alt={producto.Nombre} />
+            <img src={producto.ImagenID} alt={producto.Nombre} />
             </div>
+        
             <div className="productos-orden">
               <span className="productos-nombre">{producto.Nombre}</span>
               <div className="productos-cantidad">
@@ -179,8 +227,10 @@ function Pago() {
       <h2>Pantalla de Pago</h2>
       <div className="botones-container">
         <button onClick={() => setMetodoPago('tarjeta')}>Pagar con Tarjeta</button>
-        <button onClick={() => setMetodoPago('transferencia')}>Transferencia Bancaria</button>
-        <button onClick={() => setMetodoPago('efectivo')}>Pagar en Efectivo</button>
+        { /*<button onClick={() => setMetodoPago('transferencia')}>Transferencia Bancaria</button>*/}
+        <button onClick={handlePagoEfectivo}>Pagar en Efectivo</button>
+        {mostrarPopup && <PopupPagoEfectivo />}
+        {mostrarPopupGraciasComponente()}
       </div>
 
       {metodoPago === 'tarjeta' && mostrarFormularioTarjeta()}
