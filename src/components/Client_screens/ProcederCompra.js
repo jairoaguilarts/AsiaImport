@@ -165,7 +165,7 @@ function ProcederCompra() {
     };
 
     try {
-      const response = await fetch('http://localhost:3000/crearEntrega', {
+      const response = await fetch('https://importasia-api.onrender.com/crearEntrega', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

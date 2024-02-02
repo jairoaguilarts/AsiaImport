@@ -13,36 +13,80 @@ function Pago() {
   const [cvv, setCVV] = useState('');
   const firebaseUID = localStorage.getItem("FireBaseUID");
   const [mostrarPopup, setMostrarPopup] = useState(false);
-const [mostrarPopupGracias, setMostrarPopupGracias] = useState(false); // Para el segundo pop-up de agradecimiento
-const navigate = useNavigate();
+  const [mostrarPopupGracias, setMostrarPopupGracias] = useState(false); // Para el segundo pop-up de agradecimiento
+  const navigate = useNavigate();
 
 
   const handlePago = async () => {
     if (!validarDatos()) {
       return;
     }
-    const response = await fetch(`https://pixel-pay.com/api/v2/transaction/sale`, {
+
+    const detalles = localStorage.getItem("entregaID");
+
+    const dataOrden = {
+      firebaseUID,
+      detalles,
+      Fecha: new Date().toISOString(),
+    };
+
+    alert("Creando orden");
+
+    const responseOrden = await fetch('https://importasia-api.onrender.com/crearOrden', {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-auth-key": "1234567890",
-        "x-auth-hash": "36cdf8271723276cb6f94904f8bde4b6",
-        "Accept": "application/json",
       },
-
+      body: JSON.stringify(dataOrden),
     });
+
+    if (responseOrden.ok) {
+
+      const responseOrdenData = await responseOrden.json();
+      const dataPago = {
+        customer_name: responseOrdenData.nombre_usuario,
+        card_number: numeroTarjeta,
+        card_expire: exp,
+        card_cvv: cvv,
+        customer_email: responseOrdenData.correo,
+        billing_address: responseOrdenData.detalles.direccion,
+        billing_country: "HN",
+        billing_state: responseOrdenData.detalles.departamento,
+        billing_phone: responseOrdenData.detalles.numerotelefono,
+        order_id: responseOrdenData._id,
+        order_currency: "HNL",
+        order_amount: responseOrdenData.total,
+        env: "sandbox",
+      };
+
+      const response = await fetch(`https://pixel-pay.com/api/v2/transaction/sale`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-key": "1234567890",
+          "x-auth-hash": "36cdf8271723276cb6f94904f8bde4b6",
+          "Accept": "application/json",
+        },
+        body: JSON.stringify(dataPago),
+      });
+
+      if(response.ok) {
+        alert("Pago procesado");
+      } else {
+        alert("error0");
+      }
+    }
   };
 
   const handlePagoEfectivo = () => {
-    setMostrarPopup(true); // Muestra el pop-up
+    setMostrarPopup(true);
   };
-   // Función para manejar la confirmación del pop-up
-   const confirmarPagoEfectivo = () => {
-    // Lógica para manejar la confirmación del pago en efectivo
-    setMostrarPopup(false); // Oculta el primer pop-up
-    setMostrarPopupGracias(true); // Muestra el segundo pop-up
+
+  const confirmarPagoEfectivo = () => {
+    setMostrarPopup(false);
+    setMostrarPopupGracias(true);
   };
-  
+
   const mostrarPopupGraciasComponente = () => (
     mostrarPopupGracias && (
       <div className="popup-gracias">
@@ -51,20 +95,18 @@ const navigate = useNavigate();
           <hr />
           <p>Detalles de la orden...</p>
           <button onClick={() => {
-            setMostrarPopupGracias(false); // Primero oculta el pop-up
-            navigate('/inicio'); // Luego navega a la página de inicio
+            setMostrarPopupGracias(false);
+            navigate('/inicio');
           }}>Aceptar</button>
         </div>
       </div>
     )
   );
-  
-  
-  // Función para manejar la cancelación del pop-up
+
   const cancelarPagoEfectivo = () => {
-    // Lógica para manejar la cancelación
-    setMostrarPopup(false); // Oculta el pop-up
+    setMostrarPopup(false);
   };
+
   const PopupPagoEfectivo = () => (
     <div className="popup">
       <div className="popup-inner">
@@ -86,23 +128,18 @@ const navigate = useNavigate();
       alert('Datos incorrectos en nombre o apellido. Solo se permiten letras.', 'danger');
       return false;
     }
-    if(!numeroTarjetaRegex.test(numeroTarjeta)){
+    if (!numeroTarjetaRegex.test(numeroTarjeta)) {
       alert("Datos Incorrectos en la tarjeta, el numero debe tener entre 13 y 18 numeros");
       return false;
     }
-    if(!cvvRegex.test(cvv)){
+    if (!cvvRegex.test(cvv)) {
       alert("Datos Incorrectos en el cvv, el numero debe tener entre 3 y 4 numeros");
     }
-    if(!fechaExpiracionRegex.test(exp)){
-      alert("Datos Incorrectos en la fecha de vencimiento, el formato debe ser: Año/Mes");
-      return false;
-    }
-    
 
     return true;
   };
   const handleFechaExpiracionChange = (e) => {
-    const inputValue = e.target.value.replace(/\D/g, ''); // Eliminar caracteres no numéricos
+    const inputValue = e.target.value.replace(/\D/g, '');
     if (inputValue.length <= 4) {
       setExp(
         inputValue.replace(/(\d{2})(\d{0,2})/, (match, p1, p2) => `${p1}/${p2}`)
@@ -123,8 +160,8 @@ const navigate = useNavigate();
       </label>
       <label>
         Fecha de Expiración:
-        <input   onChange={handleFechaExpiracionChange}
-          value={exp}type='text' placeholder='AÑO/MES' />
+        <input onChange={handleFechaExpiracionChange}
+          value={exp} type='text' placeholder='AÑO/MES' />
       </label>
       <label>
         CVV:
@@ -207,9 +244,9 @@ const navigate = useNavigate();
         {productos.map(producto => (
           <div className="productos-orden" >
             <div className='productos-imagen'>
-            <img src={producto.ImagenID} alt={producto.Nombre} />
+              <img src={producto.ImagenID} alt={producto.Nombre} />
             </div>
-        
+
             <div className="productos-orden">
               <span className="productos-nombre">{producto.Nombre}</span>
               <div className="productos-cantidad">
