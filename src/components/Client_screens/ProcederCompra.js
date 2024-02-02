@@ -165,7 +165,7 @@ function ProcederCompra() {
     };
 
     try {
-      const response = await fetch('https://importasia-api.onrender.com/crearEntrega', {
+      const response = await fetch('http://localhost:3000/crearEntrega', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -174,8 +174,10 @@ function ProcederCompra() {
       });
 
       if (response.ok) {
+        const responseData = await response.json();
         console.log('Entrega creada');
-        alert('Orden creada con éxito');
+        alert('Entrega creada con éxito');
+        localStorage.setItem("entregaID", responseData._id);
         setDepartamento('');
         setMunicipio('');
         setDireccion('');
