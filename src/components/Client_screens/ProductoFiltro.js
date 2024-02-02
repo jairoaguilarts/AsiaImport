@@ -137,6 +137,7 @@ const AudifonoFiltro = () => {
         const errorData = await response.json();
         throw new Error(`Error: ${errorData.message || response.status}`);
       }
+      alert("Agregado Exitosamente al Carrito");
     } catch (error) {
       console.log("Error: ", error);
     }
