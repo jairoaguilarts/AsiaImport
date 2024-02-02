@@ -76,3 +76,36 @@
     font-size: 16px;
   }
   
+  .productos-orden {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px; 
+    width: 250px;
+  }
+  
+  .productos-imagen {
+    width: 220px; 
+    height: auto; 
+    margin-right: 50px; 
+  }
+  .productos-imagen img{
+    width: 100%;
+  }
+  
+  .productos-orden .productos-orden {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .productos-nombre {
+    font-weight: bold;
+    font-style: normal;
+    width: 100px;
+    height: auto;
+text-align: center;  }
+  
+  .productos-cantidad,
+  .productos-precio {
+    margin-top: 5px; /* Espacio entre cada detalle del producto */
+  }
+  
