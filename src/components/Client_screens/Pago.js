@@ -16,6 +16,10 @@ function Pago() {
   const [mostrarPopupGracias, setMostrarPopupGracias] = useState(false); // Para el segundo pop-up de agradecimiento
   const navigate = useNavigate();
 
+  const confirmarPagoEfectivo = () => {
+    setMostrarPopup(false);
+    setMostrarPopupGracias(true);
+  };
 
   const handlePago = async () => {
     if (!validarDatos()) {
@@ -80,6 +84,8 @@ function Pago() {
 
       if(response.ok) {
         alert("Pago procesado");
+        // Actualizar estado de la orden
+        confirmarPagoEfectivo();
       } else {
         console.log("Error al pagar: ", response);
       }
@@ -90,11 +96,6 @@ function Pago() {
 
   const handlePagoEfectivo = () => {
     setMostrarPopup(true);
-  };
-
-  const confirmarPagoEfectivo = () => {
-    setMostrarPopup(false);
-    setMostrarPopupGracias(true);
   };
 
   const mostrarPopupGraciasComponente = () => (
