@@ -3,9 +3,12 @@ import './ProcederCompra.css';
 import Form from 'react-bootstrap/Form';
 import Select from 'react-select';
 import { useNavigate } from "react-router-dom";
+
 const opcionInicialDepartamento = { value: '', label: 'Seleccione un departamento' };
+
 function ProcederCompra() {
   const [isDeliverySelected, setIsDeliverySelected] = useState(true);
+  const [isAgregarDireccionSelected, setIsAgregarDireccionSelected] = useState(true);
   const [departamento, setDepartamento] = useState('');
   const [municipio, setMunicipio] = useState('');
   const [direccion, setDireccion] = useState('');
@@ -32,6 +35,7 @@ function ProcederCompra() {
   }, []);
 
   const handleSeleccionarDireccion = async (_id) => {
+    setIsAgregarDireccionSelected(false);
     fetch(`https://importasia-api.onrender.com/cargarDireccion?_id=${_id}`)
       .then(response => response.json())
       .then(data => {
@@ -50,6 +54,42 @@ function ProcederCompra() {
       .catch(error => {
         console.error('Error al conectar con el servidor', error);
       });
+  };
+
+  const handleLimpiarCampos = () => {
+    setIsAgregarDireccionSelected(true);
+    setDepartamentoSeleccionado(opcionInicialDepartamento);
+    setMunicipio("");
+    setDireccion("");
+    setPuntoReferencia("");
+    setNumeroTelefono("");
+  };
+
+  const handleAgregarDireccion = async () => {
+    try {
+      const dataDireccion = {
+        userFirebaseUID: firebaseUID,
+        departamento,
+        municipio,
+        direccion,
+        puntoReferencia: puntoreferencia,
+        numeroTelefono: numerotelefono
+      };
+
+      const response = await fetch("https://importasia-api.onrender.com/agregarDireccion", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dataDireccion),
+      });
+
+      if(response.ok) {
+        alert("Direccion creada");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleDeliveryClick = () => {
@@ -293,11 +333,11 @@ function ProcederCompra() {
                 </div>
               );
             })}
-            <div key={direccion._id} className="card-direcciones">
+            <div className="card-direcciones">
               <p className="heading-direcciones">Agregar Direccion</p>
               <p className="para-direcciones">+</p>
               <div className="overlay-direcciones"></div>
-              <button className="card-btn-direcciones" onClick={() => handleSeleccionarDireccion(direccion._id)}>Seleccionar</button>
+              <button className="card-btn-direcciones" onClick={handleLimpiarCampos}>Seleccionar</button>
             </div>
           </div>
           {/* Contenido de los departamentos */}
@@ -353,9 +393,20 @@ function ProcederCompra() {
               value={numerotelefono}
               onChange={(e) => setNumeroTelefono(e.target.value)}
             />
-            <button className='boton-siguiente' onClick={Procederpago}>
-              <p>Siguiente</p>
-            </button>
+            {isAgregarDireccionSelected ? (
+              <>
+                <button className='boton-siguiente' onClick={handleAgregarDireccion}>
+                  <p>Agregar Direccion</p>
+                </button>
+              </>
+            ) : (
+              <>
+                <button className='boton-siguiente' onClick={Procederpago}>
+                  <p>Siguiente</p>
+                </button>
+              </>
+            )}
+
           </div>
         </>
       ) : (
