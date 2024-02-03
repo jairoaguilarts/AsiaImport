@@ -86,6 +86,7 @@ function ProcederCompra() {
 
       if(response.ok) {
         alert("Direccion creada");
+        Procederpago();
       }
     } catch (error) {
       console.log(error);
