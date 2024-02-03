@@ -30,8 +30,6 @@ function Pago() {
       Fecha: new Date().toISOString(),
     };
 
-    alert("Creando orden");
-
     const responseOrden = await fetch('https://importasia-api.onrender.com/crearOrden', {
       method: "POST",
       headers: {
@@ -43,19 +41,29 @@ function Pago() {
     if (responseOrden.ok) {
 
       const responseOrdenData = await responseOrden.json();
+
+      const responseDetalles = await fetch(`http://localhost:3000/obtenerEntrega?_id=${responseOrdenData.detalles}`);
+
+      const detalles = await responseDetalles.json();
+
+      const fechaExpTokens = exp.split('/');
+      const fechaExp = fechaExpTokens[0] + fechaExpTokens[1];
+
       const dataPago = {
         customer_name: responseOrdenData.nombre_usuario,
         card_number: numeroTarjeta,
-        card_expire: exp,
+        card_holder: propietarioTarjeta,
+        card_expire: fechaExp,
         card_cvv: cvv,
         customer_email: responseOrdenData.correo,
-        billing_address: responseOrdenData.detalles.direccion,
+        billing_address: detalles[0].direccion,
+        billing_city: detalles[0].municipio,
         billing_country: "HN",
-        billing_state: responseOrdenData.detalles.departamento,
-        billing_phone: responseOrdenData.detalles.numerotelefono,
+        billing_state: "HN-FM",
+        billing_phone: detalles[0].numerotelefono,
         order_id: responseOrdenData._id,
         order_currency: "HNL",
-        order_amount: responseOrdenData.total,
+        order_amount: "1",
         env: "sandbox",
       };
 
@@ -73,8 +81,10 @@ function Pago() {
       if(response.ok) {
         alert("Pago procesado");
       } else {
-        alert("error0");
+        console.log(response);
       }
+    } else {
+      alert("Error al crear orden");
     }
   };
 
