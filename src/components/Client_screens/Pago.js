@@ -42,7 +42,7 @@ function Pago() {
 
       const responseOrdenData = await responseOrden.json();
 
-      const responseDetalles = await fetch(`'https://importasia-api.onrender.com/obtenerEntrega?_id=${responseOrdenData.detalles}`);
+      const responseDetalles = await fetch(`https://importasia-api.onrender.com/obtenerEntrega?_id=${responseOrdenData.detalles}`);
 
       const detalles = await responseDetalles.json();
 
@@ -81,7 +81,7 @@ function Pago() {
       if(response.ok) {
         alert("Pago procesado");
       } else {
-        console.log(response);
+        console.log("Error al pagar: ", response);
       }
     } else {
       alert("Error al crear orden");
