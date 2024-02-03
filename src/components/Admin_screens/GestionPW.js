@@ -278,7 +278,7 @@ const GestionPW = () => {
     }));
 
     if (productosDestacados.includes(modelo)) {
-      await fetch("http://localhost:3000/destacarProducto?Modelo=" + modelo, {
+      await fetch("https://importasia-api.onrender.com/destacarProducto?Modelo=" + modelo, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
