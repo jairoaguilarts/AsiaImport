@@ -82,10 +82,31 @@ function Pago() {
         body: JSON.stringify(dataPago),
       });
 
-      if(response.ok) {
+      if (response.ok) {
         alert("Pago procesado");
-        // Actualizar estado de la orden
         confirmarPagoEfectivo();
+
+        const userActualizacion = {
+          carritoCompras: [],
+          cantidadCarrito: [],
+          totalCarrito: "0"
+        };
+
+        const responseActualizacionUser = await fetch(`https://importasia-api.onrender.com/usuarioAfterPago/${firebaseUID}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(userActualizacion),
+        });
+
+        if (responseActualizacionUser.ok) {
+          confirmarPagoEfectivo();
+          console.log("Carrito vaciado y total reseteado correctamente");
+        } else {
+          console.log("Error al actualizar el usuario: ", await responseActualizacionUser.json());
+        }
+
       } else {
         console.log("Error al pagar: ", response);
       }
@@ -128,6 +149,7 @@ function Pago() {
       </div>
     </div>
   );
+
   const validarDatos = () => {
     const regexNombreApellido = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$/;
     const numeroTarjetaRegex = /^\d{13,18}$/;
@@ -149,6 +171,7 @@ function Pago() {
 
     return true;
   };
+
   const handleFechaExpiracionChange = (e) => {
     const inputValue = e.target.value.replace(/\D/g, '');
     if (inputValue.length <= 4) {
