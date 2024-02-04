@@ -16,6 +16,7 @@ function Pago() {
   const [mostrarPopupGracias, setMostrarPopupGracias] = useState(false); // Para el segundo pop-up de agradecimiento
   const navigate = useNavigate();
   const [ordenId, setOrdenId] = useState('');
+  const [ordenEnProceso, setOrdenEnProceso] = useState(false);
 
 
 
@@ -54,7 +55,6 @@ function Pago() {
       });
 
       if (responseActualizacionUser.ok) {
-        confirmarPagoEfectivo();
         console.log("Carrito vaciado y total reseteado correctamente");
       } else {
         console.log("Error al actualizar el usuario: ", await responseActualizacionUser.json());
@@ -66,17 +66,21 @@ function Pago() {
     }
   };
   const confirmarPagoEfectivo = async () => {
-  try {
-    const ordenData = await crearOrden(); // Creamos la orden
-
-    // Aquí podrías añadir cualquier otra lógica necesaria después de crear la orden, como actualizar el estado del carrito, etc.
-
-    setMostrarPopup(false); // Ocultamos el pop-up de confirmación de pago en efectivo
-    setMostrarPopupGracias(true); // Mostramos el pop-up de agradecimiento
-  } catch (error) {
-    console.error("Error al crear la orden en pago en efectivo: ", error);
-  }
-};
+    if (ordenEnProceso) return; // Evita crear una nueva orden si ya hay una en proceso
+  
+    setOrdenEnProceso(true); // Indica que se está iniciando el proceso de creación de la orden
+    setMostrarPopup(false);
+  
+    try {
+      const ordenData = await crearOrden(); // Creamos la orden
+      setMostrarPopupGracias(true); // Mostramos el pop-up de agradecimiento
+    } catch (error) {
+      console.error("Error al crear la orden en pago en efectivo: ", error);
+    } finally {
+      setOrdenEnProceso(false); // Restablece el estado una vez completado el proceso, exitoso o no
+    }
+  };
+  
 
   const handlePago = async () => {
     if (!validarDatos()) {
@@ -142,7 +146,7 @@ function Pago() {
       if (response.ok) {
         alert("Pago procesado");
         setOrdenId(responseOrdenData._id);
-        confirmarPagoEfectivo();
+        setMostrarPopupGracias(true); // Mostramos el pop-up de agradecimiento
 
         const userActualizacion = {
           carritoCompras: [],
@@ -159,7 +163,7 @@ function Pago() {
         });
 
         if (responseActualizacionUser.ok) {
-          confirmarPagoEfectivo();
+          
           console.log("Carrito vaciado y total reseteado correctamente");
         } else {
           console.log("Error al actualizar el usuario: ", await responseActualizacionUser.json());
