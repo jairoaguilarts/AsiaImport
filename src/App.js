@@ -28,6 +28,7 @@ import Politicas from "./components/General_screens/Politicas";
 import Quejas from "./components/General_screens/quejas";
 import Verfav from "./components/Client_screens/Verfav";
 import Pago from "./components/Client_screens/Pago";
+import PagoP from "./components/Client_screens/PagoP";
 import GestionarInfo from "./components/Admin_screens/GestionarInfo"
 import GestionCarrusel from "./components/Admin_screens/GestionCarrusel";
 import GestionOrden from "./components/Admin_screens/GestionOrdenes";
@@ -55,6 +56,7 @@ function App() {
           <Route path="/carrito" element={<Carrito />} />{" "}
           <Route path="/favoritos" element={<Verfav />} />
           <Route path="/pago" element={<Pago />} />
+          <Route path="/pagoP" element={<PagoP />} />
           <Route path="/GestionarInfo" element={<GestionarInfo />} />
           <Route path="/gestion-carrusel" element={<GestionCarrusel />} />
           <Route

@@ -161,6 +161,37 @@ function ProcederCompra() {
     setDepartamentoSeleccionado(opcionInicialDepartamento);
     navigate("/pago");
   };
+  const ProcederpagoP = () => {
+    const esNumeroValido = (numero) => /^\d{8}$/.test(numero);
+    const esMunicipioValido = (municipio) => /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(municipio);
+    const esIdValido = (id) => /^\d{13}$/.test(id);
+
+    if (!validarCamposCompletos()) return;
+    if (isDeliverySelected) {
+      if (!esMunicipioValido(municipio)) {
+        alert('Por favor, ingrese un municipio válido (solo letras)');
+        return;
+      }
+    } else {
+      if (!esIdValido(identidadUser)) {
+        alert('Por favor, ingrese un número de identidad valido de 13 digitos');
+        return;
+      }
+    }
+
+    if (!esNumeroValido(numerotelefono)) {
+      alert('Por favor, ingrese un número de teléfono válido de 8 dígitos');
+      return;
+    }
+    handleSubmit();
+    setDepartamento('');
+    setMunicipio('');
+    setDireccion('');
+    setPuntoReferencia('');
+    setNumeroTelefono('');
+    setDepartamentoSeleccionado(opcionInicialDepartamento);
+    navigate("/pagoP");
+  };
 
   const handleSubmit = async () => {
 
@@ -382,7 +413,7 @@ function ProcederCompra() {
             <p>Numero de Telefono</p>
             <Form.Control className='contenedores' type="text" placeholder="Ingrese un Numero" value={numerotelefono} onChange={(e) => setNumeroTelefono(e.target.value)} />
 
-            <button className='boton-siguiente' onClick={Procederpago}>
+            <button className='boton-siguiente' onClick={ProcederpagoP}>
               <p>Siguiente</p>
             </button>
 
