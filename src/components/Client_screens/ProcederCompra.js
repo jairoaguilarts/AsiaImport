@@ -12,17 +12,14 @@ function ProcederCompra() {
   const [departamento, setDepartamento] = useState('');
   const [municipio, setMunicipio] = useState('');
   const [direccion, setDireccion] = useState('');
-  const [nombreUser, setNombreUser] = useState('');
   const [identidadUser, setIdentidadUser] = useState('');
   const [puntoreferencia, setPuntoReferencia] = useState('');
   const [numerotelefono, setNumeroTelefono] = useState('');
   const firebaseUID = localStorage.getItem("FireBaseUID");
   const [departamentoSeleccionado, setDepartamentoSeleccionado] = useState(opcionInicialDepartamento);
   const [tipoOrden, setTipoOrden] = useState("");
-  const [identidadUsuario, setIdentidadUsuario] = useState('');
   const [nombreUsuario, setNombreUsuario] = useState('');
   const [direcciones, setDirecciones] = useState([]);
-  const esIdValido = (id) => /^\d{13}$/.test(id);
   const navigate = useNavigate();
   // Suponiendo que tienes alguna forma de obtener el ID del usuario actual
   const id_usuario = firebaseUID;
@@ -84,7 +81,7 @@ function ProcederCompra() {
         body: JSON.stringify(dataDireccion),
       });
 
-      if(response.ok) {
+      if (response.ok) {
         alert("Direccion creada");
         Procederpago();
       }
@@ -106,6 +103,7 @@ function ProcederCompra() {
     setDepartamentoSeleccionado(selectedOption);
     setDepartamento(selectedOption.value);
   };
+
   const validarCamposCompletos = () => {
     const campos = [
 
@@ -118,7 +116,7 @@ function ProcederCompra() {
         { valor: direccion, mensaje: 'El campo "Dirección" es obligatorio.' },
         { valor: puntoreferencia, mensaje: 'El campo "Punto de Referencia" es obligatorio.' },);
     } else {
-      campos.push({ valor: nombreUser, mensaje: 'El campo "Nombre" es obligatorio.' });
+      campos.push({ valor: nombreUsuario, mensaje: 'El campo "Nombre" es obligatorio.' });
       campos.push({ valor: identidadUser, mensaje: 'El campo "Número de Identidad" es obligatorio.' });
     }
 
@@ -135,10 +133,19 @@ function ProcederCompra() {
   const Procederpago = () => {
     const esNumeroValido = (numero) => /^\d{8}$/.test(numero);
     const esMunicipioValido = (municipio) => /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(municipio);
+    const esIdValido = (id) => /^\d{13}$/.test(id);
+
     if (!validarCamposCompletos()) return;
-    if (!esMunicipioValido(municipio)) {
-      alert('Por favor, ingrese un municipio válido (solo letras)');
-      return;
+    if (isDeliverySelected) {
+      if (!esMunicipioValido(municipio)) {
+        alert('Por favor, ingrese un municipio válido (solo letras)');
+        return;
+      }
+    } else {
+      if (!esIdValido(identidadUser)) {
+        alert('Por favor, ingrese un número de identidad valido de 13 digitos');
+        return;
+      }
     }
 
     if (!esNumeroValido(numerotelefono)) {
@@ -157,8 +164,8 @@ function ProcederCompra() {
 
   const handleSubmit = async () => {
 
-    const esNumeroValido = (numero) => /^\d{8}$/.test(numero);
-    const esMunicipioValido = (municipio) => /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(municipio);
+    const esIdValido = (id) => /^\d{13}$/.test(id);
+
     if (!validarCamposCompletos()) return;
 
     setDepartamento('');
@@ -174,11 +181,11 @@ function ProcederCompra() {
       tipoOrdenTemp = "delivery";
       setTipoOrden(tipoOrdenTemp);
       setNombreUsuario("");
-      setIdentidadUsuario("");
+      setIdentidadUser("");
 
     } else {
 
-      if (!esIdValido(identidadUsuario)) {
+      if (!esIdValido(identidadUser)) {
         alert('Por favor, ingrese un número de identidad valido de 13 digitos');
         return;
       }
@@ -197,11 +204,11 @@ function ProcederCompra() {
       direccion,
       puntoreferencia,
       firebaseUID,
-      estadoOrden: 'Ingresada',
+      estadoOrden: 'En Proceso',
       fecha_ingreso: new Date().toISOString(),
       numerotelefono,
       nombreUsuario,
-      identidadUsuario,
+      identidadUser,
       tipoOrden: tipoOrdenTemp,
     };
 
@@ -226,57 +233,10 @@ function ProcederCompra() {
         setNumeroTelefono('');
         setDepartamentoSeleccionado(opcionInicialDepartamento);
         setNombreUsuario('');
-        setIdentidadUsuario('');
+        setIdentidadUser('');
       } else {
         console.error('Error al crear entrega');
         alert('Hubo un error al crear la orden');
-      }
-    } catch (error) {
-      console.error('Error al conectar con el servidor', error);
-    }
-  };
-
-  const handleSubmit2 = async () => {
-    const esNumeroValido = (numero) => /^\d{8}$/.test(numero);
-    const esIdValido = (id) => /^\d{13}$/.test(id);
-
-    if (!esIdValido(identidadUser)) {
-      alert('Por favor, ingrese un número de identidad valido de 13 digitos');
-      return;
-    }
-
-    if (!esNumeroValido(numerotelefono)) {
-      alert('Por favor, ingrese un número de teléfono válido de 8 dígitos');
-      return;
-    }
-
-    const datosEntrega = {
-      nombreUser,
-      identidadUser,
-      id_usuario,
-      estadoOrden: 'Pendiente',
-      fecha_ingreso: new Date().toISOString(),
-      numerotelefono
-    };
-
-    try {
-      const response = await fetch('https://importasia-api.onrender.com/crearEntregaPickup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(datosEntrega)
-      });
-
-      if (response.ok) {
-        console.log('Entrega creada');
-        alert('Orden Pickup creada con éxito');
-        setNumeroTelefono('');
-        setNombreUser('');
-        setIdentidadUser('');
-        navigate("/pago");
-      } else {
-        console.error('Error al crear entrega');
       }
     } catch (error) {
       console.error('Error al conectar con el servidor', error);
@@ -416,7 +376,7 @@ function ProcederCompra() {
 
             {/* Contenido de PickUp */}
             <p>Nombre de la persona que Recoge</p>
-            <Form.Control className='contenedores' type="text" placeholder="Ingrese un Nombre" value={nombreUser} onChange={(e) => setNombreUser(e.target.value)} />
+            <Form.Control className='contenedores' type="text" placeholder="Ingrese un Nombre" value={nombreUsuario} onChange={(e) => setNombreUsuario(e.target.value)} />
             <p>Numero de Identidad de la Persona que Recoge</p>
             <Form.Control className='contenedores' type="text" placeholder="Ingrese un Numero de Identidad " value={identidadUser} onChange={(e) => setIdentidadUser(e.target.value)} />
             <p>Numero de Telefono</p>
