@@ -80,9 +80,121 @@ function Pago() {
       setOrdenEnProceso(false); // Restablece el estado una vez completado el proceso, exitoso o no
     }
   };
+  const handlePagoN = async () => {
+    if (!validarDatos()) {
+      return;
+    }
+    const firebaseUID = localStorage.getItem("FireBaseUID");
+    if (!firebaseUID) {
+      alert("No se encontró el identificador de usuario.");
+      return;
+    }
+  
+  
+    // Obtenemos los detalles de entrega almacenados
+    const detallesEntrega = localStorage.getItem("entregaID");
+
+  
+    // Preparamos los datos para la transacción de pago
+    const fechaExpTokens = exp.split('/');
+    const fechaExp = fechaExpTokens[0] + fechaExpTokens[1];
+  
+    // Asumiendo que tienes una forma de obtener estos datos previamente
+    try {
+      const responseUsuario = await fetch(`http://localhost:3000/obtenerCorreo?firebaseUID=${firebaseUID}`);
+
+      if (!responseUsuario.ok) {
+        throw new Error("No se pudo obtener la información del usuario");
+      }
+      const { nombre, correo } = await responseUsuario.json();
+      
+      // Continuar con el proceso de pago usando el nombre y correo obtenidos
+      const detallesEntrega = localStorage.getItem("entregaID");
+      const fechaExpTokens = exp.split('/');
+      const fechaExp = fechaExpTokens[0] + fechaExpTokens[1];
+  
+      const dataPago = {
+        customer_name: nombre,
+        card_number: numeroTarjeta,
+        card_holder: propietarioTarjeta,
+        card_expire: fechaExp,
+        card_cvv: cvv,
+        customer_email: correo,
+        billing_address: "Dirección de facturación",
+        billing_city: "Ciudad de facturación",
+        billing_country: "HN",
+        billing_state: "HN-FM",
+        billing_phone: "Número de teléfono",
+        order_currency: "HNL",
+        order_amount: "1", // Asegúrate de reemplazar esto con el monto real de la orden
+        env: "sandbox",
+      };
+  
+      const responsePago = await fetch(`https://pixel-pay.com/api/v2/transaction/sale`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-key": "1234567890",
+          "x-auth-hash": "36cdf8271723276cb6f94904f8bde4b6",
+          "Accept": "application/json",
+        },
+        body: JSON.stringify(dataPago),
+      });
+  
+    if (responsePago.ok) {
+      // Si el pago es exitoso, procedemos a crear la orden
+      const dataOrden = {
+        firebaseUID,
+        detalles: detallesEntrega,
+        Fecha: new Date().toISOString(),
+      };
+  
+      const responseOrden = await fetch('https://importasia-api.onrender.com/crearOrden', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dataOrden),
+      });
+  
+      if (responseOrden.ok) {
+        const responseOrdenData = await responseOrden.json();
+        setOrdenId(responseOrdenData._id);
+        setMostrarPopupGracias(true); // Mostramos el pop-up de agradecimiento
+  
+        // Procedemos a vaciar el carrito de compras y resetear el total
+        const userActualizacion = {
+          carritoCompras: [],
+          cantidadCarrito: [],
+          totalCarrito: "0"
+        };
+  
+        await fetch(`https://importasia-api.onrender.com/usuarioAfterPago/${firebaseUID}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(userActualizacion),
+        });
+  
+        alert("Pago procesado y orden creada con éxito");
+      } else {
+        alert("Error al crear orden");
+      }
+    } else {
+      // Manejo de la respuesta si el pago falla
+      const errorResponse = await responsePago.json();
+      console.log("Error al pagar: ", errorResponse);
+      alert("El pago ha fallado, por favor intente nuevamente");
+    }
+  } catch (error) {
+    console.error("Error al obtener la información del usuario:", error);
+    alert("Ocurrió un error al obtener la información del usuario.");
+  }
+  };
   
 
-  const handlePago = async () => {
+  const handlePago= async () => {
     if (!validarDatos()) {
       return;
     }
