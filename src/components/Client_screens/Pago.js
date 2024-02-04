@@ -22,13 +22,13 @@ function Pago() {
 
   const crearOrden = async () => {
     const detalles = localStorage.getItem("entregaID");
-  
+
     const dataOrden = {
       firebaseUID,
       detalles,
       Fecha: new Date().toISOString(),
     };
-  
+
     const responseOrden = await fetch('https://importasia-api.onrender.com/crearOrden', {
       method: "POST",
       headers: {
@@ -36,7 +36,7 @@ function Pago() {
       },
       body: JSON.stringify(dataOrden),
     });
-  
+
     if (responseOrden.ok) {
       const responseOrdenData = await responseOrden.json();
       setOrdenId(responseOrdenData._id);
@@ -67,10 +67,10 @@ function Pago() {
   };
   const confirmarPagoEfectivo = async () => {
     if (ordenEnProceso) return; // Evita crear una nueva orden si ya hay una en proceso
-  
+
     setOrdenEnProceso(true); // Indica que se está iniciando el proceso de creación de la orden
     setMostrarPopup(false);
-  
+
     try {
       const ordenData = await crearOrden(); // Creamos la orden
       setMostrarPopupGracias(true); // Mostramos el pop-up de agradecimiento
@@ -89,16 +89,16 @@ function Pago() {
       alert("No se encontró el identificador de usuario.");
       return;
     }
-  
-  
+
+
     // Obtenemos los detalles de entrega almacenados
     const detallesEntrega = localStorage.getItem("entregaID");
 
-  
+
     // Preparamos los datos para la transacción de pago
     const fechaExpTokens = exp.split('/');
     const fechaExp = fechaExpTokens[0] + fechaExpTokens[1];
-  
+
     // Asumiendo que tienes una forma de obtener estos datos previamente
     try {
       const responseUsuario = await fetch(`http://localhost:3000/obtenerCorreo?firebaseUID=${firebaseUID}`);
@@ -107,12 +107,12 @@ function Pago() {
         throw new Error("No se pudo obtener la información del usuario");
       }
       const { nombre, correo } = await responseUsuario.json();
-      
+
       // Continuar con el proceso de pago usando el nombre y correo obtenidos
       const detallesEntrega = localStorage.getItem("entregaID");
       const fechaExpTokens = exp.split('/');
       const fechaExp = fechaExpTokens[0] + fechaExpTokens[1];
-  
+
       const dataPago = {
         customer_name: nombre,
         card_number: numeroTarjeta,
@@ -129,7 +129,7 @@ function Pago() {
         order_amount: "1", // Asegúrate de reemplazar esto con el monto real de la orden
         env: "sandbox",
       };
-  
+
       const responsePago = await fetch(`https://pixel-pay.com/api/v2/transaction/sale`, {
         method: "POST",
         headers: {
@@ -140,61 +140,61 @@ function Pago() {
         },
         body: JSON.stringify(dataPago),
       });
-  
-    if (responsePago.ok) {
-      // Si el pago es exitoso, procedemos a crear la orden
-      const dataOrden = {
-        firebaseUID,
-        detalles: detallesEntrega,
-        Fecha: new Date().toISOString(),
-      };
-  
-      const responseOrden = await fetch('https://importasia-api.onrender.com/crearOrden', {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(dataOrden),
-      });
-  
-      if (responseOrden.ok) {
-        const responseOrdenData = await responseOrden.json();
-        setOrdenId(responseOrdenData._id);
-        setMostrarPopupGracias(true); // Mostramos el pop-up de agradecimiento
-  
-        // Procedemos a vaciar el carrito de compras y resetear el total
-        const userActualizacion = {
-          carritoCompras: [],
-          cantidadCarrito: [],
-          totalCarrito: "0"
+
+      if (responsePago.ok) {
+        // Si el pago es exitoso, procedemos a crear la orden
+        const dataOrden = {
+          firebaseUID,
+          detalles: detallesEntrega,
+          Fecha: new Date().toISOString(),
         };
-  
-        await fetch(`https://importasia-api.onrender.com/usuarioAfterPago/${firebaseUID}`, {
+
+        const responseOrden = await fetch('https://importasia-api.onrender.com/crearOrden', {
           method: "POST",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
           },
-          body: JSON.stringify(userActualizacion),
+          body: JSON.stringify(dataOrden),
         });
-  
-        alert("Pago procesado y orden creada con éxito");
-      } else {
-        alert("Error al crear orden");
-      }
-    } else {
-      // Manejo de la respuesta si el pago falla
-      const errorResponse = await responsePago.json();
-      console.log("Error al pagar: ", errorResponse);
-      alert("El pago ha fallado, por favor intente nuevamente");
-    }
-  } catch (error) {
-    console.error("Error al obtener la información del usuario:", error);
-    alert("Ocurrió un error al obtener la información del usuario.");
-  }
-  };
-  
 
-  const handlePago= async () => {
+        if (responseOrden.ok) {
+          const responseOrdenData = await responseOrden.json();
+          setOrdenId(responseOrdenData._id);
+          setMostrarPopupGracias(true); // Mostramos el pop-up de agradecimiento
+
+          // Procedemos a vaciar el carrito de compras y resetear el total
+          const userActualizacion = {
+            carritoCompras: [],
+            cantidadCarrito: [],
+            totalCarrito: "0"
+          };
+
+          await fetch(`https://importasia-api.onrender.com/usuarioAfterPago/${firebaseUID}`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(userActualizacion),
+          });
+
+          alert("Pago procesado y orden creada con éxito");
+        } else {
+          alert("Error al crear orden");
+        }
+      } else {
+        // Manejo de la respuesta si el pago falla
+        const errorResponse = await responsePago.json();
+        console.log("Error al pagar: ", errorResponse);
+        alert("El pago ha fallado, por favor intente nuevamente");
+      }
+    } catch (error) {
+      console.error("Error al obtener la información del usuario:", error);
+      alert("Ocurrió un error al obtener la información del usuario.");
+    }
+  };
+
+
+  const handlePago = async () => {
     if (!validarDatos()) {
       return;
     }
@@ -275,14 +275,44 @@ function Pago() {
         });
 
         if (responseActualizacionUser.ok) {
-          
+
           console.log("Carrito vaciado y total reseteado correctamente");
         } else {
           console.log("Error al actualizar el usuario: ", await responseActualizacionUser.json());
         }
 
       } else {
+        alert("Error en el pago(No pudo ser Procesado)")
         console.log("Error al pagar: ", response);
+        console.log(responseOrdenData._id)
+        // Aquí manejas el caso en que el pago falló, eliminando la orden creada previamente
+        if (responseOrdenData._id) {
+          fetch(`http://localhost:3000/eliminarOrden?ordenId=${responseOrdenData._id}`, {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+            .then(response => {
+              console.log("Código de estado:", response.status); 
+              if (response.ok) {
+                console.log("Orden eliminada con éxito debido a fallo en el pago");
+              } else {
+                console.error("Error al intentar eliminar la orden");
+              }
+            })
+            .then(errorResponse => {
+              if (errorResponse) {
+                console.error("Respuesta de error:", errorResponse); // Agregar esta línea
+              }
+            })
+            .catch(error => {
+              console.error("Error al eliminar la orden: ", error);
+            });
+        }else{
+          console.log("Error al eliminar la orden Id: ");
+          console.log(responseOrdenData._id)
+        }
       }
     } else {
       alert("Error al crear orden");
