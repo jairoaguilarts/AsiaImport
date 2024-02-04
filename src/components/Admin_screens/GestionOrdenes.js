@@ -10,27 +10,33 @@ const GestionOrdenes = () => {
     const [ordenes, setOrdenes] = useState([]);
     const [isDetallePopupVisible, setIsDetallePopupVisible] = useState(false);
     const [ordenDetalle, setOrdenDetalle] = useState(null);
+    const [filtroEstado, setFiltroEstado] = useState('Cualquiera');
 
     const handleBusquedaChange = (e) => {
         const terminoBusqueda = e.target.value;
         setBusqueda(terminoBusqueda);
-        filtrarOrdenes(terminoBusqueda);
+        filtrarOrdenes(terminoBusqueda, filtroEstado);
     };
-
-    const filtrarOrdenes = (terminoBusqueda) => {
-        if (!terminoBusqueda) {
-            setOrdenesFiltradas(ordenes);
-        } else {
-            setOrdenesFiltradas(
-                ordenes.filter((orden) =>
-                    orden.nombre_usuario.toLowerCase().
-                        includes(terminoBusqueda.toLowerCase()) ||
-                    orden.estadoOrden.toLowerCase().
-                        includes(terminoBusqueda.toLowerCase())
-                )
+    const handleEstadoChange = (e) => {
+        const estadoSeleccionado = e.target.value;
+        setFiltroEstado(estadoSeleccionado);
+        filtrarOrdenes(busqueda, estadoSeleccionado);
+    };
+    const filtrarOrdenes = (terminoBusqueda, estado) => {
+        let ordenesTemp = ordenes;
+        if (terminoBusqueda) {
+            ordenesTemp = ordenesTemp.filter((orden) =>
+                orden._id.toLowerCase().includes(terminoBusqueda.toLowerCase()) ||
+                orden.estadoOrden.toLowerCase().includes(terminoBusqueda.toLowerCase()) ||
+                orden.tipoOrden.toLowerCase().includes(terminoBusqueda.toLowerCase()) // Línea agregada para filtrar por tipo de orden
             );
         }
+        if (estado !== 'Cualquiera') {
+            ordenesTemp = ordenesTemp.filter(orden => orden.estadoOrden === estado);
+        }
+        setOrdenesFiltradas(ordenesTemp);
     };
+    
 
     useEffect(() => {
         setOrdenesFiltradas(ordenes);
@@ -229,11 +235,24 @@ const GestionOrdenes = () => {
             />
             <input
                 type="text"
-                placeholder="Buscar órdenes..."
+                placeholder="Buscar orden por ID"
                 value={busqueda}
                 onChange={handleBusquedaChange}
                 className="barra-busqueda"
             />
+            <div className="filtro-estados-container">
+                <select
+                    className="filtro-estados-select"
+                    value={filtroEstado}
+                    onChange={handleEstadoChange} 
+                >
+                     <option value="Cualquiera">Todas</option>
+                    <option value="Ingresada">Ingresada</option>
+                    <option value="En Proceso">En Proceso</option>
+                    <option value="Verificada">Verificada</option>
+                    <option value="Completada">Completada</option>
+                </select>
+            </div>
             <div className="contenedor-ordenes-gestion">
                 <table className="tabla-ordenes-gestion">
                     <thead>
