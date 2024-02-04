@@ -287,7 +287,7 @@ function Pago() {
         console.log(responseOrdenData._id)
         // Aquí manejas el caso en que el pago falló, eliminando la orden creada previamente
         if (responseOrdenData._id) {
-          fetch(`http://localhost:3000/eliminarOrden?ordenId=${responseOrdenData._id}`, {
+          fetch(`https://importasia-api.onrender.com/eliminarOrden?ordenId=${responseOrdenData._id}`, {
             method: "DELETE",
             headers: {
               "Content-Type": "application/json",
