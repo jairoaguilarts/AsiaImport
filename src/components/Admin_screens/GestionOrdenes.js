@@ -2,12 +2,40 @@ import React, { useState, useEffect } from "react";
 import "./GestionOrdenes.css";
 
 const GestionOrdenes = () => {
+    const [busqueda, setBusqueda] = useState('');
+    const [ordenesFiltradas, setOrdenesFiltradas] = useState([]);
     const [isPopupVisible, setIsPopupVisible] = useState(false);
     const [ordenActual, setOrdenActual] = useState(null);
     const [estadoSeleccionado, setEstadoSeleccionado] = useState('');
     const [ordenes, setOrdenes] = useState([]);
     const [isDetallePopupVisible, setIsDetallePopupVisible] = useState(false);
     const [ordenDetalle, setOrdenDetalle] = useState(null);
+
+    const handleBusquedaChange = (e) => {
+        const terminoBusqueda = e.target.value;
+        setBusqueda(terminoBusqueda);
+        filtrarOrdenes(terminoBusqueda);
+    };
+
+    const filtrarOrdenes = (terminoBusqueda) => {
+        if (!terminoBusqueda) {
+            setOrdenesFiltradas(ordenes);
+        } else {
+            setOrdenesFiltradas(
+                ordenes.filter((orden) =>
+                    orden.nombre_usuario.toLowerCase().
+                        includes(terminoBusqueda.toLowerCase()) ||
+                    orden.estadoOrden.toLowerCase().
+                        includes(terminoBusqueda.toLowerCase())
+                )
+            );
+        }
+    };
+
+    useEffect(() => {
+        setOrdenesFiltradas(ordenes);
+    }, [ordenes]);
+
     const mostrarPopupDetalle = (orden) => {
         setOrdenDetalle(orden);
         setIsDetallePopupVisible(true);
@@ -21,13 +49,13 @@ const GestionOrdenes = () => {
             case 'Completada':
                 return 'estado-completado';
             default:
-                return ''; // Devuelve una cadena vacía si no es ninguno de los estados anteriores
+                return '';
         }
     };
-    
+
     const PopupDetalleOrden = () => {
         if (!isDetallePopupVisible || !ordenDetalle) return null;
-    
+
         return (
             <div className="popup-overlay">
                 <div className="popup-detalle">
@@ -54,28 +82,28 @@ const GestionOrdenes = () => {
                     </ul>
                     <div><strong>Articulos en la Orden:</strong></div>
                     <table>
-                    <thead>
-                        <tr>
-                            <th>Artículo</th>
-                            <th>Cantidad</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {ordenDetalle.carrito.map((item, index) => (
-                            <tr key={index}>
-                                <td>{ordenDetalle.carrito[index]}</td> {/* Asumiendo que cada ítem del carrito tiene un campo 'nombre' */}
-                                <td>{ordenDetalle.cantidades[index]}</td>
+                        <thead>
+                            <tr>
+                                <th>Artículo</th>
+                                <th>Cantidad</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
-                <div><strong>Total de la Orden:{ordenDetalle.total}</strong></div>
+                        </thead>
+                        <tbody>
+                            {ordenDetalle.carrito.map((item, index) => (
+                                <tr key={index}>
+                                    <td>{ordenDetalle.carrito[index]}</td>
+                                    <td>{ordenDetalle.cantidades[index]}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                    <div><strong>Total de la Orden:{ordenDetalle.total}</strong></div>
                     <button className="button-detalle3" onClick={() => setIsDetallePopupVisible(false)}>Cerrar</button>
                 </div>
             </div>
         );
     };
-    
+
 
     useEffect(() => {
         fetch(`https://importasia-api.onrender.com/ordenes`)
@@ -102,14 +130,32 @@ const GestionOrdenes = () => {
                     <h3>Actualizar Estado de la Orden</h3>
                     <hr></hr>
                     <form>
-                    <label style={{ color: estadoSeleccionado === 'En Proceso' ? '#D8750D' : 'inherit' }}>
-                            <input type="radio" name="estado" value="En Proceso" onChange={(e) => setEstadoSeleccionado(e.target.value)} checked={estadoSeleccionado === 'En Proceso'} /> En proceso
+                        <label style={{ color: estadoSeleccionado === 'En Proceso' ? '#D8750D' : 'inherit' }}>
+                            <input
+                                type="radio"
+                                name="estado"
+                                value="En Proceso"
+                                onChange={(e) => setEstadoSeleccionado(e.target.value)}
+                                checked={estadoSeleccionado === 'En Proceso'} />
+                            En proceso
                         </label>
                         <label style={{ color: estadoSeleccionado === 'Verificada' ? '#D8A20D' : 'inherit' }}>
-                            <input type="radio" name="estado" value="Verificada" onChange={(e) => setEstadoSeleccionado(e.target.value)} checked={estadoSeleccionado === 'Verificada'} /> Verificada
+                            <input
+                                type="radio"
+                                name="estado"
+                                value="Verificada"
+                                onChange={(e) => setEstadoSeleccionado(e.target.value)}
+                                checked={estadoSeleccionado === 'Verificada'} />
+                            Verificada
                         </label>
                         <label style={{ color: estadoSeleccionado === 'Completada' ? 'green' : 'inherit' }}>
-                            <input type="radio" name="estado" value="Completada" onChange={(e) => setEstadoSeleccionado(e.target.value)} checked={estadoSeleccionado === 'Completada'} /> Completado
+                            <input
+                                type="radio"
+                                name="estado"
+                                value="Completada"
+                                onChange={(e) => setEstadoSeleccionado(e.target.value)}
+                                checked={estadoSeleccionado === 'Completada'} />
+                            Completado
                         </label>
                         <button type="button" onClick={actualizarEstado}>Actualizar Estado</button>
                         <button type="button" onClick={() => setIsPopupVisible(false)}>Cerrar</button>
@@ -119,11 +165,10 @@ const GestionOrdenes = () => {
         ) : null;
     };
     const actualizarEstado = () => {
-        // Asegúrate de obtener el ID correcto de la ordenActual. Asumimos que es order_id.
         const url = `https://importasia-api.onrender.com/actualizarEstado`;
         const data = {
-            estadoNuevo: estadoSeleccionado, // Asegúrate de que el campo coincida con lo que espera el backend.
-            _orderId: ordenActual._id // Aquí se envía el ID de la orden.
+            estadoNuevo: estadoSeleccionado,
+            _orderId: ordenActual._id
         };
 
         fetch(url, {
@@ -143,8 +188,8 @@ const GestionOrdenes = () => {
                 console.log('Estado actualizado:', data);
                 alert('Estado actualizado con exito');
                 setIsPopupVisible(false);
-                // Actualizar la lista de ordenes. Asegúrate de que usas la propiedad correcta para el ID.
-                setOrdenes(ordenes.map(orden => orden._id === ordenActual._id ? { ...orden, estadoOrden: estadoSeleccionado } : orden));
+                setOrdenes(ordenes.map(orden => orden._id === ordenActual._id ?
+                    { ...orden, estadoOrden: estadoSeleccionado } : orden));
             })
             .catch((error) => {
                 console.error('Error al actualizar estado:', error);
@@ -182,6 +227,13 @@ const GestionOrdenes = () => {
                     borderStyle: "solid",
                 }}
             />
+            <input
+                type="text"
+                placeholder="Buscar órdenes..."
+                value={busqueda}
+                onChange={handleBusquedaChange}
+                className="barra-busqueda"
+            />
             <div className="contenedor-ordenes-gestion">
                 <table className="tabla-ordenes-gestion">
                     <thead>
@@ -195,7 +247,7 @@ const GestionOrdenes = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {ordenes.map(orden => (
+                        {ordenesFiltradas.map(orden => (
                             <tr key={orden.order_id}>
                                 <td>{orden._id}</td>
                                 <td>{orden.tipoOrden}</td>
@@ -205,7 +257,6 @@ const GestionOrdenes = () => {
                                 <td>
                                     <button className="button-gestion mod-estado-orden" onClick={() => mostrarPopup(orden)}>Estado de Orden</button>
                                     <button className="button-gestion mod-ver-mas" onClick={() => mostrarPopupDetalle(orden)}>Ampliar Orden</button>
-
                                 </td>
                             </tr>
                         ))}

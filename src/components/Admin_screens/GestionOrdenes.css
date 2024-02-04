@@ -22,6 +22,27 @@
     margin-left: 300px;
 }
 
+.barra-busqueda {
+    width: 50%;
+    padding: 10px;
+    margin: 20px auto;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: rgba(159, 156, 156, 0.579);
+    color: white;
+    font-size: 16px;
+}
+
+.barra-busqueda::placeholder {
+    color: rgb(255, 255, 255);
+}
+
+.barra-busqueda:focus {
+    outline: none;
+    border-color: #777;
+}
+
 .tabla-ordenes {
     width: 100%;
     border-collapse: collapse;

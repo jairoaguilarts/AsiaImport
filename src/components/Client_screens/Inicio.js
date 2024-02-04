@@ -163,9 +163,7 @@ function Inicio() {
         }
 
         const data = await response.json();
-        console.log(data);
         setImagenesCarrusel(data[0].imagenID);
-        console.log(imagenesCarrusel);
       } catch (error) {
         console.log("Adentro del catch " + error.message);
       }
