@@ -15,11 +15,68 @@ function Pago() {
   const [mostrarPopup, setMostrarPopup] = useState(false);
   const [mostrarPopupGracias, setMostrarPopupGracias] = useState(false); // Para el segundo pop-up de agradecimiento
   const navigate = useNavigate();
+  const [ordenId, setOrdenId] = useState('');
 
-  const confirmarPagoEfectivo = () => {
-    setMostrarPopup(false);
-    setMostrarPopupGracias(true);
+
+
+  const crearOrden = async () => {
+    const detalles = localStorage.getItem("entregaID");
+  
+    const dataOrden = {
+      firebaseUID,
+      detalles,
+      Fecha: new Date().toISOString(),
+    };
+  
+    const responseOrden = await fetch('https://importasia-api.onrender.com/crearOrden', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dataOrden),
+    });
+  
+    if (responseOrden.ok) {
+      const responseOrdenData = await responseOrden.json();
+      setOrdenId(responseOrdenData._id);
+      const userActualizacion = {
+        carritoCompras: [],
+        cantidadCarrito: [],
+        totalCarrito: "0"
+      };
+
+      const responseActualizacionUser = await fetch(`https://importasia-api.onrender.com/usuarioAfterPago/${firebaseUID}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(userActualizacion),
+      });
+
+      if (responseActualizacionUser.ok) {
+        confirmarPagoEfectivo();
+        console.log("Carrito vaciado y total reseteado correctamente");
+      } else {
+        console.log("Error al actualizar el usuario: ", await responseActualizacionUser.json());
+      }
+      return responseOrdenData; // Retornamos los datos de la orden para su uso posterior
+    } else {
+      alert("Error al crear orden");
+      throw new Error("Error al crear orden");
+    }
   };
+  const confirmarPagoEfectivo = async () => {
+  try {
+    const ordenData = await crearOrden(); // Creamos la orden
+
+    // Aquí podrías añadir cualquier otra lógica necesaria después de crear la orden, como actualizar el estado del carrito, etc.
+
+    setMostrarPopup(false); // Ocultamos el pop-up de confirmación de pago en efectivo
+    setMostrarPopupGracias(true); // Mostramos el pop-up de agradecimiento
+  } catch (error) {
+    console.error("Error al crear la orden en pago en efectivo: ", error);
+  }
+};
 
   const handlePago = async () => {
     if (!validarDatos()) {
@@ -84,6 +141,7 @@ function Pago() {
 
       if (response.ok) {
         alert("Pago procesado");
+        setOrdenId(responseOrdenData._id);
         confirmarPagoEfectivo();
 
         const userActualizacion = {
@@ -125,7 +183,7 @@ function Pago() {
         <div className="popup-gracias-contenido">
           <h3>Gracias por tu compra</h3>
           <hr />
-          <p>Detalles de la orden...</p>
+          <p>ID de la orden: {ordenId}</p>
           <button onClick={() => {
             setMostrarPopupGracias(false);
             navigate('/inicio');
