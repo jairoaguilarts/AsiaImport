@@ -2,10 +2,17 @@
 import React, { useState, useEffect } from "react";
 import "./ProductoFiltro.css";  // Asegúrate de tener el archivo de estilos correspondiente
 import originIcon from "../../assets/maneki-neko.png";
+import Pagination from "../Client_screens/Pagination";
 
 const VerFav = () => {
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(4);
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = productos.slice(indexOfFirstProduct, indexOfLastProduct);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const handleAgregar = async (modeloAgregar) => {
     const datos = {
@@ -13,6 +20,7 @@ const VerFav = () => {
       Modelo: modeloAgregar,
       cantidad: "1",
     };
+
 
     try {
       const response = await fetch('https://importasia-api.onrender.com/agregarCarrito', {
@@ -109,7 +117,7 @@ const VerFav = () => {
         </div>
       ) : (
         <div className="product-list-container">
-          {productos.map((producto, index) => (
+          {currentProducts.map((producto, index) => (
             <div className="product-container" key={index}>
               {/* Puedes ajustar el contenido según tus necesidades */}
               <button
@@ -121,10 +129,28 @@ const VerFav = () => {
               <div className="product-details">
                 <h3>{producto.Nombre}</h3>
                 <p>Modelo: {producto.Modelo}</p>
-                <p>{producto.Descripcion}</p>
-                <p className="price">L.{producto.Precio}</p>
-                <button className="btn-add-to-cart" onClick={() => handleAgregar(producto.Modelo)}>AÑADIR AL CARRITO  </button>
-                <button className="btn-add-to-favorites" onClick={() => handleEliminar(producto.Modelo)}>ELIMINAR DE FAVORITOS </button>
+                <div style={{
+                  border: '2px solid orange',
+                  padding: '10px',
+                  borderRadius: '5px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center', // esto centrará el texto horizontalmente
+                  width: '100%', // esto asegura que el div tome todo el ancho disponible
+                  boxSizing: 'border-box' // esto asegura que el padding y el borde estén incluidos en el ancho
+                }}>
+                  <p style={{ margin: 0, width: '100%', textAlign: 'justify' }}>{producto.Descripcion}</p>
+                </div>
+
+                <div style={{ fontSize: '24px', fontWeight: 'bold', color: 'black', margin: '10px 0' }}>
+                  <p className="price">L.{producto.Precio}</p>
+                </div>
+
+                <div style={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
+                  <button className="btn-add-to-cart" onClick={() => handleAgregar(producto.Modelo)}>AÑADIR AL CARRITO  </button>
+                  <button className="btn-add-to-favorites" onClick={() => handleEliminar(producto.Modelo)}>ELIMINAR DE FAVORITOS </button>
+                </div>
+                <hr></hr>
                 { /*  <button className="btn-add-to-cart" onClick={() => handleEliminar(product.Modelo)}>Eliminar de Favoritos </button>*/}
                 {/* Agrega botones u opciones adicionales según tus necesidades */}
               </div>
@@ -132,6 +158,14 @@ const VerFav = () => {
           ))}
         </div>
       )}
+      <div style={{ textAlign: 'center', padding: '10px 0', marginLeft: '180px' }}>
+        <Pagination
+          productsPerPage={productsPerPage}
+          totalProducts={productos.length}
+          paginate={paginate}
+          currentPage={currentPage}
+        />
+      </div>
     </div>
   );
 };

@@ -183,27 +183,40 @@
 .btn-add-to-cart {
   display: block;
   margin-top: 10px;
-  padding: 10px 20px;
+  padding: 10px 30px; /* Actualizado */
   text-align: center;
   text-decoration: none;
-  color: #fff;
-  background-color: orange;
-  border: 1px solid orange;
+  color: #fff; /* Mantenido */
+  background-color: #ffa500; /* Actualizado */
+  border: none; /* Actualizado */
   cursor: pointer;
-  width: 240px;
+  font-size: 16px; /* Actualizado */
+  border-radius: 4px; /* Actualizado */
+  min-width: 240px; /* Sugerencia para mantener el ancho mínimo */
 }
+
 .btn-add-to-favorites {
   display: block;
   margin-top: 10px;
-  padding: 10px 20px;
+  padding: 10px 15px; /* Actualizado */
   text-align: center;
   text-decoration: none;
-  color: #fff;
-  background-color: #007bff;
-  border: 1px solid #007bff;
+  color: #fff; /* Mantenido */
+  background-color: #01a6ff; /* Actualizado */
+  border: 2px solid #01a6ff; /* Actualizado */
   cursor: pointer;
-  width: 240px;
+  font-size: 16px; /* Actualizado */
+  border-radius: 4px; /* Actualizado */
+  min-width: 240px; /* Sugerencia para mantener el ancho mínimo */
 }
+.btn-add-to-cart:hover {
+  background-color: #e69500; /* Un tono más oscuro que #ffa500 */
+}
+
+.btn-add-to-favorites:hover {
+  background-color: #0091cc; /* Un tono más oscuro que #01a6ff */
+}
+
 
 /* Ajustes para Pantallas Medianas */
 @media (max-width: 768px) {
@@ -256,3 +269,5 @@
     margin-bottom: 20px;
   }
 }
+
+

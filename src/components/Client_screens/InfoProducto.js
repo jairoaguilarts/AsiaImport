@@ -120,21 +120,22 @@ function InfoAudifonos() {
         </button>
       </div>
       {producto && (
-        <div className="tab-content">
-          {activeTab === "description" && (
-            <div className="description">
-              <h2>Descripción</h2>
-              <ul>{producto.Descripcion}</ul>
-            </div>
-          )}
-          {activeTab === "features" && (
-            <div className="features">
-              <h2>Características</h2>
-              <ul>{producto.Caracteristicas}</ul>
-            </div>
-          )}
-        </div>
-      )}
+  <div className="tab-content">
+    {activeTab === "description" && (
+      <div className="description">
+        <h2>Descripción</h2>
+        <ul className="product-description">{producto.Descripcion}</ul> {/* Agregada clase product-description */}
+      </div>
+    )}
+    {activeTab === "features" && (
+      <div className="features">
+        <h2>Características</h2>
+        <ul className="product-features">{producto.Caracteristicas}</ul> {/* Agregada clase product-features */}
+      </div>
+    )}
+  </div>
+)}
+
     </div>
   );
 }
