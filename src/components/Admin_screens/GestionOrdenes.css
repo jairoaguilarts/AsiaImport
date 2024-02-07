@@ -34,6 +34,12 @@
     font-size: 16px;
 }
 
+.pagination {
+    text-align: center;
+    padding: 10px 0;
+  }
+  
+
 .barra-busqueda::placeholder {
     color: black;
 }
