@@ -71,7 +71,7 @@ function ProcederCompra() {
 
   const handleEliminarDireccion = async (_id) => {
     try {
-      const response = await fetch(`http://localhost:3000/eliminarDireccion?_id=${_id}`,
+      const response = await fetch(`https://importasia-api.onrender.com/eliminarDireccion?_id=${_id}`,
         {
           method: "DELETE",
           headers: {
