@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./ProductoFiltro.css";
 import audifonosProduct1 from "../../assets/edifierPlus.png";
+import Swal from "sweetalert2";
 import audifonosProduct2 from "../../assets/Srhythm.png";
 import originIcon from "../../assets/maneki-neko.png";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -118,7 +119,7 @@ const AudifonoFiltro = () => {
     const datos = {
       firebaseUID: localStorage.getItem("FireBaseUID"),
       Modelo: modeloAgregar,
-      cantidad: "1"
+      cantidad: "1",
     };
 
     try {
@@ -137,17 +138,29 @@ const AudifonoFiltro = () => {
         const errorData = await response.json();
         throw new Error(`Error: ${errorData.message || response.status}`);
       }
-      alert("Agregado Exitosamente al Carrito");
+      Swal.fire({
+        icon: "success",
+        title: "¡Agregado!",
+        text: "Producto agregado exitosamente al carrito.",
+        confirmButtonText: "Ok",
+      });
     } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "No se pudo agregar el producto al carrito.",
+        confirmButtonText: "Ok",
+      });
       console.log("Error: ", error);
     }
   };
+
   const handleAgregarFavoritos = async (modeloAgregar) => {
     const datos = {
       firebaseUID: localStorage.getItem("FireBaseUID"),
       Modelo: modeloAgregar,
     };
-
+  
     try {
       const response = await fetch(
         "https://importasia-api.onrender.com/agregarFavoritos",
@@ -159,16 +172,28 @@ const AudifonoFiltro = () => {
           body: JSON.stringify(datos),
         }
       );
-
+  
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(`Error: ${errorData.message || response.status}`);
       }
-      alert("Producto agregado a favoritos");
+      Swal.fire({
+        icon: 'success',
+        title: '¡Agregado a Favoritos!',
+        text: 'Producto agregado exitosamente a favoritos.',
+        confirmButtonText: 'Ok'
+      });
     } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'No se pudo agregar el producto a favoritos.',
+        confirmButtonText: 'Ok'
+      });
       console.log("Error: ", error);
     }
   };
+  
 
   return (
     <div className="main-container">
