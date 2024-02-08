@@ -91,7 +91,7 @@ const GestionOrdenes = () => {
     setOrdenDetalle(orden);
     setIsDetallePopupVisible(true);
   };
-
+ 
   const PopupDetalleOrden = () => {
     if (!isDetallePopupVisible || !ordenDetalle) return null;
 
