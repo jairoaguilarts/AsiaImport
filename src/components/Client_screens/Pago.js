@@ -332,23 +332,38 @@ function Pago() {
         );
 
 
-      
-        const mandarOrden = await fetch(
-          `https://importasia-api.onrender.com/send-orderDetails`,
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              _orderId: responseOrdenData._id,
-              tipoOrden: "Delivery",
-              Fecha: new Date().toISOString(), 
-              carrito: responseOrdenData.carritoCompras,
-              cantidades: responseOrdenData.cantidadCarrito,
-              total: responseOrdenData.totalCarrito,
-              correo: responseOrdenData.correo,
-            }),
+        const formData = {
+          _orderId: responseOrdenData._id,
+          tipoOrden: "Delivery",
+          Fecha: new Date().toISOString(),
+          carrito: responseOrdenData.carritoCompras,
+          cantidades: responseOrdenData.cantidadCarrito,
+          total: responseOrdenData.totalCarrito,
+          correo: responseOrdenData.correo,
+        };
+        
+        const requestOptions = {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        };
+        
+        try {
+          const mandarOrden = await fetch("https://importasia-api.onrender.com/send-orderDetails", requestOptions);
+        
+          if (!mandarOrden.ok) {
+            const errorMessage = await mandarOrden.text();
+            throw new Error(errorMessage);
           }
-        );
+        
+          // Si el envío de la orden es exitoso, puedes realizar acciones adicionales aquí
+          console.log("Orden enviada con éxito.");
+        
+        } catch (error) {
+          console.error("Error al enviar la orden:", error);
+          // Manejo del error
+        }
+        
         
 
         if (responseActualizacionUser.ok) {
