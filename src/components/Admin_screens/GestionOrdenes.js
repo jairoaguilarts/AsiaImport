@@ -29,19 +29,44 @@ const GestionOrdenes = () => {
   
   const filtrarOrdenes = (terminoBusqueda, estado) => {
     let ordenesTemp = ordenes;
+  
     if (terminoBusqueda) {
-      ordenesTemp = ordenesTemp.filter(
-        (orden) =>
-          orden._id.toLowerCase().includes(terminoBusqueda.toLowerCase()) ||
-          orden.estadoOrden.toLowerCase().includes(terminoBusqueda.toLowerCase()) ||
-          orden.tipoOrden.toLowerCase().includes(terminoBusqueda.toLowerCase())
-      );
+      ordenesTemp = ordenesTemp.filter((orden) => {
+        const busquedaEnMinusculas = terminoBusqueda.toLowerCase();
+        const detalles = orden.detalles || {};
+  
+        // Revisa si algún campo de la orden coincide con el término de búsqueda
+        const coincide = orden._id?.toLowerCase().includes(busquedaEnMinusculas) ||
+          orden.tipoOrden?.toLowerCase().includes(busquedaEnMinusculas) ||
+          orden.estadoOrden?.toLowerCase().includes(busquedaEnMinusculas) ||
+          ordenDetalle.detalles.numerotelefono?.toLowerCase().includes(busquedaEnMinusculas) ||
+          detalles.departamento?.toLowerCase().includes(busquedaEnMinusculas) ||
+          detalles.municipio?.toLowerCase().includes(busquedaEnMinusculas) ||
+          detalles.direccion?.toLowerCase().includes(busquedaEnMinusculas) ||
+          detalles.puntoreferencia?.toLowerCase().includes(busquedaEnMinusculas) ||
+          detalles.numerotelefono?.toLowerCase().includes(busquedaEnMinusculas) ||
+          orden.nombre_usuario?.toLowerCase().includes(busquedaEnMinusculas) ||
+          ordenDetalle.detalles.fecha_ingreso?.toLowerCase().includes(busquedaEnMinusculas) ||
+          detalles.identidadUsuario?.toLowerCase().includes(busquedaEnMinusculas) ||
+          orden.estadoPago?.toLowerCase().includes(busquedaEnMinusculas);
+  
+        // Asumiendo que `carrito` es un array que puede contener strings u objetos con un campo 'nombreArticulo'
+        const articulosEnCarrito = orden.carrito?.some((item) => {
+          const nombreArticulo = typeof item === 'string' ? item : item.nombreArticulo;
+          return nombreArticulo?.toLowerCase().includes(busquedaEnMinusculas);
+        });
+  
+        return coincide || articulosEnCarrito;
+      });
     }
+  
     if (estado !== "Cualquiera") {
       ordenesTemp = ordenesTemp.filter((orden) => orden.estadoOrden === estado);
     }
+  
     setOrdenesFiltradas(ordenesTemp);
   };
+  
 
   useEffect(() => {
     setOrdenesFiltradas(ordenes);
@@ -214,7 +239,7 @@ const GestionOrdenes = () => {
       />
       <input
         type="text"
-        placeholder="Buscar orden por ID"
+        placeholder="Buscar Orden"
         value={busqueda}
         onChange={handleBusquedaChange}
         className="barra-busqueda"
