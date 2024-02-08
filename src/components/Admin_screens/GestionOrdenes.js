@@ -39,14 +39,14 @@ const GestionOrdenes = () => {
         const coincide = orden._id?.toLowerCase().includes(busquedaEnMinusculas) ||
           orden.tipoOrden?.toLowerCase().includes(busquedaEnMinusculas) ||
           orden.estadoOrden?.toLowerCase().includes(busquedaEnMinusculas) ||
-          ordenDetalle.detalles.numerotelefono?.toLowerCase().includes(busquedaEnMinusculas) ||
+          detalles.numerotelefono?.toLowerCase().includes(busquedaEnMinusculas) ||
           detalles.departamento?.toLowerCase().includes(busquedaEnMinusculas) ||
           detalles.municipio?.toLowerCase().includes(busquedaEnMinusculas) ||
           detalles.direccion?.toLowerCase().includes(busquedaEnMinusculas) ||
           detalles.puntoreferencia?.toLowerCase().includes(busquedaEnMinusculas) ||
           detalles.numerotelefono?.toLowerCase().includes(busquedaEnMinusculas) ||
           orden.nombre_usuario?.toLowerCase().includes(busquedaEnMinusculas) ||
-          ordenDetalle.detalles.fecha_ingreso?.toLowerCase().includes(busquedaEnMinusculas) ||
+          detalles.fecha_ingreso?.toLowerCase().includes(busquedaEnMinusculas) ||
           detalles.identidadUsuario?.toLowerCase().includes(busquedaEnMinusculas) ||
           orden.estadoPago?.toLowerCase().includes(busquedaEnMinusculas);
   
