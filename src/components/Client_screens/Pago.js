@@ -17,6 +17,7 @@ function Pago() {
   const navigate = useNavigate();
   const [ordenId, setOrdenId] = useState("");
   const [ordenEnProceso, setOrdenEnProceso] = useState(false);
+  const [correo,setCorreo]=useState("");
 
   const crearOrden = async () => {
     const detalles = localStorage.getItem("entregaID");
@@ -311,7 +312,7 @@ function Pago() {
           text: "Pago procesado",
         });
         setOrdenId(responseOrdenData._id);
-        setMostrarPopupGracias(true); // Mostramos el pop-up de agradecimiento
+        setMostrarPopupGracias(true);
 
         const userActualizacion = {
           carritoCompras: [],
@@ -329,6 +330,26 @@ function Pago() {
             body: JSON.stringify(userActualizacion),
           }
         );
+
+
+      
+        const mandarOrden = await fetch(
+          `https://importasia-api.onrender.com/send-orderDetails`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              _orderId: responseOrdenData._id,
+              tipoOrden: "Delivery",
+              Fecha: new Date().toISOString(), 
+              carrito: responseOrdenData.carritoCompras,
+              cantidades: responseOrdenData.cantidadCarrito,
+              total: responseOrdenData.totalCarrito,
+              correo: responseOrdenData.correo,
+            }),
+          }
+        );
+        
 
         if (responseActualizacionUser.ok) {
           console.log("Carrito vaciado y total reseteado correctamente");
