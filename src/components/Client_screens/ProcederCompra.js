@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./ProcederCompra.css";
 import Form from "react-bootstrap/Form";
 import Select from "react-select";
+import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
 const opcionInicialDepartamento = {
@@ -96,7 +97,6 @@ function ProcederCompra() {
       );
 
       if (response.ok) {
-        alert("Direccion creada");
         Procederpago();
       }
     } catch (error) {
@@ -151,7 +151,11 @@ function ProcederCompra() {
 
     for (let campo of campos) {
       if (!campo.valor || campo.valor.trim() === "") {
-        alert(campo.mensaje);
+        Swal.fire({
+          icon: "warning",
+          title: "Campo Requerido",
+          text: campo.mensaje,
+        });
         return false;
       }
     }
@@ -168,18 +172,30 @@ function ProcederCompra() {
     if (!validarCamposCompletos()) return;
     if (isDeliverySelected) {
       if (!esMunicipioValido(municipio)) {
-        alert("Por favor, ingrese un municipio válido (solo letras)");
+        Swal.fire({
+          icon: "warning",
+          title: "Validación necesaria",
+          text: "Por favor, ingrese un municipio válido (solo letras)",
+        });
         return;
       }
     } else {
       if (!esIdValido(identidadUser)) {
-        alert("Por favor, ingrese un número de identidad valido de 13 digitos");
+        Swal.fire({
+          icon: "warning",
+          title: "Validación de Identidad",
+          text: "Por favor, ingrese un número de identidad válido de 13 dígitos",
+        });
         return;
       }
     }
 
     if (!esNumeroValido(numerotelefono)) {
-      alert("Por favor, ingrese un número de teléfono válido de 8 dígitos");
+      Swal.fire({
+        icon: "warning",
+        title: "Validación de Teléfono",
+        text: "Por favor, ingrese un número de teléfono válido de 8 dígitos",
+      });
       return;
     }
     handleSubmit();
@@ -200,18 +216,30 @@ function ProcederCompra() {
     if (!validarCamposCompletos()) return;
     if (isDeliverySelected) {
       if (!esMunicipioValido(municipio)) {
-        alert("Por favor, ingrese un municipio válido (solo letras)");
+        Swal.fire({
+          icon: "warning",
+          title: "Validación necesaria",
+          text: "Por favor, ingrese un municipio válido (solo letras)",
+        });
         return;
       }
     } else {
       if (!esIdValido(identidadUser)) {
-        alert("Por favor, ingrese un número de identidad valido de 13 digitos");
+        Swal.fire({
+          icon: "warning",
+          title: "Validación de Identidad",
+          text: "Por favor, ingrese un número de identidad válido de 13 dígitos",
+        });
         return;
       }
     }
 
     if (!esNumeroValido(numerotelefono)) {
-      alert("Por favor, ingrese un número de teléfono válido de 8 dígitos");
+      Swal.fire({
+        icon: "warning",
+        title: "Validación de Teléfono",
+        text: "Por favor, ingrese un número de teléfono válido de 8 dígitos",
+      });
       return;
     }
     handleSubmit();
@@ -293,10 +321,18 @@ function ProcederCompra() {
         setDepartamentoSeleccionado(opcionInicialDepartamento);
         setNombreUsuario("");
         setIdentidadUser("");
-        alert("Entrega creada con éxito");
+        Swal.fire({
+          icon: "success",
+          title: "¡Éxito!",
+          text: "Entrega creada con éxito",
+        });
       } else {
         console.error("Error al crear entrega");
-        alert("Hubo un error al crear la orden");
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Hubo un error al crear la orden",
+        });
       }
     } catch (error) {
       console.error("Error al conectar con el servidor", error);

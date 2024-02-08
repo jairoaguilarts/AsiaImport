@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Swal from 'sweetalert2';
 import { useNavigate } from "react-router-dom";
 
 import "./Pago.css";
@@ -68,7 +69,11 @@ function PagoP() {
       }
       return responseOrdenData; // Retornamos los datos de la orden para su uso posterior
     } else {
-      alert("Error al crear orden");
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Error al crear orden.'
+      });      
       throw new Error("Error al crear orden");
     }
   };
@@ -304,10 +309,11 @@ function PagoP() {
         if (responseActualizacionUser.ok) {
           console.log("Carrito vaciado y total reseteado correctamente");
         } else {
-          console.log(
-            "Error al actualizar el usuario: ",
-            await responseActualizacionUser.json()
-          );
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Error al actualizar el usuario.'
+          });          
         }
       } else {
         alert("Error en el pago(No pudo ser Procesado)");
@@ -401,10 +407,11 @@ function PagoP() {
     const fechaExpiracionRegex = /^(?:2[4-9]|2[4-9](0[1-9]|1[0-2]))$/;
 
     if (!regexNombreApellido.test(propietarioTarjeta)) {
-      alert(
-        "Datos incorrectos en nombre o apellido. Solo se permiten letras.",
-        "danger"
-      );
+      Swal.fire({
+        icon: 'error',
+        title: 'Datos Inválidos',
+        text: 'Datos incorrectos en nombre o apellido. Solo se permiten letras.'
+      });
       return false;
     }
     if (!numeroTarjetaRegex.test(numeroTarjeta)) {

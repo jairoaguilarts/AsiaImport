@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 import "./Pago.css";
 
@@ -68,7 +69,11 @@ function Pago() {
       }
       return responseOrdenData; // Retornamos los datos de la orden para su uso posterior
     } else {
-      alert("Error al crear orden");
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Error al crear orden",
+      });
       throw new Error("Error al crear orden");
     }
   };
@@ -93,7 +98,12 @@ function Pago() {
     }
     const firebaseUID = localStorage.getItem("FireBaseUID");
     if (!firebaseUID) {
-      alert("No se encontró el identificador de usuario.");
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "No se encontró el identificador de usuario.",
+      });
+
       return;
     }
 
@@ -193,19 +203,35 @@ function Pago() {
             }
           );
 
-          alert("Pago procesado y orden creada con éxito");
+          Swal.fire({
+            icon: "success",
+            title: "¡Éxito!",
+            text: "Pago procesado y orden creada con éxito",
+          });
         } else {
-          alert("Error al crear orden");
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Error al crear orden",
+          });
         }
       } else {
         // Manejo de la respuesta si el pago falla
         const errorResponse = await responsePago.json();
         console.log("Error al pagar: ", errorResponse);
-        alert("El pago ha fallado, por favor intente nuevamente");
+        Swal.fire({
+          icon: "error",
+          title: "Error en el Pago",
+          text: "El pago ha fallado, por favor intente nuevamente",
+        });
       }
     } catch (error) {
       console.error("Error al obtener la información del usuario:", error);
-      alert("Ocurrió un error al obtener la información del usuario.");
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Ocurrió un error al obtener la información del usuario.",
+      });
     }
   };
 
@@ -279,7 +305,11 @@ function Pago() {
       );
 
       if (response.ok) {
-        alert("Pago procesado");
+        Swal.fire({
+          icon: "success",
+          title: "¡Éxito!",
+          text: "Pago procesado",
+        });
         setOrdenId(responseOrdenData._id);
         setMostrarPopupGracias(true); // Mostramos el pop-up de agradecimiento
 
@@ -309,7 +339,11 @@ function Pago() {
           );
         }
       } else {
-        alert("Error en el pago(No pudo ser Procesado)");
+        Swal.fire({
+          icon: "error",
+          title: "Error en el Pago",
+          text: "El pago no pudo ser procesado",
+        });
         console.log("Error al pagar: ", response);
         console.log(responseOrdenData._id);
         // Aquí manejas el caso en que el pago falló, eliminando la orden creada previamente
@@ -347,7 +381,11 @@ function Pago() {
         }
       }
     } else {
-      alert("Error al crear orden");
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Error al crear orden",
+      });
     }
   };
 
@@ -398,22 +436,28 @@ function Pago() {
     const fechaExpiracionRegex = /^(?:2[4-9]|2[4-9](0[1-9]|1[0-2]))$/;
 
     if (!regexNombreApellido.test(propietarioTarjeta)) {
-      alert(
-        "Datos incorrectos en nombre o apellido. Solo se permiten letras.",
-        "danger"
-      );
+      Swal.fire({
+        icon: "error",
+        title: "Datos Incorrectos",
+        text: "Nombre o apellido incorrecto. Solo se permiten letras.",
+      });
       return false;
     }
     if (!numeroTarjetaRegex.test(numeroTarjeta)) {
-      alert(
-        "Datos Incorrectos en la tarjeta, el numero debe tener entre 13 y 18 numeros"
-      );
+      Swal.fire({
+        icon: "error",
+        title: "Número de Tarjeta Inválido",
+        text: "El número de tarjeta debe tener entre 13 y 18 dígitos.",
+      });
       return false;
     }
     if (!cvvRegex.test(cvv)) {
-      alert(
-        "Datos Incorrectos en el cvv, el numero debe tener entre 3 y 4 numeros"
-      );
+      Swal.fire({
+        icon: "error",
+        title: "CVV Inválido",
+        text: "El CVV debe tener entre 3 y 4 dígitos.",
+      });
+      return false;
     }
 
     return true;
