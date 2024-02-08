@@ -336,9 +336,9 @@ function Pago() {
           _orderId: responseOrdenData._id,
           tipoOrden: "Delivery",
           Fecha: new Date().toISOString(),
-          carrito: responseOrdenData.carritoCompras,
-          cantidades: responseOrdenData.cantidadCarrito,
-          total: responseOrdenData.totalCarrito,
+          carrito: responseOrdenData.carrito,
+          cantidades: responseOrdenData.cantidades,
+          total: responseOrdenData.total,
           correo: responseOrdenData.correo,
         };
         
@@ -349,7 +349,7 @@ function Pago() {
         };
         
         try {
-          const mandarOrden = await fetch("https://importasia-api.onrender.com/send-orderDetails", requestOptions);
+          const mandarOrden = await fetch("http://localhost:3000/send-orderDetails", requestOptions);
         
           if (!mandarOrden.ok) {
             const errorMessage = await mandarOrden.text();
