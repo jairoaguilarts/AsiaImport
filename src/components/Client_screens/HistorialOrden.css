@@ -1,0 +1,46 @@
+.table-container {
+    width: 97%;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    margin-left: 25px;
+    margin-right: 45px !important;
+    border-collapse: collapse;
+}
+
+.table-container th,
+.table-container td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+.table-container td {
+    background-color: #f2f2f2;
+    margin-bottom: 10px;
+}
+
+.table-container td:hover {
+    background-color: #f2f2f2;
+}
+
+.empty-message {
+    margin-top: 20px;
+    font-style: italic;
+    color: orange;
+    font-size: 5rem;
+}
+
+.button-historial {
+    color: white;
+    border: none;
+    width: 150px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 0.5rem;
+    font-size: 1rem;
+}
+
+.ver-mas {
+    background-color: orange;
+}

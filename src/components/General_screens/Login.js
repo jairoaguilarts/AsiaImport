@@ -82,6 +82,9 @@ function Login() {
   const handleFav = () => {
     navigate("/favoritos");
   };
+  const handleHistorial = () => {
+    navigate("/historial-orden");
+  };
 
   const handleClose = () => {
     setShow(false);
@@ -412,6 +415,7 @@ function Login() {
             <button onClick={handleEditProfile}>Editar perfil</button>
             <button onClick={handleFav}>Mis Favoritos</button>
             <button onClick={handleLogout}>Cerrar sesión</button>
+            <button onClick={handleHistorial}>Historial Ordenes</button>
           </div>
         </div>
       )}

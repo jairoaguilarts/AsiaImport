@@ -29,6 +29,7 @@ import Quejas from "./components/General_screens/quejas";
 import Verfav from "./components/Client_screens/Verfav";
 import Pago from "./components/Client_screens/Pago";
 import PagoP from "./components/Client_screens/PagoP";
+import HOrden from "./components/Client_screens/HistorialOrden";
 import GestionarInfo from "./components/Admin_screens/GestionarInfo"
 import GestionCarrusel from "./components/Admin_screens/GestionCarrusel";
 import GestionOrden from "./components/Admin_screens/GestionOrdenes";
@@ -96,6 +97,7 @@ function App() {
           />
           <Route path="/modificarp" element={<ModificarP />} />
           <Route path="/agregarp" element={<AgregarP />} />
+          <Route path="/historial-orden" element={<HOrden />} />
           <Route path="/producto-filtro" element={<ProductoFiltro />} />
           <Route path="/info-producto" element={<InfoProductos />} />
         </Routes>
