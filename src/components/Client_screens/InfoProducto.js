@@ -62,10 +62,10 @@ function InfoAudifonos() {
         const errorData = await response.json();
         throw new Error(`Error: ${errorData.message || response.status}`);
       }
-      alert("Agregado");
+      mostrarAlerta("Agregado al carrito con éxito", "success"); // Usa 'success' o la variante que tengas definida para éxitos
     } catch (error) {
       console.log("Error: ", error);
-      alert("Error");
+      mostrarAlerta("Error al agregar al carrito", "danger"); // Usa 'danger' o la variante que tengas definida para errores
     }
   };
 
@@ -124,18 +124,23 @@ function InfoAudifonos() {
           {activeTab === "description" && (
             <div className="description">
               <h2>Descripción</h2>
-              <ul className="product-description">{producto.Descripcion}</ul> {/* Agregada clase product-description */}
+              <ul className="product-description">
+                {producto.Descripcion}
+              </ul>{" "}
+              {/* Agregada clase product-description */}
             </div>
           )}
           {activeTab === "features" && (
             <div className="features">
               <h2>Características</h2>
-              <ul className="product-features">{producto.Caracteristicas}</ul> {/* Agregada clase product-features */}
+              <ul className="product-features">
+                {producto.Caracteristicas}
+              </ul>{" "}
+              {/* Agregada clase product-features */}
             </div>
           )}
         </div>
       )}
-
     </div>
   );
 }
