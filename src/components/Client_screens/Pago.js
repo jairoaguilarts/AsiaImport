@@ -356,8 +356,7 @@ function Pago() {
             throw new Error(errorMessage);
           }
         
-          // Si el envío de la orden es exitoso, puedes realizar acciones adicionales aquí
-          console.log("Orden enviada con éxito.");
+          console.log("Orden enviada al correo con éxito.");
         
         } catch (error) {
           console.error("Error al enviar la orden:", error);
