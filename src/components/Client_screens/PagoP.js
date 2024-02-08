@@ -20,11 +20,13 @@ function PagoP() {
 
   const crearOrden = async () => {
     const detalles = localStorage.getItem("entregaID");
+    const fecha = new Date();
+    const Fecha = `${fecha.getDate()}/${fecha.getMonth() + 1}/${fecha.getFullYear()}`;
 
     const dataOrden = {
       firebaseUID,
       detalles,
-      Fecha: new Date().toISOString(),
+      Fecha,
       estadoPago: "Pago en tienda",
     };
 

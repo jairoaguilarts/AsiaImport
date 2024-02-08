@@ -14,7 +14,7 @@ function HistorialPago() {
         const obtenerOrdenes = async () => {
             try {
                 const response = await fetch
-                    (`http://localhost:3000/ordenesUsuario?firebaseUID=${firebaseUID}`);
+                    (`https://importasia-api.onrender.com/ordenesUsuario?firebaseUID=${firebaseUID}`);
                 if (!response.ok) {
                     throw new Error('Error al obtener las Órdenes');
                 }
@@ -36,7 +36,7 @@ function HistorialPago() {
         for (const modelo of orden.carrito) {
             try {
                 const response = await fetch
-                    (`http://localhost:3000/buscarProductoModelo?Modelo=${modelo}`);
+                    (`https://importasia-api.onrender.com/buscarProductoModelo?Modelo=${modelo}`);
                 if (!response.ok) {
                     throw new Error('Error al obtener los detalles del producto');
                 }
