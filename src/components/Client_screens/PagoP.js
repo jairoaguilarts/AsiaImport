@@ -19,6 +19,8 @@ function PagoP() {
   const [ordenEnProceso, setOrdenEnProceso] = useState(false);
 
   const crearOrden = async () => {
+    // Asumimos que firebaseUID está definido en algún lugar en tu código
+    const firebaseUID = "..."; // Asegúrate de reemplazar "..." con el valor adecuado
     const detalles = localStorage.getItem("entregaID");
     const fecha = new Date();
     const Fecha = `${fecha.getDate()}/${
@@ -32,19 +34,27 @@ function PagoP() {
       estadoPago: "Pago en tienda",
     };
 
-    const responseOrden = await fetch(
-      "https://importasia-api.onrender.com/crearOrden",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(dataOrden),
-      }
-    );
+    try {
+      const responseOrden = await fetch(
+        "https://importasia-api.onrender.com/crearOrden",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(dataOrden),
+        }
+      );
 
-    if (responseOrden.ok) {
+      if (!responseOrden.ok) {
+        // Manejo de respuesta no exitosa de crearOrden
+        const error = await responseOrden.text();
+        throw new Error(`Error al crear orden: ${error}`);
+      }
+
       const responseOrdenData = await responseOrden.json();
+
+      // Preparación de los datos para enviar por correo
       const formData = {
         _orderId: responseOrdenData._id,
         tipoOrden: "Delivery",
@@ -61,23 +71,19 @@ function PagoP() {
         body: JSON.stringify(formData),
       };
 
-      try {
-        const mandarOrden = await fetch(
-          "https://importasia-api.onrender.com/send-orderDetails",
-          requestOptions
-        );
+      const mandarOrden = await fetch(
+        "https://importasia-api.onrender.com/send-orderDetails",
+        requestOptions
+      );
 
-        if (!mandarOrden.ok) {
-          const errorMessage = await mandarOrden.text();
-          throw new Error(errorMessage);
-        }
-
-        console.log("Orden enviada al correo con éxito.");
-      } catch (error) {
-        console.error("Error al enviar la orden:", error);
+      if (!mandarOrden.ok) {
+        const errorMessage = await mandarOrden.text();
+        throw new Error(`Error al enviar la orden al correo: ${errorMessage}`);
       }
 
-      setOrdenId(responseOrdenData._id);
+      console.log("Orden enviada al correo con éxito.");
+
+      // Limpieza del carrito de compras después de enviar la orden
       const userActualizacion = {
         carritoCompras: [],
         cantidadCarrito: [],
@@ -95,25 +101,22 @@ function PagoP() {
         }
       );
 
-      if (responseActualizacionUser.ok) {
-        console.log("Carrito vaciado y total reseteado correctamente");
-      } else {
-        console.log(
-          "Error al actualizar el usuario: ",
-          await responseActualizacionUser.json()
-        );
+      if (!responseActualizacionUser.ok) {
+        const errorUser = await responseActualizacionUser.text();
+        throw new Error(`Error al actualizar el usuario: ${errorUser}`);
       }
+
+      console.log("Carrito vaciado y total reseteado correctamente");
       return responseOrdenData; // Retornamos los datos de la orden para su uso posterior
-    } else {
+    } catch (error) {
+      console.error(error);
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: "Error al crear orden.",
+        text: error.message,
       });
-      throw new Error("Error al crear orden");
     }
   };
-
   const confirmarPagoEfectivo = async () => {
     if (ordenEnProceso) return; // Evita crear una nueva orden si ya hay una en proceso
 
