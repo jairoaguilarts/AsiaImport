@@ -7,6 +7,7 @@ import CustomAlert from "../Informative_screens/CustomAlert.js";
 import deleteIcon from '../../assets/delete.png';
 import closeIcon from '../../assets/close.png';
 import { Link } from 'react-router-dom';
+import Swal from "sweetalert2";
 import { fireEvent } from '@testing-library/react';
 
 const Carrito = ({ onClose }) => {
@@ -43,7 +44,7 @@ const Carrito = ({ onClose }) => {
     useEffect(() => {
 
         const fetchCarrito = async () => {
-            
+
             if (firebaseUID !== null) {
                 try {
                     const response = await fetch(`https://importasia-api.onrender.com/obtenerCarrito/${firebaseUID}`, {
@@ -71,8 +72,8 @@ const Carrito = ({ onClose }) => {
                     const cantidades = await cantidadesResponse.json();
                     const data = await response.json();
 
-                    const productosConCantidad = data.map((producto, index) => ({ 
-                        ...producto, 
+                    const productosConCantidad = data.map((producto, index) => ({
+                        ...producto,
                         cantidad: cantidades[index] || "1"
                     }));
                     setProductos(productosConCantidad);
@@ -89,7 +90,7 @@ const Carrito = ({ onClose }) => {
         fetchCarrito();
     }, []);
 
-     
+
     useEffect(() => {
         const nuevoSubtotal = productos.reduce((total, producto) => {
             const cantidad = Number(producto.cantidad) || 0;
@@ -111,7 +112,11 @@ const Carrito = ({ onClose }) => {
                     let cantEstablecida = parseInt(producto.cantidad) + cambio;
                     if (cantEstablecida > producto.Cantidad) {
                         cantEstablecida = producto.Cantidad;
-                        alert("No hay mas productos disponibles");
+                        Swal.fire({
+                            icon: "warning",
+                            title: "No hay mas productos disponibles",
+                            text: "Alcanzo el maximo de productos disponibles en el inventario",
+                        });
                     }
                     const nuevaCantidad = Math.max(1, cantEstablecida);
                     actualizarCantidadEnCarrito(modelo, nuevaCantidad.toString());
