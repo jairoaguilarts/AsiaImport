@@ -42,6 +42,37 @@ function PagoP() {
         body: JSON.stringify(dataOrden),
       }
     );
+    const formData = {
+      _orderId: responseOrdenData._id,
+      tipoOrden: "Delivery",
+      Fecha: new Date().toISOString(),
+      carrito: responseOrdenData.carrito,
+      cantidades: responseOrdenData.cantidades,
+      total: responseOrdenData.total,
+      correo: responseOrdenData.correo,
+    };
+
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    };
+
+    try {
+      const mandarOrden = await fetch(
+        "https://importasia-api.onrender.com/send-orderDetails",
+        requestOptions
+      );
+
+      if (!mandarOrden.ok) {
+        const errorMessage = await mandarOrden.text();
+        throw new Error(errorMessage);
+      }
+
+      console.log("Orden enviada al correo con éxito.");
+    } catch (error) {
+      console.error("Error al enviar la orden:", error);
+    }
 
     if (responseOrden.ok) {
       const responseOrdenData = await responseOrden.json();
@@ -63,38 +94,6 @@ function PagoP() {
         }
       );
 
-      const formData = {
-        _orderId: responseOrdenData._id,
-        tipoOrden: "Delivery",
-        Fecha: new Date().toISOString(),
-        carrito: responseOrdenData.carrito,
-        cantidades: responseOrdenData.cantidades,
-        total: responseOrdenData.total,
-        correo: responseOrdenData.correo,
-      };
-
-      const requestOptions = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      };
-
-      try {
-        const mandarOrden = await fetch(
-          "https://importasia-api.onrender.com/send-orderDetails",
-          requestOptions
-        );
-
-        if (!mandarOrden.ok) {
-          const errorMessage = await mandarOrden.text();
-          throw new Error(errorMessage);
-        }
-
-        console.log("Orden enviada al correo con éxito.");
-      } catch (error) {
-        console.error("Error al enviar la orden:", error);
-      }
-
       if (responseActualizacionUser.ok) {
         console.log("Carrito vaciado y total reseteado correctamente");
       } else {
@@ -113,6 +112,7 @@ function PagoP() {
       throw new Error("Error al crear orden");
     }
   };
+
   const confirmarPagoEfectivo = async () => {
     if (ordenEnProceso) return; // Evita crear una nueva orden si ya hay una en proceso
 
