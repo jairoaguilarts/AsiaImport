@@ -45,14 +45,12 @@ function PagoP() {
       );
 
       if (!responseOrden.ok) {
-        // Manejo de respuesta no exitosa de crearOrden
         const error = await responseOrden.text();
         throw new Error(`Error al crear orden: ${error}`);
       }
 
       const responseOrdenData = await responseOrden.json();
 
-      // Preparación de los datos para enviar por correo
       const formData = {
         _orderId: responseOrdenData._id,
         tipoOrden: "Pick-Up",
@@ -81,7 +79,6 @@ function PagoP() {
 
       console.log("Orden enviada al correo con éxito.");
 
-      // Limpieza del carrito de compras después de enviar la orden
       const userActualizacion = {
         carritoCompras: [],
         cantidadCarrito: [],
@@ -105,7 +102,7 @@ function PagoP() {
       }
 
       console.log("Carrito vaciado y total reseteado correctamente");
-      return responseOrdenData; // Retornamos los datos de la orden para su uso posterior
+      return responseOrdenData;
     } catch (error) {
       console.error(error);
       Swal.fire({
@@ -116,18 +113,17 @@ function PagoP() {
     }
   };
   const confirmarPagoEfectivo = async () => {
-    if (ordenEnProceso) return; // Evita crear una nueva orden si ya hay una en proceso
-
-    setOrdenEnProceso(true); // Indica que se está iniciando el proceso de creación de la orden
+    if (ordenEnProceso) return;
+    setOrdenEnProceso(true);
     setMostrarPopup(false);
 
     try {
-      const ordenData = await crearOrden(); // Creamos la orden
-      setMostrarPopupGracias(true); // Mostramos el pop-up de agradecimiento
+      const ordenData = await crearOrden();
+      setMostrarPopupGracias(true);
     } catch (error) {
       console.error("Error al crear la orden en pago en efectivo: ", error);
     } finally {
-      setOrdenEnProceso(false); // Restablece el estado una vez completado el proceso, exitoso o no
+      setOrdenEnProceso(false);
     }
   };
 

@@ -27,7 +27,7 @@ function Pago() {
     }/${fecha.getFullYear()}`;
 
     const dataOrden = {
-      firebaseUID, // Asegúrate de que esta variable está definida correctamente
+      firebaseUID,
       detalles,
       Fecha,
       estadoPago: "Pagado con Efectivo",
@@ -51,12 +51,11 @@ function Pago() {
 
       const responseOrdenData = await responseOrden.json();
 
-      // Aquí debemos asegurarnos de que los datos necesarios para el correo sean correctos y estén completos.
       const formData = {
         _orderId: responseOrdenData._id,
         tipoOrden: "Delivery",
-        Fecha: new Date().toISOString(), // Usamos el formato ISO para la fecha
-        carrito: responseOrdenData.carrito, // Asegúrate de que estos datos se incluyan en la respuesta
+        Fecha: new Date().toISOString(),
+        carrito: responseOrdenData.carrito,
         cantidades: responseOrdenData.cantidades,
         total: responseOrdenData.total,
         correo: responseOrdenData.correo,
@@ -80,7 +79,7 @@ function Pago() {
 
       console.log("Orden enviada al correo con éxito.");
 
-      setOrdenId(responseOrdenData._id); // Asegúrate de que setOrdenId esté definido y funcione correctamente
+      setOrdenId(responseOrdenData._id);
       const userActualizacion = {
         carritoCompras: [],
         cantidadCarrito: [],
@@ -108,7 +107,7 @@ function Pago() {
       }
     } catch (error) {
       console.error("Error en el proceso de la orden:", error);
-      // Considera manejar errores de manera que el usuario sepa qué sucedió
+
       Swal.fire({
         icon: "error",
         title: "Error",
