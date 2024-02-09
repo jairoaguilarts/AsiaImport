@@ -55,7 +55,7 @@ function PagoP() {
       // Preparación de los datos para enviar por correo
       const formData = {
         _orderId: responseOrdenData._id,
-        tipoOrden: "Delivery",
+        tipoOrden: "Pick-Up",
         Fecha: new Date().toISOString(),
         carrito: responseOrdenData.carrito,
         cantidades: responseOrdenData.cantidades,
