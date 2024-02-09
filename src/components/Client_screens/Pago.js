@@ -22,7 +22,9 @@ function Pago() {
   const crearOrden = async () => {
     const detalles = localStorage.getItem("entregaID");
     const fecha = new Date();
-    const Fecha = `${fecha.getDate()}/${fecha.getMonth() + 1}/${fecha.getFullYear()}`;
+    const Fecha = `${fecha.getDate()}/${
+      fecha.getMonth() + 1
+    }/${fecha.getFullYear()}`;
 
     const dataOrden = {
       firebaseUID,
@@ -72,7 +74,6 @@ function Pago() {
 
       return responseOrdenData;
     } else {
-
       Swal.fire({
         icon: "error",
         title: "Error",
@@ -165,7 +166,9 @@ function Pago() {
 
       if (responsePago.ok) {
         const fecha = new Date();
-        const Fecha = `${fecha.getDate()}/${fecha.getMonth() + 1}/${fecha.getFullYear()}`;
+        const Fecha = `${fecha.getDate()}/${
+          fecha.getMonth() + 1
+        }/${fecha.getFullYear()}`;
         const dataOrden = {
           firebaseUID,
           detalles: detallesEntrega,
@@ -218,7 +221,6 @@ function Pago() {
           });
         }
       } else {
-
         const errorResponse = await responsePago.json();
         console.log("Error al pagar: ", errorResponse);
         Swal.fire({
@@ -226,7 +228,6 @@ function Pago() {
           title: "Error en el Pago",
           text: "El pago ha fallado, por favor intente nuevamente",
         });
-
       }
     } catch (error) {
       console.error("Error al obtener la información del usuario:", error);
@@ -245,7 +246,9 @@ function Pago() {
 
     const detalles = localStorage.getItem("entregaID");
     const fecha = new Date();
-    const Fecha = `${fecha.getDate()}/${fecha.getMonth() + 1}/${fecha.getFullYear()}`;
+    const Fecha = `${fecha.getDate()}/${
+      fecha.getMonth() + 1
+    }/${fecha.getFullYear()}`;
 
     const dataOrden = {
       firebaseUID,
@@ -335,7 +338,6 @@ function Pago() {
           }
         );
 
-
         const formData = {
           _orderId: responseOrdenData._id,
           tipoOrden: "Delivery",
@@ -353,7 +355,10 @@ function Pago() {
         };
 
         try {
-          const mandarOrden = await fetch("http://localhost:3000/send-orderDetails", requestOptions);
+          const mandarOrden = await fetch(
+            "https://importasia-api.onrender.com/send-orderDetails",
+            requestOptions
+          );
 
           if (!mandarOrden.ok) {
             const errorMessage = await mandarOrden.text();
@@ -361,12 +366,9 @@ function Pago() {
           }
 
           console.log("Orden enviada al correo con éxito.");
-
         } catch (error) {
           console.error("Error al enviar la orden:", error);
         }
-
-
 
         if (responseActualizacionUser.ok) {
           console.log("Carrito vaciado y total reseteado correctamente");
@@ -626,26 +628,26 @@ function Pago() {
   };
   return (
     <div className="pago-container">
-    <h1>Detalles de la Orden</h1>
-    <div className="productos-contenedor-scroll">
-      {productos.map((producto) => (
-        <div className="productos-orden">
-          <div className="productos-imagen">
-            <img src={producto.ImagenID} alt={producto.Nombre} />
-          </div>
-          <div className="detalle-producto">
-            <span className="productos-nombre">{producto.Nombre}</span>
-            <div className="productos-cantidad">
-              <p>Cantidad: {producto.cantidad} </p>
+      <h1>Detalles de la Orden</h1>
+      <div className="productos-contenedor-scroll">
+        {productos.map((producto) => (
+          <div className="productos-orden">
+            <div className="productos-imagen">
+              <img src={producto.ImagenID} alt={producto.Nombre} />
             </div>
-            <div className="productos-precio">
-              <p>Precio: L {producto.Precio}.00 </p>
+            <div className="detalle-producto">
+              <span className="productos-nombre">{producto.Nombre}</span>
+              <div className="productos-cantidad">
+                <p>Cantidad: {producto.cantidad} </p>
+              </div>
+              <div className="productos-precio">
+                <p>Precio: L {producto.Precio}.00 </p>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
-    </div>
-    <h5>Total de la Orden: L {calcularTotal()}.00</h5>
+        ))}
+      </div>
+      <h5>Total de la Orden: L {calcularTotal()}.00</h5>
       <div style={{ marginTop: "70px" }} />
       <h2>Pantalla de Pago</h2>
       <div className="botones-container">

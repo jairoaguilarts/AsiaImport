@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
 import "./Pago.css";
@@ -21,7 +21,9 @@ function PagoP() {
   const crearOrden = async () => {
     const detalles = localStorage.getItem("entregaID");
     const fecha = new Date();
-    const Fecha = `${fecha.getDate()}/${fecha.getMonth() + 1}/${fecha.getFullYear()}`;
+    const Fecha = `${fecha.getDate()}/${
+      fecha.getMonth() + 1
+    }/${fecha.getFullYear()}`;
 
     const dataOrden = {
       firebaseUID,
@@ -61,6 +63,38 @@ function PagoP() {
         }
       );
 
+      const formData = {
+        _orderId: responseOrdenData._id,
+        tipoOrden: "Delivery",
+        Fecha: new Date().toISOString(),
+        carrito: responseOrdenData.carrito,
+        cantidades: responseOrdenData.cantidades,
+        total: responseOrdenData.total,
+        correo: responseOrdenData.correo,
+      };
+
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      };
+
+      try {
+        const mandarOrden = await fetch(
+          "https://importasia-api.onrender.com/send-orderDetails",
+          requestOptions
+        );
+
+        if (!mandarOrden.ok) {
+          const errorMessage = await mandarOrden.text();
+          throw new Error(errorMessage);
+        }
+
+        console.log("Orden enviada al correo con éxito.");
+      } catch (error) {
+        console.error("Error al enviar la orden:", error);
+      }
+
       if (responseActualizacionUser.ok) {
         console.log("Carrito vaciado y total reseteado correctamente");
       } else {
@@ -72,10 +106,10 @@ function PagoP() {
       return responseOrdenData; // Retornamos los datos de la orden para su uso posterior
     } else {
       Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'Error al crear orden.'
-      });      
+        icon: "error",
+        title: "Error",
+        text: "Error al crear orden.",
+      });
       throw new Error("Error al crear orden");
     }
   };
@@ -312,10 +346,10 @@ function PagoP() {
           console.log("Carrito vaciado y total reseteado correctamente");
         } else {
           Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'Error al actualizar el usuario.'
-          });          
+            icon: "error",
+            title: "Error",
+            text: "Error al actualizar el usuario.",
+          });
         }
       } else {
         alert("Error en el pago(No pudo ser Procesado)");
@@ -410,9 +444,9 @@ function PagoP() {
 
     if (!regexNombreApellido.test(propietarioTarjeta)) {
       Swal.fire({
-        icon: 'error',
-        title: 'Datos Inválidos',
-        text: 'Datos incorrectos en nombre o apellido. Solo se permiten letras.'
+        icon: "error",
+        title: "Datos Inválidos",
+        text: "Datos incorrectos en nombre o apellido. Solo se permiten letras.",
       });
       return false;
     }
