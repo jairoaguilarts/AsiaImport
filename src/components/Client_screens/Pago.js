@@ -27,30 +27,36 @@ function Pago() {
     }/${fecha.getFullYear()}`;
 
     const dataOrden = {
-      firebaseUID,
+      firebaseUID, // Asegúrate de que esta variable está definida correctamente
       detalles,
       Fecha,
       estadoPago: "Pagado con Efectivo",
     };
-    const responseOrden = await fetch(
-      "https://importasia-api.onrender.com/crearOrden",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(dataOrden),
-      }
-    );
 
-    if (responseOrden.ok) {
+    try {
+      const responseOrden = await fetch(
+        "https://importasia-api.onrender.com/crearOrden",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(dataOrden),
+        }
+      );
+
+      if (!responseOrden.ok) {
+        throw new Error("Error al crear orden");
+      }
+
       const responseOrdenData = await responseOrden.json();
 
+      // Aquí debemos asegurarnos de que los datos necesarios para el correo sean correctos y estén completos.
       const formData = {
         _orderId: responseOrdenData._id,
         tipoOrden: "Delivery",
-        Fecha: new Date().toISOString(),
-        carrito: responseOrdenData.carrito,
+        Fecha: new Date().toISOString(), // Usamos el formato ISO para la fecha
+        carrito: responseOrdenData.carrito, // Asegúrate de que estos datos se incluyan en la respuesta
         cantidades: responseOrdenData.cantidades,
         total: responseOrdenData.total,
         correo: responseOrdenData.correo,
@@ -62,23 +68,19 @@ function Pago() {
         body: JSON.stringify(formData),
       };
 
-      try {
-        const mandarOrden = await fetch(
-          "https://importasia-api.onrender.com/send-orderDetails",
-          requestOptions
-        );
+      const mandarOrden = await fetch(
+        "https://importasia-api.onrender.com/send-orderDetails",
+        requestOptions
+      );
 
-        if (!mandarOrden.ok) {
-          const errorMessage = await mandarOrden.text();
-          throw new Error(errorMessage);
-        }
-
-        console.log("Orden enviada al correo con éxito.");
-      } catch (error) {
-        console.error("Error al enviar la orden:", error);
+      if (!mandarOrden.ok) {
+        const errorMessage = await mandarOrden.text();
+        throw new Error(errorMessage);
       }
 
-      setOrdenId(responseOrdenData._id);
+      console.log("Orden enviada al correo con éxito.");
+
+      setOrdenId(responseOrdenData._id); // Asegúrate de que setOrdenId esté definido y funcione correctamente
       const userActualizacion = {
         carritoCompras: [],
         cantidadCarrito: [],
@@ -96,24 +98,22 @@ function Pago() {
         }
       );
 
-      if (responseActualizacionUser.ok) {
-        console.log("Carrito vaciado y total reseteado correctamente");
-      } else {
+      if (!responseActualizacionUser.ok) {
         console.log(
           "Error al actualizar el usuario: ",
           await responseActualizacionUser.json()
         );
+      } else {
+        console.log("Carrito vaciado y total reseteado correctamente");
       }
-
-      return responseOrdenData;
-    } else {
+    } catch (error) {
+      console.error("Error en el proceso de la orden:", error);
+      // Considera manejar errores de manera que el usuario sepa qué sucedió
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: "Error al crear orden",
+        text: error.message,
       });
-
-      throw new Error("Error al crear orden");
     }
   };
 
@@ -330,37 +330,6 @@ function Pago() {
         order_amount: "1",
         env: "sandbox",
       };
-      const formData = {
-        _orderId: responseOrdenData._id,
-        tipoOrden: "Delivery",
-        Fecha: new Date().toISOString(),
-        carrito: responseOrdenData.carrito,
-        cantidades: responseOrdenData.cantidades,
-        total: responseOrdenData.total,
-        correo: responseOrdenData.correo,
-      };
-
-      const requestOptions = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      };
-
-      try {
-        const mandarOrden = await fetch(
-          "https://importasia-api.onrender.com/send-orderDetails",
-          requestOptions
-        );
-
-        if (!mandarOrden.ok) {
-          const errorMessage = await mandarOrden.text();
-          throw new Error(errorMessage);
-        }
-
-        console.log("Orden enviada al correo con éxito.");
-      } catch (error) {
-        console.error("Error al enviar la orden:", error);
-      }
 
       const response = await fetch(
         `https://pixel-pay.com/api/v2/transaction/sale`,
