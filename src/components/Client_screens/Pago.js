@@ -297,6 +297,37 @@ function Pago() {
         order_amount: "1",
         env: "sandbox",
       };
+      const formData = {
+        _orderId: responseOrdenData._id,
+        tipoOrden: "Delivery",
+        Fecha: new Date().toISOString(),
+        carrito: responseOrdenData.carrito,
+        cantidades: responseOrdenData.cantidades,
+        total: responseOrdenData.total,
+        correo: responseOrdenData.correo,
+      };
+
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      };
+
+      try {
+        const mandarOrden = await fetch(
+          "https://importasia-api.onrender.com/send-orderDetails",
+          requestOptions
+        );
+
+        if (!mandarOrden.ok) {
+          const errorMessage = await mandarOrden.text();
+          throw new Error(errorMessage);
+        }
+
+        console.log("Orden enviada al correo con éxito.");
+      } catch (error) {
+        console.error("Error al enviar la orden:", error);
+      }
 
       const response = await fetch(
         `https://pixel-pay.com/api/v2/transaction/sale`,
