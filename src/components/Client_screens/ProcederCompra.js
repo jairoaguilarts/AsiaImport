@@ -121,6 +121,14 @@ function ProcederCompra() {
 
       if (response.ok) {
         Procederpago();
+      } else {
+        if (response.status === 401) {
+          Swal.fire({
+            icon: "warning",
+            title: "Limite direcciones",
+            text: "No puede agregar mas direcciones, elimine una si desea agregar.",
+          });
+        }
       }
     } catch (error) {
       console.log(error);
