@@ -19,8 +19,6 @@ function PagoP() {
   const [ordenEnProceso, setOrdenEnProceso] = useState(false);
 
   const crearOrden = async () => {
-    // Asumimos que firebaseUID está definido en algún lugar en tu código
-    const firebaseUID = "..."; // Asegúrate de reemplazar "..." con el valor adecuado
     const detalles = localStorage.getItem("entregaID");
     const fecha = new Date();
     const Fecha = `${fecha.getDate()}/${
