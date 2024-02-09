@@ -105,19 +105,15 @@ const Carrito = ({ onClose }) => {
     }, [totalCarrito]);
 
     const handleChangeCantidad = (modelo, cambio) => {
-        /*const productosActualizados = productos.map(producto =>
-            producto.Modelo === modelo ? { ...producto, cantidad: Math.max(1, producto.cantidad + cambio) } : producto
-        );
-        setProductos(productosActualizados);
-    
-        const productoActualizado = productosActualizados.find(producto => producto.Modelo === modelo);
-        const nuevaCantidad = productoActualizado ? productoActualizado.cantidad : '1';
-    
-        actualizarCantidadEnCarrito(modelo, nuevaCantidad.toString());*/
         setProductos(prevProductos => {
             return prevProductos.map(producto => {
                 if (producto.Modelo === modelo) {
-                    const nuevaCantidad = Math.max(1, producto.cantidad + cambio);
+                    let cantEstablecida = parseInt(producto.cantidad) + cambio;
+                    if (cantEstablecida > producto.Cantidad) {
+                        cantEstablecida = producto.Cantidad;
+                        alert("No hay mas productos disponibles");
+                    }
+                    const nuevaCantidad = Math.max(1, cantEstablecida);
                     actualizarCantidadEnCarrito(modelo, nuevaCantidad.toString());
                     return { ...producto, cantidad: nuevaCantidad };
                 }
