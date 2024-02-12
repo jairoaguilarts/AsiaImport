@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './Ventas.css';
+import Pagination from "../Client_screens/Pagination";
 
 const Ventas = () => {
   const [ventas, setVentas] = useState([]);
-  const [totalVentas, setTotalVentas] = useState(0);
-  const [numeroTotalVentas, setNumeroTotalVentas] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [ventasPorPagina] = useState(20);
 
   // Función para calcular el total de todas las ventas
   const calcularTotalVentas = (ventas) => {
@@ -14,9 +15,7 @@ const Ventas = () => {
   // Función para formatear el total de la venta
   const formatTotal = (total) => {
     const num = Number(total);
-    // Asegúrate de que el número no sea NaN antes de formatearlo
     if (!isNaN(num)) {
-      // Utiliza toLocaleString para formatear el número con comas y dos decimales
       return `L. ${num.toLocaleString('es-HN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
     } else {
       return 'N/A';
@@ -33,14 +32,17 @@ const Ventas = () => {
       })
       .then(data => {
         setVentas(data);
-        // Utilizar la función calcularTotalVentas para obtener el total acumulado de las ventas
-        const total = calcularTotalVentas(data);
-        setTotalVentas(total);
-        // Calcular el número total de ventas
-        setNumeroTotalVentas(data.length);
       })
       .catch(error => console.error('Error fetching data:', error));
   }, []);
+
+  // Calcular las ventas que se mostrarán en la página actual
+  const indexOfLastVenta = currentPage * ventasPorPagina;
+  const indexOfFirstVenta = indexOfLastVenta - ventasPorPagina;
+  const currentVentas = ventas.slice(indexOfFirstVenta, indexOfLastVenta);
+
+  // Cambiar página
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <div className="ventas-container">
@@ -55,21 +57,26 @@ const Ventas = () => {
           </tr>
         </thead>
         <tbody>
-          {ventas.map((venta) => (
+          {currentVentas.map((venta) => (
             <tr key={venta._id}>
               <td>{venta._id}</td>
               <td>{new Date(venta.detalles?.fecha_ingreso).toLocaleDateString()}</td>
               <td>{venta.nombre_usuario}</td>
-              <td>{formatTotal(venta.total)}</td> {/* Usamos la función formatTotal para asegurarnos de que el total es un número */}
+              <td>{formatTotal(venta.total)}</td>
             </tr>
           ))}
         </tbody>
       </table>
+      <Pagination
+        productsPerPage={ventasPorPagina}
+        totalProducts={ventas.length}
+        paginate={paginate}
+        currentPage={currentPage}
+      />
       <div className="totales-ventas">
-        <p className="resumen-ventas">Número total de ventas: {numeroTotalVentas}</p>
-        <p className="resumen-ventas">Total acumulado de ventas: {formatTotal(totalVentas)}</p>
+        <p className="resumen-ventas">Número total de ventas: {ventas.length}</p>
+        <p className="resumen-ventas">Total acumulado de ventas: {formatTotal(calcularTotalVentas(ventas))}</p>
       </div>
-
     </div>
   );
 };
