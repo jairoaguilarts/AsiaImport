@@ -17,6 +17,7 @@
     "react-router-dom": "^6.20.1",
     "react-scripts": "5.0.1",
     "react-select": "^5.8.0",
+    "react-simple-chatbot": "^0.6.1",
     "stripe": "^14.14.0",
     "sweetalert2": "^11.10.5",
     "web-vitals": "^2.1.4"
