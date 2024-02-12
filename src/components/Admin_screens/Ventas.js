@@ -5,7 +5,7 @@ import Pagination from "../Client_screens/Pagination";
 const Ventas = () => {
   const [ventas, setVentas] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [ventasPorPagina] = useState(20);
+  const [ventasPorPagina] = useState(15);
 
   // Función para calcular el total de todas las ventas
   const calcularTotalVentas = (ventas) => {
