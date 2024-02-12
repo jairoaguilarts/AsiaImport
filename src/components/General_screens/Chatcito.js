@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ChatBot from 'react-simple-chatbot';
 
 import './Chatcito.css';
@@ -7,7 +7,10 @@ import enviar from '../../assets/send.png';
 
 function Chatcito() {
     const [chatAbierto, setChatAbierto] = useState(true);
-
+    useEffect(() => {
+        console.log('El estado de chatAbierto es ahora:', chatAbierto);
+        // Este efecto se ejecutará cada vez que chatAbierto cambie.
+    }, [chatAbierto]);
     // Pasos del chatbot ajustados
     const steps = [
         {
@@ -48,7 +51,7 @@ function Chatcito() {
         {
             id: 'otraConsulta',
             message: 'Por favor, escribe tu consulta y te responderemos lo antes posible.',
-            trigger: 'finalizarConsulta', 
+            trigger: 'finalizarConsulta',
         },
         {
             id: 'finalizarConsulta',
@@ -59,17 +62,23 @@ function Chatcito() {
         }
     ];
 
-    
+
     return (
         <>
-        <div className={`chat-container ${chatAbierto ? 'abierto' : ''}`}>
-            <img className="chat-button" src={chat} alt="Chat" onClick={() => setChatAbierto(!chatAbierto)} />
-            {chatAbierto && (
-                <div className="ventana">
-                    <ChatBot steps={steps} />
-                </div>
-            )}
-        </div>
+            <div className={`chat-container ${chatAbierto ? 'abierto' : ''}`}>
+                <img className="chat-button" src={chat} alt="Chat" onClick={() => {
+                    console.log('Cambiando estado de chatAbierto de', chatAbierto, 'a', !chatAbierto);
+                    setChatAbierto(!chatAbierto);
+                }} />
+                {chatAbierto && (
+                    <div className="ventana">
+                       <ChatBot key={Date.now()} steps={steps} />
+
+                    </div>
+                )}
+
+
+            </div>
         </>
     );
 }
