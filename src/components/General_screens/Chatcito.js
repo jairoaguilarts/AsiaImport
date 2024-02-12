@@ -5,7 +5,7 @@ import './Chatcito.css';
 import chat from '../../assets/chat.png'; // Asegúrate de que esta ruta sea correcta
 
 function Chatcito() {
-    const [chatAbierto, setChatAbierto] = useState(true);
+    const [chatAbierto, setChatAbierto] = useState(false);
     const [userMessage, setUserMessage] = useState(''); // Estado para manejar el mensaje del usuario
 
     useEffect(() => {
