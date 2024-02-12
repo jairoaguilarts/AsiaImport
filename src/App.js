@@ -103,7 +103,7 @@ function App() {
           <Route path="/producto-filtro" element={<ProductoFiltro />} />
           <Route path="/info-producto" element={<InfoProductos />} />
         </Routes>
-        <Chatcito />
+        {verifAdmin !== "true" && <Chatcito />}
         {verifAdmin !== "true" && <Footer />}
       </div>
     </Router>
