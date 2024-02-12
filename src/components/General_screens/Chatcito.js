@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import ChatBot from 'react-simple-chatbot';
 
 import './Chatcito.css';
-import chat from '../../assets/chat.png';
-import enviar from '../../assets/send.png';
+import chat from '../../assets/chat.png'; // Asegúrate de que esta ruta sea correcta
 
 function Chatcito() {
     const [chatAbierto, setChatAbierto] = useState(true);
+    const [userMessage, setUserMessage] = useState(''); // Estado para manejar el mensaje del usuario
+
     useEffect(() => {
         console.log('El estado de chatAbierto es ahora:', chatAbierto);
-        // Este efecto se ejecutará cada vez que chatAbierto cambie.
     }, [chatAbierto]);
     // Pasos del chatbot ajustados
     const steps = [
@@ -63,26 +63,34 @@ function Chatcito() {
     ];
 
 
+    const handleSendMessage = (e) => {
+        e.preventDefault();
+        // Aquí deberías añadir la lógica para enviar el mensaje al ChatBot
+        console.log('Mensaje enviado:', userMessage);
+        setUserMessage(''); // Limpiar el campo de texto después de enviar
+    };
+
     return (
         <>
             <div className={`chat-container ${chatAbierto ? 'abierto' : ''}`}>
-                <img className="chat-button" src={chat} alt="Chat" onClick={() => {
-                    console.log('Cambiando estado de chatAbierto de', chatAbierto, 'a', !chatAbierto);
-                    setChatAbierto(!chatAbierto);
-                }} />
+                <img className="chat-button" src={chat} alt="Chat" onClick={() => setChatAbierto(!chatAbierto)} />
                 {chatAbierto && (
                     <div className="ventana">
-                       <ChatBot key={Date.now()} steps={steps} />
-
+                        <ChatBot key={Date.now()} steps={steps} />
+                        <form onSubmit={handleSendMessage} className="input-container">
+                            <textarea
+                                className="chat-input"
+                                value={userMessage}
+                                onChange={(e) => setUserMessage(e.target.value)}
+                                placeholder="Escribe tu mensaje aquí..."
+                            />
+                            <button type="submit" className="enviar-btn">Enviar</button>
+                        </form>
                     </div>
                 )}
-
-
             </div>
         </>
     );
 }
 
-
 export default Chatcito;
-
