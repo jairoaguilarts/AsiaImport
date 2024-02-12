@@ -5,6 +5,7 @@ import {
   Routes,
   Route,
   Navigate,
+  useLocation ,
 } from "react-router-dom";
 import Navibar from "./components/General_screens/Navibar";
 import Footer from "./components/General_screens/Footer";
@@ -103,11 +104,26 @@ function App() {
           <Route path="/producto-filtro" element={<ProductoFiltro />} />
           <Route path="/info-producto" element={<InfoProductos />} />
         </Routes>
-        {verifAdmin !== "true" && <Chatcito />}
-        {verifAdmin !== "true" && <Footer />}
+        {verifAdmin !== "true" && <ConditionalComponents />}
+       
       </div>
     </Router>
   );
 }
+function ConditionalComponents() {
+  const location = useLocation(); 
+  const hideOnRoutes = ["/pago", "/pagoP", "/compra"];
+
+
+  const showChatcito = !hideOnRoutes.includes(location.pathname);
+
+  return (
+    <>
+      {showChatcito && <Chatcito />}
+      <Footer />
+    </>
+  );
+}
+
 
 export default App;
