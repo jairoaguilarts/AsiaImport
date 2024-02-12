@@ -45,9 +45,6 @@ const Footer = () => {
           <p>&copy; {currentYear} ImportAsia. Todos los derechos reservados.</p>
         </div>
         <div className="footer-links">
-          <a href="/servicio-al-cliente" className="footer-link">
-            Servicio al Cliente
-          </a>
           <a href="/quejas" className="footer-link">
             Quejas y Reclamos
           </a>
