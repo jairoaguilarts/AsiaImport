@@ -56,3 +56,10 @@ td {
 th {
   background-color: #eeeeee;
 }
+
+/* Ventas.css */
+.resumen-ventas {
+  font-size: 1.2em; /* Ajusta el tamaño del texto */
+  font-weight: bold; /* Hace el texto en negrita */
+  margin-top: 20px; /* Agrega un poco de margen superior para separarlo de la tabla */
+}
