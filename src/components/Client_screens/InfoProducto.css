@@ -10,7 +10,8 @@
   width: 40%;
   display: flex;
   justify-content: right;
-  overflow: hidden; /* Importante para mantener el zoom dentro del contenedor */
+  overflow: hidden;
+  /* Importante para mantener el zoom dentro del contenedor */
 }
 
 .product-image-container img {
@@ -18,13 +19,13 @@
   width: auto;
   max-width: 75%;
   object-fit: cover;
-  transition: transform 0.5s ease; /* Agrega una transición suave para el efecto de zoom */
+  transition: transform 0.5s ease;
+  /* Agrega una transición suave para el efecto de zoom */
 }
 
 .product-image-container img:hover {
-  transform: scale(
-    1.2
-  ); /* Aumenta el tamaño de la imagen cuando se pasa el ratón por encima */
+  transform: scale(1.2);
+  /* Aumenta el tamaño de la imagen cuando se pasa el ratón por encima */
 }
 
 /* .product-image {
@@ -73,6 +74,7 @@
   border-radius: 4px;
   width: fit-content;
 }
+
 .btn-favorite2 {
   padding: 10px 15px;
   border: none;
@@ -92,15 +94,18 @@
   color: white;
   border: 2px solid #01a6ff;
 }
+
 .btn-cart2:hover {
-  background-color: #e69500; /* Un tono más oscuro que #ffa500 */
+  background-color: #e69500;
+  /* Un tono más oscuro que #ffa500 */
 }
 
 .btn-favorite2:hover {
-  background-color: #0091cc; /* Un tono más oscuro que #01a6ff */
-  border-color: #0091cc; /* Asegurándose de que el borde también cambie de color */
+  background-color: #0091cc;
+  /* Un tono más oscuro que #01a6ff */
+  border-color: #0091cc;
+  /* Asegurándose de que el borde también cambie de color */
 }
-
 
 .tab-header {
   display: flex;
@@ -109,28 +114,37 @@
 }
 
 .tab-header button {
-  background-color: #f2f2f2; /* Mantenido */
-  color: #000; /* Mantenido */
-  border: none; /* Mantenido */
-  padding: 10px 30px; /* Mantenido */
-  cursor: pointer; /* Mantenido */
-  transition: background-color 0.3s; /* Mantenido */
-  font-size: 16px; /* Mantenido */
-  margin-right: 10px; /* Mantenido */
-  border-radius: 4px; /* Agregado */
+  background-color: #f2f2f2;
+  /* Mantenido */
+  color: #000;
+  /* Mantenido */
+  border: none;
+  /* Mantenido */
+  padding: 10px 30px;
+  /* Mantenido */
+  cursor: pointer;
+  /* Mantenido */
+  transition: background-color 0.3s;
+  /* Mantenido */
+  font-size: 16px;
+  /* Mantenido */
+  margin-right: 10px;
+  /* Mantenido */
+  border-radius: 4px;
+  /* Agregado */
 }
 
 .tab-header button:last-child {
-  margin-right: 0; /* Mantenido */
+  margin-right: 0;
+  /* Mantenido */
 }
 
 .tab-header button.active {
-  background-color: #ffa500; /* Mantenido */
-  color: white; /* Mantenido */
+  background-color: #ffa500;
+  /* Mantenido */
+  color: white;
+  /* Mantenido */
 }
-
-
-
 
 .tab-content {
   border: 1px solid #ccc;
@@ -180,18 +194,64 @@
 }
 
 .product-description {
-  border: 2px solid #ffa500; 
-  padding: 10px; 
-  border-radius: 5px; 
+  border: 2px solid #ffa500;
+  padding: 10px;
+  border-radius: 5px;
 }
-
 
 .product-features {
-  border: 2px solid #ffa500; 
+  border: 2px solid #ffa500;
   padding: 10px;
-  border-radius: 5px; 
+  border-radius: 5px;
 }
 
+.agregar-resena {
+  border: none;
+  padding: 10px 30px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 16px;
+  margin-right: 10px;
+  border-radius: 4px;
+  background-color: #ffa500;
+  color: white;
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.rating:not(:checked)>input {
+  position: absolute;
+  appearance: none;
+}
+
+.rating:not(:checked)>label {
+  float: right;
+  cursor: pointer;
+  font-size: 30px;
+  color: #666;
+}
+
+.rating:not(:checked)>label:before {
+  content: '★';
+}
+
+.rating>input:checked+label:hover,
+.rating>input:checked+label:hover~label,
+.rating>input:checked~label:hover,
+.rating>input:checked~label:hover~label,
+.rating>label:hover~input:checked~label {
+  color: #e58e09;
+}
+
+.rating:not(:checked)>label:hover,
+.rating:not(:checked)>label:hover~label {
+  color: #ff9e0b;
+}
+
+.rating>input:checked~label {
+  color: #ffa723;
+}
 
 @media (max-width: 768px) {
   .product-section {
