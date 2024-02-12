@@ -33,6 +33,8 @@ import HOrden from "./components/Client_screens/HistorialOrden";
 import GestionarInfo from "./components/Admin_screens/GestionarInfo"
 import GestionCarrusel from "./components/Admin_screens/GestionCarrusel";
 import GestionOrden from "./components/Admin_screens/GestionOrdenes";
+import Chatcito from "./components/General_screens/Chatcito";
+
 function App() {
   const verifAdmin = localStorage.getItem("IsAdmin");
   const tipoUser = localStorage.getItem("userType");
@@ -101,6 +103,7 @@ function App() {
           <Route path="/producto-filtro" element={<ProductoFiltro />} />
           <Route path="/info-producto" element={<InfoProductos />} />
         </Routes>
+        <Chatcito />
         {verifAdmin !== "true" && <Footer />}
       </div>
     </Router>
