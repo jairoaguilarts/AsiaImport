@@ -9,16 +9,17 @@
     padding: 10px 20px;
     border-radius: 10px;
     cursor: pointer;
-    width: 100px;
-    height: 80px;
+    width: 80px;
+    height: 60px;
+    
 }
 
 .ventana {
     position: absolute;
     bottom: 75px;
     right: 20px;
-    background-color: white;
     border: 2px solid #ccc;
+    background-color: #fdb254;
     border-radius: 5px;
     padding: 10px;
     width: 400px;
@@ -30,14 +31,16 @@
 .mensajes {
     height: calc(100% - 70px);
     border-radius: 10px;
-    background-color: #ccc;
     overflow-y: auto;
+    background-color: #ADD8E6 !important;
+    background-color: #0277bd;
 }
 
 .input-container {
     position: absolute;
     bottom: 0;
     display: flex;
+    
 }
 
 .chat-input {
@@ -48,6 +51,7 @@
     margin-bottom: 8px;
     border: 1px solid #ccc;
     resize: none;
+    
 }
 
 .enviar {
@@ -56,3 +60,9 @@
     margin-left: 10px;
     cursor: pointer;
 }
+
+.bot-message {
+    background-color: #0277bd; 
+    color: #ffffff; 
+  }
+  

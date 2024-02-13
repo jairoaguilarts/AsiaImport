@@ -6,7 +6,6 @@ import chatIcon from '../../assets/chat.png'; // Asegúrate de que esta ruta sea
 
 function Chatcito() {
     const [chatAbierto, setChatAbierto] = useState(false);
-
     const steps = [
         {
             id: 'inicio',
@@ -66,6 +65,7 @@ function Chatcito() {
             end: true,
         },
     ];
+
 
     return (
         <>
