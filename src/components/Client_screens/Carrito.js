@@ -226,31 +226,34 @@ const Carrito = ({ onClose }) => {
                         />
                     ) : (
                         <>
-                            {productos.map(producto => (
-                                <div className="producto" key={producto.id}>
-                                    <img src={producto.ImagenID} alt={producto.Nombre} className="producto-img" />
-                                    <div className="producto-detalle">
-                                        <span className="producto-nombre">{producto.Nombre}</span>
-                                        <div className="producto-cantidad">
-                                            <button onClick={() => handleChangeCantidad(producto.Modelo, -1)}>
-                                                <img src={minus} alt="Menos" />
-                                            </button>
-                                            <input
-                                                type="number"
-                                                readOnly
-                                                value={producto.cantidad}
-                                            />
-                                            <button onClick={() => handleChangeCantidad(producto.Modelo, 1)}>
-                                                <img src={plus} alt="Más" />
-                                            </button>
-                                        </div>
-                                        <div className="producto-precio">L {producto.Precio}</div>
-                                        <div className="remover-label" onClick={() => handleRemoveProducto(producto.Modelo)}>
-                                            Remover
+                            <div className='productos-container'>
+                                {productos.map(producto => (
+                                    <div className="producto" key={producto.id}>
+                                        <img src={producto.ImagenID} alt={producto.Nombre} className="producto-img" />
+                                        <div className="producto-detalle">
+                                            <span className="producto-nombre">{producto.Nombre}</span>
+                                            <div className="producto-cantidad">
+                                                <button onClick={() => handleChangeCantidad(producto.Modelo, -1)}>
+                                                    <img src={minus} alt="Menos" />
+                                                </button>
+                                                <input
+                                                    type="number"
+                                                    readOnly
+                                                    value={producto.cantidad}
+                                                />
+                                                <button onClick={() => handleChangeCantidad(producto.Modelo, 1)}>
+                                                    <img src={plus} alt="Más" />
+                                                </button>
+                                            </div>
+                                            <div className="producto-precio">L {producto.Precio}</div>
+                                            <div className="remover-label" onClick={() => handleRemoveProducto(producto.Modelo)}>
+                                                Remover
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            ))}
+                                ))}
+                            </div>
+
                             <div className="totales">
                                 <div className="subtotal">
                                     <span>Subtotal</span>

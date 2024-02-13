@@ -54,10 +54,15 @@
     height: auto; /* Adjust the size of your icon here if necessary */
     width: 30px; /* Adjust the size of your icon here if necessary */
 }
+.productos-container {
+    overflow-y: auto; /* Habilita el scroll vertical */
+    max-height: calc(100% - 250px); /* Ajusta esto basado en el espacio que ocupan el header y los totales */
+}
 /* Product item styling */
 .producto {
     display: flex;
     align-items: center;
+    margin-bottom: 10px;
     margin-bottom: 20px;
     border-bottom: 1px solid #E0E0E0; /* Optional: adds a divider between items */
 }
