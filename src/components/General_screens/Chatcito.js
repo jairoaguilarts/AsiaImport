@@ -76,6 +76,7 @@ function Chatcito() {
                         <ChatBot
                             key={Date.now()}
                             steps={steps}
+                            bubbleStyle={{ backgroundColor: '#02a6fc', color: '#ffffff' }}
                             customStyle={{ backgroundColor: 'white' }} 
                         />
                     </div>

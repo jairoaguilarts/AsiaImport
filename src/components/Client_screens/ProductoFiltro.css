@@ -124,7 +124,7 @@
 
 .product-list-container {
   margin-left: 250px;
-  margin-top: -550px;
+  margin-top: -500px;
   padding-left: 20px;
 }
 
@@ -209,6 +209,22 @@
   border-radius: 4px; /* Actualizado */
   min-width: 240px; /* Sugerencia para mantener el ancho mínimo */
 }
+
+.btn-limpiartodo{
+  display: block;
+  margin-top: 10px;
+  padding: 10px 15px; /* Actualizado */
+  text-align: center;
+  text-decoration: none;
+  color: #fff; /* Mantenido */
+  background-color: #01a6ff; /* Actualizado */
+  border: 2px solid #01a6ff; /* Actualizado */
+  cursor: pointer;
+  font-size: 16px; /* Actualizado */
+  border-radius: 4px; /* Actualizado */
+  min-width: 200px; /* Sugerencia para mantener el ancho mínimo */
+}
+
 .btn-add-to-cart:hover {
   background-color: #e69500; /* Un tono más oscuro que #ffa500 */
 }
@@ -216,6 +232,11 @@
 .btn-add-to-favorites:hover {
   background-color: #0091cc; /* Un tono más oscuro que #01a6ff */
 }
+
+.btn-limpiartodo:hover {
+  background-color: #0091cc; /* Un tono más oscuro que #01a6ff */
+}
+
 
 
 /* Ajustes para Pantallas Medianas */

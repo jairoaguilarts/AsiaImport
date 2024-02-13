@@ -31,8 +31,7 @@ const AudifonoFiltro = () => {
   const sorts = [
     "Precio: Descendente a Ascendente",
     "Precio: Ascendente a Descendente",
-    "Relevancia",
-    "El más nuevo",
+
   ];
 
   useEffect(() => {
@@ -206,15 +205,18 @@ const AudifonoFiltro = () => {
           <h1>No hay productos que coincidan con la búsqueda</h1>
           <img src={originIcon} alt="gatito" />
         </div>
+        
       ) : (
         <>
           <div className="filter-container">
             <div className="filter-header">
+
               <h2>Filtros</h2>
-              <button onClick={clearAllFilters}>Limpiar Todo</button>
+              
             </div>
 
             <div className="filter-section">
+            <hr></hr>
               <h3>Ordenar por:</h3>
               {sorts.map((sort) => (
                 <div
@@ -231,7 +233,12 @@ const AudifonoFiltro = () => {
                   ></span>
                   {sort}
                 </div>
+                
+
               ))}
+
+              <button className="btn-limpiartodo"onClick={clearAllFilters}>Limpiar Todo</button>
+              
             </div>
           </div>
 
