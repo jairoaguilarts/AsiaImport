@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ChatBot from 'react-simple-chatbot';
 import './Chatcito.css';
+import ConsultaEstado from "./ConsultarEstado"
 import chatIcon from '../../assets/chat.png'; // Asegúrate de que esta ruta sea correcta
 
 function Chatcito() {
@@ -35,8 +36,15 @@ function Chatcito() {
         {
             id: 'wait-pedido',
             user: true,
-            trigger: 'show-pedido',
+            trigger: 'consultar-estado',
         },
+        {
+            id: 'consultar-estado',
+            component: <ConsultaEstado />, // Un componente React que realizará la consulta al endpoint
+            asMessage: true,
+            waitAction: true,
+            trigger: 'opciones', // Después de mostrar el estado, vuelve al menú de opciones
+        },    
         {
             id: 'show-pedido',
             message: 'Déjame revisar eso por ti. Un momento, por favor...',
@@ -44,7 +52,7 @@ function Chatcito() {
         },
         {
             id: 'show-envios',
-            message: 'Realizamos los envíos dentro de las 24-48 horas hábiles tras realizar tu pedido. Si tienes alguna pregunta específica sobre el envío, estaré encantado de responderla.',
+            message: 'Realizamos los envíos dentro de las 24-48 horas hábiles tras realizar tu pedido. Si tienes alguna pregunta específica contacta con un agente.',
             trigger: 'opciones',
         },
         {
