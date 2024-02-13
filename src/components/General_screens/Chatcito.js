@@ -1,91 +1,75 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import ChatBot from 'react-simple-chatbot';
-
 import './Chatcito.css';
-import chat from '../../assets/chat.png'; // Asegúrate de que esta ruta sea correcta
+import chatIcon from '../../assets/chat.png'; // Asegúrate de que esta ruta sea correcta
 
 function Chatcito() {
     const [chatAbierto, setChatAbierto] = useState(false);
-    const [userMessage, setUserMessage] = useState(''); // Estado para manejar el mensaje del usuario
 
-    useEffect(() => {
-        console.log('El estado de chatAbierto es ahora:', chatAbierto);
-    }, [chatAbierto]);
-    // Pasos del chatbot ajustados
     const steps = [
         {
             id: 'inicio',
-            message: '¡Hola! ¿En qué puedo ayudarte hoy?',
+            message: '¡Hola! 👋 ¿En qué puedo asistirte hoy?',
             trigger: 'opciones',
         },
         {
             id: 'opciones',
             options: [
-                { value: 1, label: 'Ver catálogo de productos', trigger: 'catalogo' },
-                { value: 2, label: 'Consultar estado de pedido', trigger: 'estadoPedido' },
-                { value: 3, label: 'Información sobre envíos', trigger: 'envios' },
-                { value: 4, label: 'Política de devoluciones', trigger: 'devoluciones' },
-                { value: 5, label: 'Otra consulta', trigger: 'otraConsulta' },
+                { value: 'catalogo', label: '📚 Ver catálogo de productos', trigger: 'show-catalogo' },
+                { value: 'estadoPedido', label: '📦 Consultar estado de pedido', trigger: 'ask-pedido' },
+                { value: 'envios', label: '🚚 Información sobre envíos', trigger: 'show-envios' },
+                { value: 'devoluciones', label: '🔄 Política de devoluciones', trigger: 'show-devoluciones' },
+                { value: 'finalizar', label: '🔚 Finalizar chat', trigger: 'despedida' },
             ],
         },
         {
-            id: 'catalogo',
-            message: 'Puedes ver nuestro catálogo completo en nuestra página web.',
-            trigger: 'finalizarConsulta',
+            id: 'show-catalogo',
+            message: 'Puedes ver nuestro catálogo completo en nuestra página web. Aquí encontrarás todos nuestros productos actuales y sus detalles.',
+            trigger: 'opciones',
         },
         {
-            id: 'estadoPedido',
-            message: 'Por favor, proporciona el número de tu pedido.',
-            trigger: 'finalizarConsulta',
+            id: 'ask-pedido',
+            message: 'Claro, puedo ayudarte con eso. Por favor, dime el número de tu pedido.',
+            trigger: 'wait-pedido',
         },
         {
-            id: 'envios',
-            message: 'Los envíos se realizan dentro de las 24-48 horas hábiles después de realizar tu pedido.',
-            trigger: 'finalizarConsulta',
+            id: 'wait-pedido',
+            user: true,
+            trigger: 'show-pedido',
         },
         {
-            id: 'devoluciones',
-            message: 'Nuestra política de devolución es de 30 días a partir de la recepción del producto.',
-            trigger: 'finalizarConsulta',
+            id: 'show-pedido',
+            message: 'Déjame revisar eso por ti. Un momento, por favor...',
+            trigger: 'opciones',
         },
         {
-            id: 'otraConsulta',
-            message: 'Por favor, escribe tu consulta y te responderemos lo antes posible.',
-            trigger: 'finalizarConsulta',
+            id: 'show-envios',
+            message: 'Realizamos los envíos dentro de las 24-48 horas hábiles tras realizar tu pedido. Si tienes alguna pregunta específica sobre el envío, estaré encantado de responderla.',
+            trigger: 'opciones',
         },
         {
-            id: 'finalizarConsulta',
-            options: [
-                { value: 1, label: 'Sí, tengo otra consulta', trigger: 'opciones' },
-                { value: 2, label: 'No, gracias', end: true },
-            ],
-        }
+            id: 'show-devoluciones',
+            message: 'Nuestra política de devolución permite devolver productos hasta 30 días después de haberlos recibido. Si necesitas más información o asistencia con una devolución, solo pregunta.',
+            trigger: 'opciones',
+        },
+        {
+            id: 'despedida',
+            message: '¡Ha sido un placer ayudarte! 😊 Si necesitas algo más en el futuro, no dudes en volver a hablar conmigo. ¡Que tengas un excelente día! 🌟',
+            end: true,
+        },
     ];
-
-
-    const handleSendMessage = (e) => {
-        e.preventDefault();
-        // Aquí deberías añadir la lógica para enviar el mensaje al ChatBot
-        console.log('Mensaje enviado:', userMessage);
-        setUserMessage(''); // Limpiar el campo de texto después de enviar
-    };
 
     return (
         <>
             <div className={`chat-container ${chatAbierto ? 'abierto' : ''}`}>
-                <img className="chat-button" src={chat} alt="Chat" onClick={() => setChatAbierto(!chatAbierto)} />
+                <img className="chat-button" src={chatIcon} alt="Chat" onClick={() => setChatAbierto(!chatAbierto)} />
                 {chatAbierto && (
                     <div className="ventana">
-                        <ChatBot key={Date.now()} steps={steps} />
-                        <form onSubmit={handleSendMessage} className="input-container">
-                            <textarea
-                                className="chat-input"
-                                value={userMessage}
-                                onChange={(e) => setUserMessage(e.target.value)}
-                                placeholder="Escribe tu mensaje aquí..."
-                            />
-                            <button type="submit" className="enviar-btn">Enviar</button>
-                        </form>
+                        <ChatBot
+                            key={Date.now()}
+                            steps={steps}
+                            customStyle={{ backgroundColor: 'white' }} 
+                        />
                     </div>
                 )}
             </div>
