@@ -28,6 +28,35 @@ function InfoAudifonos() {
   const [titulo, setTitulo] = useState("");
   const [comentario, setComentario] = useState("");
   const [calificacion, setCalificacion] = useState(0);
+  const [sum, setSum] = useState(0);
+
+  const [resenas, setResenas] = useState([]);
+
+  const fetchResenas = async () => {
+    try {
+      const response = await fetch(`https://importasia-api.onrender.com/cargarResenas?Modelo=${modelo}`);
+      if (!response.ok) {
+        mostrarAlerta("No se pudieron obtener las resenas", "danger");
+      } else {
+        setResenas(await response.json());
+      }
+    } catch (error) {
+      mostrarAlerta("Error al cargar resenas", "dander");
+    }
+  };
+
+  useEffect(() => {
+    if (resenas.length > 0) {
+      let suma = 0;
+      for (let i = 0; i < resenas.length; i++) {
+        suma += parseInt(resenas[i].Calificacion);
+      }
+      const promedio = suma / resenas.length;
+      const promedioRedondeado = promedio.toFixed(1);
+      setSum(promedioRedondeado);
+    }
+  }, [resenas]);
+
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -45,6 +74,7 @@ function InfoAudifonos() {
       }
     };
 
+    fetchResenas();
     fetchProduct();
   }, []);
 
@@ -70,12 +100,13 @@ function InfoAudifonos() {
       }
     );
 
-    if(response.ok) {
+    if (response.ok) {
       Swal.fire({
         icon: "success",
         title: "¡Muchas gracias por tu comentario!",
         text: "Nos ayuda a brindar los mejores productos a nuestros usuarios.",
       });
+      fetchResenas();
       setIsAgregarR(false);
       setCalificacion(0);
       setTitulo("");
@@ -132,7 +163,7 @@ function InfoAudifonos() {
           <div className="product-info-container">
             <div className="product-info">
               <div className="product-title">{producto.Nombre}</div>
-              <div className="product-rating">★★★★☆ 4.8 (90 reseñas)</div>
+              <div className="product-rating"> {sum} ({resenas.length} reseñas)</div>
               <div className="product-price">
                 L {producto.Precio}.00 ISV incluido
               </div>
