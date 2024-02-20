@@ -5,6 +5,7 @@ import Form from "react-bootstrap/Form";
 import Swal from "sweetalert2";
 import audifonosProduct1 from "../../assets/Srhythm.png";
 import avatar from "../../assets/avatar.png";
+import Pagination from "../Client_screens/Pagination";
 
 function InfoAudifonos() {
   const mostrarAlerta = (message, variant) => {
@@ -16,6 +17,7 @@ function InfoAudifonos() {
       setShowAlert(false);
     }, 2400);
   };
+
 
   const modelo = localStorage.getItem("Modelo");
 
@@ -32,7 +34,11 @@ function InfoAudifonos() {
   const [sum, setSum] = useState(0);
 
   const [resenas, setResenas] = useState([]);
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const reseñasPorPagina = 3; // Definir el número de reseñas por página
+  const indexOfLastReview = currentPage * reseñasPorPagina;
+  const indexOfFirstReview = indexOfLastReview - reseñasPorPagina;
+  const currentReviews = resenas.slice(indexOfFirstReview, indexOfLastReview);
   const fetchResenas = async () => {
     try {
       const response = await fetch(`https://importasia-api.onrender.com/cargarResenas?Modelo=${modelo}`);
@@ -261,7 +267,7 @@ function InfoAudifonos() {
       </div>
       <div className="resenas-container">
         {resenas.length > 0 ? (
-          resenas.map((resena, index) => (
+          currentReviews.map((resena, index) => (
             <div key={index} className="resena">
               <div className="resena-usuario">
                 <img src={avatar} alt="Avatar" className="resena-avatar" />
@@ -279,8 +285,17 @@ function InfoAudifonos() {
           ))
         ) : (
           <div>No hay reseñas aún</div>
+
         )}
+
       </div>
+      <Pagination
+        productsPerPage={reseñasPorPagina}
+        totalProducts={resenas.length}
+        paginate={setCurrentPage}
+        currentPage={currentPage}
+      />
+
     </div>
   );
 }
