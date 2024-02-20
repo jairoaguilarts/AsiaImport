@@ -4,13 +4,11 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import iconEdit from "../../assets/edit .png";
 import iconDelete from "../../assets/delete.png";
-import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import searchIcon from "../../assets/lupa.png";
 import estrellaVacia from "../../assets/estrella.png";
 import estrellaLlena from "../../assets/estrella-llena.png";
 import CustomAlert from "../Informative_screens/CustomAlert";
-import ModificarP from "../modalesProductos/ModificarP";
 import Pagination from "../Client_screens/Pagination";
 
 const GestionPW = () => {
@@ -18,9 +16,6 @@ const GestionPW = () => {
   const [productoSeleccionado, setProductoSeleccionado] = useState(null);
   const [searched, setSearched] = useState(false);
   const [productosDestacados, setProductosDestacados] = useState([]);
-  const [contenido, setContenido] = useState("");
-  const [id, setId] = useState("");
-  const [politicas, setPoliticas] = useState("");
 
   const mostrarAlerta = (message, variant) => {
     setAlertVariant(variant);
@@ -32,10 +27,8 @@ const GestionPW = () => {
     }, 2400);
   };
 
-  //logica de paginacion
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(10);
-  //productos para la pagina actual
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const [products, setProducts] = useState([]);
@@ -75,31 +68,15 @@ const GestionPW = () => {
   const [alertMessage, setAlertMessage] = useState("");
   const [alertVariant, setAlertVariant] = useState("white");
 
-  const [datosViejos, setdatosViejos] = useState("");
   const nuestrosProductosRef = useRef(null);
-  const editarProductosDestacadosRef = useRef(null);
-  const editarImagenesCarrouselRef = useRef(null);
-  const editarInformacionRef = useRef(null);
   const [showModalModificarP, setShowModalModificarP] = useState(false);
   const [modalState, setModalState] = useState({
     showModal: false,
     productToEdit: null,
   });
+
   const [busqueda, setBusqueda] = useState("");
-
-  const handleShowModalModificarP = (product) => {
-    setModalState({ showModal: true, productToEdit: product });
-  };
-
   const userType = localStorage.getItem("userType");
-
-  const handleCloseModalModificarP = () => {
-    setModalState({ showModal: false, productToEdit: null });
-  };
-
-  const toggleModal = () => {
-    setShowModalModificarP(!showModalModificarP);
-  };
 
   const handleModelSubmit = (Modelo) => {
     localStorage.setItem("Modelo", Modelo);
@@ -150,16 +127,6 @@ const GestionPW = () => {
     setProductoSeleccionado(null);
   };
 
-  const scrollToSection = (ref) => {
-    window.scrollTo({ top: ref.current.offsetTop, behavior: "smooth" });
-  };
-
-  const handleActualizar = () => {};
-
-  const handleUploadImage = (event) => {
-    const file = event.target.files[0];
-    console.log("Imagen para subir:", file);
-  };
   const sinonimos = {
     audífonos: "AURICULARES",
     audifonos: "AURICULARES",
@@ -225,51 +192,14 @@ const GestionPW = () => {
         mostrarAlerta("Productos encontrados", "success");
         setSearched(true);
 
-        // Restablecer currentPage a 1 para mostrar los resultados de búsqueda desde el principio
         setCurrentPage(1);
 
-        // Actualiza los productos con los resultados de búsqueda
         setProducts(productosEncontrados);
       }
     } catch (error) {
       mostrarAlerta("Error en la búsqueda", "danger");
     }
   };
-
-  const [mision, setMision] = useState("");
-  const [vision, setVision] = useState("");
-  const [historia, setHistoria] = useState("");
-  const cargarInformacionEmpresa = async () => {
-    try {
-      const response = await fetch(
-        `https://importasia-api.onrender.com/obtenerInformacion?id=65768fb8175690a253ab6b95`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(`Error: ${errorData.message || response.status}`);
-      }
-
-      const data = await response.json();
-
-      // Actualizar los estados con la información obtenida
-      if (data) {
-        setMision(data.mision);
-        setVision(data.vision);
-        setHistoria(data.historia);
-        setdatosViejos(data);
-      }
-    } catch (error) {
-      mostrarAlerta("Error al cargar la información", "danger");
-    }
-  };
-  const [isChecked, setIsChecked] = useState(false);
 
   const handleCheckboxChange = async (modelo) => {
     setSelectedProducts((prevState) => ({
@@ -293,51 +223,6 @@ const GestionPW = () => {
   };
 
   const [selectedProducts, setSelectedProducts] = useState({});
-  const handleActualizar2 = async () => {
-    if (
-      mision === datosViejos.mision &&
-      vision === datosViejos.vision &&
-      historia === datosViejos.historia
-    ) {
-      mostrarAlerta('"No se han realizado cambios para guardar"', "danger");
-      return;
-    }
-    if (mision === "" || vision === "" || historia === "") {
-      mostrarAlerta('"No se han completado todos los campos"', "danger");
-      return;
-    }
-
-    try {
-      const data = {
-        mision: mision,
-        vision: vision,
-        historia: historia,
-      };
-
-      const response = await fetch(
-        "https://importasia-api.onrender.com/editarInformacionEmpresa?id=65768fb8175690a253ab6b95",
-        {
-          // Incluir el _id aquí
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(`Error: ${errorData.message || response.status}`);
-      }
-
-      mostrarAlerta("Información actualizada exitosamente", "success");
-    } catch (error) {
-      mostrarAlerta("Error al actualizar la información", "danger");
-    }
-    window.location.reload();
-  };
-
   const handleDestacado = async () => {
     try {
       const requests = productosDestacados.map((Modelo) => {
@@ -360,203 +245,6 @@ const GestionPW = () => {
       mostrarAlerta("Error al actualizar productos destacados", "danger");
     }
   };
-
-  /* Chiva que a partir de acá se maneja todo lo que tiene que ver con el carrusel O.O*/
-  const [imagenes, setImagenes] = useState([]);
-  const [imagenSeleccionada, setImagenSeleccionada] = useState(null);
-  const inputFileRef = useRef(null);
-  const handleActualizarImagenesCarrusel = async () => {
-    try {
-      if (imagenes.length === 0) {
-        mostrarAlerta("No se han seleccionado imágenes para subir", "danger");
-        return;
-      }
-
-      const formData = new FormData();
-      imagenes.forEach((imagen) => {
-        formData.append(`uploadedFile`, imagen);
-      });
-
-      const response = await fetch(
-        "https://importasia-api.onrender.com/agregarImgCarruselInicio",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-
-      if (response.ok) {
-        const Data = await response.json();
-        if (Data.success) {
-          obtenerCarrusel();
-          if (inputFileRef.current) {
-            inputFileRef.current.value = "";
-          }
-          mostrarAlerta(
-            "Imágenes del carrusel actualizadas correctamente",
-            "success"
-          );
-        } else {
-          mostrarAlerta("Error al actualizar imágenes del carrusel", "danger");
-        }
-      } else {
-        mostrarAlerta("Error al Obtener respuesta del servidor", "danger");
-      }
-    } catch (error) {
-      mostrarAlerta("No se pudieron agregar las imagenes", "danger");
-    }
-  };
-
-  const obtenerCarrusel = async () => {
-    try {
-      const response = await fetch(
-        `https://importasia-api.onrender.com/obtenerCarruselInicio`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error("Aqui hay un error", errorData);
-        throw new Error(`Error: ${errorData.message || response.status}`);
-      }
-
-      const data = await response.json();
-      setImagenes(data[0].imagenID);
-    } catch (error) {
-      console.log("Adentro del catch " + error.message);
-      alert("Problema al mostrar las imagenes");
-    }
-  };
-
-  const eliminarImagenCarrusel = async () => {
-    try {
-      if (!imagenSeleccionada) {
-        mostrarAlerta(
-          "No se ha seleccionado ninguna imagen para eliminar",
-          "danger"
-        );
-        return;
-      }
-
-      const response = await fetch(
-        "https://importasia-api.onrender.com/eliminarImgCarruselInicio",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ imageUrl: imagenSeleccionada }),
-        }
-      );
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(`Error: ${errorData.message || response.status}`);
-      }
-      console.log(response);
-
-      const data = await response.json();
-      console.log(data);
-      if (data.success) {
-        mostrarAlerta("Imagen del carrusel eliminada correctamente", "success");
-        obtenerCarrusel();
-        setImagenSeleccionada(null);
-      } else {
-        mostrarAlerta("Error al cargar las imagen en formato JSON", "danger");
-      }
-    } catch (error) {
-      mostrarAlerta("Error al eliminar la imagen del carrusel", "danger");
-    }
-  };
-
-  const handleImagenSeleccionada = (imagen) => {
-    setImagenSeleccionada(imagen);
-  };
-
-  const hanldeSeleccionArchivos = (e) => {
-    const archivo = Array.from(e.target.files);
-    setImagenes((imagenesPrevias) => [...imagenesPrevias, ...archivo]);
-  };
-
-  /* Aqui termina todo lo que tiene que ver con el carrusel <( _ _ )> */
-
-  /* Seccion de politicas */
-  const cargarPoliticas = async () => {
-    try {
-      const response = await fetch(
-        "https://importasia-api.onrender.com/politicas"
-      );
-      if (!response.ok) {
-        throw new Error("Error al cargar las políticas");
-      }
-      const data = await response.json();
-      if (data && data.length > 0) {
-        setPoliticas(data[0].contenido);
-        setContenido(data[0].contenido); // Inicializa el contenido para edición
-      }
-    } catch (error) {
-      console.error("Error al cargar las políticas:", error);
-      // Manejo de errores
-    }
-  };
-
-  const editarContenido = async () => {
-    if (contenido.trim() === "") {
-      mostrarAlerta("El contenido no puede estar vacío.", "danger");
-      return;
-    }
-
-    if (contenido === politicas) {
-      mostrarAlerta("No hay cambios en el contenido para actualizar.", "info");
-      return;
-    }
-
-    try {
-      const response = await fetch(
-        `https://importasia-api.onrender.com/editarPoliticaPrivacidad`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ contenido }),
-        }
-      );
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        mostrarAlerta(
-          `Error: ${errorData.message || response.status}`,
-          "danger"
-        );
-        return;
-      }
-
-      const data = await response.json();
-      mostrarAlerta(
-        "Política de privacidad actualizada correctamente.",
-        "success"
-      );
-
-      setPoliticas(contenido);
-
-      console.log(data);
-    } catch (error) {
-      mostrarAlerta("Error al actualizar la política de privacidad.", "danger");
-      console.error("Error al actualizar el contenido:", error);
-    }
-  };
-
-  useEffect(() => {
-    cargarInformacionEmpresa();
-    obtenerCarrusel();
-    cargarPoliticas();
-  }, []);
 
   return (
     <div className="gestion-wrapper">
@@ -671,13 +359,6 @@ const GestionPW = () => {
         paginate={paginate}
         currentPage={currentPage}
       />
-
-      {/* Sección Editar Productos Destacados */}
-      {/* <div ref={editarProductosDestacadosRef} className="section">
-        <div className="editar-informacion-title">
-          <h1 className="title">Editar Productos Destacados</h1>
-        </div>
-      </div> */}
 
       {/* Modal para confirmación de eliminación */}
       <Modal

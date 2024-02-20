@@ -20,21 +20,21 @@ const GestionOrdenes = () => {
     setBusqueda(terminoBusqueda);
     filtrarOrdenes(terminoBusqueda, filtroEstado);
   };
-  
+
   const handleEstadoChange = (e) => {
     const estadoSeleccionado = e.target.value;
     setFiltroEstado(estadoSeleccionado);
     filtrarOrdenes(busqueda, estadoSeleccionado);
   };
-  
+
   const filtrarOrdenes = (terminoBusqueda, estado) => {
     let ordenesTemp = ordenes;
-  
+
     if (terminoBusqueda) {
       ordenesTemp = ordenesTemp.filter((orden) => {
         const busquedaEnMinusculas = terminoBusqueda.toLowerCase();
         const detalles = orden.detalles || {};
-  
+
         // Revisa si algún campo de la orden coincide con el término de búsqueda
         const coincide = orden._id?.toLowerCase().includes(busquedaEnMinusculas) ||
           orden.tipoOrden?.toLowerCase().includes(busquedaEnMinusculas) ||
@@ -49,24 +49,24 @@ const GestionOrdenes = () => {
           detalles.fecha_ingreso?.toLowerCase().includes(busquedaEnMinusculas) ||
           detalles.identidadUsuario?.toLowerCase().includes(busquedaEnMinusculas) ||
           orden.estadoPago?.toLowerCase().includes(busquedaEnMinusculas);
-  
+
         // Asumiendo que `carrito` es un array que puede contener strings u objetos con un campo 'nombreArticulo'
         const articulosEnCarrito = orden.carrito?.some((item) => {
           const nombreArticulo = typeof item === 'string' ? item : item.nombreArticulo;
           return nombreArticulo?.toLowerCase().includes(busquedaEnMinusculas);
         });
-  
+
         return coincide || articulosEnCarrito;
       });
     }
-  
+
     if (estado !== "Cualquiera") {
       ordenesTemp = ordenesTemp.filter((orden) => orden.estadoOrden === estado);
     }
-  
+
     setOrdenesFiltradas(ordenesTemp);
   };
-  
+
 
   useEffect(() => {
     setOrdenesFiltradas(ordenes);
@@ -91,7 +91,7 @@ const GestionOrdenes = () => {
     setOrdenDetalle(orden);
     setIsDetallePopupVisible(true);
   };
- 
+
   const PopupDetalleOrden = () => {
     if (!isDetallePopupVisible || !ordenDetalle) return null;
 
@@ -146,6 +146,75 @@ const GestionOrdenes = () => {
         </div>
       </div>
     );
+  };
+
+  const mostrarPopup = (orden) => {
+    setOrdenActual(orden);
+    setIsPopupVisible(true);
+  };
+
+  const PopupEstadoOrden = () => {
+    return isPopupVisible ? (
+      <div className="popup">
+        <div className="popup-inner">
+          <h3>Actualizar Estado de la Orden</h3>
+          <hr></hr>
+          <form>
+            <label
+              style={{
+                color:
+                  estadoSeleccionado === "En Proceso" ? "#D8750D" : "inherit",
+              }}
+            >
+              <input
+                type="radio"
+                name="estado"
+                value="En Proceso"
+                onChange={(e) => setEstadoSeleccionado(e.target.value)}
+                checked={estadoSeleccionado === "En Proceso"}
+              />
+              En proceso
+            </label>
+            <label
+              style={{
+                color:
+                  estadoSeleccionado === "Verificada" ? "#D8A20D" : "inherit",
+              }}
+            >
+              <input
+                type="radio"
+                name="estado"
+                value="Verificada"
+                onChange={(e) => setEstadoSeleccionado(e.target.value)}
+                checked={estadoSeleccionado === "Verificada"}
+              />
+              Verificada
+            </label>
+            <label
+              style={{
+                color:
+                  estadoSeleccionado === "Completada" ? "green" : "inherit",
+              }}
+            >
+              <input
+                type="radio"
+                name="estado"
+                value="Completada"
+                onChange={(e) => setEstadoSeleccionado(e.target.value)}
+                checked={estadoSeleccionado === "Completada"}
+              />
+              Completado
+            </label>
+            <button type="button" onClick={actualizarEstado}>
+              Actualizar Estado
+            </button>
+            <button type="button" onClick={() => setIsPopupVisible(false)}>
+              Cerrar
+            </button>
+          </form>
+        </div>
+      </div>
+    ) : null;
   };
 
   const getEstadoClass = (estado) => {
@@ -282,7 +351,7 @@ const GestionOrdenes = () => {
                 <td>
                   <button
                     className="button-gestion mod-estado-orden"
-                    onClick={() => setIsPopupVisible(true)}
+                    onClick={() => mostrarPopup(orden)}
                   >
                     Estado de Orden
                   </button>
@@ -304,6 +373,7 @@ const GestionOrdenes = () => {
         paginate={paginate}
         currentPage={currentPage}
       />
+      <PopupEstadoOrden />
       <PopupDetalleOrden />
     </div>
   );
