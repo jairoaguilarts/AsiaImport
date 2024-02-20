@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import Carousel from "react-bootstrap/Carousel";
 import parlantesImage from "../../assets/parlantes.png";
@@ -24,8 +25,8 @@ const Carrusel = ({ productos }) => {
     productos.length < itemsVisibles
       ? productos
       : productos
-          .concat(productos)
-          .slice(currentIndex, currentIndex + itemsVisibles);
+        .concat(productos)
+        .slice(currentIndex, currentIndex + itemsVisibles);
 
   const moverCarrusel = (direccion) => {
     const totalItems = productos.length;
@@ -112,7 +113,7 @@ const Carrusel = ({ productos }) => {
 function Inicio() {
   const [index, setIndex] = useState(0);
   const [open, setOpen] = useState(false);
-
+  const location = useLocation();
   const navigate = useNavigate();
 
   const handleToggle = () => setOpen(!open);
@@ -171,6 +172,15 @@ function Inicio() {
 
     obtenerCarrusel();
   }, []);
+  useEffect(() => {
+    if (location.state?.scrollDestacados) {
+      const section = document.querySelector('.DESTACADOS');
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [location]);
+
 
   return (
     <div className="inicio-container">
@@ -256,12 +266,13 @@ function Inicio() {
         </div>
       </div>
       <hr />
-
-      <div className="section-divider">
-        <p className="destacado-text">Artículos Destacados</p>
-        <hr className="linea-divisora-blue-large" />
-        <Carrusel productos={productosDestacados} />
-        <hr className="linea-divisora-blue-med" />
+      <div className="DESTACADOS">
+        <div className="section-divider2">
+          <p className="destacado-text">Artículos Destacados</p>
+          <hr className="linea-divisora-blue-large" />
+          <Carrusel productos={productosDestacados} />
+          <hr className="linea-divisora-blue-med" />
+        </div>
       </div>
     </div>
   );

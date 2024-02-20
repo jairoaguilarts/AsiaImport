@@ -129,6 +129,13 @@ const Navibar = () => {
   const navigateToProductoFiltro = (categoria) => {
     navigate("/producto-filtro", { state: { categoria } });
   };
+  const navigateToHistorial = () => {
+    navigate("/historial-orden");
+  };
+  const navigateToInicioDestacados = () => {
+    navigate('/inicio', { state: { scrollDestacados: true } });
+  };
+  
   window.addEventListener("scroll", () => {
     if (window.screenY > 70) {
       setActive(true);
@@ -336,6 +343,7 @@ const Navibar = () => {
                 <Navbar.Brand
                   className="botonAdicional"
                   style={{ color: "white", fontSize: 15 }}
+                  onClick={navigateToInicioDestacados}   
                   href="#ProductosDestacados"
                 >
                   Productos Destacados
@@ -344,6 +352,7 @@ const Navibar = () => {
                   className="botonAdicional"
                   style={{ color: "white", fontSize: 15 }}
                   href="#ProductosDestacados"
+                  onClick={() => navigateToHistorial()}
                 >
                   Historial De Compras
                 </Navbar.Brand>

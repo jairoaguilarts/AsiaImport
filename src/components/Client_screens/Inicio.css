@@ -27,6 +27,13 @@
   width: 100%;
   padding: 20px 0;
 }
+.section-divider2 {
+  align-items: center;
+  text-align: center;
+  background-color: #ffffff;
+  width: 100%;
+  padding: 20px 0;
+}
 
 .linea-divisora-blue-large {
   border: 2px solid #01a6ff;
