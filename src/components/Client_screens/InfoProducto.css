@@ -252,6 +252,84 @@
 .rating>input:checked~label {
   color: #ffa723;
 }
+.resenas-container {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.resena {
+  background-color: #fff;
+  border: 1px solid #e1e1e1;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.resena:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.resena-titulo {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin: 0; 
+}
+
+.resena-calificacion {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #f4b400; /* color amarillo para las estrellas */
+  margin-bottom: 1px;
+}
+
+.resena-calificacion i {
+  margin-right: 5px;
+}
+
+.resena-comentario {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.6;
+  border-top: 1px solid #e1e1e1;
+  padding-top: 15px;
+  margin-top: 15px;
+}
+.resena-titulo-calificacion {
+  display: flex; /* Esto alinea el título y la calificación en la misma línea */
+  align-items: baseline; /* Alinea los elementos según la línea base del texto */
+  gap: 10px; /* Espacio entre el título y la calificación */
+}
+
+
+
+/* Estilos para los íconos de estrellas */
+.star-filled {
+  color: #f4b400;
+}
+
+.star-empty {
+  color: #ccc;
+}
+.resena-usuario {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  margin-bottom: 10px; /* Ajuste para separación entre usuario y título/calificación */
+  color: #555;
+}
+
+.resena-avatar {
+  width: 20px; /* Ajusta el tamaño según necesites */
+  height: 20px; /* Ajusta el tamaño según necesites */
+  border-radius: 50%; /* Hace que la imagen sea circular */
+  margin-right: 5px; /* Espacio entre el avatar y el nombre */
+}
+
 
 @media (max-width: 768px) {
   .product-section {

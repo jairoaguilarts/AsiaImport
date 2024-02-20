@@ -4,6 +4,7 @@ import "./InfoProducto.css";
 import Form from "react-bootstrap/Form";
 import Swal from "sweetalert2";
 import audifonosProduct1 from "../../assets/Srhythm.png";
+import avatar from "../../assets/avatar.png";
 
 function InfoAudifonos() {
   const mostrarAlerta = (message, variant) => {
@@ -253,7 +254,31 @@ function InfoAudifonos() {
             <button className="agregar-resena" onClick={handleAgregarResena}>
               Agregar
             </button>
+
+
           </>
+        )}
+      </div>
+      <div className="resenas-container">
+        {resenas.length > 0 ? (
+          resenas.map((resena, index) => (
+            <div key={index} className="resena">
+              <div className="resena-usuario">
+                <img src={avatar} alt="Avatar" className="resena-avatar" />
+                {resena.Nombre}
+              </div>
+              <div className="resena-titulo-calificacion"> {/* Contenedor para el título y la calificación */}
+                <strong className="resena-titulo">{resena.Titulo}</strong>
+                <span className="resena-calificacion"> {/* Usa span para la calificación */}
+                  {'★'.repeat(resena.Calificacion)}
+                  {'☆'.repeat(5 - resena.Calificacion)}
+                </span>
+              </div>
+              <div className="resena-comentario">{resena.Comentario}</div>
+            </div>
+          ))
+        ) : (
+          <div>No hay reseñas aún</div>
         )}
       </div>
     </div>
