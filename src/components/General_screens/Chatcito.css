@@ -1,83 +1,77 @@
 .chat-container {
-    position: fixed;
-    bottom: 50px;
-    right: 50px;
-    z-index: 999;
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  z-index: 999;
 }
 
 .chat-button {
-    padding: 10px 20px;
-    border-radius: 10px;
-    cursor: pointer;
-    width: 80px;
-    height: 60px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 80px;
+  height: 60px;
 }
 
 .ventana {
-    position: absolute;
-    bottom: 75px;
-    right: 20px;
-    border: 2px solid #ccc;
-    background-color: #fdb254; /* Cambiado a azul */
-    border-radius: 5px;
-    padding: 10px;
-    width: 400px;
-    height: 500px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    overflow-y: auto;
+  position: absolute;
+  bottom: 75px;
+  right: 20px;
+
+  width: 400px;
+  height: 500px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .mensajes {
-    height: calc(100% - 70px);
-    border-radius: 10px;
-    overflow-y: auto;
-    background-color: #02a6fc; /* Cambiado a azul */
+  height: calc(100% - 70px);
+  border-radius: 10px;
+  overflow-y: auto;
+  background-color: #02a6fc; /* Cambiado a azul */
 }
 
 .input-container {
-    position: absolute;
-    bottom: 0;
-    display: flex;
+  position: absolute;
+  bottom: 0;
+  display: flex;
 }
 
 .chat-input {
-    flex: 1;
-    width: 230px;
-    height: 40px;
-    padding: 8px;
-    margin-bottom: 8px;
-    border: 1px solid #ccc;
-    resize: none;
+  flex: 1;
+  width: 230px;
+  height: 40px;
+  padding: 8px;
+  margin-bottom: 8px;
+  border: 1px solid #ccc;
+  resize: none;
 }
 
 .enviar {
-    width: 40px;
-    height: 40px;
-    margin-left: 10px;
-    cursor: pointer;
+  width: 40px;
+  height: 40px;
+  margin-left: 10px;
+  cursor: pointer;
 }
 
 /* Asegúrate de que estas clases correspondan a los elementos en la captura de pantalla */
 .react-simple-chatbot .bot .bot-text {
-    background-color: #02a6fc !important; /* Color azul deseado */
-    color: #ffffff !important;
+  background-color: #02a6fc !important; /* Color azul deseado */
+  color: #ffffff !important;
 }
 
 .react-simple-chatbot-option {
-    background-color: #02a6fc !important; /* Cambia este valor al código de color azul que prefieras */
-    color: #ffffff !important;
+  background-color: #02a6fc !important; /* Cambia este valor al código de color azul que prefieras */
+  color: #ffffff !important;
 }
-
 
 /* Para los mensajes del usuario, si también los quieres en azul */
 .react-simple-chatbot-user-message {
-    background-color: #02a6fc !important; /* Color azul */
-    color: #ffffff !important;
+  background-color: #02a6fc !important; /* Color azul */
+  color: #ffffff !important;
 }
 
 /* Sobrescribe el estilo de los botones de opción del chatbot */
 .react-simple-chatbot .react-simple-chatbot-option-element {
-    background-color: #02a6fc !important;
-    color: #ffffff !important;
+  background-color: #02a6fc !important;
+  color: #ffffff !important;
 }
-
