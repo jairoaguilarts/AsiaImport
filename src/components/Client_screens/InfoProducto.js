@@ -141,10 +141,60 @@ function InfoAudifonos() {
         const errorData = await response.json();
         throw new Error(`Error: ${errorData.message || response.status}`);
       }
-      mostrarAlerta("Agregado al carrito con éxito", "success");
+      Swal.fire({
+        icon: 'success',
+        title: '¡Agregado aL Carrito !',
+        text: 'Producto agregado exitosamente al carrito.',
+        confirmButtonText: 'Ok'
+      });
     } catch (error) {
       console.log("Error: ", error);
-      mostrarAlerta("Error al agregar al carrito", "danger");
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'No se pudo agregar el producto a al carrito.',
+        text: 'Revisa si ya lo habias agregado anteriormente',
+        confirmButtonText: 'Ok'
+      });
+    }
+  };
+  const handleAgregarFavoritos = async (modeloAgregar) => {
+    const datos = {
+      firebaseUID: localStorage.getItem("FireBaseUID"),
+      Modelo: modeloAgregar,
+    };
+  
+    try {
+      const response = await fetch(
+        "https://importasia-api.onrender.com/agregarFavoritos",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(datos),
+        }
+      );
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Error: ${errorData.message || response.status}`);
+      }
+      Swal.fire({
+        icon: 'success',
+        title: '¡Agregado a Favoritos!',
+        text: 'Producto agregado exitosamente a favoritos.',
+        confirmButtonText: 'Ok'
+      });
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'No se pudo agregar el producto a favoritos.',
+        text: 'Revisa si ya lo habias agregado anteriormente',
+        confirmButtonText: 'Ok'
+      });
+      console.log("Error: ", error);
     }
   };
 
@@ -179,7 +229,9 @@ function InfoAudifonos() {
               <button className="btn-cart2" onClick={() => handleAgregar()}>
                 AÑADIR AL CARRITO
               </button>
-              <button className="btn-favorite2">AGREGAR A FAVORITOS</button>
+              <button className="btn-favorite2" onClick={() =>handleAgregarFavoritos(producto.Modelo)}>
+              AGREGAR A FAVORITOS
+              </button>
             </div>
           </div>
         </div>
