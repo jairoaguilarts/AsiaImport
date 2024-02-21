@@ -22,9 +22,8 @@ function Pago() {
   const crearOrden = async () => {
     const detalles = localStorage.getItem("entregaID");
     const fecha = new Date();
-    const Fecha = `${fecha.getDate()}/${
-      fecha.getMonth() + 1
-    }/${fecha.getFullYear()}`;
+    const Fecha = `${fecha.getDate()}/${fecha.getMonth() + 1
+      }/${fecha.getFullYear()}`;
 
     const dataOrden = {
       firebaseUID,
@@ -153,7 +152,7 @@ function Pago() {
 
     try {
       const responseUsuario = await fetch(
-        `http://localhost:3000/obtenerCorreo?firebaseUID=${firebaseUID}`
+        `https://importasia-api.onrender.com/obtenerCorreo?firebaseUID=${firebaseUID}`
       );
 
       if (!responseUsuario.ok) {
@@ -195,12 +194,10 @@ function Pago() {
           body: JSON.stringify(dataPago),
         }
       );
-
       if (responsePago.ok) {
         const fecha = new Date();
-        const Fecha = `${fecha.getDate()}/${
-          fecha.getMonth() + 1
-        }/${fecha.getFullYear()}`;
+        const Fecha = `${fecha.getDate()}/${fecha.getMonth() + 1
+          }/${fecha.getFullYear()}`;
         const dataOrden = {
           firebaseUID,
           detalles: detallesEntrega,
@@ -278,9 +275,8 @@ function Pago() {
 
     const detalles = localStorage.getItem("entregaID");
     const fecha = new Date();
-    const Fecha = `${fecha.getDate()}/${
-      fecha.getMonth() + 1
-    }/${fecha.getFullYear()}`;
+    const Fecha = `${fecha.getDate()}/${fecha.getMonth() + 1
+      }/${fecha.getFullYear()}`;
 
     const dataOrden = {
       firebaseUID,
@@ -350,65 +346,76 @@ function Pago() {
           title: "¡Éxito!",
           text: "Pago procesado",
         });
-        setOrdenId(responseOrdenData._id);
-        setMostrarPopupGracias(true);
-
-        const userActualizacion = {
-          carritoCompras: [],
-          cantidadCarrito: [],
-          totalCarrito: "0",
-        };
-
-        const responseActualizacionUser = await fetch(
-          `https://importasia-api.onrender.com/usuarioAfterPago/${firebaseUID}`,
+        const responseReduce = await fetch('https://importasia-api.onrender.com/reducirCantidades',
           {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(userActualizacion),
+            body: JSON.stringify({ firebaseUID }),
           }
         );
+        if (responseReduce.ok) {
+          setOrdenId(responseOrdenData._id);
+          setMostrarPopupGracias(true);
 
-        const formData = {
-          _orderId: responseOrdenData._id,
-          tipoOrden: "Delivery",
-          Fecha: new Date().toISOString(),
-          carrito: responseOrdenData.carrito,
-          cantidades: responseOrdenData.cantidades,
-          total: responseOrdenData.total,
-          correo: responseOrdenData.correo,
-        };
+          const userActualizacion = {
+            carritoCompras: [],
+            cantidadCarrito: [],
+            totalCarrito: "0",
+          };
 
-        const requestOptions = {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        };
-
-        try {
-          const mandarOrden = await fetch(
-            "https://importasia-api.onrender.com/send-orderDetails",
-            requestOptions
+          const responseActualizacionUser = await fetch(
+            `https://importasia-api.onrender.com/usuarioAfterPago/${firebaseUID}`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(userActualizacion),
+            }
           );
 
-          if (!mandarOrden.ok) {
-            const errorMessage = await mandarOrden.text();
-            throw new Error(errorMessage);
+          const formData = {
+            _orderId: responseOrdenData._id,
+            tipoOrden: "Delivery",
+            Fecha: new Date().toISOString(),
+            carrito: responseOrdenData.carrito,
+            cantidades: responseOrdenData.cantidades,
+            total: responseOrdenData.total,
+            correo: responseOrdenData.correo,
+          };
+
+          const requestOptions = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData),
+          };
+
+          try {
+            const mandarOrden = await fetch(
+              "https://importasia-api.onrender.com/send-orderDetails",
+              requestOptions
+            );
+
+            if (!mandarOrden.ok) {
+              const errorMessage = await mandarOrden.text();
+              throw new Error(errorMessage);
+            }
+
+            console.log("Orden enviada al correo con éxito.");
+          } catch (error) {
+            console.error("Error al enviar la orden:", error);
           }
 
-          console.log("Orden enviada al correo con éxito.");
-        } catch (error) {
-          console.error("Error al enviar la orden:", error);
-        }
-
-        if (responseActualizacionUser.ok) {
-          console.log("Carrito vaciado y total reseteado correctamente");
-        } else {
-          console.log(
-            "Error al actualizar el usuario: ",
-            await responseActualizacionUser.json()
-          );
+          if (responseActualizacionUser.ok) {
+            console.log("Carrito vaciado y total reseteado correctamente");
+          } else {
+            console.log(
+              "Error al actualizar el usuario: ",
+              await responseActualizacionUser.json()
+            );
+          }
         }
       } else {
         Swal.fire({
