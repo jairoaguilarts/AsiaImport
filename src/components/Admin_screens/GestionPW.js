@@ -173,7 +173,7 @@ const GestionPW = () => {
     const urls = [
       `https://importasia-api.onrender.com/buscarProductoCategoria?Nombre=${terminoBusqueda}`,
       `https://importasia-api.onrender.com/buscarProductoNombre?Nombre=${terminoBusqueda}`,
-      `https://importasia-api.onrender.com/buscarProductoModelo?Modelo=${terminoBusqueda}`,
+      `https://importasia-api.onrender.com/buscarProductoModeloVariante2?Modelo=${terminoBusqueda}`,
     ];
 
     try {
