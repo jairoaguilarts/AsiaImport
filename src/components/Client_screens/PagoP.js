@@ -499,29 +499,27 @@ function PagoP() {
   };
   return (
     <div className="pago-container">
-      <h1>Detalles de la Orden</h1>
-      <div>
-        {productos.map((producto) => (
-          <div className="productos-orden">
-            <div className="productos-imagen">
-              <img src={producto.ImagenID} alt={producto.Nombre} />
+    <h1>Detalles de la Orden</h1>
+    <div className="productos-contenedor-scroll">
+      {productos.map((producto) => (
+        <div className="productos-orden">
+          <div className="productos-imagen">
+            <img src={producto.ImagenID} alt={producto.Nombre} />
+          </div>
+          <div className="detalle-producto">
+            <span className="productos-nombre">{producto.Nombre}</span>
+            <div className="productos-cantidad">
+              <p>Cantidad: {producto.cantidad}</p>
             </div>
-
-            <div className="productos-orden">
-              <span className="productos-nombre">{producto.Nombre}</span>
-              <div className="productos-cantidad">
-                <p>Cantidad: {producto.cantidad} </p>
-              </div>
-              <div className="productos-precio">
-                {" "}
-                <p>Precio: L {producto.Precio}.00 </p>
-              </div>
+            <div className="productos-precio">
+              <p>Precio: L {producto.Precio}.00</p>
             </div>
           </div>
-        ))}
-        <h5>Total de la Orden: L {calcularTotal()}.00</h5>
-      </div>
-      <div style={{ marginTop: "70px" }} />
+        </div>
+      ))}
+    </div>
+    <h5>Total de la Orden: L {calcularTotal()}.00</h5>
+    <div style={{ marginTop: "70px" }} />
       <h2>Pantalla de Pago</h2>
       <div className="botones-container">
         {/*  <button onClick={() => setMetodoPago('tarjeta')}>Pagar con Tarjeta</button>*/}
