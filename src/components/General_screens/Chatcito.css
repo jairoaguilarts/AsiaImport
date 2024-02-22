@@ -76,11 +76,11 @@
   color: #ffffff !important;
 }
 .rsc-os-option-element{
-  background-color: #fdb254;
+  background-color: #fdb254 !important;
   color:#fff;
 }
 .rsc-header {
-  background-color: #0e6492  ; /* Color de fondo para el encabezado */
+  background-color: #0e6492  !important; /* Color de fondo para el encabezado */
   color: #fff; /* Color del texto */
 }
 
