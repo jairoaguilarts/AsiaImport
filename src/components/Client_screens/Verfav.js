@@ -124,11 +124,14 @@ const VerFav = () => {
         } catch (error) {
           console.log("Error al obtener los productos favoritos: ", error);
           setLoading(false);
-          alert("Error al obtener los productos favoritos");
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Error al obtener los productos favoritos',
+            confirmButtonText: 'Ok'
+          });
         }
       } else {
-        // Manejar el caso en el que el usuario no ha iniciado sesión
-        // Puedes redirigirlo a la página de inicio de sesión o mostrar un mensaje
         console.log("No se ha iniciado sesión");
         setLoading(false);
       }

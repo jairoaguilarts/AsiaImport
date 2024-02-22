@@ -81,7 +81,12 @@ function ProcederCompra() {
       if(response.ok) {
         cargarDirecciones();
       } else {
-        alert("error");
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Error al eliminar direccion',
+          confirmButtonText: 'Ok'
+        });
       }
     } catch (error) {
       console.log(error);
@@ -303,7 +308,12 @@ function ProcederCompra() {
       setIdentidadUser("");
     } else {
       if (!esIdValido(identidadUser)) {
-        alert("Por favor, ingrese un número de identidad valido de 13 digitos");
+        Swal.fire({
+          icon: 'warning',
+          title: 'Formato invalido',
+          text: 'Por favor, ingrese un número de identidad valido de 13 digitos',
+          confirmButtonText: 'Ok'
+        });
         return;
       }
       tipoOrdenTemp = "pickup";

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./GestionOrdenes.css";
 import Pagination from "../Client_screens/Pagination";
+import Swal from "sweetalert2";
 
 const GestionOrdenes = () => {
   const [busqueda, setBusqueda] = useState("");
@@ -252,7 +253,12 @@ const GestionOrdenes = () => {
       })
       .then((data) => {
         console.log("Estado actualizado:", data);
-        alert("Estado actualizado con exito");
+        Swal.fire({
+          icon: 'success',
+          title: '¡Estado actualizado con exito!',
+          text: 'Estado de la orden ha sido actualizado exitosamente',
+          confirmButtonText: 'Ok'
+        });
         setIsPopupVisible(false);
         setOrdenes(
           ordenes.map((orden) =>
