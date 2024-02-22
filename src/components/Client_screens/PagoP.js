@@ -197,7 +197,12 @@ function PagoP() {
       );
 
       if (response.ok) {
-        alert("Pago procesado");
+        Swal.fire({
+          icon: 'success',
+          title: '¡Pago procesado!',
+          text: 'El pago ha sido procesado correctamente',
+          confirmButtonText: 'Ok'
+        });
         setOrdenId(responseOrdenData._id);
         setMostrarPopupGracias(true); // Mostramos el pop-up de agradecimiento
 
@@ -260,7 +265,12 @@ function PagoP() {
           });
         }
       } else {
-        alert("Error en el pago(No pudo ser Procesado)");
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al pagar',
+          text: 'No se pudo procesar el pago',
+          confirmButtonText: 'Ok'
+        });
         console.log("Error al pagar: ", response);
         console.log(responseOrdenData._id);
         // Aquí manejas el caso en que el pago falló, eliminando la orden creada previamente
@@ -298,7 +308,12 @@ function PagoP() {
         }
       }
     } else {
-      alert("Error al crear orden");
+      Swal.fire({
+        icon: 'error',
+        title: 'Error al crear orden',
+        text: 'Ocurrio un error al crear la orden',
+        confirmButtonText: 'Ok'
+      });
     }
   };
 
@@ -359,15 +374,21 @@ function PagoP() {
       return false;
     }
     if (!numeroTarjetaRegex.test(numeroTarjeta)) {
-      alert(
-        "Datos Incorrectos en la tarjeta, el numero debe tener entre 13 y 18 numeros"
-      );
+      Swal.fire({
+        icon: 'warning',
+        title: 'Formato invalido',
+        text: 'Datos Incorrectos en la tarjeta, el numero debe tener entre 13 y 18 numeros',
+        confirmButtonText: 'Ok'
+      });
       return false;
     }
     if (!cvvRegex.test(cvv)) {
-      alert(
-        "Datos Incorrectos en el cvv, el numero debe tener entre 3 y 4 numeros"
-      );
+      Swal.fire({
+        icon: 'warning',
+        title: 'Formato invalido',
+        text: 'Datos Incorrectos en el cvv, el numero debe tener entre 3 y 4 numeros',
+        confirmButtonText: 'Ok'
+      });
     }
 
     return true;

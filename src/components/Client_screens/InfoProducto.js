@@ -150,8 +150,7 @@ function InfoAudifonos() {
     } catch (error) {
       console.log("Error: ", error);
       Swal.fire({
-        icon: 'error',
-        title: 'Error',
+        icon: 'warning',
         text: 'No se pudo agregar el producto a al carrito.',
         text: 'Revisa si ya lo habias agregado anteriormente',
         confirmButtonText: 'Ok'
