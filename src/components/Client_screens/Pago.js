@@ -18,7 +18,8 @@ function Pago() {
   const [ordenId, setOrdenId] = useState("");
   const [ordenEnProceso, setOrdenEnProceso] = useState(false);
   const [correo, setCorreo] = useState("");
-
+  const [entrega,setEntrega]= useState("");
+  const [departamento,setDepartamento]=useState("");
   const crearOrden = async () => {
     const detalles = localStorage.getItem("entregaID");
     const fecha = new Date();
@@ -167,7 +168,6 @@ function Pago() {
       );
 
       const detalles = await responseDetalles.json();
-
       const fechaExpTokens = exp.split("/");
       const fechaExp = fechaExpTokens[0] + fechaExpTokens[1];
 
@@ -332,6 +332,7 @@ function Pago() {
 
   const handlePagoEfectivo = () => {
     setMostrarPopup(true);
+
   };
 
   const mostrarPopupGraciasComponente = () =>
@@ -356,7 +357,22 @@ function Pago() {
   const cancelarPagoEfectivo = () => {
     setMostrarPopup(false);
   };
-
+const obtenerDetalles=async()=>{
+  const responseDetalles = await fetch(
+    `https://importasia-api.onrender.com/obtenerEntrega?_id=${localStorage.getItem("entregaID")}`
+  );
+  const datos = await responseDetalles.json();
+  if (!responseDetalles.ok) {
+    throw new Error('Hubo un error en la solicitud');
+  }
+  setDepartamento(datos[0].departamento);
+  if(departamento=="FranciscoMorazan"){
+    setEntrega(70);
+  }else{
+    setEntrega(350);
+  }
+};
+;
   const PopupPagoEfectivo = () => (
     <div className="popup">
       <div className="popup-inner">
@@ -522,10 +538,12 @@ function Pago() {
 
     fetchCarrito();
   }, []);
-
+  obtenerDetalles();
   const calcularTotal = () => {
+    
     return productos.reduce((total, producto) => {
-      return total + producto.cantidad * producto.Precio;
+      
+      return total + (producto.cantidad * producto.Precio);
     }, 0);
   };
   return (
@@ -549,7 +567,8 @@ function Pago() {
           </div>
         ))}
       </div>
-      <h5>Total de la Orden: L {calcularTotal()}.00</h5>
+      <h5> Total de la entrega: L {entrega}.00 </h5>
+      <h5>Total de la Orden: L {calcularTotal()+entrega}.00</h5>
       <div style={{ marginTop: "70px" }} />
       <h2>Pantalla de Pago</h2>
       <div className="botones-container">
