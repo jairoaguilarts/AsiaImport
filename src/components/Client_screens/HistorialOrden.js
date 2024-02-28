@@ -13,20 +13,22 @@ function HistorialPago() {
     useEffect(() => {
         const obtenerOrdenes = async () => {
             try {
-                const response = await fetch
-                    (`https://importasia-api.onrender.com/ordenesUsuario?firebaseUID=${firebaseUID}`);
+                const response = await fetch(`https://importasia-api.onrender.com/ordenesUsuario?firebaseUID=${firebaseUID}`);
                 if (!response.ok) {
                     throw new Error('Error al obtener las Órdenes');
                 }
                 const data = await response.json();
-                setOrdenes(data);
+                // Ordenar las ordenes por fecha más reciente
+                const ordenesOrdenadas = data.sort((a, b) => new Date(b.detalles.fecha_ingreso) - new Date(a.detalles.fecha_ingreso));
+                setOrdenes(ordenesOrdenadas);
             } catch (error) {
                 console.error("Error al cargar ordenes", error);
             }
         }
-
+    
         obtenerOrdenes();
     }, []);
+    
 
     const mostrarPopUp = async (orden) => {
         setSingleOrden(orden);
