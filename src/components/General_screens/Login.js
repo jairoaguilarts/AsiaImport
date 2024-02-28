@@ -276,7 +276,7 @@ function Login() {
       const UserType = userData.usuario.userType;
       localStorage.setItem("userType", UserType);
 
-      if (UserType === "*") {
+      if (UserType === "*"||UserType === "+") {
         localStorage.setItem("IsAdmin", true);
         navigate("/adminGeneral");
         window.location.reload();

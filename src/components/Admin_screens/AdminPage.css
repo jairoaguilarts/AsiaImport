@@ -98,3 +98,7 @@ a:active {
   color: inherit;
   text-decoration: none;
 }
+.sidebar-item.blocked {
+  pointer-events: none; /* Evita que se pueda hacer clic */
+  opacity: 0.5; /* Cambia el aspecto visual para indicar que está deshabilitado */
+}
