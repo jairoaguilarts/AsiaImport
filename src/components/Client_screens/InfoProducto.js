@@ -34,11 +34,15 @@ function InfoAudifonos() {
   const [sum, setSum] = useState(0);
 
   const [resenas, setResenas] = useState([]);
+  const [filtroCalificacion, setFiltroCalificacion] = useState('Cualquiera');
+  const [resenasActuales, setResenasActuales] = useState([]);
+
   const [currentPage, setCurrentPage] = useState(1);
-  const reseñasPorPagina = 3; // Definir el número de reseñas por página
+  const reseñasPorPagina = 3;
   const indexOfLastReview = currentPage * reseñasPorPagina;
   const indexOfFirstReview = indexOfLastReview - reseñasPorPagina;
-  const currentReviews = resenas.slice(indexOfFirstReview, indexOfLastReview);
+  const currentReviews = resenasActuales.slice(indexOfFirstReview, indexOfLastReview);
+
   const fetchResenas = async () => {
     try {
       const response = await fetch(`https://importasia-api.onrender.com/cargarResenas?Modelo=${modelo}`);
@@ -64,7 +68,6 @@ function InfoAudifonos() {
     }
   }, [resenas]);
 
-
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -84,6 +87,23 @@ function InfoAudifonos() {
     fetchResenas();
     fetchProduct();
   }, []);
+
+  useEffect(() => {
+    filtrarResenas();
+  }, [filtroCalificacion, resenas]);
+
+  const filtrarResenas = () => {
+    if (filtroCalificacion === 'Cualquiera') {
+      setResenasActuales(resenas);
+    } else {
+      const reviewsFiltradas = resenas.filter(resena => resena.Calificacion === filtroCalificacion);
+      setResenasActuales(reviewsFiltradas);
+    }
+  };
+
+  const handleChangeFiltro = (event) => {
+    setFiltroCalificacion(event.target.value);
+  };
 
   const handleAgregarResena = async () => {
     const userFirebaseUID = localStorage.getItem("FireBaseUID");
@@ -162,7 +182,7 @@ function InfoAudifonos() {
       firebaseUID: localStorage.getItem("FireBaseUID"),
       Modelo: modeloAgregar,
     };
-  
+
     try {
       const response = await fetch(
         "https://importasia-api.onrender.com/agregarFavoritos",
@@ -174,7 +194,7 @@ function InfoAudifonos() {
           body: JSON.stringify(datos),
         }
       );
-  
+
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(`Error: ${errorData.message || response.status}`);
@@ -228,8 +248,8 @@ function InfoAudifonos() {
               <button className="btn-cart2" onClick={() => handleAgregar()}>
                 AÑADIR AL CARRITO
               </button>
-              <button className="btn-favorite2" onClick={() =>handleAgregarFavoritos(producto.Modelo)}>
-              AGREGAR A FAVORITOS
+              <button className="btn-favorite2" onClick={() => handleAgregarFavoritos(producto.Modelo)}>
+                AGREGAR A FAVORITOS
               </button>
             </div>
           </div>
@@ -316,8 +336,23 @@ function InfoAudifonos() {
           </>
         )}
       </div>
+      <div className="filtro-reseñas-container">
+        <label htmlFor="filtroCalificacion">Filtro Calificación</label>
+        <select
+          className="filtro-reseñas-select"
+          value={filtroCalificacion}
+          onChange={handleChangeFiltro}
+        >
+          <option value="Cualquiera">Todas</option>
+          <option value="1">{'★'.repeat(1)}{'☆'.repeat(5 - 1)}</option>
+          <option value="2">{'★'.repeat(2)}{'☆'.repeat(5 - 2)}</option>
+          <option value="3">{'★'.repeat(3)}{'☆'.repeat(5 - 3)}</option>
+          <option value="4">{'★'.repeat(4)}{'☆'.repeat(5 - 4)}</option>
+          <option value="5">{'★'.repeat(5)}{'☆'.repeat(5 - 5)}</option>
+        </select>
+      </div>
       <div className="resenas-container">
-        {resenas.length > 0 ? (
+        {resenasActuales.length > 0 ? (
           currentReviews.map((resena, index) => (
             <div key={index} className="resena">
               <div className="resena-usuario">
@@ -342,7 +377,7 @@ function InfoAudifonos() {
       </div>
       <Pagination
         productsPerPage={reseñasPorPagina}
-        totalProducts={resenas.length}
+        totalProducts={resenasActuales.length}
         paginate={setCurrentPage}
         currentPage={currentPage}
       />

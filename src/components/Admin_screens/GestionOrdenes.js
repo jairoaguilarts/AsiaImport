@@ -84,7 +84,6 @@ const GestionOrdenes = () => {
         throw response;
       })
       .then((data) => {
-        // Asegúrate de que la fecha de ingreso esté en un formato adecuado para comparar
         const ordenesOrdenadas = data.sort((a, b) => new Date(b.detalles.fecha_ingreso) - new Date(a.detalles.fecha_ingreso));
         setOrdenes(ordenesOrdenadas);
       })
