@@ -164,10 +164,6 @@ function ProcederCompra() {
     label: "Seleccione un municipio",
   });
 
-  const [totalCarrito, setTotalCarrito] = useState(0);
-  const [isDelivered, setIsDelivered] = useState(false);
-  const [cargando, setCargando] = useState(true);
-
   // Suponiendo que tienes alguna forma de obtener el ID del usuario actual
   const id_usuario = firebaseUID;
 
@@ -181,38 +177,18 @@ function ProcederCompra() {
   };
 
   useEffect(() => {
-    const obtenerCarrito = async () => {
-      try {
-        const response = await fetch(`https://importasia-api.onrender.com/obtenerTotalCompra?firebaseUID=${firebaseUID}`);
-        if (response.ok) {
-          const data = await response.json();
-          setTotalCarrito(data.total);
-        } else {
-          console.error("Respuesta no exitosa:", response);
-        }
-      } catch (error) {
-        console.error("Error al obtener el total del carrito:", error);
-      }
-    };
-
-    obtenerCarrito();
-    if (totalCarrito > 499) {
-      setIsDelivered(true);
-      cargarDirecciones();
-    }
-  }, [totalCarrito]);
+    cargarDirecciones();
+  }, []);
 
   useEffect(() => {
     const municipios =
       municipiosPorDepartamento[departamentoSeleccionado.value] || [];
     setMunicipiosDisponibles(municipios);
-    // Resetear la selección de municipio cada vez que cambia el departamento
     setMunicipioSeleccionado({ value: "", label: "Seleccione un municipio" });
   }, [departamentoSeleccionado]);
 
   const handleMunicipioChange = (selectedOption) => {
     setMunicipioSeleccionado(selectedOption);
-    // También debes actualizar el estado del municipio aquí, si tienes un estado separado para ello
     setMunicipio(selectedOption.value);
   };
 
@@ -228,7 +204,14 @@ function ProcederCompra() {
             label: direccion.departamento,
           });
           setDepartamento(direccion.departamento);
-          setMunicipio(direccion.municipio);
+
+          const municipioActualizado = {
+            value: direccion.municipio,
+            label: direccion.municipio, 
+          };
+          setMunicipioSeleccionado(municipioActualizado); 
+          setMunicipio(direccion.municipio); 
+
           setDireccion(direccion.direccion);
           setPuntoReferencia(direccion.puntoReferencia);
           setNumeroTelefono(direccion.numeroTelefono);
@@ -587,213 +570,210 @@ function ProcederCompra() {
     { value: "Yoro", label: "Yoro" },
   ];
   return (
-    <>
-      <div className="ProcederCompra">
-        <div className="button-container">
-          {isDelivered &&
-            <button
-              onClick={handleDeliveryClick}
-              className={`botones delivery ${isDeliverySelected ? "selected" : ""}`}
-            >
-              <p>Enviar a la Direccion</p>
-            </button>
-          }
-          <button
-            onClick={handlePickupClick}
-            className={`botones pick-up ${!isDeliverySelected ? "selected" : ""}`}
-          >
-            <p>Recoger en tienda</p>
-          </button>
-        </div>
-        {isDeliverySelected && isDelivered ? (
-          <>
-            <div className="card-container">
-              {direcciones.map((direccion) => {
-                return (
-                  <div key={direccion._id} className="card-direcciones">
-                    <button
-                      class="bin-button"
-                      onClick={() => handleEliminarDireccion(direccion._id)}
-                    >
-                      <svg
-                        class="bin-top"
-                        viewBox="0 0 39 7"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <line
-                          y1="5"
-                          x2="39"
-                          y2="5"
-                          stroke="white"
-                          stroke-width="4"
-                        ></line>
-                        <line
-                          x1="12"
-                          y1="1.5"
-                          x2="26.0357"
-                          y2="1.5"
-                          stroke="white"
-                          stroke-width="3"
-                        ></line>
-                      </svg>
-                      <svg
-                        class="bin-bottom"
-                        viewBox="0 0 33 39"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <mask id="path-1-inside-1_8_19" fill="white">
-                          <path d="M0 0H33V35C33 37.2091 31.2091 39 29 39H4C1.79086 39 0 37.2091 0 35V0Z"></path>
-                        </mask>
-                        <path
-                          d="M0 0H33H0ZM37 35C37 39.4183 33.4183 43 29 43H4C-0.418278 43 -4 39.4183 -4 35H4H29H37ZM4 43C-0.418278 43 -4 39.4183 -4 35V0H4V35V43ZM37 0V35C37 39.4183 33.4183 43 29 43V35V0H37Z"
-                          fill="black"
-                          mask="url(#path-1-inside-1_8_19)"
-                        ></path>
-                        <path
-                          d="M12 6L12 29"
-                          stroke="black"
-                          stroke-width="4"
-                        ></path>
-                        <path d="M21 6V29" stroke="black" stroke-width="4"></path>
-                      </svg>
-                    </button>
-
-                    <p className="heading-direcciones">
-                      {direccion.departamento}
-                    </p>
-                    <p className="para-direcciones">{direccion.direccion}</p>
-                    <div className="overlay-direcciones"></div>
-                    <button
-                      className="card-btn-direcciones"
-                      onClick={() => handleSeleccionarDireccion(direccion._id)}
-                    >
-                      Seleccionar
-                    </button>
-                  </div>
-                );
-              })}
-              <div className="card-direcciones">
-                <p className="heading-direcciones">Agregar Direccion</p>
-                <p className="para-direcciones">+</p>
-                <div className="overlay-direcciones"></div>
-                <button
-                  className="card-btn-direcciones"
-                  onClick={handleLimpiarCampos}
-                >
-                  Seleccionar
-                </button>
-              </div>
-            </div>
-            {/* Contenido de los departamentos */}
-            <div className="forms-container">
-              <form className="contenedores">
-                <p>Departamento</p>
-                <Select
-                  id="departamento"
-                  name="departamento"
-                  value={departamentoSeleccionado}
-                  onChange={handleDepartamentoChange}
-                  options={[opcionInicialDepartamento, ...options]}
-                  isSearchable
-                  placeholder="Seleccione una opción"
-                  className="select-with-scroll"
-                />
-              </form>
-
-              {/* Contenido de los Municipios */}
-              <p>Municipio</p>
-              <Select
-                id="municipio"
-                value={municipioSeleccionado}
-                onChange={handleMunicipioChange} // Asegúrate de usar esta función para manejar cambios
-                options={municipiosDisponibles}
-                placeholder="Seleccione un municipio"
-              />
-              <p>Direccion</p>
-              <Form.Control
-                id="direccion"
-                className="contenedores"
-                type="text"
-                placeholder="Ingrese una Dirección"
-                value={direccion}
-                onChange={(e) => setDireccion(e.target.value)}
-              />
-              <p>Punto de Referencia</p>
-              <Form.Control
-                id="puntoReferencia"
-                className="contenedores"
-                type="text"
-                placeholder="Ingrese un Punto de Referencia"
-                value={puntoreferencia}
-                onChange={(e) => setPuntoReferencia(e.target.value)}
-              />
-              <p>Numero de telefono</p>
-              <Form.Control
-                id="numeroTelefono"
-                className="contenedores"
-                type="text"
-                placeholder="Ingrese un Número de Teléfono"
-                value={numerotelefono}
-                onChange={(e) => setNumeroTelefono(e.target.value)}
-              />
-              {isAgregarDireccionSelected ? (
-                <>
+    <div className="ProcederCompra">
+      <div className="button-container">
+        <button
+          onClick={handleDeliveryClick}
+          className={`botones delivery ${isDeliverySelected ? "selected" : ""}`}
+        >
+          <p>Enviar a la Direccion</p>
+        </button>
+        <button
+          onClick={handlePickupClick}
+          className={`botones pick-up ${!isDeliverySelected ? "selected" : ""}`}
+        >
+          <p>Recoger en tienda</p>
+        </button>
+      </div>
+      {isDeliverySelected ? (
+        <>
+          <div className="card-container">
+            {direcciones.map((direccion) => {
+              return (
+                <div key={direccion._id} className="card-direcciones">
                   <button
-                    className="boton-siguiente"
-                    onClick={handleAgregarDireccion}
+                    class="bin-button"
+                    onClick={() => handleEliminarDireccion(direccion._id)}
                   >
-                    <p>Agregar Direccion</p>
+                    <svg
+                      class="bin-top"
+                      viewBox="0 0 39 7"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <line
+                        y1="5"
+                        x2="39"
+                        y2="5"
+                        stroke="white"
+                        stroke-width="4"
+                      ></line>
+                      <line
+                        x1="12"
+                        y1="1.5"
+                        x2="26.0357"
+                        y2="1.5"
+                        stroke="white"
+                        stroke-width="3"
+                      ></line>
+                    </svg>
+                    <svg
+                      class="bin-bottom"
+                      viewBox="0 0 33 39"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <mask id="path-1-inside-1_8_19" fill="white">
+                        <path d="M0 0H33V35C33 37.2091 31.2091 39 29 39H4C1.79086 39 0 37.2091 0 35V0Z"></path>
+                      </mask>
+                      <path
+                        d="M0 0H33H0ZM37 35C37 39.4183 33.4183 43 29 43H4C-0.418278 43 -4 39.4183 -4 35H4H29H37ZM4 43C-0.418278 43 -4 39.4183 -4 35V0H4V35V43ZM37 0V35C37 39.4183 33.4183 43 29 43V35V0H37Z"
+                        fill="black"
+                        mask="url(#path-1-inside-1_8_19)"
+                      ></path>
+                      <path
+                        d="M12 6L12 29"
+                        stroke="black"
+                        stroke-width="4"
+                      ></path>
+                      <path d="M21 6V29" stroke="black" stroke-width="4"></path>
+                    </svg>
                   </button>
-                </>
-              ) : (
-                <>
-                  <button className="boton-siguiente" onClick={Procederpago}>
-                    <p>Siguiente</p>
-                  </button>
-                </>
-              )}
-            </div>
-          </>
-        ) : (
-          <>
-            <div className="forms-container">
-              {/* Contenido de PickUp */}
-              <p>Nombre de la persona que Recoge</p>
-              <Form.Control
-                className="contenedores"
-                type="text"
-                placeholder="Ingrese un Nombre"
-                value={nombreUsuario}
-                onChange={(e) => setNombreUsuario(e.target.value)}
-              />
-              <p>Numero de Identidad de la Persona que Recoge</p>
-              <Form.Control
-                className="contenedores"
-                type="text"
-                placeholder="Ingrese un Numero de Identidad "
-                value={identidadUser}
-                onChange={(e) => setIdentidadUser(e.target.value)}
-              />
-              <p>Numero de Telefono</p>
-              <Form.Control
-                className="contenedores"
-                type="text"
-                placeholder="Ingrese un Numero"
-                value={numerotelefono}
-                onChange={(e) => setNumeroTelefono(e.target.value)}
-              />
 
-              <button className="boton-siguiente" onClick={ProcederpagoP}>
-                <p>Siguiente</p>
+                  <p className="heading-direcciones">
+                    {direccion.departamento}
+                  </p>
+                  <p className="para-direcciones">{direccion.direccion}</p>
+                  <div className="overlay-direcciones"></div>
+                  <button
+                    className="card-btn-direcciones"
+                    onClick={() => handleSeleccionarDireccion(direccion._id)}
+                  >
+                    Seleccionar
+                  </button>
+                </div>
+              );
+            })}
+            <div className="card-direcciones">
+              <p className="heading-direcciones">Agregar Direccion</p>
+              <p className="para-direcciones">+</p>
+              <div className="overlay-direcciones"></div>
+              <button
+                className="card-btn-direcciones"
+                onClick={handleLimpiarCampos}
+              >
+                Seleccionar
               </button>
             </div>
-          </>
-        )}
-      </div>
-    </>
+          </div>
+          {/* Contenido de los departamentos */}
+          <div className="forms-container">
+            <form className="contenedores">
+              <p>Departamento</p>
+              <Select
+                id="departamento"
+                name="departamento"
+                value={departamentoSeleccionado}
+                onChange={handleDepartamentoChange}
+                options={[opcionInicialDepartamento, ...options]}
+                isSearchable
+                placeholder="Seleccione una opción"
+                className="select-with-scroll"
+              />
+            </form>
+
+            {/* Contenido de los Municipios */}
+            <p>Municipio</p>
+            <Select
+              id="municipio"
+              value={municipioSeleccionado}
+              onChange={handleMunicipioChange} // Asegúrate de usar esta función para manejar cambios
+              options={municipiosDisponibles}
+              placeholder="Seleccione un municipio"
+            />
+            <p>Direccion</p>
+            <Form.Control
+              id="direccion"
+              className="contenedores"
+              type="text"
+              placeholder="Ingrese una Dirección"
+              value={direccion}
+              onChange={(e) => setDireccion(e.target.value)}
+            />
+            <p>Punto de Referencia</p>
+            <Form.Control
+              id="puntoReferencia"
+              className="contenedores"
+              type="text"
+              placeholder="Ingrese un Punto de Referencia"
+              value={puntoreferencia}
+              onChange={(e) => setPuntoReferencia(e.target.value)}
+            />
+            <p>Numero de telefono</p>
+            <Form.Control
+              id="numeroTelefono"
+              className="contenedores"
+              type="text"
+              placeholder="Ingrese un Número de Teléfono"
+              value={numerotelefono}
+              onChange={(e) => setNumeroTelefono(e.target.value)}
+            />
+            {isAgregarDireccionSelected ? (
+              <>
+                <button
+                  className="boton-siguiente"
+                  onClick={handleAgregarDireccion}
+                >
+                  <p>Agregar Direccion</p>
+                </button>
+              </>
+            ) : (
+              <>
+                <button className="boton-siguiente" onClick={Procederpago}>
+                  <p>Siguiente</p>
+                </button>
+              </>
+            )}
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="forms-container">
+            {/* Contenido de PickUp */}
+            <p>Nombre de la persona que Recoge</p>
+            <Form.Control
+              className="contenedores"
+              type="text"
+              placeholder="Ingrese un Nombre"
+              value={nombreUsuario}
+              onChange={(e) => setNombreUsuario(e.target.value)}
+            />
+            <p>Numero de Identidad de la Persona que Recoge</p>
+            <Form.Control
+              className="contenedores"
+              type="text"
+              placeholder="Ingrese un Numero de Identidad "
+              value={identidadUser}
+              onChange={(e) => setIdentidadUser(e.target.value)}
+            />
+            <p>Numero de Telefono</p>
+            <Form.Control
+              className="contenedores"
+              type="text"
+              placeholder="Ingrese un Numero"
+              value={numerotelefono}
+              onChange={(e) => setNumeroTelefono(e.target.value)}
+            />
+
+            <button className="boton-siguiente" onClick={ProcederpagoP}>
+              <p>Siguiente</p>
+            </button>
+          </div>
+        </>
+      )}
+    </div>
   );
 }
 
 export default ProcederCompra;
+
