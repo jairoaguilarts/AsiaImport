@@ -36,23 +36,35 @@ const GestionOrdenes = () => {
         const detalles = orden.detalles || {};
 
         // Revisa si algún campo de la orden coincide con el término de búsqueda
-        const coincide = orden._id?.toLowerCase().includes(busquedaEnMinusculas) ||
+        const coincide =
+          orden._id?.toLowerCase().includes(busquedaEnMinusculas) ||
           orden.tipoOrden?.toLowerCase().includes(busquedaEnMinusculas) ||
           orden.estadoOrden?.toLowerCase().includes(busquedaEnMinusculas) ||
-          detalles.numerotelefono?.toLowerCase().includes(busquedaEnMinusculas) ||
+          detalles.numerotelefono
+            ?.toLowerCase()
+            .includes(busquedaEnMinusculas) ||
           detalles.departamento?.toLowerCase().includes(busquedaEnMinusculas) ||
           detalles.municipio?.toLowerCase().includes(busquedaEnMinusculas) ||
           detalles.direccion?.toLowerCase().includes(busquedaEnMinusculas) ||
-          detalles.puntoreferencia?.toLowerCase().includes(busquedaEnMinusculas) ||
-          detalles.numerotelefono?.toLowerCase().includes(busquedaEnMinusculas) ||
+          detalles.puntoreferencia
+            ?.toLowerCase()
+            .includes(busquedaEnMinusculas) ||
+          detalles.numerotelefono
+            ?.toLowerCase()
+            .includes(busquedaEnMinusculas) ||
           orden.nombre_usuario?.toLowerCase().includes(busquedaEnMinusculas) ||
-          detalles.fecha_ingreso?.toLowerCase().includes(busquedaEnMinusculas) ||
-          detalles.identidadUsuario?.toLowerCase().includes(busquedaEnMinusculas) ||
+          detalles.fecha_ingreso
+            ?.toLowerCase()
+            .includes(busquedaEnMinusculas) ||
+          detalles.identidadUsuario
+            ?.toLowerCase()
+            .includes(busquedaEnMinusculas) ||
           orden.estadoPago?.toLowerCase().includes(busquedaEnMinusculas);
 
         // Asumiendo que `carrito` es un array que puede contener strings u objetos con un campo 'nombreArticulo'
         const articulosEnCarrito = orden.carrito?.some((item) => {
-          const nombreArticulo = typeof item === 'string' ? item : item.nombreArticulo;
+          const nombreArticulo =
+            typeof item === "string" ? item : item.nombreArticulo;
           return nombreArticulo?.toLowerCase().includes(busquedaEnMinusculas);
         });
 
@@ -66,7 +78,6 @@ const GestionOrdenes = () => {
 
     setOrdenesFiltradas(ordenesTemp);
   };
-
 
   useEffect(() => {
     setOrdenesFiltradas(ordenes);
@@ -101,23 +112,37 @@ const GestionOrdenes = () => {
           <h3>Detalles de la Orden</h3>
           <hr></hr>
           <ul>
-            <li>ID_Orden: {ordenDetalle._id}</li>
+            <li>ID_Orden: {ordenDetalle.ordenId}</li>
             <li>Tipo: {ordenDetalle.tipoOrden}</li>
             {ordenDetalle.tipoOrden === "delivery" && (
               <>
                 <li>Departamento: {ordenDetalle.detalles.departamento}</li>
                 <li>Municipio: {ordenDetalle.detalles.municipio}</li>
                 <li>Dirección: {ordenDetalle.detalles.direccion}</li>
-                <li>Punto de Referencia: {ordenDetalle.detalles.puntoreferencia}</li>
+                <li>
+                  Punto de Referencia: {ordenDetalle.detalles.puntoreferencia}
+                </li>
               </>
             )}
             <li>Teléfono: {ordenDetalle.detalles.numerotelefono}</li>
             <li>Nombre de Usuario: {ordenDetalle.nombre_usuario}</li>
             {ordenDetalle.tipoOrden === "pickup" && (
-              <li>Identidad de Usuario: {ordenDetalle.detalles.identidadUsuario}</li>
+              <li>
+                Identidad de Usuario: {ordenDetalle.detalles.identidadUsuario}
+              </li>
             )}
-            <li>Fecha: {new Date(ordenDetalle.detalles.fecha_ingreso).toLocaleDateString()}</li>
-            <li>Estado: <span className={getEstadoClass(ordenDetalle.estadoOrden)}>{ordenDetalle.estadoOrden}</span></li>
+            <li>
+              Fecha:{" "}
+              {new Date(
+                ordenDetalle.detalles.fecha_ingreso
+              ).toLocaleDateString()}
+            </li>
+            <li>
+              Estado:{" "}
+              <span className={getEstadoClass(ordenDetalle.estadoOrden)}>
+                {ordenDetalle.estadoOrden}
+              </span>
+            </li>
             <li>Estado Pago: {ordenDetalle.estadoPago}</li>
           </ul>
           <div>
@@ -142,7 +167,12 @@ const GestionOrdenes = () => {
           <div>
             <strong>Total de la Orden:{ordenDetalle.total}</strong>
           </div>
-          <button className="button-detalle3" onClick={() => setIsDetallePopupVisible(false)}>Cerrar</button>
+          <button
+            className="button-detalle3"
+            onClick={() => setIsDetallePopupVisible(false)}
+          >
+            Cerrar
+          </button>
         </div>
       </div>
     );
@@ -294,7 +324,10 @@ const GestionOrdenes = () => {
   // Lógica para obtener las órdenes actuales según la página
   const indexOfLastOrder = currentPage * ordersPerPage;
   const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
-  const currentOrders = ordenesFiltradas.slice(indexOfFirstOrder, indexOfLastOrder);
+  const currentOrders = ordenesFiltradas.slice(
+    indexOfFirstOrder,
+    indexOfLastOrder
+  );
 
   return (
     <div>
@@ -341,7 +374,7 @@ const GestionOrdenes = () => {
           <tbody>
             {currentOrders.map((orden) => (
               <tr key={orden._id}>
-                <td>{orden._id}</td>
+                <td>{orden.ordenId}</td>
                 <td>{orden.tipoOrden}</td>
                 <td>{orden.detalles ? obtenerDetalles(orden) : "N/A"}</td>
                 <td className={getEstadoClass(orden.estadoOrden)}>

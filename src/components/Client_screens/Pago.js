@@ -22,8 +22,8 @@ function Pago() {
   const crearOrden = async () => {
     const detalles = localStorage.getItem("entregaID");
     const fecha = new Date();
-    const Fecha = `${fecha.getDate()}/${fecha.getMonth() + 1
-      }/${fecha.getFullYear()}`;
+    const Fecha = `${fecha.getDate()}/${fecha.getMonth() +
+      1}/${fecha.getFullYear()}`;
 
     const dataOrden = {
       firebaseUID,
@@ -49,9 +49,11 @@ function Pago() {
       }
 
       const responseOrdenData = await responseOrden.json();
-
+      setOrdenId("ORD-" + responseOrdenData._id.slice(-4));
+      const idOrden = "ORD-" + responseOrdenData._id.slice(-4);
+      console.log("Orden Id: " + idOrden);
       const formData = {
-        _orderId: responseOrdenData._id,
+        _orderId: idOrden,
         tipoOrden: "Delivery",
         Fecha: new Date().toISOString(),
         carrito: responseOrdenData.carrito,
@@ -71,6 +73,26 @@ function Pago() {
         requestOptions
       );
 
+      try {
+        const nuevoId = await fetch(
+          `https://importasia-api.onrender.com/ordenId`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              _id: responseOrdenData._id,
+              ordenId: idOrden,
+            }),
+          }
+        );
+        if (!nuevoId.ok) {
+          throw new Error(`Error: ${responseOrden.status}`);
+        }
+      } catch (error) {
+        console.error("Error al cambiar el id: ", error);
+      }
       if (!mandarOrden.ok) {
         const errorMessage = await mandarOrden.text();
         throw new Error(errorMessage);
@@ -78,7 +100,6 @@ function Pago() {
 
       console.log("Orden enviada al correo con éxito.");
 
-      setOrdenId(responseOrdenData._id);
       const userActualizacion = {
         carritoCompras: [],
         cantidadCarrito: [],
@@ -138,8 +159,8 @@ function Pago() {
 
     const detalles = localStorage.getItem("entregaID");
     const fecha = new Date();
-    const Fecha = `${fecha.getDate()}/${fecha.getMonth() + 1
-      }/${fecha.getFullYear()}`;
+    const Fecha = `${fecha.getDate()}/${fecha.getMonth() +
+      1}/${fecha.getFullYear()}`;
 
     const dataOrden = {
       firebaseUID,
@@ -170,7 +191,8 @@ function Pago() {
 
       const fechaExpTokens = exp.split("/");
       const fechaExp = fechaExpTokens[0] + fechaExpTokens[1];
-
+      const idOrden = "ORD-" + responseOrdenData._id.slice(-4);
+      setOrdenId("ORD-" + responseOrdenData._id.slice(-4));
       const dataPago = {
         customer_name: responseOrdenData.nombre_usuario,
         card_number: numeroTarjeta,
@@ -183,7 +205,7 @@ function Pago() {
         billing_country: "HN",
         billing_state: "HN-FM",
         billing_phone: detalles[0].numerotelefono,
-        order_id: responseOrdenData._id,
+        order_id: idOrden,
         order_currency: "HNL",
         order_amount: "1",
         env: "sandbox",
@@ -209,7 +231,8 @@ function Pago() {
           title: "¡Éxito!",
           text: "Pago procesado",
         });
-        const responseReduce = await fetch('https://importasia-api.onrender.com/reducirCantidades',
+        const responseReduce = await fetch(
+          "https://importasia-api.onrender.com/reducirCantidades",
           {
             method: "POST",
             headers: {
@@ -219,7 +242,6 @@ function Pago() {
           }
         );
         if (responseReduce.ok) {
-          setOrdenId(responseOrdenData._id);
           setMostrarPopupGracias(true);
 
           const userActualizacion = {
@@ -240,7 +262,7 @@ function Pago() {
           );
 
           const formData = {
-            _orderId: responseOrdenData._id,
+            _orderId: idOrden,
             tipoOrden: "Delivery",
             Fecha: new Date().toISOString(),
             carrito: responseOrdenData.carrito,
@@ -254,7 +276,26 @@ function Pago() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(formData),
           };
-
+          try {
+            const nuevoId = await fetch(
+              `https://importasia-api.onrender.com/ordenId`,
+              {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  _id: responseOrdenData._id,
+                  ordenId: idOrden,
+                }),
+              }
+            );
+            if (!nuevoId.ok) {
+              throw new Error(`Error: ${responseOrden.status}`);
+            }
+          } catch (error) {
+            console.error("Error al cambiar el id: ", error);
+          }
           try {
             const mandarOrden = await fetch(
               "https://importasia-api.onrender.com/send-orderDetails",

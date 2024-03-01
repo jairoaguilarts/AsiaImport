@@ -21,9 +21,8 @@ function PagoP() {
   const crearOrden = async () => {
     const detalles = localStorage.getItem("entregaID");
     const fecha = new Date();
-    const Fecha = `${fecha.getDate()}/${
-      fecha.getMonth() + 1
-    }/${fecha.getFullYear()}`;
+    const Fecha = `${fecha.getDate()}/${fecha.getMonth() +
+      1}/${fecha.getFullYear()}`;
 
     const dataOrden = {
       firebaseUID,
@@ -50,9 +49,10 @@ function PagoP() {
       }
 
       const responseOrdenData = await responseOrden.json();
-
+      setOrdenId("ORD-" + responseOrdenData._id.slice(-4));
+      const idOrden = "ORD-" + responseOrdenData._id.slice(-4);
       const formData = {
-        _orderId: responseOrdenData._id,
+        _orderId: idOrden,
         tipoOrden: "Pick-Up",
         Fecha: new Date().toISOString(),
         carrito: responseOrdenData.carrito,
@@ -60,6 +60,26 @@ function PagoP() {
         total: responseOrdenData.total,
         correo: responseOrdenData.correo,
       };
+      try {
+        const nuevoId = await fetch(
+          `https://importasia-api.onrender.com/ordenId`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              _id: responseOrdenData._id,
+              ordenId: idOrden,
+            }),
+          }
+        );
+        if (!nuevoId.ok) {
+          throw new Error(`Error: ${responseOrden.status}`);
+        }
+      } catch (error) {
+        console.error("Error al cambiar el id: ", error);
+      }
 
       const requestOptions = {
         method: "POST",
@@ -163,7 +183,8 @@ function PagoP() {
 
       const fechaExpTokens = exp.split("/");
       const fechaExp = fechaExpTokens[0] + fechaExpTokens[1];
-
+      setOrdenId("ORD-" + responseOrdenData._id.slice(-4));
+      const idOrden = "ORD-" + responseOrdenData._id.slice(-4);
       const dataPago = {
         customer_name: responseOrdenData.nombre_usuario,
         card_number: numeroTarjeta,
@@ -176,11 +197,31 @@ function PagoP() {
         billing_country: "HN",
         billing_state: "HN-FM",
         billing_phone: detalles[0].numerotelefono,
-        order_id: responseOrdenData._id,
+        order_id: idOrden,
         order_currency: "HNL",
         order_amount: "1",
         env: "sandbox",
       };
+      try {
+        const nuevoId = await fetch(
+          `https://importasia-api.onrender.com/ordenId`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              _id: responseOrdenData._id,
+              ordenId: idOrden,
+            }),
+          }
+        );
+        if (!nuevoId.ok) {
+          throw new Error(`Error: ${responseOrden.status}`);
+        }
+      } catch (error) {
+        console.error("Error al cambiar el id: ", error);
+      }
 
       const response = await fetch(
         `https://pixel-pay.com/api/v2/transaction/sale`,
@@ -198,7 +239,6 @@ function PagoP() {
 
       if (response.ok) {
         alert("Pago procesado");
-        setOrdenId(responseOrdenData._id);
         setMostrarPopupGracias(true); // Mostramos el pop-up de agradecimiento
 
         const userActualizacion = {
@@ -219,7 +259,7 @@ function PagoP() {
         );
 
         const formData = {
-          _orderId: responseOrdenData._id,
+          _orderId: idOrden,
           tipoOrden: "Delivery",
           Fecha: new Date().toISOString(),
           carrito: responseOrdenData.carrito,
@@ -354,7 +394,8 @@ function PagoP() {
       Swal.fire({
         icon: "error",
         title: "Datos Inválidos",
-        text: "Datos incorrectos en nombre o apellido. Solo se permiten letras.",
+        text:
+          "Datos incorrectos en nombre o apellido. Solo se permiten letras.",
       });
       return false;
     }
