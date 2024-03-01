@@ -164,9 +164,9 @@ const GestionOrdenes = () => {
               ))}
             </tbody>
           </table>
-          <div>
-            <strong>Total de la Orden:{ordenDetalle.total}</strong>
-          </div>
+          <div>Total de la Orden: ${ordenDetalle.total.toFixed(2)}{" "}
+{ordenDetalle.total % 1 === 0 ? ".00" : ""}</div>
+
           <button
             className="button-detalle3"
             onClick={() => setIsDetallePopupVisible(false)}
@@ -297,26 +297,27 @@ const GestionOrdenes = () => {
       });
   };
 
-  const obtenerDetalles = (orden) => {
-    if (orden.tipoOrden === "pickup") {
-      return (
-        <>
-          <div>Nombre: {orden.detalles.nombreUsuario || "N/A"}</div>
-          <div>Identidad: {orden.detalles.identidadUsuario || "N/A"}</div>
-          <div>Teléfono: {orden.detalles.numerotelefono || "N/A"}</div>
-        </>
-      );
-    } else if (orden.tipoOrden === "delivery") {
-      return (
-        <>
-          <div>Departamento: {orden.detalles.departamento || "N/A"}</div>
-          <div>Municipio: {orden.detalles.municipio || "N/A"}</div>
-          <div>Dirección: {orden.detalles.direccion || "N/A"}</div>
-        </>
-      );
-    }
-    return <div>Detalles no disponibles</div>;
-  };
+  // Dentro de la función obtenerDetalles
+const obtenerDetalles = (orden) => {
+  if (orden.tipoOrden === "pickup") {
+    return (
+      <>
+        <div>Nombre: {orden.detalles.nombreUsuario || "N/A"}</div>
+        <div>Identidad: {orden.detalles.identidadUsuario || "N/A"}</div>
+        <div>Teléfono: {orden.detalles.numerotelefono || "N/A"}</div>
+      </>
+    );
+  } else if (orden.tipoOrden === "delivery") {
+    return (
+      <>
+        <div>Departamento: {orden.detalles.departamento || "N/A"}</div>
+        <div>Municipio: {orden.detalles.municipio || "N/A"}</div>
+        <div>Dirección: {orden.detalles.direccion || "N/A"}</div>
+      </>
+    );
+  }
+  return <div>Detalles no disponibles</div>;
+};
 
   // Función para manejar el cambio de página
   const paginate = (pageNumber) => setCurrentPage(pageNumber);

@@ -8,37 +8,31 @@ import admin from '../../assets/admin.png';
 import AdmiNav from './AdmiNav';
 
 function PGeneralAdmin() {
-    const [sumaTotalOrdenes, setSumaTotalOrdenes] = useState(0);
+    const [gananciasMensuales, setGananciasMensuales] = useState(0);
+    const [gananciasAnuales, setGananciasAnuales] = useState(0);
+    const [ventasTotales, setVentasTotales] = useState(0);
     const [conteoUsuarios, setConteoUsuarios] = useState({ empleados: 0, administradores: 0 });
 
     const baseURL = 'https://importasia-api.onrender.com';
 
-    const fetchSumaTotalOrdenes = async () => {
+    const fetchMetrics = async () => {
         try {
-            const response = await fetch(`${baseURL}/suma-total-ordenes`);
+            const response = await fetch(`${baseURL}/metrics`);
             const data = await response.json();
-            setSumaTotalOrdenes(data.sumaTotal);
-        } catch (error) {
-            console.error('Error al obtener la suma total de órdenes:', error);
-        }
-    };
-
-    const fetchConteoUsuarios = async () => {
-        try {
-            const response = await fetch(`${baseURL}/conteo-usuarios`);
-            const data = await response.json();
+            setGananciasMensuales(data.gananciasMensuales);
+            setGananciasAnuales(data.gananciasAnuales);
+            setVentasTotales(data.ventasTotales);
             setConteoUsuarios({
-                empleados: parseInt(data['+'], 10),
-                administradores: parseInt(data['*'], 10)
+                empleados: parseInt(data.empleados, 10),
+                administradores: parseInt(data.administradores, 10)
             });
         } catch (error) {
-            console.error('Error al obtener el conteo de usuarios por tipo:', error);
+            console.error('Error al obtener las métricas:', error);
         }
     };
 
     useEffect(() => {
-        fetchSumaTotalOrdenes();
-        fetchConteoUsuarios();
+        fetchMetrics();
     }, []);
 
     const formatearMoneda = (cantidad) => {
@@ -52,23 +46,23 @@ function PGeneralAdmin() {
                 <div className="primer-contenedor">
                     <div className="contenedor-box-info">
                         <div className="cajita">
-                            <div className='titulo'> Ganancias (Mensuales)</div>
+                            <div className='titulo'> Ganancias Mensuales</div>
                             <div className='contenido-inf'>
-                                <p>{formatearMoneda(sumaTotalOrdenes)}</p>
+                                <p>{formatearMoneda(gananciasMensuales)}</p>
                                 <img src={maleta} alt="maleta" />
                             </div>
                         </div>
                         <div className="cajita">
-                            <div className='titulo'> Ganancias (Anuales)</div>
+                            <div className='titulo'> Ganancias Anuales</div>
                             <div className='contenido-inf'>
-                                <p>{formatearMoneda(sumaTotalOrdenes)}</p>
+                                <p>{formatearMoneda(gananciasAnuales)}</p>
                                 <img src={dinero} alt="money" />
                             </div>
                         </div>
                         <div className="cajita">
                             <div className='titulo'> Ventas Totales</div>
                             <div className='contenido-inf'>
-                                <p>{formatearMoneda(sumaTotalOrdenes)}</p>
+                                <p>{formatearMoneda(ventasTotales)}</p>
                                 <img src={venta} alt="venta$$$" />
                             </div>
                         </div>

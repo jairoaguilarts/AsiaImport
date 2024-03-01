@@ -193,7 +193,8 @@ const VerFav = () => {
                     margin: "10px 0",
                   }}
                 >
-                  <p className="price">L.{producto.Precio}</p>
+                  <p className="price">L.{producto.Precio.toFixed(2)}</p>
+
                 </div>
 
                 <div
