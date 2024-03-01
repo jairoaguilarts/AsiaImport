@@ -197,7 +197,12 @@ const Carrito = ({ onClose }) => {
             setProductos(nuevosProductos);
         } catch (error) {
             console.log('Error al eliminar el producto del carrito: ', error);
-            alert("Error al eliminar el producto");
+            Swal.fire({
+                icon: 'error',
+                title: 'Error al eliminar producto',
+                text: 'Ocurrio un error al eliminar el producto',
+                confirmButtonText: 'Ok'
+              });
         }
     };
 

@@ -66,8 +66,8 @@
     border-radius: 10px !important; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important; 
     z-index: 1001 !important; 
-    width: 600px !important; /* Tamaño fijo */
-    max-height: 800px; /* Altura máxima */
+    width: 400px !important; /* Tamaño fijo */
+    max-height: 600px; /* Altura máxima */
     overflow-y: auto; /* Habilita el desplazamiento vertical si el contenido excede el alto */
     position: fixed !important; 
     top: 50% !important; 

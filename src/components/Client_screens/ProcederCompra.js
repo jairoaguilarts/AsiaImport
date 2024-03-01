@@ -10,10 +10,215 @@ const opcionInicialDepartamento = {
   label: "Seleccione un departamento",
 };
 
+const municipiosPorDepartamento = {
+  Atlantida: [
+    { value: "La Ceiba", label: "La Ceiba" },
+    { value: "Tela", label: "Tela" },
+    { value: "El Porvenir", label: "El Porvenir" },
+    { value: "La Masica", label: "La Masica" },
+    { value: "Arizona", label: "Arizona" },
+    { value: "Esparta", label: "Esparta" },
+    { value: "Jutiapa", label: "Jutiapa" },
+    { value: "San Francisco", label: "San Francisco" },
+    { value: "Nueva Armenia", label: "Nueva Armenia" },
+    { value: "Tornabé", label: "Tornabé" },
+  ],
+  Colon: [
+    { value: "Trujillo", label: "Trujillo" },
+    { value: "Tocoa", label: "Tocoa" },
+    { value: "Saba", label: "Sabá" },
+    { value: "Puerto Castilla", label: "Puerto Castilla" },
+    { value: "Limon", label: "Limon" },
+    { value: "Balfate", label: "Balfate" },
+    { value: "Iriona", label: "Iriona" },
+    { value: "Sonaguera", label: "Sonaguera" },
+    { value: "Bonito Oriental", label: "Bonito Oriental" },
+    { value: "Puerto Castilla", label: "Puerto Castilla" },
+  ],
+  Comayagua: [
+    { value: "Siguatepeque", label: "Siguatepeque" },
+    { value: "La Libertad", label: "La Libertad" },
+    { value: "ElRosario", label: "El Rosario" },
+    { value: "Las Lajas", label: "Las Lajas" },
+    { value: "Comayagua", label: "Comayagua" },
+    { value: "Ajuterique", label: "Ajuterique" },
+    { value: "Humuya", label: "Humuya" },
+    { value: "San Jerónimo", label: "San Jerónimo" },
+    { value: "Taulabé", label: "Taulabé" },
+    { value: "Lejamaní", label: "Lejamaní" },
+  ],
+  Cortes: [
+    { value: "San Pedro Sula", label: "San Pedro Sula" },
+    { value: "Choloma", label: "Choloma" },
+    { value: "PuertoCortes", label: "Puerto Cortés" },
+    { value: "Villanueva", label: "Villanueva" },
+    { value: "La Lima", label: "La Lima" },
+    { value: "Omoa", label: "Omoa" },
+    { value: "Santa Cruz de Yojoa", label: "Santa Cruz de Yojoa" },
+    { value: "San Francisco de Yojoa", label: "San Francisco de Yojoa" },
+    { value: "Potrerillos", label: "Potrerillos" },
+  ],
+  Choluteca: [
+    { value: "Choluteca", label: "Choluteca" },
+    { value: "San Marcos De Colon", label: "San Marcos de Colón" },
+    { value: "Pespire", label: "Pespire" },
+    { value: "Namasigue", label: "Namasigue" },
+    { value: "El Triunfo", label: "El Triunfo" },
+    { value: "San José", label: "San José" },
+    { value: "Concepción de María", label: "Concepción de María" },
+    { value: "Morolica", label: "Morolica" },
+    { value: "Santa Ana de Yusguare", label: "Santa Ana de Yusguare" },
+    { value: "Apacilagua", label: "Apacilagua" },
+  ],
+  FranciscoMorazan: [
+    { value: "Tegucigalpa", label: "Tegucigalpa" },
+    { value: "Valle de Ángeles", label: "Valle de Ángeles" },
+    { value: "Santa Lucía", label: "Santa Lucía" },
+    { value: "Ojojona", label: "Ojojona" },
+    { value: "Sabanagrande", label: "Sabanagrande" },
+    { value: "El Porvenir", label: "El Porvenir" },
+    { value: "San Antonio de Oriente", label: "San Antonio de Oriente" },
+    { value: "Villa de San Francisco", label: "Villa de San Francisco" },
+    { value: "Talanga", label: "Talanga" },
+    { value: "San Juancito", label: "San Juancito" },
+  ],
+  GraciasADios: [
+    { value: "PuertoLempira", label: "Puerto Lempira" },
+    { value: "Brus Laguna", label: "Brus Laguna" },
+    { value: "Ahuas", label: "Ahuas" },
+    { value: "Juan Francisco Bulnes", label: "Juan Francisco Bulnes" },
+    { value: "Wampusirpe", label: "Wampusirpe" },
+    { value: "Ramón Villeda Morales", label: "Ramón Villeda Morales" },
+  ],
+  Intibuca: [
+    { value: "La Esperanza", label: "La Esperanza" },
+    { value: "Intibuca", label: "Intibucá" },
+    { value: "Jesus De Otoro", label: "Jesús de Otoro" },
+    { value: "San Juan", label: "San Juan" },
+    { value: "Yamaranguila", label: "Yamaranguila" },
+    { value: "Magdalena", label: "Magdalena" },
+    { value: "Masaguara", label: "Masaguara" },
+    { value: "San Antonio", label: "San Antonio" },
+    { value: "San Isidro", label: "San Isidro" },
+    { value: "San Marcos de la Sierra", label: "San Marcos de la Sierra" },
+  ],
+  IslasDeLaBahia: [
+    { value: "Roatan", label: "Roatán" },
+    { value: "Utila", label: "Utila" },
+    { value: "Guanaja", label: "Guanaja" },
+    { value: "Jose Santos Guardiola", label: "José Santos Guardiola" },
+    { value: "Santa Elena", label: "Santa Elena" },
+  ],
+  LaPaz: [
+    { value: "La Paz", label: "La Paz" },
+    { value: "Marcala", label: "Marcala" },
+    { value: "Santa Ana", label: "Santa Ana" },
+    { value: "Yarula", label: "Yarula" },
+    { value: "Aguanqueterique", label: "Aguanqueterique" },
+    { value: "Cabañas", label: "Cabañas" },
+    { value: "San José", label: "San José" },
+    { value: "San Pedro de Tutule", label: "San Pedro de Tutule" },
+    { value: "Mercedes de Oriente", label: "Mercedes de Oriente" },
+    { value: "Opatoro", label: "Opatoro" },
+  ],
+  Lempira: [
+    { value: "Gracias", label: "Gracias" },
+    { value: "Erandique", label: "Erandique" },
+    { value: "La Campa", label: "La Campa" },
+    { value: "San Marcos De Caiquin", label: "San Marcos de Caiquín" },
+    { value: "San Manuel Colohete", label: "San Manuel Colohete" },
+    { value: "La Esperanza", label: "La Esperanza" },
+    { value: "Lepaera", label: "Lepaera" },
+    { value: "Belén", label: "Belén" },
+    { value: "San Juan Guarita", label: "San Juan Guarita" },
+    { value: "San Juan Guarita", label: "San Juan Guarita" },
+  ],
+  Ocotepeque: [
+    { value: "Ocotepeque", label: "Ocotepeque" },
+    { value: "Antigua Ocotepeque", label: "Antigua Ocotepeque" },
+    { value: "San Marcos", label: "San Marcos" },
+    { value: "Santa Fe", label: "Santa Fe" },
+    { value: "Sinuapa", label: "Sinuapa" },
+    { value: "San Francisco del Valle", label: "San Francisco del Valle" },
+    { value: "Mercedes", label: "Mercedes" },
+    { value: "San Jorge", label: "San Jorge" },
+    { value: "San Fernando", label: "San Fernando" },
+    { value: "Concepción", label: "Concepción" },
+  ],
+  Olancho: [
+    { value: "Juticalpa", label: "Juticalpa" },
+    { value: "Catacamas", label: "Catacamas" },
+    { value: "Campamento", label: "Campamento" },
+    { value: "San Francisco de La Paz", label: "San Francisco de La Paz" },
+    { value: "San Esteban", label: "San Esteban" },
+    { value: "Patuca", label: "Patuca" },
+    { value: "La Unión", label: "La Unión" },
+    { value: "Gualaco", label: "Gualaco" },
+    { value: "Dulce Nombre de Culmí", label: "Dulce Nombre de Culmí" },
+    { value: "Concordia", label: "Concordia" },
+  ],
+  SantaBarbara: [
+    { value: "Santa Barbara", label: "Santa Bárbara" },
+    { value: "San Nicolas", label: "San Nicolás" },
+    { value: "Quimistan", label: "Quimistán" },
+    { value: "Trinidad", label: "Trinidad" },
+    { value: "Atima", label: "Atima" },
+    { value: "Macuelizo", label: "SMacuelizo" },
+    { value: "Nuevo Celilac", label: "Nuevo Celilac" },
+    { value: "Arada", label: "Arada" },
+    { value: "Ceguaca", label: "Ceguaca" },
+    { value: "El Nispero", label: "El Nispero" },
+  ],
+  Valle: [
+    { value: "Nacaome", label: "Nacaome" },
+    { value: "San Lorenzo", label: "San Lorenzo" },
+    { value: "Langue", label: "Langue" },
+    { value: "Alianza", label: "Alianza" },
+    { value: "Amapala", label: "Amapala" },
+    { value: "Aramecina", label: "Aramecina" },
+    { value: "Goascorán", label: "Goascorán" },
+    { value: "Caridad", label: "Caridad" },
+    { value: "San Francisco de Coray", label: "San Francisco de Coray" },
+    { value: "Nueva Frontera", label: "Nueva Frontera" },
+  ],
+  Yoro: [
+    { value: "Yoro", label: "Yoro" },
+    { value: "El Progreso", label: "El Progreso" },
+    { value: "Olanchito", label: "Olanchito" },
+    { value: "Santa Rita", label: "Santa Rita" },
+    { value: "Morazan", label: "Morazán" },
+    { value: "Victoria", label: "Victoria" },
+    { value: "El Negrito", label: "El Negrito" },
+    { value: "Sulaco", label: "Sulaco" },
+    { value: "Arenal", label: "Arenal" },
+    { value: "Jocon", label: "Jocon" },
+  ],
+  Copan: [
+    { value: "Santa Rosa De Copan", label: "Santa Rosa de Copán" },
+    { value: "Copan Ruinas", label: "Copán Ruinas" },
+    { value: "LaJ igua", label: "La Jigua" },
+    { value: "Cabañas", label: "Cabañas" },
+    { value: "SanJoseDeCopan", label: "San José de Copán" },
+  ],
+  ElParaiso: [
+    { value: "Danli", label: "Danlí" },
+    { value: "El Paraiso", label: "El Paraíso" },
+    { value: "Yuscaran", label: "Yuscarán" },
+    { value: "Alauca", label: "Alauca" },
+    { value: "Texiguat", label: "Texiguat" },
+    { value: "Oropolí", label: "Oropolí" },
+    { value: "Jacaleapa", label: "Jacaleapa" },
+    { value: "Liure", label: "Liure" },
+    { value: "Morocelí", label: "Morocelí" },
+    { value: "Guinope", label: "Guinope" },
+  ],
+};
+
 function ProcederCompra() {
   const [isDeliverySelected, setIsDeliverySelected] = useState(true);
-  const [isAgregarDireccionSelected, setIsAgregarDireccionSelected] =
-    useState(true);
+  const [isAgregarDireccionSelected, setIsAgregarDireccionSelected] = useState(
+    true
+  );
   const [departamento, setDepartamento] = useState("");
   const [municipio, setMunicipio] = useState("");
   const [direccion, setDireccion] = useState("");
@@ -28,6 +233,12 @@ function ProcederCompra() {
   const [nombreUsuario, setNombreUsuario] = useState("");
   const [direcciones, setDirecciones] = useState([]);
   const navigate = useNavigate();
+  const [municipiosDisponibles, setMunicipiosDisponibles] = useState([]);
+  const [municipioSeleccionado, setMunicipioSeleccionado] = useState({
+    value: "",
+    label: "Seleccione un municipio",
+  });
+
   // Suponiendo que tienes alguna forma de obtener el ID del usuario actual
   const id_usuario = firebaseUID;
 
@@ -38,11 +249,23 @@ function ProcederCompra() {
       .then((response) => response.json())
       .then((data) => setDirecciones(data.direcciones))
       .catch((error) => console.error("Error:", error));
-  }
+  };
 
   useEffect(() => {
     cargarDirecciones();
   }, []);
+
+  useEffect(() => {
+    const municipios =
+      municipiosPorDepartamento[departamentoSeleccionado.value] || [];
+    setMunicipiosDisponibles(municipios);
+    setMunicipioSeleccionado({ value: "", label: "Seleccione un municipio" });
+  }, [departamentoSeleccionado]);
+
+  const handleMunicipioChange = (selectedOption) => {
+    setMunicipioSeleccionado(selectedOption);
+    setMunicipio(selectedOption.value);
+  };
 
   const handleSeleccionarDireccion = async (_id) => {
     setIsAgregarDireccionSelected(false);
@@ -56,7 +279,14 @@ function ProcederCompra() {
             label: direccion.departamento,
           });
           setDepartamento(direccion.departamento);
-          setMunicipio(direccion.municipio);
+
+          const municipioActualizado = {
+            value: direccion.municipio,
+            label: direccion.municipio, 
+          };
+          setMunicipioSeleccionado(municipioActualizado); 
+          setMunicipio(direccion.municipio); 
+
           setDireccion(direccion.direccion);
           setPuntoReferencia(direccion.puntoReferencia);
           setNumeroTelefono(direccion.numeroTelefono);
@@ -71,17 +301,24 @@ function ProcederCompra() {
 
   const handleEliminarDireccion = async (_id) => {
     try {
-      const response = await fetch(`https://importasia-api.onrender.com/eliminarDireccion?_id=${_id}`,
+      const response = await fetch(
+        `https://importasia-api.onrender.com/eliminarDireccion?_id=${_id}`,
         {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
           },
-        });
-      if(response.ok) {
+        }
+      );
+      if (response.ok) {
         cargarDirecciones();
       } else {
-        alert("error");
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Error al eliminar direccion",
+          confirmButtonText: "Ok",
+        });
       }
     } catch (error) {
       console.log(error);
@@ -101,8 +338,8 @@ function ProcederCompra() {
     try {
       const dataDireccion = {
         userFirebaseUID: firebaseUID,
-        departamento,
-        municipio,
+        departamento: departamentoSeleccionado.value,
+        municipio: municipioSeleccionado.value,
         direccion,
         puntoReferencia: puntoreferencia,
         numeroTelefono: numerotelefono,
@@ -126,7 +363,8 @@ function ProcederCompra() {
           Swal.fire({
             icon: "warning",
             title: "Limite direcciones",
-            text: "No puede agregar mas direcciones, elimine una si desea agregar.",
+            text:
+              "No puede agregar mas direcciones, elimine una si desea agregar.",
           });
         }
       }
@@ -156,13 +394,21 @@ function ProcederCompra() {
       },
     ];
 
+    if (!municipioSeleccionado.value) {
+      Swal.fire({
+        icon: "warning",
+        title: "Campo Requerido",
+        text: 'El campo "Municipio" es obligatorio.',
+      });
+      return false;
+    }
+
     if (isDeliverySelected) {
       campos.push(
         {
           valor: departamento,
           mensaje: 'El campo "Departamento" es obligatorio.',
         },
-        { valor: municipio, mensaje: 'El campo "Municipio" es obligatorio.' },
         { valor: direccion, mensaje: 'El campo "Dirección" es obligatorio.' },
         {
           valor: puntoreferencia,
@@ -215,7 +461,8 @@ function ProcederCompra() {
         Swal.fire({
           icon: "warning",
           title: "Validación de Identidad",
-          text: "Por favor, ingrese un número de identidad válido de 13 dígitos",
+          text:
+            "Por favor, ingrese un número de identidad válido de 13 dígitos",
         });
         return;
       }
@@ -259,7 +506,8 @@ function ProcederCompra() {
         Swal.fire({
           icon: "warning",
           title: "Validación de Identidad",
-          text: "Por favor, ingrese un número de identidad válido de 13 dígitos",
+          text:
+            "Por favor, ingrese un número de identidad válido de 13 dígitos",
         });
         return;
       }
@@ -303,7 +551,13 @@ function ProcederCompra() {
       setIdentidadUser("");
     } else {
       if (!esIdValido(identidadUser)) {
-        alert("Por favor, ingrese un número de identidad valido de 13 digitos");
+        Swal.fire({
+          icon: "warning",
+          title: "Formato invalido",
+          text:
+            "Por favor, ingrese un número de identidad valido de 13 digitos",
+          confirmButtonText: "Ok",
+        });
         return;
       }
       tipoOrdenTemp = "pickup";
@@ -315,8 +569,8 @@ function ProcederCompra() {
     }
 
     const datosEntrega = {
-      departamento,
-      municipio,
+      departamento: departamentoSeleccionado.value,
+      municipio: municipioSeleccionado.value,
       direccion,
       puntoreferencia,
       firebaseUID,
@@ -390,7 +644,6 @@ function ProcederCompra() {
     { value: "Valle", label: "Valle" },
     { value: "Yoro", label: "Yoro" },
   ];
-
   return (
     <div className="ProcederCompra">
       <div className="button-container">
@@ -413,14 +666,23 @@ function ProcederCompra() {
             {direcciones.map((direccion) => {
               return (
                 <div key={direccion._id} className="card-direcciones">
-                  <button class="bin-button" onClick={() => handleEliminarDireccion(direccion._id)}>
+                  <button
+                    class="bin-button"
+                    onClick={() => handleEliminarDireccion(direccion._id)}
+                  >
                     <svg
                       class="bin-top"
                       viewBox="0 0 39 7"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
                     >
-                      <line y1="5" x2="39" y2="5" stroke="white" stroke-width="4"></line>
+                      <line
+                        y1="5"
+                        x2="39"
+                        y2="5"
+                        stroke="white"
+                        stroke-width="4"
+                      ></line>
                       <line
                         x1="12"
                         y1="1.5"
@@ -437,16 +699,18 @@ function ProcederCompra() {
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <mask id="path-1-inside-1_8_19" fill="white">
-                        <path
-                          d="M0 0H33V35C33 37.2091 31.2091 39 29 39H4C1.79086 39 0 37.2091 0 35V0Z"
-                        ></path>
+                        <path d="M0 0H33V35C33 37.2091 31.2091 39 29 39H4C1.79086 39 0 37.2091 0 35V0Z"></path>
                       </mask>
                       <path
                         d="M0 0H33H0ZM37 35C37 39.4183 33.4183 43 29 43H4C-0.418278 43 -4 39.4183 -4 35H4H29H37ZM4 43C-0.418278 43 -4 39.4183 -4 35V0H4V35V43ZM37 0V35C37 39.4183 33.4183 43 29 43V35V0H37Z"
                         fill="black"
                         mask="url(#path-1-inside-1_8_19)"
                       ></path>
-                      <path d="M12 6L12 29" stroke="black" stroke-width="4"></path>
+                      <path
+                        d="M12 6L12 29"
+                        stroke="black"
+                        stroke-width="4"
+                      ></path>
                       <path d="M21 6V29" stroke="black" stroke-width="4"></path>
                     </svg>
                   </button>
@@ -495,13 +759,12 @@ function ProcederCompra() {
 
             {/* Contenido de los Municipios */}
             <p>Municipio</p>
-            <Form.Control
+            <Select
               id="municipio"
-              className="contenedores"
-              type="text"
-              placeholder="Ingrese un Municipio"
-              value={municipio}
-              onChange={(e) => setMunicipio(e.target.value)}
+              value={municipioSeleccionado}
+              onChange={handleMunicipioChange} // Asegúrate de usar esta función para manejar cambios
+              options={municipiosDisponibles}
+              placeholder="Seleccione un municipio"
             />
             <p>Direccion</p>
             <Form.Control
@@ -588,3 +851,4 @@ function ProcederCompra() {
 }
 
 export default ProcederCompra;
+

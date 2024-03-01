@@ -112,7 +112,7 @@ const GestionOrdenes = () => {
           <h3>Detalles de la Orden</h3>
           <hr></hr>
           <ul>
-            <li>ID_Orden: {ordenDetalle.ordenId}</li>
+            <li>ID_Orden: {ordenDetalle._id}</li>
             <li>Tipo: {ordenDetalle.tipoOrden}</li>
             {ordenDetalle.tipoOrden === "delivery" && (
               <>
@@ -374,7 +374,7 @@ const GestionOrdenes = () => {
           <tbody>
             {currentOrders.map((orden) => (
               <tr key={orden._id}>
-                <td>{orden.ordenId}</td>
+                <td>{orden._id}</td>
                 <td>{orden.tipoOrden}</td>
                 <td>{orden.detalles ? obtenerDetalles(orden) : "N/A"}</td>
                 <td className={getEstadoClass(orden.estadoOrden)}>

@@ -354,8 +354,7 @@ const AdminEmpleados = () => {
         <table className="tabla-empleados">
           <thead>
             <tr>
-              <th>FireBase UID</th>
-              <th>Apellido</th>
+              <th>Nombre Apellido</th>
               <th>Correo</th>
               <th>Acciones</th>
             </tr>
@@ -366,7 +365,7 @@ const AdminEmpleados = () => {
               const fin = empleado.firebaseUID.slice(-3);
               return (
                 <tr key={empleado.firebaseUID}>
-                  <td>{inicio + "..." + fin}</td>
+                 
                   <td>{empleado.nombre + " " + empleado.apellido}</td>
                   <td>{empleado.correo}</td>
                   <td>

@@ -66,6 +66,34 @@
   gap: 10px;
 }
 
+.filtro-reseñas-container {
+  margin-top: 20px; 
+  text-align: center; 
+  margin-right: 700px;
+}
+
+.filtro-reseñas-select {
+  margin-left: 10px;
+  padding: 10px 20px; 
+  border-radius: 5px; 
+  border: 1px solid #01A6FF; 
+  background-color: #ffffff; 
+  cursor: pointer; 
+  font-size: 16px; 
+  color: #D8750D; 
+  width: 150px;
+}
+
+.filtro-reseñas-select option {
+  padding: 5px; 
+  background-color: #f2f2f2; 
+}
+
+.filtro-reseñas-select:focus {
+  outline: none; 
+  border-color: #007BFF; 
+}
+
 .btn-cart2 {
   padding: 10px 30px;
   border: none;

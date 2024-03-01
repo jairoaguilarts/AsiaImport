@@ -20,7 +20,13 @@ function HistorialPago() {
           throw new Error("Error al obtener las Órdenes");
         }
         const data = await response.json();
-        setOrdenes(data);
+        // Ordenar las ordenes por fecha más reciente
+        const ordenesOrdenadas = data.sort(
+          (a, b) =>
+            new Date(b.detalles.fecha_ingreso) -
+            new Date(a.detalles.fecha_ingreso)
+        );
+        setOrdenes(ordenesOrdenadas);
       } catch (error) {
         console.error("Error al cargar ordenes", error);
       }
@@ -60,7 +66,7 @@ function HistorialPago() {
           <h3>Detalles de la Orden</h3>
           <hr></hr>
           <ul>
-            <li>ID_Orden: {singleOrden.ordenId}</li>
+            <li>ID_Orden: {singleOrden._id}</li>
             <p>{singleOrden.nombre_usuario}</p>
           </ul>
           <div>
@@ -100,48 +106,120 @@ function HistorialPago() {
       </div>
     );
   };
+}
 
-  //Return Original
+const mostrarPopUp = async (orden) => {
+  setSingleOrden(orden);
+  setPopUpVisible(true);
+
+  const productos = [];
+  for (const modelo of orden.carrito) {
+    try {
+      const response = await fetch(
+        `https://importasia-api.onrender.com/buscarProductoModelo?Modelo=${modelo}`
+      );
+      if (!response.ok) {
+        throw new Error("Error al obtener los detalles del producto");
+      }
+      const productoDetalles = await response.json();
+      productos.push(productoDetalles);
+    } catch (error) {
+      console.error("Error al cargar detalles del producto", error);
+    }
+  }
+  setProductoDetalle(productos);
+};
+
+//Presionas el boton Mostrar Detalles y !PAM!
+const PopUpDetalleOrden = () => {
+  if (!popUpVisible) return null;
   return (
-    <div>
-      {ordenes.length === 0 ? (
-        <p className="empty-message">*Cric Cric*</p>
-      ) : (
-        <table className="table-container">
+    <div className="popup-overlay">
+      <div className="popup-detalle">
+        <h3>Detalles de la Orden</h3>
+        <hr></hr>
+        <ul>
+          <li>ID_Orden: {singleOrden.ordenId}</li>
+          <p>{singleOrden.nombre_usuario}</p>
+        </ul>
+        <div>
+          <strong>Articulos en la Orden:</strong>
+        </div>
+        <table>
           <thead>
             <tr>
-              <th>Tipo de Orden</th>
-              <th>Estado de la Orden</th>
-              <th>Total</th>
-              <th>Fecha</th>
-              <th>Estado de Pago</th>
-              <th>Acción</th>
+              <th>Artículo</th>
+              <th />
+              <th>Cantidad</th>
             </tr>
           </thead>
           <tbody>
-            {ordenes.map((orden, index) => (
+            {productoDetalle.map((producto, index) => (
               <tr key={index}>
-                <td>{orden.tipoOrden}</td>
-                <td>{orden.estadoOrden}</td>
-                <td>L. {orden.total}</td>
-                <td>{orden.Fecha}</td>
-                <td>{orden.estadoPago}</td>
+                <td>{producto.Nombre}</td>
                 <td>
-                  <button
-                    className="button-historial ver-mas"
-                    onClick={() => mostrarPopUp(orden)}
-                  >
-                    Mostrar Detalles
-                  </button>
+                  <img src={producto.ImagenID} alt={"Imagen"} />
                 </td>
+                <td>{singleOrden.cantidades[index]}</td>
               </tr>
             ))}
           </tbody>
         </table>
-      )}
-      <PopUpDetalleOrden />
+        <br />
+        <div>
+          <strong>Total de la Orden: L. {singleOrden.total}</strong>
+        </div>
+        <button
+          className="button-detalle3"
+          onClick={() => setPopUpVisible(false)}
+        >
+          Cerrar
+        </button>
+      </div>
     </div>
   );
-}
+};
+
+//Return Original
+return (
+  <div>
+    {ordenes.length === 0 ? (
+      <p className="empty-message">*Cric Cric*</p>
+    ) : (
+      <table className="table-container">
+        <thead>
+          <tr>
+            <th>Tipo de Orden</th>
+            <th>Estado de la Orden</th>
+            <th>Total</th>
+            <th>Fecha</th>
+            <th>Estado de Pago</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          {ordenes.map((orden, index) => (
+            <tr key={index}>
+              <td>{orden.tipoOrden}</td>
+              <td>{orden.estadoOrden}</td>
+              <td>L. {orden.total}</td>
+              <td>{orden.Fecha}</td>
+              <td>{orden.estadoPago}</td>
+              <td>
+                <button
+                  className="button-historial ver-mas"
+                  onClick={() => mostrarPopUp(orden)}
+                >
+                  Mostrar Detalles
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    )}
+    <PopUpDetalleOrden />
+  </div>
+);
 
 export default HistorialPago;

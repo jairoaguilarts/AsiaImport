@@ -238,7 +238,12 @@ function PagoP() {
       );
 
       if (response.ok) {
-        alert("Pago procesado");
+        Swal.fire({
+          icon: "success",
+          title: "¡Pago procesado!",
+          text: "El pago ha sido procesado correctamente",
+          confirmButtonText: "Ok",
+        });
         setMostrarPopupGracias(true); // Mostramos el pop-up de agradecimiento
 
         const userActualizacion = {
@@ -300,7 +305,12 @@ function PagoP() {
           });
         }
       } else {
-        alert("Error en el pago(No pudo ser Procesado)");
+        Swal.fire({
+          icon: "error",
+          title: "Error al pagar",
+          text: "No se pudo procesar el pago",
+          confirmButtonText: "Ok",
+        });
         console.log("Error al pagar: ", response);
         console.log(responseOrdenData._id);
         // Aquí manejas el caso en que el pago falló, eliminando la orden creada previamente
@@ -338,7 +348,12 @@ function PagoP() {
         }
       }
     } else {
-      alert("Error al crear orden");
+      Swal.fire({
+        icon: "error",
+        title: "Error al crear orden",
+        text: "Ocurrio un error al crear la orden",
+        confirmButtonText: "Ok",
+      });
     }
   };
 
@@ -400,15 +415,23 @@ function PagoP() {
       return false;
     }
     if (!numeroTarjetaRegex.test(numeroTarjeta)) {
-      alert(
-        "Datos Incorrectos en la tarjeta, el numero debe tener entre 13 y 18 numeros"
-      );
+      Swal.fire({
+        icon: "warning",
+        title: "Formato invalido",
+        text:
+          "Datos Incorrectos en la tarjeta, el numero debe tener entre 13 y 18 numeros",
+        confirmButtonText: "Ok",
+      });
       return false;
     }
     if (!cvvRegex.test(cvv)) {
-      alert(
-        "Datos Incorrectos en el cvv, el numero debe tener entre 3 y 4 numeros"
-      );
+      Swal.fire({
+        icon: "warning",
+        title: "Formato invalido",
+        text:
+          "Datos Incorrectos en el cvv, el numero debe tener entre 3 y 4 numeros",
+        confirmButtonText: "Ok",
+      });
     }
 
     return true;
@@ -541,27 +564,25 @@ function PagoP() {
   return (
     <div className="pago-container">
       <h1>Detalles de la Orden</h1>
-      <div>
+      <div className="productos-contenedor-scroll">
         {productos.map((producto) => (
           <div className="productos-orden">
             <div className="productos-imagen">
               <img src={producto.ImagenID} alt={producto.Nombre} />
             </div>
-
-            <div className="productos-orden">
+            <div className="detalle-producto">
               <span className="productos-nombre">{producto.Nombre}</span>
               <div className="productos-cantidad">
-                <p>Cantidad: {producto.cantidad} </p>
+                <p>Cantidad: {producto.cantidad}</p>
               </div>
               <div className="productos-precio">
-                {" "}
-                <p>Precio: L {producto.Precio}.00 </p>
+                <p>Precio: L {producto.Precio}.00</p>
               </div>
             </div>
           </div>
         ))}
-        <h5>Total de la Orden: L {calcularTotal()}.00</h5>
       </div>
+      <h5>Total de la Orden: L {calcularTotal()}.00</h5>
       <div style={{ marginTop: "70px" }} />
       <h2>Pantalla de Pago</h2>
       <div className="botones-container">
