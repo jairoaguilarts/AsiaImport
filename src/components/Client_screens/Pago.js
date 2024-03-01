@@ -367,7 +367,7 @@ const obtenerDetalles=async()=>{
   }
   setDepartamento(datos[0].departamento);
   if(departamento=="FranciscoMorazan"){
-    setEntrega(70);
+    setEntrega(160);
   }else{
     setEntrega(350);
   }
@@ -567,7 +567,7 @@ const obtenerDetalles=async()=>{
           </div>
         ))}
       </div>
-      <h5> Total de la entrega: L {entrega}.00 </h5>
+      <h5> Costo del envio: L {entrega}.00 </h5>
       <h5>Total de la Orden: L {calcularTotal()+entrega}.00</h5>
       <div style={{ marginTop: "70px" }} />
       <h2>Pantalla de Pago</h2>
