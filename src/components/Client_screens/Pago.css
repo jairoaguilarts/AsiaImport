@@ -12,15 +12,38 @@
   background-color: #f4f4f4;
 }
 
-.pago-container h2 {
+.pago-container h1 {
   color: #333;
   margin-bottom: 30px;
 }
+
+.pago-container h2 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.pago-container h5 {
+  color: #666;
+  margin-top: 10px;
+}
+
+.pago-container .productos-contenedor-scroll {
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.pago-container .productos-contenedor-scroll h2 {
+  color: #333;
+  margin-top: 0;
+}
+
 .botones-container {
   display: flex;
   justify-content: center;
   gap: 20px; /* Esto añade un espacio entre los botones */
 }
+
 /* Estilos para los botones */
 .pago-container button {
   min-width: 150px; /* O el ancho que prefieras */
@@ -33,12 +56,14 @@
   color: white;
   font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 .pago-container button:hover {
-  background-color: #fdb254;
+  background-color: #0056b3;
+  transform: scale(1.05); /* Hace que el botón se agrande ligeramente al pasar el ratón por encima */
 }
+
 .boton-contenedor {
   width: 100%; /* Toma toda la anchura disponible */
   display: flex; /* Usa flexbox */
@@ -67,6 +92,7 @@
   max-width: 200px; 
   align-items: center;
 }
+
 .formulario input, .formulario select {
   width: 100%;
   padding: 10px;
@@ -79,44 +105,36 @@
 .productos-orden {
   display: flex;
   align-items: center;
-  width: 250px;
-  max-height: 500px; /* Ajusta esto según la altura que quieras para mostrar dos productos */
-overflow-y: auto; /* Permite el desplazamiento vertical si el contenido excede la altura máxima */
-margin-bottom: 20px;
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
 }
 
 .productos-imagen {
-  width: 220px; 
+  width: 100px; 
   height: auto; 
-  margin-right: 50px; 
-}
-.productos-imagen img{
-  width: 100%;
+  margin-right: 20px;
 }
 
-.productos-orden .productos-orden {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 10px;
+.productos-imagen img {
+  width: 100%; /* Mantenemos el mismo tamaño de imagen */
+}
+
+.detalle-producto {
+  flex-grow: 1;
 }
 
 .productos-nombre {
   font-weight: bold;
-  font-style: normal;
-  width: 100px;
-  height: auto;
-text-align: center;  }
+  color: #333;
+  margin-bottom: 5px;
+}
 
 .productos-cantidad,
 .productos-precio {
   margin-top: 5px; /* Espacio entre cada detalle del producto */
 }
-.productos-contenedor-scroll {
-  max-height: 500px; /* Ajusta esto según la altura que quieras para mostrar dos productos */
-  overflow-y: auto; /* Permite el desplazamiento vertical si el contenido excede la altura máxima */
-  margin-bottom: 20px; /* Asegúrate de tener espacio debajo para cualquier contenido adicional */
-}
-
 
 .popup {
   position: fixed;
@@ -137,6 +155,7 @@ text-align: center;  }
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
   text-align: center;
 }
+
 .popup-gracias {
   position: fixed;
   top: 0;
@@ -155,4 +174,3 @@ text-align: center;  }
   border-radius: 5px;
   text-align: center;
 }
-
