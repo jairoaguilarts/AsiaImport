@@ -60,7 +60,7 @@ function HistorialPago() {
           <h3>Detalles de la Orden</h3>
           <hr></hr>
           <ul>
-            <li>ID_Orden: {singleOrden._id}</li>
+            <li>ID_Orden: {singleOrden.ordenId}</li>
             <p>{singleOrden.nombre_usuario}</p>
           </ul>
           <div>
