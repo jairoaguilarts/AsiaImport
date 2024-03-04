@@ -508,12 +508,12 @@ function InfoAudifonos() {
         <ul>
           {productosRecomendados.map((producto, index) => (
             <li key={index}>
-           <button onClick={() => {  handleSubmit(producto.Modelo); }} style={{ border: 'none', background: 'none', padding: 0, cursor: 'pointer' }}>
+           <button onClick={() => {  handleSubmit(producto.Modelo); }} style={{ border: 'none', background: 'none', padding: 0, cursor: 'pointer' }} >
               <img
                 src={producto.ImagenID}
                 alt={producto.Nombre}
-                className="product-image"
               />
+              
             </button>
               <p>{producto.Nombre}</p>
               <p><strong>L {producto.Precio}.00</strong></p>
