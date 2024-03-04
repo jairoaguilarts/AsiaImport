@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import audifonosProduct1 from "../../assets/Srhythm.png";
 import avatar from "../../assets/avatar.png";
 import Pagination from "../Client_screens/Pagination";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function InfoAudifonos() {
   const mostrarAlerta = (message, variant) => {
@@ -20,7 +21,6 @@ function InfoAudifonos() {
 
 
   const modelo = localStorage.getItem("Modelo");
-
   const [activeTab, setActiveTab] = useState("description");
   const [producto, setProducto] = useState(null);
 
@@ -42,6 +42,14 @@ function InfoAudifonos() {
   const indexOfLastReview = currentPage * reseñasPorPagina;
   const indexOfFirstReview = indexOfLastReview - reseñasPorPagina;
   const currentReviews = resenasActuales.slice(indexOfFirstReview, indexOfLastReview);
+  const navigate = useNavigate();
+  const handleSubmit = (modelo) => {
+    localStorage.setItem("Modelo", modelo);
+    navigate("/info-producto");
+    window.location.reload();
+
+  };
+
 
   const fetchResenas = async () => {
     try {
@@ -104,6 +112,80 @@ function InfoAudifonos() {
   const handleChangeFiltro = (event) => {
     setFiltroCalificacion(event.target.value);
   };
+  const obtenerProductosRecomendados = async () => {
+    try {
+      if (!producto) {
+        console.error("Producto no está definido aún.");
+        return [];
+      }
+
+      const categoriaProducto = producto.Categoria;
+      const recomendacionesPorCategoria = {
+        'PARLANTES': ['AURICULARES', 'CARGADORES'],
+        'AURICULARES': ['CARGADORES', 'SMARTWATCH'],
+        'BOTES': ['AURICULARES', 'SMARTWATCH'],
+        'CARGADORES': ['COBERTORES', 'PARLANTES'],
+        'SMARTWATCH': ['AURICULARES', 'BOTES'],
+        'VIDRIO TEMPLADO': ['COBERTORES', 'CARGADORES'],
+        'COBERTORES': ['VIDRIO TEMPLADO', 'CARGADORES'],
+        'OTROS': ['OTROS']
+      };
+
+      const categoriasRecomendadas = recomendacionesPorCategoria[categoriaProducto] || [];
+      let productosFinales = [];
+
+      for (const categoria of categoriasRecomendadas) {
+        const responseProductos = await fetch(`https://importasia-api.onrender.com/buscarProductoCategoria?Nombre=${categoria}`);
+        const productos = await responseProductos.json();
+
+        let productosConResenas = [];
+        let productosSinResenas = [];
+
+        for (const producto of productos) {
+          const responseResenas = await fetch(`https://importasia-api.onrender.com/cargarResenas?Modelo=${producto.Modelo}`);
+          const resenas = await responseResenas.json();
+
+          if (resenas.length > 0) {
+            productosConResenas.push({ ...producto, numeroDeResenas: resenas.length });
+          } else {
+            productosSinResenas.push(producto);
+          }
+        }
+
+        // Ordena y toma los dos primeros si hay con reseñas
+        productosConResenas.sort((a, b) => b.numeroDeResenas - a.numeroDeResenas);
+        let seleccionados = productosConResenas.slice(0, 2);
+
+        // Si no hay suficientes con reseñas, agrega al azar de los que no tienen
+        while (seleccionados.length < 2 && productosSinResenas.length > 0) {
+          const indexAleatorio = Math.floor(Math.random() * productosSinResenas.length);
+          seleccionados.push(productosSinResenas[indexAleatorio]);
+          productosSinResenas.splice(indexAleatorio, 1);
+        }
+
+        productosFinales.push(...seleccionados);
+      }
+
+      return productosFinales;
+    } catch (error) {
+      console.error("Error al obtener productos recomendados:", error);
+      return [];
+    }
+  };
+
+  // En el componente, utiliza la función para obtener productos recomendados
+  // const productosRecomendados = obtenerProductosRecomendados();
+  const [productosRecomendados, setProductosRecomendados] = useState([]);
+  useEffect(() => {
+    const fetchProductosRecomendados = async () => {
+      const recomendados = await obtenerProductosRecomendados();
+      setProductosRecomendados(recomendados);
+    };
+
+    if (producto) {
+      fetchProductosRecomendados();
+    }
+  }, [producto]);
 
   const handleAgregarResena = async () => {
     const userFirebaseUID = localStorage.getItem("FireBaseUID");
@@ -177,6 +259,44 @@ function InfoAudifonos() {
       });
     }
   };
+  const handleAgregar2 = async (modeloParametro) => {
+    const firebaseUID = localStorage.getItem("FireBaseUID");
+    // Utiliza el modelo recibido como parámetro para la solicitud
+    const Modelo = modeloParametro;
+
+    try {
+      const response = await fetch(
+        "https://importasia-api.onrender.com/agregarCarrito",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ firebaseUID, Modelo }),
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Error: ${errorData.message || response.status}`);
+      }
+      Swal.fire({
+        icon: 'success',
+        title: '¡Agregado al Carrito!',
+        text: 'Producto agregado exitosamente al carrito.',
+        confirmButtonText: 'Ok'
+      });
+    } catch (error) {
+      console.log("Error: ", error);
+      Swal.fire({
+        icon: 'warning',
+        text: 'No se pudo agregar el producto al carrito.',
+        text: 'Revisa si ya lo habías agregado anteriormente',
+        confirmButtonText: 'Ok'
+      });
+    }
+  };
+
   const handleAgregarFavoritos = async (modeloAgregar) => {
     const datos = {
       firebaseUID: localStorage.getItem("FireBaseUID"),
@@ -289,6 +409,7 @@ function InfoAudifonos() {
           )}
         </div>
       )}
+     {/* Tambie podriamo poner los recomendados aqui*/}
       <div className="tab-content">
         <button className="agregar-resena" onClick={() => setIsAgregarR(true)}>
           Agregar Reseña
@@ -381,7 +502,33 @@ function InfoAudifonos() {
         paginate={setCurrentPage}
         currentPage={currentPage}
       />
+      <hr></hr>
+      <div className="productos-recomendados">
+      <h2 style={{ fontWeight: 'bold' }}>PRODUCTOS RECOMENDADOS</h2>
+        <ul>
+          {productosRecomendados.map((producto, index) => (
+            <li key={index}>
+           <button onClick={() => {  handleSubmit(producto.Modelo); }} style={{ border: 'none', background: 'none', padding: 0, cursor: 'pointer' }}>
+              <img
+                src={producto.ImagenID}
+                alt={producto.Nombre}
+                className="product-image"
+              />
+            </button>
+              <p>{producto.Nombre}</p>
+              <p><strong>L {producto.Precio}.00</strong></p>
+              {/* Agrega más detalles del producto según tu estructura de datos */}
+              <button className="btn-cart2" onClick={() => handleAgregar2(producto.Modelo)}>
+                AÑADIR AL CARRITO
+              </button>
+              <button className="btn-favorite2" onClick={() => handleAgregarFavoritos(producto.Modelo)}>
+                AGREGAR A FAVORITOS
+              </button>
 
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }

@@ -88,7 +88,7 @@ function HistorialPago() {
           </table>
           <br />
           <div>
-            <strong>Total de la Orden: L. {formatMoneda(singleOrden.total)}</strong>
+            <strong>Total de la Orden: L. {singleOrden.total}.00</strong>
           </div>
           <button
             className="button-detalle3"
@@ -101,9 +101,7 @@ function HistorialPago() {
     );
   };
 
-  const formatMoneda = (cantidad) => {
-    return cantidad.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-  };
+  
 
   //Return Original
   return (
@@ -127,7 +125,7 @@ function HistorialPago() {
               <tr key={index}>
                 <td>{orden.tipoOrden}</td>
                 <td>{orden.estadoOrden}</td>
-                <td>L. {formatMoneda(orden.total)}</td>
+                <td>L. {orden.total}.00</td>
                 <td>{orden.Fecha}</td>
                 <td>{orden.estadoPago}</td>
                 <td>

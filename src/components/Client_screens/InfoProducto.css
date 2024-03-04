@@ -358,7 +358,132 @@
   border-radius: 50%; /* Hace que la imagen sea circular */
   margin-right: 5px; /* Espacio entre el avatar y el nombre */
 }
+.productos-recomendados {
+  width: 100%;
+  padding: 20px;
+  text-align: center;
+}
 
+.productos-recomendados h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.productos-recomendados ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.productos-recomendados li {
+  background: #fff;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  margin: 10px;
+  width: calc(25% - 20px);
+  text-align: center; /* Centrado */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.productos-recomendados .img {
+  max-width: 100%; /* Ajuste el porcentaje según necesite */
+  margin-top: 20px;
+  transition: transform 0.3s ease-in-out;
+}
+.productos-recomendados img {
+  width: 180px; /* o puedes establecer un porcentaje específico */
+  max-width: 100%; /* Asegúrate de que no exceda el tamaño del contenedor */
+  height: 220px; /* Para mantener la proporción */
+  transition: transform 0.3s ease-in-out;
+}
+
+
+.productos-recomendados img:hover {
+  transform: scale(1.1); /* Efecto de zoom al pasar el ratón */
+}
+.productos-recomendados li p {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.productos-recomendados li .nombre-producto {
+  color: #000;
+  font-weight: bold;
+}
+.productos-recomendados .btn-cart2,
+.productos-recomendados .btn-favorite2 {
+  margin-top: 90px;
+  margin: 10px 0;
+  width: 80%; /* Ancho del botón en relación al contenedor li */
+  text-align: center;
+}
+
+.productos-recomendados .btn-cart2 {
+  padding: 10px 30px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 4px;
+  width: 80%;
+}
+
+.productos-recomendados .btn-favorite2 {
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 4px;
+  width:80%;
+}
+
+.productos-recomendados .btn-cart2 {
+  background-color: #ffa500;
+  color: white;
+}
+
+.productos-recomendados .btn-favorite2 {
+  background-color: #01a6ff;
+  color: white;
+  border: 2px solid #01a6ff;
+}
+
+.productos-recomendados .btn-cart2:hover {
+  background-color: #e69500;
+  /* Un tono más oscuro que #ffa500 */
+}
+
+.productos-recomendados .btn-favorite2:hover {
+  background-color: #0091cc;
+  /* Un tono más oscuro que #01a6ff */
+  border-color: #0091cc;
+  /* Asegurándose de que el borde también cambie de color */
+}
+
+.productos-recomendados li .precio-producto {
+  color: #E44D26;
+  font-weight: bold;
+}
+
+.productos-recomendados li button {
+  background-color: #FFA500;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  border-radius: 0 0 10px 10px;
+}
+
+.productos-recomendados li button:hover {
+  background-color: #cc8400;
+}
 
 @media (max-width: 768px) {
   .product-section {
@@ -372,6 +497,9 @@
 
   .product-image-container img {
     width: 100%;
+  }
+  .productos-recomendados li {
+    width: calc(50% - 20px);
   }
 }
 
@@ -416,4 +544,8 @@
   .description ul {
     padding-left: 20px;
   }
+  .productos-recomendados li {
+    width: 100%;
+  }
+
 }
