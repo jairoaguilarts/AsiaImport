@@ -53,6 +53,7 @@ const GestionOrdenes = () => {
             ?.toLowerCase()
             .includes(busquedaEnMinusculas) ||
           orden.nombre_usuario?.toLowerCase().includes(busquedaEnMinusculas) ||
+          orden.Fecha?.toLowerCase().includes(busquedaEnMinusculas) ||
           detalles.fecha_ingreso
             ?.toLowerCase()
             .includes(busquedaEnMinusculas) ||
@@ -75,7 +76,7 @@ const GestionOrdenes = () => {
     if (estado !== "Cualquiera") {
       ordenesTemp = ordenesTemp.filter((orden) => orden.estadoOrden === estado);
     }
-
+    setCurrentPage(1);
     setOrdenesFiltradas(ordenesTemp);
   };
 
@@ -92,7 +93,12 @@ const GestionOrdenes = () => {
         console.log(response);
         throw response;
       })
-      .then((data) => setOrdenes(data))
+      .then((data) => {
+        // Asegúrate de que la fecha de ingreso esté en un formato adecuado para comparar
+        const ordenesOrdenadas = data.sort((a, b) => new Date(b.detalles.fecha_ingreso) - new Date(a.detalles.fecha_ingreso));
+        setOrdenes(ordenesOrdenadas);
+      })
+
       .catch((error) => {
         console.error("Error al recuperar las órdenes:", error);
       });

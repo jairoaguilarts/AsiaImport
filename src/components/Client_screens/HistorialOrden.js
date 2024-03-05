@@ -20,7 +20,10 @@ function HistorialPago() {
           throw new Error("Error al obtener las Órdenes");
         }
         const data = await response.json();
-        setOrdenes(data);
+       
+        // Ordenar las ordenes por fecha más reciente
+        const ordenesOrdenadas = data.sort((a, b) => new Date(b.detalles.fecha_ingreso) - new Date(a.detalles.fecha_ingreso));
+        setOrdenes(ordenesOrdenadas);
       } catch (error) {
         console.error("Error al cargar ordenes", error);
       }
