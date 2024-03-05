@@ -282,12 +282,12 @@ function Login() {
         window.location.reload();
       } else {
         localStorage.setItem("IsAdmin", false);
+        navigate("/inicio");
+        window.location.reload();
       }
 
       setUserData(userData);
-      navigate("/inicio");
       setNombre(userData.usuario.nombre);
-      window.location.reload();
       handleClose();
 
       window.localStorage.setItem("logueado", true);
