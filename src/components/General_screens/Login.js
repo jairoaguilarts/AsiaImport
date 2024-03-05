@@ -210,10 +210,10 @@ function Login() {
         const errorData = await response.json();
         switch (response.status) {
           case 400:
-            errorMessage = "Usuario con correo ya registrado."
+            errorMessage = "Usuario con correo ya registrado.";
             break;
           case 401:
-            errorMessage = "Usuario con ID ya registrado."
+            errorMessage = "Usuario con ID ya registrado.";
             break;
           default:
             errorMessage = "Error desconocido";
@@ -276,7 +276,7 @@ function Login() {
       const UserType = userData.usuario.userType;
       localStorage.setItem("userType", UserType);
 
-      if (UserType === "*"||UserType === "+") {
+      if (UserType === "*" || UserType === "+") {
         localStorage.setItem("IsAdmin", true);
         navigate("/adminGeneral");
         window.location.reload();
@@ -287,6 +287,7 @@ function Login() {
       setUserData(userData);
       navigate("/inicio");
       setNombre(userData.usuario.nombre);
+      window.location.reload();
       handleClose();
 
       window.localStorage.setItem("logueado", true);
@@ -391,7 +392,7 @@ function Login() {
 
       const userData = await response.json();
       setNombre(userData.nombre);
-    } catch (error) { }
+    } catch (error) {}
   };
 
   return (
@@ -466,8 +467,9 @@ function Login() {
             <div className="button-container">
               <button
                 onClick={handleIniciarSesionClick}
-                className={`iniciar-sesion ${isLoginSelected ? "selected" : ""
-                  }`}
+                className={`iniciar-sesion ${
+                  isLoginSelected ? "selected" : ""
+                }`}
               >
                 <p>Iniciar Sesión</p>
               </button>
