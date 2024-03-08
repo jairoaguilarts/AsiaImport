@@ -8,31 +8,38 @@ import admin from '../../assets/admin.png';
 import AdmiNav from './AdmiNav';
 
 function PGeneralAdmin() {
-    const [gananciasMensuales, setGananciasMensuales] = useState(0);
-    const [gananciasAnuales, setGananciasAnuales] = useState(0);
-    const [ventasTotales, setVentasTotales] = useState(0);
+    const [sumaTotalOrdenes, setSumaTotalOrdenes] = useState(0);
     const [conteoUsuarios, setConteoUsuarios] = useState({ empleados: 0, administradores: 0 });
 
     const baseURL = 'https://importasia-api.onrender.com';
 
-    const fetchMetrics = async () => {
+    const fetchSumaTotalOrdenes = async () => {
         try {
-            const response = await fetch(`${baseURL}/metrics`);
+            const response = await fetch(`${baseURL}/suma-total-ordenes`);
             const data = await response.json();
-            setGananciasMensuales(data.gananciasMensuales);
-            setGananciasAnuales(data.gananciasAnuales);
-            setVentasTotales(data.ventasTotales);
-            setConteoUsuarios({
-                empleados: parseInt(data.empleados, 10),
-                administradores: parseInt(data.administradores, 10)
-            });
+            setSumaTotalOrdenes(data.sumaTotal);
         } catch (error) {
             console.error('Error al obtener las métricas:', error);
         }
     };
 
+    const fetchConteoUsuarios = async () => {
+        try {
+            const response = await fetch(`${baseURL}/conteo-usuarios`);
+            const data = await response.json();
+            setConteoUsuarios({
+                empleados: parseInt(data['+'], 10),
+                administradores: parseInt(data['*'], 10)
+
+            });
+        } catch (error) {
+            console.error('Error al obtener el conteo de usuarios por tipo:', error);
+        }
+    };
+
     useEffect(() => {
-        fetchMetrics();
+        fetchSumaTotalOrdenes();
+        fetchConteoUsuarios();
     }, []);
 
     const formatearMoneda = (cantidad) => {
@@ -48,21 +55,21 @@ function PGeneralAdmin() {
                         <div className="cajita">
                             <div className='titulo'> Ganancias Mensuales</div>
                             <div className='contenido-inf'>
-                                <p>{formatearMoneda(gananciasMensuales)}</p>
+                                <p>{formatearMoneda(sumaTotalOrdenes)}</p>
                                 <img src={maleta} alt="maleta" />
                             </div>
                         </div>
                         <div className="cajita">
                             <div className='titulo'> Ganancias Anuales</div>
                             <div className='contenido-inf'>
-                                <p>{formatearMoneda(gananciasAnuales)}</p>
+                                <p>{formatearMoneda(sumaTotalOrdenes)}</p>
                                 <img src={dinero} alt="money" />
                             </div>
                         </div>
                         <div className="cajita">
                             <div className='titulo'> Ventas Totales</div>
                             <div className='contenido-inf'>
-                                <p>{formatearMoneda(ventasTotales)}</p>
+                                <p>{formatearMoneda(sumaTotalOrdenes)}</p>
                                 <img src={venta} alt="venta$$$" />
                             </div>
                         </div>

@@ -13,7 +13,7 @@
 }
 
 .pago-container h1 {
-  color: #333;
+  color: orange;
   margin-bottom: 30px;
 }
 
@@ -29,6 +29,12 @@
 
 .pago-container .productos-contenedor-scroll {
   border: 2px solid #ccc;
+  width: 1200px;
+  height: 500px;
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+
   border-radius: 8px;
   padding: 10px;
 }
@@ -112,13 +118,14 @@
 }
 
 .productos-imagen {
-  width: 100px; 
-  height: auto; 
+  width: 150px; 
+  height: 150px; 
   margin-right: 20px;
 }
 
 .productos-imagen img {
-  width: 100%; /* Mantenemos el mismo tamaño de imagen */
+  width: auto;
+  height: 100%;
 }
 
 .detalle-producto {
@@ -127,12 +134,14 @@
 
 .productos-nombre {
   font-weight: bold;
+  font-size: 20px;
   color: #333;
   margin-bottom: 5px;
 }
 
 .productos-cantidad,
-.productos-precio {
+.productos-precio p{
+  font-size: 19px;
   margin-top: 5px; /* Espacio entre cada detalle del producto */
 }
 
