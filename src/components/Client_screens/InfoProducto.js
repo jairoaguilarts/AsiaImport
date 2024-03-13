@@ -5,6 +5,7 @@ import Form from "react-bootstrap/Form";
 import Swal from "sweetalert2";
 import audifonosProduct1 from "../../assets/Srhythm.png";
 import avatar from "../../assets/avatar.png";
+import carga from "../../assets/maneki-neko.png"
 import Pagination from "../Client_screens/Pagination";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -18,7 +19,6 @@ function InfoAudifonos() {
       setShowAlert(false);
     }, 2400);
   };
-
 
   const modelo = localStorage.getItem("Modelo");
   const [activeTab, setActiveTab] = useState("description");
@@ -36,6 +36,7 @@ function InfoAudifonos() {
   const [resenas, setResenas] = useState([]);
   const [filtroCalificacion, setFiltroCalificacion] = useState('Cualquiera');
   const [resenasActuales, setResenasActuales] = useState([]);
+  const [cargando, setCargando] = useState(true);
 
   const [currentPage, setCurrentPage] = useState(1);
   const reseñasPorPagina = 3;
@@ -112,6 +113,7 @@ function InfoAudifonos() {
   const handleChangeFiltro = (event) => {
     setFiltroCalificacion(event.target.value);
   };
+
   const obtenerProductosRecomendados = async () => {
     try {
       if (!producto) {
@@ -121,13 +123,13 @@ function InfoAudifonos() {
 
       const categoriaProducto = producto.Categoria;
       const recomendacionesPorCategoria = {
-        'PARLANTES': ['AURICULARES', 'CARGADORES'],
-        'AURICULARES': ['CARGADORES', 'SMARTWATCH'],
-        'BOTES': ['AURICULARES', 'SMARTWATCH'],
-        'CARGADORES': ['COBERTORES', 'PARLANTES'],
-        'SMARTWATCH': ['AURICULARES', 'BOTES'],
-        'VIDRIO TEMPLADO': ['COBERTORES', 'CARGADORES'],
-        'COBERTORES': ['VIDRIO TEMPLADO', 'CARGADORES'],
+        'PARLANTES': ['PARLANTES', 'AURICULARES', 'CARGADORES'],
+        'AURICULARES': ['AURICULARES', 'CARGADORES', 'SMARTWATCH'],
+        'BOTES': ['BOTES', 'AURICULARES', 'SMARTWATCH'],
+        'CARGADORES': ['CARGADORES', 'COBERTORES', 'PARLANTES'],
+        'SMARTWATCH': ['SMARTWATCH', 'AURICULARES', 'BOTES'],
+        'VIDRIO TEMPLADO': ['VIDRIO TEMPLADO', 'COBERTORES', 'CARGADORES'],
+        'COBERTORES': ['COBERTORES', 'VIDRIO TEMPLADO', 'CARGADORES'],
         'OTROS': ['OTROS']
       };
 
@@ -138,10 +140,11 @@ function InfoAudifonos() {
         const responseProductos = await fetch(`https://importasia-api.onrender.com/buscarProductoCategoria?Nombre=${categoria}`);
         const productos = await responseProductos.json();
 
+        const productosFiltrados = productos.filter(p => p.Modelo !== producto.Modelo);
         let productosConResenas = [];
         let productosSinResenas = [];
 
-        for (const producto of productos) {
+        for (const producto of productosFiltrados) {
           const responseResenas = await fetch(`https://importasia-api.onrender.com/cargarResenas?Modelo=${producto.Modelo}`);
           const resenas = await responseResenas.json();
 
@@ -178,9 +181,12 @@ function InfoAudifonos() {
   const [productosRecomendados, setProductosRecomendados] = useState([]);
   useEffect(() => {
     const fetchProductosRecomendados = async () => {
+      setCargando(true); // Inicia la carga
       const recomendados = await obtenerProductosRecomendados();
       setProductosRecomendados(recomendados);
+      setCargando(false); // Finaliza la carga
     };
+
 
     if (producto) {
       fetchProductosRecomendados();
@@ -409,7 +415,7 @@ function InfoAudifonos() {
           )}
         </div>
       )}
-     {/* Tambie podriamo poner los recomendados aqui*/}
+      {/* Tambie podriamo poner los recomendados aqui*/}
       <div className="tab-content">
         <button className="agregar-resena" onClick={() => setIsAgregarR(true)}>
           Agregar Reseña
@@ -504,31 +510,33 @@ function InfoAudifonos() {
       />
       <hr></hr>
       <div className="productos-recomendados">
-      <h2 style={{ fontWeight: 'bold' }}>PRODUCTOS RECOMENDADOS</h2>
-        <ul>
-          {productosRecomendados.map((producto, index) => (
-            <li key={index}>
-           <button onClick={() => {  handleSubmit(producto.Modelo); }} style={{ border: 'none', background: 'none', padding: 0, cursor: 'pointer' }} >
-              <img
-                src={producto.ImagenID}
-                alt={producto.Nombre}
-              />
-              
-            </button>
-              <p>{producto.Nombre}</p>
-              <p><strong>L {producto.Precio}.00</strong></p>
-              {/* Agrega más detalles del producto según tu estructura de datos */}
-              <button className="btn-cart2" onClick={() => handleAgregar2(producto.Modelo)}>
-                AÑADIR AL CARRITO
-              </button>
-              <button className="btn-favorite2" onClick={() => handleAgregarFavoritos(producto.Modelo)}>
-                AGREGAR A FAVORITOS
-              </button>
-
-            </li>
-          ))}
-        </ul>
+        <h2 style={{ fontWeight: 'bold' }}>PRODUCTOS RECOMENDADOS</h2>
+        {cargando ? (
+          <div className="carga" style={{ textAlign: 'center' }}>
+            <img src={carga} alt="Cargando..." style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto', width: '25%', height: '25%' }} />
+            <p style={{ color: '#e69500', fontSize: '25px', fontWeight: 'bold' }}>CARGANDO RECOMENDADOS...</p>
+          </div>
+        ) : (
+          <ul>
+            {productosRecomendados.map((producto, index) => (
+              <li key={index}>
+                <button onClick={() => { handleSubmit(producto.Modelo); }} style={{ border: 'none', background: 'none', padding: 0, cursor: 'pointer' }}>
+                  <img src={producto.ImagenID} alt={producto.Nombre} />
+                </button>
+                <p>{producto.Nombre}</p>
+                <p><strong>L {producto.Precio}.00</strong></p>
+                <button className="btn-cart2" onClick={() => handleAgregar2(producto.Modelo)}>
+                  AÑADIR AL CARRITO
+                </button>
+                <button className="btn-favorite2" onClick={() => handleAgregarFavoritos(producto.Modelo)}>
+                  AGREGAR A FAVORITOS
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
+
     </div>
   );
 }

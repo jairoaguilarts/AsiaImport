@@ -1,3 +1,7 @@
+/* En tu archivo CSS */
+
+
+
 .product-section {
   display: flex;
   align-items: center;
@@ -549,3 +553,4 @@
   }
 
 }
+
