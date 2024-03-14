@@ -93,7 +93,7 @@ align-items: center;
   position: relative;
   width: 250px;
   height: 180px;
-  background-image: linear-gradient(-45deg, #f89b29 0%, #18b7db 100%);
+  background-image: linear-gradient(-45deg, #f89b29 0%, #f89b29 100%);
   border-radius: 10px;
   display: flex;
   padding: 10px 30px;
@@ -131,6 +131,10 @@ align-items: center;
   pointer-events: none;
 }
 
+.card-direcciones:hover {
+  background-image: linear-gradient(-45deg, #007bff 0%, #007bff 100%); /* Cambiado a azul sólido al hacer hover */
+}
+
 .card-direcciones:hover .overlay {
   opacity: 1;
   pointer-events: auto;
@@ -144,7 +148,8 @@ align-items: center;
   padding: 5px 10px; /* Reduje el padding */
   font-size: 12px; /* Reduje el tamaño de la fuente */
   transform: translate(-50%, -50%);
-  background-color: #ffffff;
+  background-color: #f89b29;
+  color: #ffffff;
   border-radius: 8px; /* Reduje el radio del borde */
   display: flex;
   align-items: center;
@@ -204,6 +209,8 @@ align-items: center;
   z-index: 999;
   right: -100px;
   top: -15px;
+  background-color: transparent;
+  border: none;
 }
 
 .bin-bottom {
@@ -211,11 +218,22 @@ align-items: center;
 }
 
 .bin-button svg line {
-  stroke: black; 
+  stroke: black;
+  transition: stroke 0.3s ease;
 }
 
 .bin-button:hover svg line {
-  stroke: black;
+  stroke: red;
+}
+
+.bin-button:hover svg * {
+  stroke: red !important;
+}
+
+.bin-button:hover svg line,
+.bin-button:hover svg path { /* Asegúrate de incluir todos los tipos de elementos que tu SVG pueda tener */
+  stroke: red; /* Para elementos de línea */
+  fill: red; /* Para elementos con relleno, si los hay */
 }
 
 .bin-top {
@@ -226,10 +244,6 @@ align-items: center;
 
 .bin-button:hover .bin-top {
   transform: rotate(45deg);
-}
-
-.bin-button:hover {
-  background-color: rgb(255, 0, 0);
 }
 
 .bin-button:active {
