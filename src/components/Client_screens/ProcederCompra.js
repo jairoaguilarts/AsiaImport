@@ -282,10 +282,10 @@ function ProcederCompra() {
 
           const municipioActualizado = {
             value: direccion.municipio,
-            label: direccion.municipio, 
+            label: direccion.municipio,
           };
-          setMunicipioSeleccionado(municipioActualizado); 
-          setMunicipio(direccion.municipio); 
+          setMunicipioSeleccionado(municipioActualizado);
+          setMunicipio(direccion.municipio);
 
           setDireccion(direccion.direccion);
           setPuntoReferencia(direccion.puntoReferencia);
@@ -729,17 +729,18 @@ function ProcederCompra() {
                 </div>
               );
             })}
-            <div className="card-direcciones">
-              <p className="heading-direcciones">Agregar Direccion</p>
-              <p className="para-direcciones">+</p>
-              <div className="overlay-direcciones"></div>
-              <button
-                className="card-btn-direcciones"
-                onClick={handleLimpiarCampos}
-              >
-                Seleccionar
-              </button>
-            </div>
+            {direcciones.length < 4 &&
+              <div className="card-direcciones">
+                <p className="heading-direcciones">Agregar Direccion</p>
+                <p className="para-direcciones">+</p>
+                <div className="overlay-direcciones"></div>
+                <button
+                  className="card-btn-direcciones"
+                  onClick={handleLimpiarCampos}
+                >
+                  Seleccionar
+                </button>
+              </div>}
           </div>
           {/* Contenido de los departamentos */}
           <div className="forms-container">
