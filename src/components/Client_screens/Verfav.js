@@ -125,10 +125,10 @@ const VerFav = () => {
           console.log("Error al obtener los productos favoritos: ", error);
           setLoading(false);
           Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'Error al obtener los productos favoritos',
-            confirmButtonText: 'Ok'
+            icon: "error",
+            title: "Error",
+            text: "Error al obtener los productos favoritos",
+            confirmButtonText: "Ok",
           });
         }
       } else {
@@ -153,7 +153,7 @@ const VerFav = () => {
           <img src={originIcon} alt="gatito" />
         </div>
       ) : (
-        <div className="product-list-container">
+        <div className="product-list-container2">
           {currentProducts.map((producto, index) => (
             <div className="product-container" key={index}>
               {/* Puedes ajustar el contenido según tus necesidades */}
@@ -194,7 +194,6 @@ const VerFav = () => {
                   }}
                 >
                   <p className="price">L.{producto.Precio}.00</p>
-
                 </div>
 
                 <div
@@ -226,7 +225,12 @@ const VerFav = () => {
         </div>
       )}
       <div
-        style={{ textAlign: "center", padding: "10px 0", marginLeft: "180px" }}
+        style={{
+          display: "flex", 
+          justifyContent: "center",
+          alignItems: "center", 
+          padding: "10px 0", 
+        }}
       >
         <Pagination
           productsPerPage={productsPerPage}
