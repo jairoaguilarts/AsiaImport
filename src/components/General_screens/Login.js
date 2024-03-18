@@ -142,6 +142,7 @@ function Login() {
 
   const [userData, setUserData] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isEmployee, setIsEmployee] = useState(false);
 
   const handleRegister = async () => {
     if (
@@ -277,7 +278,7 @@ function Login() {
       localStorage.setItem("userType", UserType);
 
       if (UserType === "+") {
-        localStorage.setItem("IsAdmin", false);
+        localStorage.setItem("IsEmployee", true);
         navigate("/gestionpw");
         window.location.reload();
       } else if (UserType === "*") {
@@ -286,6 +287,8 @@ function Login() {
         window.location.reload();
       } else {
         localStorage.setItem("IsAdmin", false);
+        localStorage.setItem("IsEmployee", false);
+
         navigate("/inicio");
         window.location.reload();
       }
@@ -362,7 +365,9 @@ function Login() {
       if (response.ok) {
         localStorage.removeItem("logueado");
         localStorage.removeItem("IsAdmin");
+        localStorage.removeItem("IsEmployee");
         localStorage.removeItem("FireBaseUID");
+
         setMenuOpen(false);
         navigate("/inicio");
       }

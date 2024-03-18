@@ -133,9 +133,9 @@ const Navibar = () => {
     navigate("/historial-orden");
   };
   const navigateToInicioDestacados = () => {
-    navigate('/inicio', { state: { scrollDestacados: true } });
+    navigate("/inicio", { state: { scrollDestacados: true } });
   };
-  
+
   window.addEventListener("scroll", () => {
     if (window.screenY > 70) {
       setActive(true);
@@ -343,7 +343,7 @@ const Navibar = () => {
                 <Navbar.Brand
                   className="botonAdicional"
                   style={{ color: "white", fontSize: 15 }}
-                  onClick={navigateToInicioDestacados}   
+                  onClick={navigateToInicioDestacados}
                   href="#ProductosDestacados"
                 >
                   Productos Destacados

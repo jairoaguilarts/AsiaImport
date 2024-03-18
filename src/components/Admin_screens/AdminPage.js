@@ -6,7 +6,7 @@ import menu from "../../assets/menu-sidebar.png";
 import general from "../../assets/pGeneral.png";
 import editar from "../../assets/pEdit.png";
 import empleados from "../../assets/pEmpleados.png";
-import iconI from"../../assets/infoI.png";
+import iconI from "../../assets/infoI.png";
 import ventas from "../../assets/pVentas.png";
 import logOut from "../../assets/logout.png";
 import icoC from "../../assets/iCarr.png";
@@ -20,7 +20,6 @@ const AdminPage = () => {
   const navigate = useNavigate();
   const tipoUser = localStorage.getItem("userType");
   console.log("Tipo de Usuario:", tipoUser);
-
 
   const toggleSidebar = () => {
     console.log("FirebaseUID recuperado en OtroComponente:", firebaseUID);
@@ -46,6 +45,8 @@ const AdminPage = () => {
       if (response.ok) {
         localStorage.removeItem("logueado");
         localStorage.removeItem("IsAdmin");
+        localStorage.removeItem("IsEmployee");
+
         localStorage.removeItem("FireBaseUID");
         localStorage.removeItem("userType");
         navigate("/inicio");
@@ -54,12 +55,14 @@ const AdminPage = () => {
     }
   };
   const isOptionBlocked = (optionName) => {
-    const blocked = tipoUser === "+" && !(optionName === "Gestionar Productos" || optionName === "Gestion Ordenes");
+    const blocked =
+      tipoUser === "+" &&
+      !(
+        optionName === "Gestionar Productos" || optionName === "Gestion Ordenes"
+      );
     console.log(`Is ${optionName} blocked?`, blocked);
     return blocked;
   };
-  
-
 
   return (
     <Container fluid>
@@ -75,49 +78,77 @@ const AdminPage = () => {
         <div className="sidebar">
           <div className="row">
             <hr className="linea-divisora" />
-            <div className={`sidebar-item ${isOptionBlocked("Panel General") ? "blocked" : ""}`}>
+            <div
+              className={`sidebar-item ${
+                isOptionBlocked("Panel General") ? "blocked" : ""
+              }`}
+            >
               <Link to="/adminGeneral">
                 <img src={general} alt="gen" className="icon-image" />
                 <span>Panel General</span>
               </Link>
             </div>
             <hr className="linea-divisora" />
-            <div className={`sidebar-item ${isOptionBlocked("Gestionar Productos") ? "blocked" : ""}`}>
+            <div
+              className={`sidebar-item ${
+                isOptionBlocked("Gestionar Productos") ? "blocked" : ""
+              }`}
+            >
               <Link to="/gestionpw">
                 <img src={editar} alt="editar" className="icon-image" />
                 <span>Gestionar Productos</span>
               </Link>
             </div>
             <hr className="linea-divisora" />
-            <div className={`sidebar-item ${isOptionBlocked("Gestionar Informacion") ? "blocked" : ""}`}>
+            <div
+              className={`sidebar-item ${
+                isOptionBlocked("Gestionar Informacion") ? "blocked" : ""
+              }`}
+            >
               <Link to="/GestionarInfo">
                 <img src={iconI} alt="emp" className="icon-image" />
                 <span>Gestionar Informacion</span>
               </Link>
             </div>
             <hr className="linea-divisora" />
-            <div className={`sidebar-item ${isOptionBlocked("Gestionar Carrousel") ? "blocked" : ""}`}>
+            <div
+              className={`sidebar-item ${
+                isOptionBlocked("Gestionar Carrousel") ? "blocked" : ""
+              }`}
+            >
               <Link to="/gestion-carrusel">
                 <img src={icoC} alt="emp" className="icon-image" />
                 <span>Gestionar Carrousel</span>
               </Link>
             </div>
             <hr className="linea-divisora" />
-            <div className={`sidebar-item ${isOptionBlocked("Empleados") ? "blocked" : ""}`}>
+            <div
+              className={`sidebar-item ${
+                isOptionBlocked("Empleados") ? "blocked" : ""
+              }`}
+            >
               <Link to="/adminempleados">
                 <img src={empleados} alt="emp" className="icon-image" />
                 <span>Empleados</span>
               </Link>
             </div>
             <hr className="linea-divisora" />
-            <div className={`sidebar-item ${isOptionBlocked("Ventas") ? "blocked" : ""}`}>
+            <div
+              className={`sidebar-item ${
+                isOptionBlocked("Ventas") ? "blocked" : ""
+              }`}
+            >
               <Link to="/ventas">
                 <img src={ventas} alt="ventas" className="icon-image" />
                 <span>Ventas</span>
               </Link>
             </div>
             <hr className="linea-divisora" />
-            <div className={`sidebar-item ${isOptionBlocked("Gestion Ordenes") ? "blocked" : ""}`}>
+            <div
+              className={`sidebar-item ${
+                isOptionBlocked("Gestion Ordenes") ? "blocked" : ""
+              }`}
+            >
               <Link to="/gestionordenes">
                 <img src={orden} alt="ventas" className="icon-image" />
                 <span>Gestion Ordenes</span>

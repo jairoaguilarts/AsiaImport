@@ -1,11 +1,10 @@
-// App.js
 import React from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
-  useLocation ,
+  useLocation,
 } from "react-router-dom";
 import Navibar from "./components/General_screens/Navibar";
 import Footer from "./components/General_screens/Footer";
@@ -31,55 +30,221 @@ import Verfav from "./components/Client_screens/Verfav";
 import Pago from "./components/Client_screens/Pago";
 import PagoP from "./components/Client_screens/PagoP";
 import HOrden from "./components/Client_screens/HistorialOrden";
-import GestionarInfo from "./components/Admin_screens/GestionarInfo"
+import GestionarInfo from "./components/Admin_screens/GestionarInfo";
 import GestionCarrusel from "./components/Admin_screens/GestionCarrusel";
 import GestionOrden from "./components/Admin_screens/GestionOrdenes";
 import Chatcito from "./components/General_screens/Chatcito";
 
 function App() {
   const verifAdmin = localStorage.getItem("IsAdmin");
+  const verifEmployee = localStorage.getItem("IsEmployee");
   const tipoUser = localStorage.getItem("userType");
 
   return (
     <Router>
       <div className="App">
-        {verifAdmin === "true" ? <Admin /> : <Navibar />}
+        {verifAdmin || verifEmployee ? <Admin /> : <Navibar />}
 
         <Routes>
           <Route
             path="/"
-            element={verifAdmin === "true" ? <PGAdmin /> : <Inicio />}
+            element={
+              verifAdmin === "true" ? (
+                <PGAdmin />
+              ) : verifEmployee === "true" ? (
+                <GestionPW />
+              ) : (
+                <Inicio />
+              )
+            }
           />
-          <Route path="/inicio" element={<Inicio />} />
-          <Route path="/privacidad" element={<Politicas />} />
-          <Route path="/quejas" element={<Quejas />} />
-          <Route path="/acerca" element={<InfoG />} />
-          <Route path="/editar" element={<EditarPerfil />} />{" "}
-          <Route path="/preguntas" element={<Fa />} />
-          <Route path="/compra" element={<ProcederCompra />} />{" "}
-          <Route path="/carrito" element={<Carrito />} />{" "}
-          <Route path="/favoritos" element={<Verfav />} />
-          <Route path="/pago" element={<Pago />} />
-          <Route path="/pagoP" element={<PagoP />} />
-          <Route path="/GestionarInfo" element={<GestionarInfo />} />
-          <Route path="/gestion-carrusel" element={<GestionCarrusel />} />
+          <Route
+            path="/inicio"
+            element={
+              verifAdmin === "true" ? (
+                <PGAdmin />
+              ) : verifEmployee === "true" ? (
+                <GestionPW />
+              ) : (
+                <Inicio />
+              )
+            }
+          />
+          <Route
+            path="/privacidad"
+            element={
+              verifAdmin === "true" ? (
+                <GestionCarrusel />
+              ) : verifEmployee === "true" ? (
+                <GestionPW />
+              ) : (
+                <Politicas />
+              )
+            }
+          />
+          <Route
+            path="/quejas"
+            element={
+              verifAdmin === "true" ? (
+                <GestionCarrusel />
+              ) : verifEmployee === "true" ? (
+                <GestionPW />
+              ) : (
+                <Quejas />
+              )
+            }
+          />
+          <Route
+            path="/acerca"
+            element={
+              verifAdmin === "true" ? (
+                <GestionCarrusel />
+              ) : verifEmployee === "true" ? (
+                <GestionPW />
+              ) : (
+                <InfoG />
+              )
+            }
+          />
+          <Route
+            path="/editar"
+            element={
+              verifAdmin === "true" ? (
+                <GestionCarrusel />
+              ) : verifEmployee === "true" ? (
+                <GestionPW />
+              ) : (
+                <EditarPerfil />
+              )
+            }
+          />{" "}
+          <Route
+            path="/preguntas"
+            element={
+              verifAdmin === "true" ? (
+                <GestionCarrusel />
+              ) : verifEmployee === "true" ? (
+                <GestionPW />
+              ) : (
+                <Fa />
+              )
+            }
+          />
+          <Route
+            path="/compra"
+            element={
+              verifAdmin === "true" ? (
+                <GestionCarrusel />
+              ) : verifEmployee === "true" ? (
+                <GestionPW />
+              ) : (
+                <ProcederCompra />
+              )
+            }
+          />{" "}
+          <Route
+            path="/carrito"
+            element={
+              verifAdmin === "true" ? (
+                <GestionCarrusel />
+              ) : verifEmployee === "true" ? (
+                <GestionPW />
+              ) : (
+                <Carrito />
+              )
+            }
+          />{" "}
+          <Route
+            path="/favoritos"
+            element={
+              verifAdmin === "true" ? (
+                <GestionCarrusel />
+              ) : verifEmployee === "true" ? (
+                <GestionPW />
+              ) : (
+                <Verfav />
+              )
+            }
+          />
+          <Route
+            path="/pago"
+            element={
+              verifAdmin === "true" ? (
+                <GestionCarrusel />
+              ) : verifEmployee === "true" ? (
+                <GestionPW />
+              ) : (
+                <Pago />
+              )
+            }
+          />
+          <Route
+            path="/pagoP"
+            element={
+              verifAdmin === "true" ? (
+                <GestionCarrusel />
+              ) : verifEmployee === "true" ? (
+                <GestionPW />
+              ) : (
+                <PagoP />
+              )
+            }
+          />
+          <Route
+            path="/GestionarInfo"
+            element={
+              verifAdmin === "true" ? (
+                <GestionarInfo />
+              ) : verifEmployee === "true" ? (
+                <GestionPW />
+              ) : (
+                <Navigate to="/inicio" />
+              )
+            }
+          />
+          <Route
+            path="/gestion-carrusel"
+            element={
+              verifAdmin === "true" ? (
+                <GestionCarrusel />
+              ) : verifEmployee === "true" ? (
+                <GestionPW />
+              ) : (
+                <Navigate to="/inicio" />
+              )
+            }
+          />
           <Route
             path="/adminGeneral"
             element={
-              verifAdmin === "true" ? <PGAdmin /> : <Navigate to="/inicio" />
+              verifAdmin === "true" ? (
+                <PGAdmin />
+              ) : verifEmployee === "true" ? (
+                <GestionPW />
+              ) : (
+                <Navigate to="/inicio" />
+              )
             }
-          />{" "}
+          />
           <Route
             path="/ventas"
             element={
-              verifAdmin === "true" ? <Ventas /> : <Navigate to="/inicio" />
+              verifAdmin === "true" ? (
+                <Ventas />
+              ) : verifEmployee === "true" ? (
+                <GestionPW />
+              ) : (
+                <Navigate to="/inicio" />
+              )
             }
-          />{" "}
+          />
           <Route
             path="/adminempleados"
             element={
               verifAdmin === "true" ? (
                 <AdminEmpleados />
+              ) : verifEmployee === "true" ? (
+                <GestionPW />
               ) : (
                 <Navigate to="/inicio" />
               )
@@ -88,35 +253,105 @@ function App() {
           <Route
             path="/gestionpw"
             element={
-              verifAdmin === "true" ? <GestionPW /> : <Navigate to="/inicio" />
+              verifAdmin === "true" ? (
+                <GestionPW />
+              ) : verifEmployee === "true" ? (
+                <GestionPW />
+              ) : (
+                <Navigate to="/inicio" />
+              )
             }
           />
           <Route
             path="/gestionordenes"
-            element={<GestionOrden/>}
+            element={
+              verifAdmin === "true" ? (
+                <GestionOrden />
+              ) : verifEmployee === "true" ? (
+                <GestionOrden />
+              ) : (
+                <Navigate to="/inicio" />
+              )
+            }
             /*element={
               tipoUser === "+" ? <GestionOrden /> : <Navigate to={"/gestionpw"} />
             }*/
           />
-          <Route path="/modificarp" element={<ModificarP />} />
-          <Route path="/agregarp" element={<AgregarP />} />
-          <Route path="/historial-orden" element={<HOrden />} />
-          <Route path="/producto-filtro" element={<ProductoFiltro />} />
-          <Route path="/info-producto" element={<InfoProductos />} />
+          <Route
+            path="/modificarp"
+            element={
+              verifAdmin === "true" ? (
+                <GestionCarrusel />
+              ) : verifEmployee === "true" ? (
+                <GestionPW />
+              ) : (
+                <ModificarP />
+              )
+            }
+          />
+          <Route
+            path="/agregarp"
+            element={
+              verifAdmin === "true" ? (
+                <GestionCarrusel />
+              ) : verifEmployee === "true" ? (
+                <GestionPW />
+              ) : (
+                <AgregarP />
+              )
+            }
+          />
+          <Route
+            path="/historial-orden"
+            element={
+              verifAdmin === "true" ? (
+                <GestionCarrusel />
+              ) : verifEmployee === "true" ? (
+                <GestionPW />
+              ) : (
+                <HOrden />
+              )
+            }
+          />
+          <Route
+            path="/producto-filtro"
+            element={
+              verifAdmin === "true" ? (
+                <GestionCarrusel />
+              ) : verifEmployee === "true" ? (
+                <GestionPW />
+              ) : (
+                <ProductoFiltro />
+              )
+            }
+          />
+          <Route
+            path="/info-producto"
+            element={
+              verifAdmin === "true" ? (
+                <GestionCarrusel />
+              ) : verifEmployee === "true" ? (
+                <GestionPW />
+              ) : (
+                <InfoProductos />
+              )
+            }
+          />
         </Routes>
-        {verifAdmin !== "true" && <ConditionalComponents />}
-       
+        {verifAdmin !== "true" && verifEmployee !== "true" && (
+          <ConditionalComponents />
+        )}
       </div>
     </Router>
   );
 }
 function ConditionalComponents() {
-  const location = useLocation(); 
+  const verifEmployee = localStorage.getItem("IsEmployee");
+  const location = useLocation();
   const hideOnRoutes = ["/pago", "/pagoP", "/compra"];
 
-
-  const showChatcito = !hideOnRoutes.includes(location.pathname);
-
+  const showChatcito =
+    !hideOnRoutes.includes(location.pathname) && !verifEmployee;
   return (
     <>
       {showChatcito && <Chatcito />}
@@ -124,6 +359,5 @@ function ConditionalComponents() {
     </>
   );
 }
-
 
 export default App;
