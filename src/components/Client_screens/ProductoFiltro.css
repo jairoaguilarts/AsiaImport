@@ -35,10 +35,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  min-height: 100vh; /* Asegura que ocupe al menos la altura de la pantalla */
   width: 100%;
   flex-direction: column;
-  overflow: visible;
+  padding: 20px; /* Agrega algo de padding para asegurar espacio alrededor del contenido */
+  box-sizing: border-box; /* Asegura que el padding no afecte las dimensiones del contenedor */
+}
+
+.main-container2 {
+  margin-top: 20px; /* Ajusta según sea necesario para tu layout */
+  margin-left: 0; /* Elimina el margen negativo */
+  margin-bottom: auto;
+  padding: 20px;
+}
+
+.product-list-container {
+  margin-left: 0; /* Asegúrate de que no empuje el contenido fuera de la vista */
+  margin-top: 20px; /* Ajusta según sea necesario */
+  padding: 20px;
 }
 
 .filter-section:last-child {
@@ -111,49 +125,11 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.main-container {
-  position: relative;
-  display: flex;
-  margin-bottom: auto;
-}
-.main-container2 {
-  /* Elimina los márgenes que empujan el contenedor hacia abajo y hacia la izquierda */
-  margin-top: 0;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: auto;
-  /* Asegúrate de que el contenedor tenga el ancho que necesitas */
-  width: 100%;
-  max-width: 1200px; /* O el ancho máximo que desees */
-  /* Altura mínima para asegurarse de que se estire hasta el final de la ventana gráfica si no hay suficiente contenido */
-  min-height: 100vh; 
-  /* Centrado de contenido */
-  display: flex;
-  flex-direction: column;
-  justify-content: center; /* Centra verticalmente si es necesario */
-  align-items: center; /* Centra horizontalmente */
-}
-
-
 .product-list-container {
   margin-left: 250px;
   margin-top: -500px;
   padding-left: 20px;
 }
-
-.product-list-container2 {
-  /* Centra el contenedor */
-  margin: 0 auto;
-  /* Ajusta el padding a tus necesidades, sin desplazamientos negativos */
-  padding: 20px;
-  /* Opcional: Si necesitas que este contenedor tenga un ancho máximo específico */
-  max-width: 1200px; /* Ajusta este valor según sea necesario */
-  /* Asegúrate de que no exceda el ancho de la ventana gráfica */
-  width: 100%;
-  /* Si deseas que este contenedor tenga algún espacio en la parte superior */
-  padding-top: 1em; /* Ajusta este valor según sea necesario */
-}
-
 
 .product-container {
   display: flex;
@@ -317,5 +293,3 @@
     margin-bottom: 20px;
   }
 }
-
-
