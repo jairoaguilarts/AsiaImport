@@ -424,8 +424,8 @@ function Login() {
           <div className={menuOpen ? "menu-options menu-open" : "menu-options"}>
             <button onClick={handleEditProfile}>Editar perfil</button>
             <button onClick={handleFav}>Mis Favoritos</button>
-            <button onClick={handleLogout}>Cerrar sesión</button>
             <button onClick={handleHistorial}>Historial Ordenes</button>
+            <button onClick={handleLogout}>Cerrar sesión</button>
           </div>
         </div>
       )}
