@@ -1,5 +1,3 @@
-/* audifonoFiltro.css */
-
 /* Estilos Base */
 .filter-container {
   padding: 20px;
@@ -35,23 +33,23 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh; /* Asegura que ocupe al menos la altura de la pantalla */
+  min-height: 100vh;
   width: 100%;
   flex-direction: column;
-  padding: 20px; /* Agrega algo de padding para asegurar espacio alrededor del contenido */
-  box-sizing: border-box; /* Asegura que el padding no afecte las dimensiones del contenedor */
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .main-container2 {
-  margin-top: 20px; /* Ajusta según sea necesario para tu layout */
-  margin-left: 0; /* Elimina el margen negativo */
+  margin-top: 20px;
+  margin-left: 0;
   margin-bottom: auto;
   padding: 20px;
 }
 
 .product-list-container {
-  margin-left: 0; /* Asegúrate de que no empuje el contenido fuera de la vista */
-  margin-top: 20px; /* Ajusta según sea necesario */
+  margin-left: 0;
+  margin-top: 20px;
   padding: 20px;
 }
 
@@ -186,63 +184,60 @@
 .btn-add-to-cart {
   display: block;
   margin-top: 10px;
-  padding: 10px 30px; /* Actualizado */
+  padding: 10px 30px;
   text-align: center;
   text-decoration: none;
-  color: #fff; /* Mantenido */
-  background-color: #ffa500; /* Actualizado */
-  border: none; /* Actualizado */
+  color: #fff;
+  background-color: #ffa500;
+  border: none; 
   cursor: pointer;
-  font-size: 16px; /* Actualizado */
-  border-radius: 4px; /* Actualizado */
-  min-width: 240px; /* Sugerencia para mantener el ancho mínimo */
+  font-size: 16px;
+  border-radius: 4px;
+  min-width: 240px;
 }
 
 .btn-add-to-favorites {
   display: block;
   margin-top: 10px;
-  padding: 10px 15px; /* Actualizado */
+  padding: 10px 15px;
   text-align: center;
   text-decoration: none;
-  color: #fff; /* Mantenido */
-  background-color: #01a6ff; /* Actualizado */
-  border: 2px solid #01a6ff; /* Actualizado */
+  color: #fff;
+  background-color: #01a6ff;
+  border: 2px solid #01a6ff; 
   cursor: pointer;
-  font-size: 16px; /* Actualizado */
-  border-radius: 4px; /* Actualizado */
-  min-width: 240px; /* Sugerencia para mantener el ancho mínimo */
+  font-size: 16px;
+  border-radius: 4px;
+  min-width: 240px;
 }
 
 .btn-limpiartodo{
   display: block;
   margin-top: 10px;
-  padding: 10px 15px; /* Actualizado */
+  padding: 10px 15px;
   text-align: center;
   text-decoration: none;
-  color: #fff; /* Mantenido */
-  background-color: #01a6ff; /* Actualizado */
-  border: 2px solid #01a6ff; /* Actualizado */
+  color: #fff;
+  background-color: #01a6ff; 
+  border: 2px solid #01a6ff;
   cursor: pointer;
-  font-size: 16px; /* Actualizado */
-  border-radius: 4px; /* Actualizado */
-  min-width: 200px; /* Sugerencia para mantener el ancho mínimo */
+  font-size: 16px; 
+  border-radius: 4px;
+  min-width: 200px;
 }
 
 .btn-add-to-cart:hover {
-  background-color: #e69500; /* Un tono más oscuro que #ffa500 */
+  background-color: #e69500; 
 }
 
 .btn-add-to-favorites:hover {
-  background-color: #0091cc; /* Un tono más oscuro que #01a6ff */
+  background-color: #0091cc;
 }
 
 .btn-limpiartodo:hover {
-  background-color: #0091cc; /* Un tono más oscuro que #01a6ff */
+  background-color: #0091cc;
 }
 
-
-
-/* Ajustes para Pantallas Medianas */
 @media (max-width: 768px) {
   .filter-container {
     width: 100%;
@@ -266,7 +261,6 @@
   }
 }
 
-/* Ajustes para Pantallas Pequeñas */
 @media (max-width: 480px) {
   .main-container {
     flex-direction: column;
