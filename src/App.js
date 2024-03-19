@@ -43,8 +43,11 @@ function App() {
   return (
     <Router>
       <div className="App">
-        {verifAdmin || verifEmployee ? <Admin /> : <Navibar />}
-
+        {verifAdmin === "true" || verifEmployee === "true" ? (
+          <Admin />
+        ) : (
+          <Navibar />
+        )}
         <Routes>
           <Route
             path="/"
