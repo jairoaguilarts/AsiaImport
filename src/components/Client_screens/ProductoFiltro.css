@@ -1,5 +1,3 @@
-/* audifonoFiltro.css */
-
 /* Estilos Base */
 .filter-container {
   padding: 20px;
@@ -35,10 +33,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
   flex-direction: column;
-  overflow: visible;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.main-container2 {
+  margin-top: 20px;
+  margin-left: 0;
+  margin-bottom: auto;
+  padding: 20px;
+}
+
+.product-list-container {
+  margin-left: 0;
+  margin-top: 20px;
+  padding: 20px;
 }
 
 .filter-section:last-child {
@@ -111,49 +123,11 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.main-container {
-  position: relative;
-  display: flex;
-  margin-bottom: auto;
-}
-.main-container2 {
-  /* Elimina los márgenes que empujan el contenedor hacia abajo y hacia la izquierda */
-  margin-top: 0;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: auto;
-  /* Asegúrate de que el contenedor tenga el ancho que necesitas */
-  width: 100%;
-  max-width: 1200px; /* O el ancho máximo que desees */
-  /* Altura mínima para asegurarse de que se estire hasta el final de la ventana gráfica si no hay suficiente contenido */
-  min-height: 100vh; 
-  /* Centrado de contenido */
-  display: flex;
-  flex-direction: column;
-  justify-content: center; /* Centra verticalmente si es necesario */
-  align-items: center; /* Centra horizontalmente */
-}
-
-
 .product-list-container {
   margin-left: 250px;
   margin-top: -500px;
   padding-left: 20px;
 }
-
-.product-list-container2 {
-  /* Centra el contenedor */
-  margin: 0 auto;
-  /* Ajusta el padding a tus necesidades, sin desplazamientos negativos */
-  padding: 20px;
-  /* Opcional: Si necesitas que este contenedor tenga un ancho máximo específico */
-  max-width: 1200px; /* Ajusta este valor según sea necesario */
-  /* Asegúrate de que no exceda el ancho de la ventana gráfica */
-  width: 100%;
-  /* Si deseas que este contenedor tenga algún espacio en la parte superior */
-  padding-top: 1em; /* Ajusta este valor según sea necesario */
-}
-
 
 .product-container {
   display: flex;
@@ -210,63 +184,60 @@
 .btn-add-to-cart {
   display: block;
   margin-top: 10px;
-  padding: 10px 30px; /* Actualizado */
+  padding: 10px 30px;
   text-align: center;
   text-decoration: none;
-  color: #fff; /* Mantenido */
-  background-color: #ffa500; /* Actualizado */
-  border: none; /* Actualizado */
+  color: #fff;
+  background-color: #ffa500;
+  border: none; 
   cursor: pointer;
-  font-size: 16px; /* Actualizado */
-  border-radius: 4px; /* Actualizado */
-  min-width: 240px; /* Sugerencia para mantener el ancho mínimo */
+  font-size: 16px;
+  border-radius: 4px;
+  min-width: 240px;
 }
 
 .btn-add-to-favorites {
   display: block;
   margin-top: 10px;
-  padding: 10px 15px; /* Actualizado */
+  padding: 10px 15px;
   text-align: center;
   text-decoration: none;
-  color: #fff; /* Mantenido */
-  background-color: #01a6ff; /* Actualizado */
-  border: 2px solid #01a6ff; /* Actualizado */
+  color: #fff;
+  background-color: #01a6ff;
+  border: 2px solid #01a6ff; 
   cursor: pointer;
-  font-size: 16px; /* Actualizado */
-  border-radius: 4px; /* Actualizado */
-  min-width: 240px; /* Sugerencia para mantener el ancho mínimo */
+  font-size: 16px;
+  border-radius: 4px;
+  min-width: 240px;
 }
 
 .btn-limpiartodo{
   display: block;
   margin-top: 10px;
-  padding: 10px 15px; /* Actualizado */
+  padding: 10px 15px;
   text-align: center;
   text-decoration: none;
-  color: #fff; /* Mantenido */
-  background-color: #01a6ff; /* Actualizado */
-  border: 2px solid #01a6ff; /* Actualizado */
+  color: #fff;
+  background-color: #01a6ff; 
+  border: 2px solid #01a6ff;
   cursor: pointer;
-  font-size: 16px; /* Actualizado */
-  border-radius: 4px; /* Actualizado */
-  min-width: 200px; /* Sugerencia para mantener el ancho mínimo */
+  font-size: 16px; 
+  border-radius: 4px;
+  min-width: 200px;
 }
 
 .btn-add-to-cart:hover {
-  background-color: #e69500; /* Un tono más oscuro que #ffa500 */
+  background-color: #e69500; 
 }
 
 .btn-add-to-favorites:hover {
-  background-color: #0091cc; /* Un tono más oscuro que #01a6ff */
+  background-color: #0091cc;
 }
 
 .btn-limpiartodo:hover {
-  background-color: #0091cc; /* Un tono más oscuro que #01a6ff */
+  background-color: #0091cc;
 }
 
-
-
-/* Ajustes para Pantallas Medianas */
 @media (max-width: 768px) {
   .filter-container {
     width: 100%;
@@ -290,7 +261,6 @@
   }
 }
 
-/* Ajustes para Pantallas Pequeñas */
 @media (max-width: 480px) {
   .main-container {
     flex-direction: column;
@@ -317,5 +287,3 @@
     margin-bottom: 20px;
   }
 }
-
-
