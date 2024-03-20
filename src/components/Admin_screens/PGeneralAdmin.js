@@ -5,11 +5,23 @@ import dinero from '../../assets/money.png';
 import venta from '../../assets/discounts.png';
 import emp from '../../assets/empleadoss.png';
 import admin from '../../assets/admin.png';
+import ordenesT from '../../assets/ordentotal.png'
+import process from '../../assets/flechas.png'
+import verified from '../../assets/verificar.png'
+import complete from '../../assets/completo.png'
 import AdmiNav from './AdmiNav';
 
 function PGeneralAdmin() {
     const [sumaTotalOrdenes, setSumaTotalOrdenes] = useState(0);
+    const [ordenes, setOrdenes] = useState([]);
     const [conteoUsuarios, setConteoUsuarios] = useState({ empleados: 0, administradores: 0 });
+
+    const [estadisticas, setEstadisticas] = useState({
+        totalOrdenes: 0,
+        enProceso: 0,
+        verificadas: 0,
+        completadas: 0
+    });
 
     const baseURL = 'https://importasia-api.onrender.com';
 
@@ -21,6 +33,47 @@ function PGeneralAdmin() {
         } catch (error) {
             console.error('Error al obtener las métricas:', error);
         }
+    };
+
+    const ordenesTotales = async () => {
+        try {
+            const response = await fetch(`${baseURL}/ordenes`);
+            if (!response.ok) {
+                throw new Error("Error al cargar las ordenes");
+            }
+            const data = await response.json();
+            setOrdenes(data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const contarOrdenes = async () => {
+
+        const estadisticasActualizadas = {
+            totalOrdenes: ordenes.length,
+            enProceso: 0,
+            verificadas: 0,
+            completadas: 0
+        };
+
+        ordenes.forEach(orden => {
+            switch(orden.estadoOrden) {
+                case "En Proceso":
+                    estadisticasActualizadas.enProceso++;
+                    break;
+                case "Verificada":
+                    estadisticasActualizadas.verificadas++;
+                    break;
+                case "Completada":
+                    estadisticasActualizadas.completadas++;
+                    break;
+                default:
+                    break;
+            }
+        });
+
+        setEstadisticas(estadisticasActualizadas);
     };
 
     const fetchConteoUsuarios = async () => {
@@ -37,14 +90,19 @@ function PGeneralAdmin() {
         }
     };
 
-    useEffect(() => {
-        fetchSumaTotalOrdenes();
-        fetchConteoUsuarios();
-    }, []);
-
     const formatearMoneda = (cantidad) => {
         return cantidad.toLocaleString('es-HN', { style: 'currency', currency: 'HNL' });
     };
+
+    useEffect(() => {
+        fetchSumaTotalOrdenes();
+        fetchConteoUsuarios();
+        ordenesTotales();
+    }, []);
+
+    useEffect(() => {
+        contarOrdenes();
+    }, [ordenes]);
 
     return (
         <>
@@ -93,7 +151,43 @@ function PGeneralAdmin() {
                         </div>
                     </div>
                 </div>
-                {/* Más contenedores si es necesario */}
+                <div className="primer-contenedor">
+                    <div className="contenedor-box-info">
+                        <div className="cajita">
+                            <div className='titulo'>Total de Ordenes</div>
+                            <div className='contenido-inf'>
+                                <p>{estadisticas.totalOrdenes}</p>
+                                <img src={ordenesT} alt="ordenes" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="segundo-contenedor">
+                    <div className='contenedor-box-info'>
+                        <div className='cajita-2'>
+                            <div className='titulo'>Ordenes En Proceso</div>
+                            <div className='contenido-inf'>
+                                <p>{estadisticas.enProceso}</p>
+                                <img src={process} alt="enProceso" />
+                            </div>
+                        </div>
+                        <div className='cajita-2'>
+                            <div className='titulo'>Ordenes Verificadas</div>
+                            <div className='contenido-inf'>
+                                <p>{estadisticas.verificadas}</p>
+                                <img src={verified} alt="verificada" />
+                            </div>
+                        </div>
+                        <div className='cajita-2'>
+                            <div className='titulo'>Ordenes Completadas</div>
+                            <div className='contenido-inf'>
+                                <p>{estadisticas.completadas}</p>
+                                <img src={complete} alt="completado" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {/* Delimitacion para anadir contenedores (╯°□°）╯︵ ┻━┻ */}
             </div>
         </>
     );
