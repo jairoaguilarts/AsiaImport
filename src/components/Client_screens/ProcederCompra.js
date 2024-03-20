@@ -215,10 +215,8 @@ const municipiosPorDepartamento = {
 };
 
 function ProcederCompra() {
-  const [isDeliverySelected, setIsDeliverySelected] = useState(true);
-  const [isAgregarDireccionSelected, setIsAgregarDireccionSelected] = useState(
-    true
-  );
+  const [isDeliverySelected, setIsDeliverySelected] = useState(false);
+  const [isAgregarDireccionSelected, setIsAgregarDireccionSelected] = useState(true);
   const [departamento, setDepartamento] = useState("");
   const [municipio, setMunicipio] = useState("");
   const [direccion, setDireccion] = useState("");
@@ -226,14 +224,15 @@ function ProcederCompra() {
   const [puntoreferencia, setPuntoReferencia] = useState("");
   const [numerotelefono, setNumeroTelefono] = useState("");
   const firebaseUID = localStorage.getItem("FireBaseUID");
-  const [departamentoSeleccionado, setDepartamentoSeleccionado] = useState(
-    opcionInicialDepartamento
-  );
+  const [departamentoSeleccionado, setDepartamentoSeleccionado] = useState(opcionInicialDepartamento);
   const [tipoOrden, setTipoOrden] = useState("");
   const [nombreUsuario, setNombreUsuario] = useState("");
   const [direcciones, setDirecciones] = useState([]);
   const navigate = useNavigate();
   const [municipiosDisponibles, setMunicipiosDisponibles] = useState([]);
+  const [totalCarrito, setTotalCarrito] = useState(0);
+  const [isDelivered, setIsDelivered] = useState(false);
+  const [cargando, setCargando] = useState(true);
   const [municipioSeleccionado, setMunicipioSeleccionado] = useState({
     value: "",
     label: "Seleccione un municipio",
@@ -252,8 +251,26 @@ function ProcederCompra() {
   };
 
   useEffect(() => {
-    cargarDirecciones();
-  }, []);
+    cargarDirecciones(); const obtenerCarrito = async () => {
+      try {
+        const response = await fetch(`https://importasia-api.onrender.com/obtenerTotalCompra?firebaseUID=${firebaseUID}`);
+        if (response.ok) {
+          const data = await response.json();
+          setTotalCarrito(data.total);
+        } else {
+          console.error("Respuesta no exitosa:", response);
+        }
+      } catch (error) {
+        console.error("Error al obtener el total del carrito:", error);
+      }
+    };
+
+    obtenerCarrito();
+    if (totalCarrito > 499) {
+      setIsDelivered(true);
+      cargarDirecciones();
+    }
+  }, [totalCarrito]);
 
   useEffect(() => {
     const municipios =
@@ -647,12 +664,14 @@ function ProcederCompra() {
   return (
     <div className="ProcederCompra">
       <div className="button-container">
-        <button
-          onClick={handleDeliveryClick}
-          className={`botones delivery ${isDeliverySelected ? "selected" : ""}`}
-        >
-          <p>Enviar a la Direccion</p>
-        </button>
+        {isDelivered &&
+          <button
+            onClick={handleDeliveryClick}
+            className={`botones delivery ${isDeliverySelected ? "selected" : ""}`}
+          >
+            <p>Enviar a la Direccion</p>
+          </button>
+        }
         <button
           onClick={handlePickupClick}
           className={`botones pick-up ${!isDeliverySelected ? "selected" : ""}`}
