@@ -3,13 +3,13 @@ import CustomAlert from "../Informative_screens/CustomAlert";
 import "./InfoProducto.css";
 import Form from "react-bootstrap/Form";
 import Swal from "sweetalert2";
-import audifonosProduct1 from "../../assets/Srhythm.png";
 import avatar from "../../assets/avatar.png";
 import carga from "../../assets/maneki-neko.png"
 import Pagination from "../Client_screens/Pagination";
 import { useNavigate, useLocation } from "react-router-dom";
 
 function InfoAudifonos() {
+
   const mostrarAlerta = (message, variant) => {
     setAlertVariant(variant);
     setAlertMessage(message);
@@ -44,6 +44,7 @@ function InfoAudifonos() {
   const indexOfFirstReview = indexOfLastReview - reseñasPorPagina;
   const currentReviews = resenasActuales.slice(indexOfFirstReview, indexOfLastReview);
   const navigate = useNavigate();
+
   const handleSubmit = (modelo) => {
     localStorage.setItem("Modelo", modelo);
     navigate("/info-producto");
@@ -58,10 +59,12 @@ function InfoAudifonos() {
       if (!response.ok) {
         mostrarAlerta("No se pudieron obtener las resenas", "danger");
       } else {
-        setResenas(await response.json());
+        let resenasCargadas = await response.json();
+        resenasCargadas.reverse();
+        setResenas(resenasCargadas);
       }
     } catch (error) {
-      mostrarAlerta("Error al cargar resenas", "dander");
+      mostrarAlerta("Error al cargar resenas", "danger");
     }
   };
 
@@ -480,7 +483,7 @@ function InfoAudifonos() {
       </div>
       <div className="resenas-container">
         {resenasActuales.length > 0 ? (
-          currentReviews.map((resena, index) => (
+          currentReviews.reverse().map((resena, index) => (
             <div key={index} className="resena">
               <div className="resena-usuario">
                 <img src={avatar} alt="Avatar" className="resena-avatar" />
@@ -495,7 +498,7 @@ function InfoAudifonos() {
               </div>
               <div className="resena-comentario">{resena.Comentario}</div>
             </div>
-          ))
+          )).reverse()
         ) : (
           <div>No hay reseñas aún</div>
 
