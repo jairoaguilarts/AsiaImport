@@ -12,7 +12,43 @@ const GestionarInfo = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [datosViejos, setdatosViejos] = useState("");
   const [politicas, setPoliticas] = useState("");
+  const [precioEnvio, setPrecioEnvio] = useState("");
+  const [precioEnvioOtros, setPrecioEnvioOtros] = useState("");
 
+  const handlePrecioEnvioChange = (event) => {
+    setPrecioEnvio(event.target.value);
+  };
+
+  const handlePrecioEnvioOtrosChange = (event) => {
+    setPrecioEnvioOtros(event.target.value);
+  };
+
+  const actualizarPrecios = async () => {
+    try {
+      const response = await fetch(
+        `https://importasia-api.onrender.com/addPenvio?id=65768fb8175690a253ab6b95`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ precioEnvio, precioEnvioOtros }),
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Error: ${errorData.message || response.status}`);
+      }
+
+      const data = await response.json();
+      mostrarAlerta("Precios actualizados correctamente.", "success");
+      console.log("Precios actualizados:", data);
+    } catch (error) {
+      mostrarAlerta("Error al actualizar los precios.", "danger");
+      console.error("Error al actualizar los precios:", error);
+    }
+  };
   const mostrarAlerta = (message, variant) => {
     setAlertVariant(variant);
     setAlertMessage(message);
@@ -42,17 +78,21 @@ const GestionarInfo = () => {
       const data = await response.json();
 
       // Actualizar los estados con la información obtenida
+
+      console.log(data);
       if (data) {
         setMision(data.mision);
         setVision(data.vision);
         setHistoria(data.historia);
         setdatosViejos(data);
+        setPrecioEnvio(data.precioEnvio || "140");
+        setPrecioEnvioOtros(data.precioEnvioOtros || "350");
       }
     } catch (error) {
       mostrarAlerta("Error al cargar la información", "danger");
     }
   };
-const handleActualizarInfo = async () => {
+  const handleActualizarInfo = async () => {
     if (
       mision === datosViejos.mision &&
       vision === datosViejos.vision &&
@@ -76,7 +116,6 @@ const handleActualizarInfo = async () => {
       const response = await fetch(
         "https://importasia-api.onrender.com/editarInformacionEmpresa?id=65768fb8175690a253ab6b95",
         {
-          // Incluir el _id aquí
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -170,6 +209,30 @@ const handleActualizarInfo = async () => {
 
   return (
     <div>
+      {/* Sección Editar Precio Entrega */}
+      <div className="precioEntrega">
+        <div className="editar-informacion-title">
+          <h1 className="title">Editar Precio Entrega</h1>
+        </div>
+        <div className="editarPrecio">
+          <h5>Precio Tegucigalpa:</h5>
+          <input
+            type="number"
+            value={precioEnvio}
+            onChange={handlePrecioEnvioChange}
+            placeholder="Precio Envío Local"
+          />
+          <h5>Precio Otros:</h5>
+
+          <input
+            type="number"
+            value={precioEnvioOtros}
+            onChange={handlePrecioEnvioOtrosChange}
+            placeholder="Precio Envío Otros"
+          />
+          <button onClick={actualizarPrecios}>Actualizar Precios</button>
+        </div>
+      </div>
       {/* Sección Editar Información */}
       <div className="section">
         <div className="editar-informacion-title">
@@ -179,12 +242,29 @@ const handleActualizarInfo = async () => {
           <div className="editar-informacion-container">
             <div className="editar-informacion-field">
               <label htmlFor="mision">Misión</label>
-              <textarea id="mision" value={mision} onChange={(e) => setMision(e.target.value)}></textarea>
+              <textarea
+                id="mision"
+                value={mision}
+                onChange={(e) => setMision(e.target.value)}
+              ></textarea>
               <label htmlFor="vision">Visión</label>
-              <textarea id="vision" value={vision} onChange={(e) => setVision(e.target.value)}></textarea>
+              <textarea
+                id="vision"
+                value={vision}
+                onChange={(e) => setVision(e.target.value)}
+              ></textarea>
               <label htmlFor="historia">Historia</label>
-              <textarea id="historia" value={historia} onChange={(e) => setHistoria(e.target.value)}></textarea>
-              <button className="editar-informacion-btn" onClick={handleActualizarInfo}>Actualizar Información</button>
+              <textarea
+                id="historia"
+                value={historia}
+                onChange={(e) => setHistoria(e.target.value)}
+              ></textarea>
+              <button
+                className="editar-informacion-btn"
+                onClick={handleActualizarInfo}
+              >
+                Actualizar Información
+              </button>
               {showAlert && (
                 <CustomAlert
                   className="alerta"
@@ -206,9 +286,21 @@ const handleActualizarInfo = async () => {
         <div className="section editar-informacion">
           <div className="editar-informacion-container">
             <div className="editar-informacion-field">
-              <label htmlFor="politica-contenido">Contenido de la política</label>
-              <textarea id="politica-contenido" className="textarea-field" value={contenido} onChange={(e) => setContenido(e.target.value)}></textarea>
-              <button className="editar-informacion-btn" onClick={editarContenido}>Actualizar Políticas</button>
+              <label htmlFor="politica-contenido">
+                Contenido de la política
+              </label>
+              <textarea
+                id="politica-contenido"
+                className="textarea-field"
+                value={contenido}
+                onChange={(e) => setContenido(e.target.value)}
+              ></textarea>
+              <button
+                className="editar-informacion-btn"
+                onClick={editarContenido}
+              >
+                Actualizar Políticas
+              </button>
               {showAlert && (
                 <CustomAlert
                   className="alerta"

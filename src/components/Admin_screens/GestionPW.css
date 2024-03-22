@@ -52,7 +52,7 @@
   margin: 0 10px;
 }
 .tabla-productos {
-  margin-left:120px;
+  margin-left: 120px;
   margin-right: auto;
 }
 .gestion-container {
@@ -278,13 +278,72 @@
   border-radius: 8px;
 }
 .product-image {
-  max-width: 80px; /* Ajusta el ancho máximo de la imagen */
-  height: 80px; /* Mantiene la relación de aspecto de la imagen */
-  display: block; /* Asegura que la imagen no tenga espacio adicional a su alrededor */
-  margin: 0 40px; /* Centra la imagen en su contenedor */
-  border-radius: 5px; /* Opcional: bordes redondeados para un aspecto más suave */
+  max-width: 80px;
+  height: 80px;
+  display: block;
+  margin: 0 40px;
+  border-radius: 5px;
 }
 
+.editarPrecio {
+  background-color: #ef92064f; /* Color de fondo semi-transparente */
+  border-radius: 8px; /* Bordes redondeados */
+  padding: 20px; /* Espacio interior */
+  width: auto; /* Auto-ajuste al contenido */
+  max-width: 1200px; /* Ancho máximo como el de las políticas */
+  margin-left: 280px; /* Margen automático para centrar */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera para dar profundidad */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Título de la sección */
+.editar-precio-title .titlePrecio {
+  color: #ff9900;
+  font-size: 2em;
+  position: relative;
+  text-align: center;
+}
+
+.editar-precio-title::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%); /* Centra la barra */
+  width: 60%; /* Ancho de la barra como en la sección de políticas */
+  height: 4px;
+  background-color: #02a6fc; /* Color de la barra */
+  z-index: -1;
+}
+
+/* Campos de entrada */
+.editarPrecio input[type="number"] {
+  width: 60%; /* Ancho similar al de las políticas */
+  padding: 10px; /* Espacio interior para el texto */
+  margin-bottom: 10px; /* Espacio entre los campos de entrada */
+  border: 1px solid #ccc; /* Bordes suaves */
+  border-radius: 4px; /* Bordes ligeramente redondeados */
+}
+
+/* Botón de actualizar */
+.editarPrecio button {
+  background-color: #01a6ff; /* Color del botón */
+  color: white; /* Texto en blanco */
+  padding: 10px 20px; /* Espacio interior del botón */
+  border: none; /* Sin bordes */
+  border-radius: 4px; /* Bordes redondeados */
+  cursor: pointer; /* Cursor tipo pointer */
+  font-weight: bold; /* Texto en negrita */
+  margin-top: 10px; /* Espacio encima del botón */
+  width: 25%; /* Ancho como los inputs */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra para el botón */
+}
+
+.editarPrecio button:hover {
+  background-color: #0194d8; /* Color del botón al hacer hover */
+}
 @media (max-width: 1435px) {
   .gestion-container {
     width: 90%;
@@ -321,7 +380,6 @@
 
     /* Ajustar el padding para mantener la proporcionalidad */
   }
-
 }
 
 @media (max-width: 768px) {
@@ -373,7 +431,6 @@
     margin-top: 10px;
     /* Añadir margen superior para separar de la descripción del producto */
   }
-  
 }
 
 /* CSS para la sección de Editar Información con estilos actualizados */
@@ -560,4 +617,3 @@
     margin-bottom: 20px;
   }
 }
-

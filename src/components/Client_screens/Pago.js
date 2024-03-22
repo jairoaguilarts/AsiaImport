@@ -54,11 +54,11 @@ function Pago() {
       // Obtener el mes y el año actuales
       const fechaActual = new Date();
       const ano = fechaActual.getFullYear().toString();
-      const mes = (fechaActual.getMonth() + 1).toString().padStart(2, '0'); 
+      const mes = (fechaActual.getMonth() + 1).toString().padStart(2, "0");
       const fechaFormateada = `${mes}/${ano}`;
       // Agrega ceros a la izquierda si es necesario
-      setOrdenId("ORD-" + responseOrdenData._id.slice(-4)+mes+ano);
-      const idOrden = "ORD-" + responseOrdenData._id.slice(-4)+mes+ano;
+      setOrdenId("ORD-" + responseOrdenData._id.slice(-4) + mes + ano);
+      const idOrden = "ORD-" + responseOrdenData._id.slice(-4) + mes + ano;
       console.log("Orden Id: " + idOrden);
       const orderId = "ORD-" + ultimos4Digitos + mes + ano;
       const formData = {
@@ -381,7 +381,6 @@ function Pago() {
 
   const handlePagoEfectivo = () => {
     setMostrarPopup(true);
-
   };
 
   const mostrarPopupGraciasComponente = () =>
@@ -406,22 +405,52 @@ function Pago() {
   const cancelarPagoEfectivo = () => {
     setMostrarPopup(false);
   };
-  const obtenerDetalles = async () => {
-    const responseDetalles = await fetch(
-      `https://importasia-api.onrender.com/obtenerEntrega?_id=${localStorage.getItem("entregaID")}`
-    );
-    const datos = await responseDetalles.json();
-    if (!responseDetalles.ok) {
-      throw new Error('Hubo un error en la solicitud');
-    }
-    setDepartamento(datos[0].departamento);
-    if (departamento == "FranciscoMorazan") {
-      setEntrega(160);
-    } else {
-      setEntrega(350);
+  const ObtenerPrecioEnvio = async (departamento) => {
+    try {
+      const response = await fetch(
+        `https://importasia-api.onrender.com/obtPEntrega`
+      );
+      if (!response.ok) {
+        throw new Error(
+          "No se pudo obtener la información de precios de envío"
+        );
+      }
+
+      const [data] = await response.json(); // Asumiendo que la respuesta es un arreglo y necesitamos el primer elemento
+      const { precioEnvio, precioEnvioOtros } = data;
+
+      if (departamento === "FranciscoMorazan") {
+        setEntrega(precioEnvio);
+      } else {
+        setEntrega(precioEnvioOtros);
+      }
+    } catch (error) {
+      console.error("Error al obtener los precios de envío:", error);
     }
   };
-  ;
+
+  const obtenerDetalles = async () => {
+    try {
+      const responseDetalles = await fetch(
+        `https://importasia-api.onrender.com/obtenerEntrega?_id=${localStorage.getItem(
+          "entregaID"
+        )}`
+      );
+
+      if (!responseDetalles.ok) {
+        throw new Error("Hubo un error en la solicitud");
+      }
+
+      const datos = await responseDetalles.json();
+      const departamento = datos[0].departamento;
+      setDepartamento(departamento);
+
+      // Llama a ObtenerPrecioEnvio pasando el departamento obtenido
+      await ObtenerPrecioEnvio(departamento);
+    } catch (error) {
+      console.error("Error al obtener los detalles:", error);
+    }
+  };
   const PopupPagoEfectivo = () => (
     <div className="popup">
       <div className="popup-inner">
@@ -589,10 +618,8 @@ function Pago() {
   }, []);
   obtenerDetalles();
   const calcularTotal = () => {
-
     return productos.reduce((total, producto) => {
-
-      return total + (producto.cantidad * producto.Precio);
+      return total + producto.cantidad * producto.Precio;
     }, 0);
   };
   return (
