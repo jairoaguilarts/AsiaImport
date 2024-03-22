@@ -38,6 +38,7 @@ const GestionOrdenes = () => {
         // Revisa si algún campo de la orden coincide con el término de búsqueda
         const coincide =
           orden._id?.toLowerCase().includes(busquedaEnMinusculas) ||
+          orden.ordenId?.toLowerCase().includes(busquedaEnMinusculas) ||
           orden.tipoOrden?.toLowerCase().includes(busquedaEnMinusculas) ||
           orden.estadoOrden?.toLowerCase().includes(busquedaEnMinusculas) ||
           detalles.numerotelefono
