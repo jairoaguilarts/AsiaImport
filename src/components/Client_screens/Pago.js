@@ -18,8 +18,8 @@ function Pago() {
   const [ordenId, setOrdenId] = useState("");
   const [ordenEnProceso, setOrdenEnProceso] = useState(false);
   const [correo, setCorreo] = useState("");
-  const [entrega,setEntrega]= useState("");
-  const [departamento,setDepartamento]=useState("");
+  const [entrega, setEntrega] = useState("");
+  const [departamento, setDepartamento] = useState("");
   const crearOrden = async () => {
     const detalles = localStorage.getItem("entregaID");
     const fecha = new Date();
@@ -50,13 +50,21 @@ function Pago() {
       }
 
       const responseOrdenData = await responseOrden.json();
-      setOrdenId("ORD-" + responseOrdenData._id.slice(-4));
-      const idOrden = "ORD-" + responseOrdenData._id.slice(-4);
+      const ultimos4Digitos = responseOrdenData._id.slice(-4);
+      // Obtener el mes y el año actuales
+      const fechaActual = new Date();
+      const ano = fechaActual.getFullYear().toString();
+      const mes = (fechaActual.getMonth() + 1).toString().padStart(2, '0'); 
+      const fechaFormateada = `${mes}/${ano}`;
+      // Agrega ceros a la izquierda si es necesario
+      setOrdenId("ORD-" + responseOrdenData._id.slice(-4)+mes+ano);
+      const idOrden = "ORD-" + responseOrdenData._id.slice(-4)+mes+ano;
       console.log("Orden Id: " + idOrden);
+      const orderId = "ORD-" + ultimos4Digitos + mes + ano;
       const formData = {
-        _orderId: idOrden,
+        _orderId: orderId,
         tipoOrden: "Delivery",
-        Fecha: new Date().toISOString(),
+        Fecha: fechaFormateada,
         carrito: responseOrdenData.carrito,
         cantidades: responseOrdenData.cantidades,
         total: responseOrdenData.total,
@@ -398,22 +406,22 @@ function Pago() {
   const cancelarPagoEfectivo = () => {
     setMostrarPopup(false);
   };
-const obtenerDetalles=async()=>{
-  const responseDetalles = await fetch(
-    `https://importasia-api.onrender.com/obtenerEntrega?_id=${localStorage.getItem("entregaID")}`
-  );
-  const datos = await responseDetalles.json();
-  if (!responseDetalles.ok) {
-    throw new Error('Hubo un error en la solicitud');
-  }
-  setDepartamento(datos[0].departamento);
-  if(departamento=="FranciscoMorazan"){
-    setEntrega(160);
-  }else{
-    setEntrega(350);
-  }
-};
-;
+  const obtenerDetalles = async () => {
+    const responseDetalles = await fetch(
+      `https://importasia-api.onrender.com/obtenerEntrega?_id=${localStorage.getItem("entregaID")}`
+    );
+    const datos = await responseDetalles.json();
+    if (!responseDetalles.ok) {
+      throw new Error('Hubo un error en la solicitud');
+    }
+    setDepartamento(datos[0].departamento);
+    if (departamento == "FranciscoMorazan") {
+      setEntrega(160);
+    } else {
+      setEntrega(350);
+    }
+  };
+  ;
   const PopupPagoEfectivo = () => (
     <div className="popup">
       <div className="popup-inner">
@@ -581,9 +589,9 @@ const obtenerDetalles=async()=>{
   }, []);
   obtenerDetalles();
   const calcularTotal = () => {
-    
+
     return productos.reduce((total, producto) => {
-      
+
       return total + (producto.cantidad * producto.Precio);
     }, 0);
   };
@@ -609,7 +617,7 @@ const obtenerDetalles=async()=>{
         ))}
       </div>
       <h5> Costo del envio: L {entrega}.00 </h5>
-      <h5>Total de la Orden: L {calcularTotal()+entrega}.00</h5>
+      <h5>Total de la Orden: L {calcularTotal() + entrega}.00</h5>
       <div style={{ marginTop: "70px" }} />
       <h2>Pantalla de Pago</h2>
       <div className="botones-container">
