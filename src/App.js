@@ -349,12 +349,16 @@ function App() {
   );
 }
 function ConditionalComponents() {
-  const verifEmployee = localStorage.getItem("IsEmployee");
+  const verifAdmin = localStorage.getItem("IsAdmin") === "true";
+  const verifEmployee = localStorage.getItem("IsEmployee") === "true";
   const location = useLocation();
   const hideOnRoutes = ["/pago", "/pagoP", "/compra"];
 
+  // El chat se mostrará si el usuario no es administrador ni empleado,
+  // y si la ruta actual no está en la lista de hideOnRoutes
   const showChatcito =
-    !hideOnRoutes.includes(location.pathname) && !verifEmployee;
+    !verifAdmin && !verifEmployee && !hideOnRoutes.includes(location.pathname);
+
   return (
     <>
       {showChatcito && <Chatcito />}
