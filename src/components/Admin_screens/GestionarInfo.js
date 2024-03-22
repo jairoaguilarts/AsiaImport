@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./GestionPW.css"; // Asegúrate de ajustar la ruta si es necesario
 import CustomAlert from "../Informative_screens/CustomAlert";
+import Swal from "sweetalert2";
 
 const GestionarInfo = () => {
   const [mision, setMision] = useState("");
@@ -42,7 +43,10 @@ const GestionarInfo = () => {
       }
 
       const data = await response.json();
-      mostrarAlerta("Precios actualizados correctamente.", "success");
+      Swal.fire({
+        icon: "success",
+        title: "¡Precios actualizados correctamente!",
+      });
       console.log("Precios actualizados:", data);
     } catch (error) {
       mostrarAlerta("Error al actualizar los precios.", "danger");
