@@ -10,7 +10,7 @@ const ConsultaEstado = ({ steps, triggerNextStep }) => {
 
     const consultarEstadoPedido = async (numeroPedido) => {
         // Asegúrate de reemplazar 'localhost:3000' si tu servidor corre en un puerto diferente
-        const url = `https://importasia-api.onrender.com/consultarEstado2?numeroPedido=${numeroPedido}`;
+        const url = `https://importasia-api.onrender.com/consultarEstado?numeroPedido=${numeroPedido}`;;
         try {
             const response = await fetch(url);
             const data = await response.json();
